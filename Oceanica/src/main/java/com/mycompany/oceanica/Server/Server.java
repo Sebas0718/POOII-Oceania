@@ -13,7 +13,7 @@ import java.net.Socket;
  * @author xsusk
  */
 public class Server {
-    private final int IP = 60191;
+    private final int PORT = 12345;
     ServerSocket server;
     Socket socketUsuarios; //El socket de los usuarios
 
@@ -24,7 +24,7 @@ public class Server {
     public void conectarServer(){
         
         try {
-            server = new ServerSocket(IP);
+            server = new ServerSocket(PORT);
         } catch (IOException ex) {
             System.getLogger(Server.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
