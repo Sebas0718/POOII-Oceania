@@ -12,10 +12,10 @@ import java.net.Socket;
  *
  * @author xsusk
  */
-public class ThreadConecciones extends Thread {
+public class ThreadConexiones extends Thread {
     private Server server;
 
-    public ThreadConecciones(Server server) {
+    public ThreadConexiones(Server server) {
         this.server = server;
     }
     
@@ -33,7 +33,7 @@ public class ThreadConecciones extends Thread {
                 server.writeMessage("cliente conectado");
                 server.writeMessage("cliente conectado");
             } catch (IOException ex) {
-                System.getLogger(ThreadConecciones.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                System.getLogger(ThreadConexiones.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
                 server.writeMessage("Error: " + ex.getMessage());
             }
         } 

@@ -13,6 +13,7 @@ import com.mycompany.oceanica.Modelos.ComandoPrivado;
 import com.mycompany.oceanica.Modelos.ComandoUtilidad;
 import java.io.IOException;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -29,6 +30,8 @@ public class PantallaUsuario extends javax.swing.JFrame {
      */
     public PantallaUsuario() {
         initComponents();
+        String name = JOptionPane.showInputDialog(this, "Ingrese su nombre");
+        usuario = new Usuario(this, name);
     }
 
     /**

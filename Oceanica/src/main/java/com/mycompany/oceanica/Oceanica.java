@@ -4,6 +4,8 @@
 
 package com.mycompany.oceanica;
 
+import com.mycompany.oceanica.Usuario.PantallaUsuario;
+
 /**
  *
  * @author xsusk
@@ -11,6 +13,6 @@ package com.mycompany.oceanica;
 public class Oceanica {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        java.awt.EventQueue.invokeLater(() -> new PantallaUsuario().setVisible(true));
     }
 }

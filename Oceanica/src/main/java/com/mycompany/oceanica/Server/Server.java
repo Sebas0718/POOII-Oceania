@@ -5,6 +5,7 @@
 package com.mycompany.oceanica.Server;
 
 import com.mycompany.oceanica.Modelos.Comando;
+import com.mycompany.oceanica.Threads.ThreadConexiones;
 import com.mycompany.oceanica.Threads.ThreadServer;
 import com.mycompany.oceanica.Usuario.Usuario;
 import java.io.DataInputStream;
@@ -27,6 +28,7 @@ public class Server {
     ArrayList<ThreadServer> usuariosConectados = new ArrayList<ThreadServer>();
     private final int maxConexiones = 4;
     private PantallaServer refPantalla;
+    private ThreadConexiones connexionesThread;
     public Server() {
         
     }
