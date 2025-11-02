@@ -39,12 +39,12 @@ public class ComandoUtilidad {
             tokens.add(contact.trim());
         }
          
+        
+    }
         String[] argsArray = new String[tokens.size()];
         argsArray = tokens.toArray(argsArray);
         return argsArray;
     }
-
-}
     public static void main(String[] args){
         String commanda = "fila -an c:/emmanuel/emmanuel.txt \"hola mundo tres veces\"";
         String[] tokens = ComandoUtilidad.tokenizerArgs(commanda);

@@ -4,6 +4,7 @@
  */
 package com.mycompany.oceanica.Server;
 
+import com.mycompany.oceanica.Modelos.Comando;
 import com.mycompany.oceanica.Threads.ThreadServer;
 import com.mycompany.oceanica.Usuario.Usuario;
 import java.io.DataInputStream;
@@ -68,6 +69,44 @@ public class Server {
         }
     }
     
+    public void ejecutarComando(Comando comando) {
+        if (comando.isIsBroadcast())
+            this.broadcast(comando);
+        else
+            this.sendPrivate(comando);
+
+    }
+    
+    public void broadcast(Comando comando){
+        for (ThreadServer usuario : usuariosConectados) {
+            try {
+                usuario.getObjetoEscritor().writeObject(comando);
+            } catch (IOException ex) {
+                
+            }
+        }
+
+    }
+    
+    public void sendPrivate(Comando comando){
+        //asumo que el nombre del cliente viene en la posición 1 .  private_message Andres "Hola"
+        if (comando.getParametros().length <= 1)
+            return;
+        
+        String searchName =  comando.getParametros()[1];
+        
+        for (ThreadServer usuario : usuariosConectados) {
+            if (usuario.name.equals(searchName)){
+                try {
+                //simulo enviar solo al primero, pero debe buscarse por nombre
+                    usuario.getObjetoEscritor().writeObject(comando);
+                    break;
+                } catch (IOException ex) {
+                
+                }
+            }
+        }
+    }
     
     public void writeMessage(String msg){
         this.refPantalla.getTxaMensajes().append(msg);

@@ -24,7 +24,7 @@ public class ThreadServer extends Thread{
     private ObjectInputStream objetoLector;
     private ObjectOutputStream objetoEscritor;
     
-
+    public String name;
     
     private boolean isRunning = true;
 
@@ -60,6 +60,24 @@ public class ThreadServer extends Thread{
             }
         }
     }
+
+    public ObjectInputStream getObjetoLector() {
+        return objetoLector;
+    }
+
+    public void setObjetoLector(ObjectInputStream objetoLector) {
+        this.objetoLector = objetoLector;
+    }
+
+    public ObjectOutputStream getObjetoEscritor() {
+        return objetoEscritor;
+    }
+
+    public void setObjetoEscritor(ObjectOutputStream objetoEscritor) {
+        this.objetoEscritor = objetoEscritor;
+    }
+    
+    
     
     
 }

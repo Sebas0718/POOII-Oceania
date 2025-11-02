@@ -28,10 +28,12 @@ public class ThreadUsuario extends Thread{
         while(isRunning){
             try{
                 comandoRecibido = (Comando) usuario.getObjetoLector().readObject();
-                usuario.receivedMesagge("Cliente recibió: " + comandoRecibido);
+                comandoRecibido.procesoEnUsuario(usuario);
                 
             }catch(IOException ex){
             
+            } catch (ClassNotFoundException ex) {
+                System.getLogger(ThreadUsuario.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
             }
         }
     }

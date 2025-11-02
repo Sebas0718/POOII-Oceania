@@ -6,9 +6,11 @@ package com.mycompany.oceanica.Usuario;
 
 import com.mycompany.oceanica.Modelos.Comando;
 import com.mycompany.oceanica.Modelos.ComandoAtaque;
+import com.mycompany.oceanica.Modelos.ComandoFabrica;
 import com.mycompany.oceanica.Modelos.ComandoGiveup;
 import com.mycompany.oceanica.Modelos.ComandoMensaje;
 import com.mycompany.oceanica.Modelos.ComandoPrivado;
+import com.mycompany.oceanica.Modelos.ComandoUtilidad;
 import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
@@ -38,30 +40,12 @@ public class PantallaUsuario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnConectar = new javax.swing.JButton();
-        lblMessage = new javax.swing.JLabel();
-        txfMesagge = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        txfMessage = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         txaMessages = new javax.swing.JTextArea();
         btnSend = new javax.swing.JButton();
-        btnAttack = new javax.swing.JButton();
-        btnGiveup = new javax.swing.JButton();
-        btnPrivate = new javax.swing.JButton();
-        btnMessage = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        btnConectar.setText("Conectar!");
-        btnConectar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConectarActionPerformed(evt);
-            }
-        });
-
-        lblMessage.setText("Message");
-
-        jLabel1.setText("Received Message");
 
         txaMessages.setColumns(20);
         txaMessages.setRows(5);
@@ -74,153 +58,58 @@ public class PantallaUsuario extends javax.swing.JFrame {
             }
         });
 
-        btnAttack.setText("ATTACK");
-        btnAttack.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAttackActionPerformed(evt);
-            }
-        });
-
-        btnGiveup.setText("GIVEUP");
-        btnGiveup.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGiveupActionPerformed(evt);
-            }
-        });
-
-        btnPrivate.setText("PRIVATE");
-        btnPrivate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrivateActionPerformed(evt);
-            }
-        });
-
-        btnMessage.setText("MESSAGE");
-        btnMessage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMessageActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnConectar)
-                .addGap(60, 60, 60))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(26, 26, 26)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(163, 163, 163)
-                                    .addComponent(jLabel1))
-                                .addComponent(lblMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(15, 15, 15)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(60, 60, 60)
-                                .addComponent(btnSend))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btnAttack)
-                                .addGap(16, 16, 16)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(14, 14, 14)
-                                .addComponent(btnMessage)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnPrivate)
-                                .addGap(39, 39, 39)
-                                .addComponent(btnGiveup)
-                                .addGap(38, 38, 38))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addComponent(txfMesagge, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                        .addGap(60, 60, 60)
+                        .addComponent(btnSend)
+                        .addGap(31, 31, 31)
+                        .addComponent(txfMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(lblMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(jLabel1)
-                .addGap(30, 30, 30)
-                .addComponent(btnConectar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txfMesagge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txfMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSend))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAttack)
-                    .addComponent(btnGiveup)
-                    .addComponent(btnPrivate)
-                    .addComponent(btnMessage))
-                .addGap(38, 38, 38))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConectarActionPerformed
-        this.usuario = new Usuario();
-        usuario.setRefPantalla(this);
-        usuario.conectar();
-        
-        
-    }//GEN-LAST:event_btnConectarActionPerformed
-
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
-        this.usuario.sendMessage();
+        String msg = txfMessage.getText().trim();
+        if (msg.length() > 0){
+            String args[] = ComandoUtilidad.tokenizerArgs(msg);
+            if(args.length > 0){
+                Comando comando = ComandoFabrica.getComando(args);
+                if (comando != null){
+                    try{
+                        usuario.getObjetoEscritor().writeObject(comando);
+                    } catch (IOException ex){
+                    
+                    }
+                } else {
+                    this.txaMessages.append("Error: comando desconocido");
+                }
+            }
+        } else{
+            this.txaMessages.append("Error: comando desconocido \n");
+        }
     }//GEN-LAST:event_btnSendActionPerformed
-
-    private void btnAttackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAttackActionPerformed
-        Comando comando = new ComandoAtaque();
-        try {
-            usuario.getObjetoEscritor().writeObject(comando);
-        } catch (IOException ex) {
-            System.getLogger(PantallaUsuario.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-        }
-    }//GEN-LAST:event_btnAttackActionPerformed
-
-    private void btnMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMessageActionPerformed
-        Comando comando = new ComandoMensaje();
-        try {
-            usuario.getObjetoEscritor().writeObject(comando);
-        } catch (IOException ex) {
-            System.getLogger(PantallaUsuario.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-        }
-    }//GEN-LAST:event_btnMessageActionPerformed
-
-    private void btnPrivateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrivateActionPerformed
-        Comando comando = new ComandoPrivado();
-        try {
-            usuario.getObjetoEscritor().writeObject(comando);
-        } catch (IOException ex) {
-            System.getLogger(PantallaUsuario.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-        }
-    }//GEN-LAST:event_btnPrivateActionPerformed
-
-    private void btnGiveupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGiveupActionPerformed
-        Comando comando = new ComandoGiveup();
-        try {
-            usuario.getObjetoEscritor().writeObject(comando);
-        } catch (IOException ex) {
-            System.getLogger(PantallaUsuario.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-        }
-    }//GEN-LAST:event_btnGiveupActionPerformed
 
     /**
      * @param args the command line arguments
@@ -264,24 +153,17 @@ public class PantallaUsuario extends javax.swing.JFrame {
     }
 
     public JTextField getTxfMesagge() {
-        return txfMesagge;
+        return txfMessage;
     }
 
     public void setTxfMesagge(JTextField txfMesagge) {
-        this.txfMesagge = txfMesagge;
+        this.txfMessage = txfMesagge;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAttack;
-    private javax.swing.JButton btnConectar;
-    private javax.swing.JButton btnGiveup;
-    private javax.swing.JButton btnMessage;
-    private javax.swing.JButton btnPrivate;
     private javax.swing.JButton btnSend;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblMessage;
     private javax.swing.JTextArea txaMessages;
-    private javax.swing.JTextField txfMesagge;
+    private javax.swing.JTextField txfMessage;
     // End of variables declaration//GEN-END:variables
 }

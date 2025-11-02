@@ -4,6 +4,7 @@
  */
 package com.mycompany.oceanica.Usuario;
 
+import com.mycompany.oceanica.Modelos.ComandoFabrica;
 import com.mycompany.oceanica.Threads.ThreadUsuario;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -49,46 +50,16 @@ public class Usuario {
             
             threadUsuario = new ThreadUsuario(this);
             threadUsuario.start();
-            
+             
+            String args[] = {"NAME",this.name};
+            objetoEscritor.writeObject(ComandoFabrica.getComando(args));
         } catch (IOException ex) {
             System.getLogger(Usuario.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
     }
 
 
-//Por ahora es un metodo de pruebas, todavia no se si es necesario para la progra final    
-    public void sendMessage(){
-        if (this.contador-- > 0){
-            String msg = refPantalla.getTxfMesagge().getText();
-            try {
-                escritor.writeUTF(msg);
-                refPantalla.getTxaMessages().append("Enviado " + msg + "\n");
-            } catch (IOException ex) {
-                System.getLogger(Usuario.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-            }
-        }
-    }
-    
-     public void receivedMesagge(String msg){
-         refPantalla.getTxaMessages().append("Mensaje recibido:   " + msg + "\n");
-    }
      
-     
-    public DataInputStream getLector() {
-        return lector;
-    }
-
-    public void setLector(DataInputStream lector) {
-        this.lector = lector;
-    }
-
-    public DataOutputStream getEscritor() {
-        return escritor;
-    }
-
-    public void setEscritor(DataOutputStream escritor) {
-        this.escritor = escritor;
-    }
 
     public PantallaUsuario getRefPantalla() {
         return refPantalla;
