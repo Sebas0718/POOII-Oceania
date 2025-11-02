@@ -24,9 +24,7 @@ public class ThreadServer extends Thread{
     private ObjectInputStream objetoLector;
     private ObjectOutputStream objetoEscritor;
     
-    
-    private DataInputStream lector;
-    private DataOutputStream escritor;
+
     
     private boolean isRunning = true;
 
@@ -34,8 +32,6 @@ public class ThreadServer extends Thread{
         this.server = server;
         this.socket = socket;
         try{
-            escritor = new DataOutputStream(socket.getOutputStream());
-            lector = new DataInputStream(socket.getInputStream());
             objetoEscritor = new ObjectOutputStream(socket.getOutputStream());
             objetoLector = new ObjectInputStream(socket.getInputStream());
         } catch(IOException ex){

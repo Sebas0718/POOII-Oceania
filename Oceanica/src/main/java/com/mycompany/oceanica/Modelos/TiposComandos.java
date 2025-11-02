@@ -12,9 +12,10 @@ public enum TiposComandos {
     
     // Colocar cuantos parametros se recibira de cada tipo, para manejar errores
     ATTACK (4),  //attack usuario x y
-    MESSAGE (4), //message saludo
-    PRIVATE_MESSAGE(5), // private usuario salud 
-    GIVE_UP(1); // giveup
+    MESSAGE (2), //message saludo
+    PRIVATE_MESSAGE(3), // private usuario saludo
+    GIVE_UP(1), // giveup
+    NAME(2);
     //Estos son ejemplos, si faltan se agregan mas comandos
     
     private int ParametrosRequeridos;

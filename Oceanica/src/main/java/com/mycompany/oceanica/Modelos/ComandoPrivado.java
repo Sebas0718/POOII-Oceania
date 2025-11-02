@@ -11,21 +11,21 @@ import com.mycompany.oceanica.Usuario.Usuario;
  *
  * @author xsusk
  */
-public class ComandoMensaje extends Comando {
+public class ComandoPrivado extends Comando {
 
-    public ComandoMensaje(String[] args) {
-        super(TiposComandos.MESSAGE, args);
+    public ComandoPrivado(String[] args) {
+        super(TiposComandos.PRIVATE_MESSAGE, args);
     }
 
 
     @Override
     public void procesoPorServer(ThreadServer threadServidor) {
-        this.setIsBroadcast(false);
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void procesoEnUsuario(Usuario usuario) {
-        System.out.println("Procesando un ataque");
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }
