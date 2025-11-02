@@ -4,10 +4,40 @@
  */
 package com.mycompany.oceanica.Threads;
 
+import com.mycompany.oceanica.Server.Server;
+import java.io.IOException;
+import java.net.Socket;
+
 /**
  *
  * @author xsusk
  */
 public class ThreadConecciones extends Thread {
+    private Server server;
+
+    public ThreadConecciones(Server server) {
+        this.server = server;
+    }
+    
+    @Override
+    public void run(){
+        Socket newSocket = null;
+        while( server.getUsuariosConectados().size() < server.getMaxConexiones()){
+            server.writeMessage("Esperando conexión No.");
+            try{
+                newSocket = server.getServer().accept();
+                ThreadServer newServerThread = new ThreadServer(server,newSocket);
+                server.getUsuariosConectados().add(newServerThread);
+                newServerThread.start();
+                
+                server.writeMessage("cliente conectado");
+                server.writeMessage("cliente conectado");
+            } catch (IOException ex) {
+                System.getLogger(ThreadConecciones.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                server.writeMessage("Error: " + ex.getMessage());
+            }
+        } 
+        
+    }
     
 }

@@ -4,10 +4,13 @@
  */
 package com.mycompany.oceanica.Threads;
 
+import com.mycompany.oceanica.Modelos.Comando;
 import com.mycompany.oceanica.Server.Server;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 /**
@@ -17,6 +20,11 @@ import java.net.Socket;
 public class ThreadServer extends Thread{
     private Server server;
     private Socket socket;
+    
+    private ObjectInputStream objetoLector;
+    private ObjectOutputStream objetoEscritor;
+    
+    
     private DataInputStream lector;
     private DataOutputStream escritor;
     
@@ -26,9 +34,10 @@ public class ThreadServer extends Thread{
         this.server = server;
         this.socket = socket;
         try{
-        escritor = new DataOutputStream(this.socket.getOutputStream());
-        lector = new DataInputStream(this.socket.getInputStream());
-        
+            escritor = new DataOutputStream(socket.getOutputStream());
+            lector = new DataInputStream(socket.getInputStream());
+            objetoEscritor = new ObjectOutputStream(socket.getOutputStream());
+            objetoLector = new ObjectInputStream(socket.getInputStream());
         } catch(IOException ex){
             System.getLogger(Server.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
@@ -36,7 +45,41 @@ public class ThreadServer extends Thread{
     
     
     
-    
+    public void run(){
+        Comando comando;
+        
+        while(isRunning){
+            try{
+                comando = (Comando)objetoLector.readObject();
+                
+                switch(comando.getTipo()){
+                    case ATTACK:
+                        server.writeMessage("Se envio un ataque");
+                        comando.process();
+                        break;
+                    case MESSAGE:
+                        server.writeMessage("Se envio un mensaje");
+                        comando.process();
+                        break;
+                    case PRIVATE_MESSAGE:
+                        server.writeMessage("Se envio un mensaje privado");
+                        comando.process();
+                        break;
+                    case GIVE_UP:
+                        server.writeMessage("Se envio una rendicion");
+                        comando.process();
+                        break;
+                    default:
+                        throw new AssertionError();
+                }
+                
+            } catch(IOException ex){
+            
+            } catch (ClassNotFoundException ex) {
+                System.getLogger(ThreadServer.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            }
+        }
+    }
     
     
 }

@@ -19,5 +19,13 @@ public abstract class Comando implements Serializable {
     }
     
     public abstract void process();
+
+    public TiposComandos getTipo() {
+        return tipo;
+    }
+
+    public String[] getParametros() {
+        return parametros;
+    }
         
 }
