@@ -4,6 +4,8 @@
  */
 package com.mycompany.oceanica.Server;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -16,7 +18,10 @@ public class Server {
     private final int PORT = 12345;
     ServerSocket server;
     Socket socketUsuarios; //El socket de los usuarios
-
+    DataOutputStream escritorAlUsuario;
+    DataInputStream lectorDelUsuario;
+    
+    
     public Server() {
         
     }
@@ -35,6 +40,12 @@ public class Server {
         try {
             socketUsuarios = server.accept();
             System.out.println("Se conecto alguien");
+            escritorAlUsuario = new DataOutputStream(socketUsuarios.getOutputStream());
+            lectorDelUsuario = new DataInputStream(socketUsuarios.getInputStream());
+            escritorAlUsuario.writeUTF("Crotolamo");
+            escritorAlUsuario.writeInt(506);
+            System.out.println("Funciono");
+            
         } catch (IOException ex) {
             System.getLogger(Server.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }

@@ -4,6 +4,8 @@
  */
 package com.mycompany.oceanica.Usuario;
 
+import javax.swing.JTextArea;
+
 /**
  *
  * @author xsusk
@@ -93,7 +95,9 @@ public class PantallaUsuario extends javax.swing.JFrame {
 
     private void btnConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConectarActionPerformed
         Usuario usuario = new Usuario();
+        usuario.setRefPantalla(this);
         usuario.conectar();
+        
         
     }//GEN-LAST:event_btnConectarActionPerformed
 
@@ -120,6 +124,14 @@ public class PantallaUsuario extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new PantallaUsuario().setVisible(true));
+    }
+
+    public JTextArea getTxaMessages() {
+        return txaMessages;
+    }
+
+    public void setTxaMessages(JTextArea txaMessages) {
+        this.txaMessages = txaMessages;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
