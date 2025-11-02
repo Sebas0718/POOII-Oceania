@@ -26,7 +26,7 @@ public class ComandoFabrica {
             case "NAME":    
                 return new ComandoNombre(args);
             default:
-                return null;
+                return null; //TODO: CommandError
             
         }
     }

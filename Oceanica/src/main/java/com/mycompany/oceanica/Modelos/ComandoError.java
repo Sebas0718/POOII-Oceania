@@ -11,9 +11,10 @@ import com.mycompany.oceanica.Usuario.Usuario;
  *
  * @author xsusk
  */
-public class ComandoNombre extends Comando{
-    public ComandoNombre(String[] args){
-        super(TiposComandos.NAME, args);
+public class ComandoError extends Comando{
+
+    public ComandoError(TiposComandos tipo, String[] parameters) {
+        super(TiposComandos.ERROR, parameters);
     }
 
     @Override
@@ -23,7 +24,7 @@ public class ComandoNombre extends Comando{
 
     @Override
     public void procesoEnUsuario(Usuario usuario) {
-        
+    
     }
-
+    
 }

@@ -20,12 +20,12 @@ public class ComandoPrivado extends Comando {
 
     @Override
     public void procesoPorServer(ThreadServer threadServidor) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.setIsBroadcast(false);
     }
 
     @Override
     public void procesoEnUsuario(Usuario usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+
     }
     
 }

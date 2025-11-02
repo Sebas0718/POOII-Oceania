@@ -15,7 +15,8 @@ public enum TiposComandos {
     MESSAGE (2), //message saludo
     PRIVATE_MESSAGE(3), // private usuario saludo
     GIVE_UP(1), // giveup
-    NAME(2);
+    NAME(2),
+    ERROR(1);
     //Estos son ejemplos, si faltan se agregan mas comandos
     
     private int ParametrosRequeridos;

@@ -33,6 +33,7 @@ public class ThreadServer extends Thread{
         this.socket = socket;
         try{
             objetoEscritor = new ObjectOutputStream(socket.getOutputStream());
+            objetoEscritor.flush();
             objetoLector = new ObjectInputStream(socket.getInputStream());
         } catch(IOException ex){
             System.getLogger(Server.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
@@ -48,26 +49,9 @@ public class ThreadServer extends Thread{
             try{
                 comando = (Comando)objetoLector.readObject();
                 
-                switch(comando.getTipo()){
-                    case ATTACK:
-                        server.writeMessage("Se envio un ataque");
-                        comando.process();
-                        break;
-                    case MESSAGE:
-                        server.writeMessage("Se envio un mensaje");
-                        comando.process();
-                        break;
-                    case PRIVATE_MESSAGE:
-                        server.writeMessage("Se envio un mensaje privado");
-                        comando.process();
-                        break;
-                    case GIVE_UP:
-                        server.writeMessage("Se envio una rendicion");
-                        comando.process();
-                        break;
-                    default:
-                        throw new AssertionError();
-                }
+                server.writeMessage("ThreadServer recibio: " + comando);
+                comando.procesoPorServer(this);
+                server.ejecutarComando(comando);
                 
             } catch(IOException ex){
             

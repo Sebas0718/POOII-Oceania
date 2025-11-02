@@ -4,6 +4,7 @@
  */
 package com.mycompany.oceanica.Threads;
 
+import com.mycompany.oceanica.Modelos.Comando;
 import com.mycompany.oceanica.Usuario.Usuario;
 import java.io.IOException;
 
@@ -21,14 +22,13 @@ public class ThreadUsuario extends Thread{
     }
     
     public void run(){
-        String receivedMessage = "";
+        Comando comandoRecibido;
+        
         
         while(isRunning){
             try{
-                receivedMessage = usuario.getLector().readUTF();
-                usuario.receivedMesagge(receivedMessage);
-                
-                
+                comandoRecibido = (Comando) usuario.getObjetoLector().readObject();
+                usuario.receivedMesagge("Cliente recibió: " + comandoRecibido);
                 
             }catch(IOException ex){
             

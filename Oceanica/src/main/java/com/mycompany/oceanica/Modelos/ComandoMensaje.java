@@ -20,12 +20,12 @@ public class ComandoMensaje extends Comando {
 
     @Override
     public void procesoPorServer(ThreadServer threadServidor) {
-        this.setIsBroadcast(false);
+        this.setIsBroadcast(true);
     }
 
     @Override
     public void procesoEnUsuario(Usuario usuario) {
-        System.out.println("Procesando un ataque");
+        System.out.println("Procesando un mensaje");
     }
     
 }

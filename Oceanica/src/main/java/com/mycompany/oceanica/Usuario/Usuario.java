@@ -19,6 +19,7 @@ import java.net.Socket;
 public class Usuario {
     
     private PantallaUsuario refPantalla;
+    private final int PORT = 12345;
     private final String SERVER_IP = "localhost";
     private Socket socket;
     
@@ -26,20 +27,24 @@ public class Usuario {
     private ObjectInputStream objetoLector;
     private ObjectOutputStream objetoEscritor;
     
-    
-    private final int PORT = 12345;
-    private DataInputStream lector;
-    private DataOutputStream escritor;
     private int contador = 5; //Esta es para pruebas borrar luego
     private ThreadUsuario threadUsuario;
     
-    public Usuario() {
+    private String name;
+
+    public Usuario(PantallaUsuario refPantalla, String name) {
+        this.refPantalla = refPantalla;
+        this.name = name;
+        this.conectar();
     }
+    
+    
 
     public void conectar(){
         try {
             socket = new Socket(SERVER_IP, PORT);
             objetoEscritor = new ObjectOutputStream(socket.getOutputStream());
+            objetoEscritor.flush();
             objetoLector = new ObjectInputStream(socket.getInputStream());
             
             threadUsuario = new ThreadUsuario(this);
