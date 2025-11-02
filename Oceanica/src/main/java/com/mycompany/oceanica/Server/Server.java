@@ -4,10 +4,44 @@
  */
 package com.mycompany.oceanica.Server;
 
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+
 /**
  *
  * @author xsusk
  */
 public class Server {
+    private final int IP = 60191;
+    ServerSocket server;
+    Socket socketUsuarios; //El socket de los usuarios
+
+    public Server() {
+        
+    }
     
+    public void conectarServer(){
+        
+        try {
+            server = new ServerSocket(IP);
+        } catch (IOException ex) {
+            System.getLogger(Server.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+    }
+    
+    public void recibirConexion(){
+        System.out.println("Esperando conexion ...");
+        try {
+            socketUsuarios = server.accept();
+            System.out.println("Se conecto alguien");
+        } catch (IOException ex) {
+            System.getLogger(Server.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+    }
+    public static void main(String[] args) {
+        Server s = new Server();
+        s.conectarServer();
+        s.recibirConexion();
+    }
 }
