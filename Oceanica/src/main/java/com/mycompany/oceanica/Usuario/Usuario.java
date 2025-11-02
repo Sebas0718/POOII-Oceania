@@ -26,6 +26,22 @@ public class Usuario {
     public Usuario() {
     }
 
+    public DataInputStream getLector() {
+        return lector;
+    }
+
+    public void setLector(DataInputStream lector) {
+        this.lector = lector;
+    }
+
+    public DataOutputStream getEscritor() {
+        return escritor;
+    }
+
+    public void setEscritor(DataOutputStream escritor) {
+        this.escritor = escritor;
+    }
+
     public PantallaUsuario getRefPantalla() {
         return refPantalla;
     }
@@ -69,8 +85,11 @@ public class Usuario {
             } catch (IOException ex) {
                 System.getLogger(Usuario.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
             }
-            
         }
     }
     
+     public void receivedMesagge(String msg){
+         refPantalla.getTxaMessages().append("Mensaje recibido:   " + msg + "\n");
+    }
 }
+    
