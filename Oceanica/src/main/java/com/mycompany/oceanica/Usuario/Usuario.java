@@ -21,7 +21,7 @@ public class Usuario {
     private final int PORT = 12345;
     DataInputStream lector;
     DataOutputStream escritor;
-    
+    private int contador = 5; //Esta es para pruebas borrar luego
     
     public Usuario() {
     }
@@ -47,6 +47,7 @@ public class Usuario {
         try {
             this.socket = new Socket(SERVER_IP, PORT);
             this.lector = new DataInputStream(socket.getInputStream()); 
+            this.escritor = new DataOutputStream(socket.getOutputStream()); 
             String mensaje = lector.readUTF();
             int numMensaje = lector.readInt();
             refPantalla.getTxaMessages().append("Recibido " + mensaje + "\n");
@@ -54,6 +55,21 @@ public class Usuario {
             
         } catch (IOException ex) {
             System.getLogger(Usuario.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+    }
+
+
+//Por ahora es un metodo de pruebas, todavia no se si es necesario para la progra final    
+    public void sendMessage(){
+        if (this.contador-- > 0){
+            String msg = refPantalla.getTxfMesagge().getText();
+            try {
+                escritor.writeUTF(msg);
+                refPantalla.getTxaMessages().append("Enviado " + msg + "\n");
+            } catch (IOException ex) {
+                System.getLogger(Usuario.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            }
+            
         }
     }
     

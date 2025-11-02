@@ -46,6 +46,19 @@ public class Server {
             escritorAlUsuario.writeInt(506);
             System.out.println("Funciono");
             
+            
+            
+            //Esto es para pruebas se debe borrar mas adelante
+            int contador = 5;
+            while (contador > 0){
+                System.out.println("Esperando mensaje ...");
+                String recibido = lectorDelUsuario.readUTF();
+                System.out.println("Mensaje Recibido :    " + recibido);
+                contador--;
+            }
+            
+            System.out.println("Terminado el server");
+            
         } catch (IOException ex) {
             System.getLogger(Server.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
