@@ -31,6 +31,7 @@ public class PantallaUsuario extends javax.swing.JFrame {
     public PantallaUsuario() {
         initComponents();
         String name = JOptionPane.showInputDialog(this, "Ingrese su nombre");
+        this.setTitle(name);
         usuario = new Usuario(this, name);
     }
 

@@ -20,7 +20,11 @@ public class PantallaServer extends javax.swing.JFrame {
     public PantallaServer() {
         initComponents();
     }
-
+    
+    public void writeMessage(String string){
+        txaMensajes.append(string + "\n");
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -101,8 +105,5 @@ public class PantallaServer extends javax.swing.JFrame {
     private javax.swing.JTextArea txaMensajes;
     // End of variables declaration//GEN-END:variables
 
-    public JTextArea getTxaMensajes() {
-        return txaMensajes;
-    }
 
 }

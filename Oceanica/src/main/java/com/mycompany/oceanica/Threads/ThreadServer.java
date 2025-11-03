@@ -24,7 +24,7 @@ public class ThreadServer extends Thread{
     private ObjectInputStream objetoLector;
     private ObjectOutputStream objetoEscritor;
     
-    public String name;
+    private String nombre;
     
     private boolean isRunning = true;
 
@@ -49,7 +49,7 @@ public class ThreadServer extends Thread{
             try{
                 comando = (Comando)objetoLector.readObject();
                 
-                server.writeMessage("ThreadServer recibio: " + comando);
+                server.getRefPantalla().writeMessage("ThreadServer recibio: " + comando);
                 comando.procesoPorServer(this);
                 server.ejecutarComando(comando);
                 
@@ -59,6 +59,14 @@ public class ThreadServer extends Thread{
                 System.getLogger(ThreadServer.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
             }
         }
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public ObjectInputStream getObjetoLector() {
@@ -75,6 +83,14 @@ public class ThreadServer extends Thread{
 
     public void setObjetoEscritor(ObjectOutputStream objetoEscritor) {
         this.objetoEscritor = objetoEscritor;
+    }
+
+    public boolean isIsRunning() {
+        return isRunning;
+    }
+
+    public void setIsRunning(boolean isRunning) {
+        this.isRunning = isRunning;
     }
     
     

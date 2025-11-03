@@ -23,14 +23,29 @@ public class Server {
     private final int PORT = 12345;
     ServerSocket server;
     Socket socketUsuarios; //El socket de los usuarios
-    DataOutputStream escritorAlUsuario;
-    DataInputStream lectorDelUsuario;
     ArrayList<ThreadServer> usuariosConectados = new ArrayList<ThreadServer>();
     private final int maxConexiones = 4;
     private PantallaServer refPantalla;
     private ThreadConexiones connexionesThread;
     public Server() {
         
+    }
+
+    public Server(PantallaServer refPantalla) {
+        usuariosConectados = new ArrayList<ThreadServer>();
+        this.refPantalla = refPantalla;
+        this.init();
+        connexionesThread = new ThreadConexiones(this);
+        connexionesThread.start();
+    }
+    
+    private void init(){
+        try{
+            server = new ServerSocket(PORT);
+            refPantalla.writeMessage("El servidor esta corriendo");
+        } catch(IOException ex){
+            refPantalla.writeMessage("Error: " + ex.getMessage());
+        }
     }
     
     public void conectarServer(){
@@ -47,10 +62,7 @@ public class Server {
         try {
             socketUsuarios = server.accept();
             System.out.println("Se conecto alguien");
-            escritorAlUsuario = new DataOutputStream(socketUsuarios.getOutputStream());
-            lectorDelUsuario = new DataInputStream(socketUsuarios.getInputStream());
-            escritorAlUsuario.writeUTF("Crotolamo");
-            escritorAlUsuario.writeInt(506);
+            
             System.out.println("Funciono");
             
             
@@ -59,8 +71,6 @@ public class Server {
             int i = 0;
             while (maxConexiones > i){
                 System.out.println("Esperando mensaje ...");
-                String recibido = lectorDelUsuario.readUTF();
-                System.out.println("Mensaje Recibido :    " + recibido);
                 i++;
             }
             
@@ -98,7 +108,7 @@ public class Server {
         String searchName =  comando.getParametros()[1];
         
         for (ThreadServer usuario : usuariosConectados) {
-            if (usuario.name.equals(searchName)){
+            if (usuario.getNombre().equals(searchName)){
                 try {
                 //simulo enviar solo al primero, pero debe buscarse por nombre
                     usuario.getObjetoEscritor().writeObject(comando);
@@ -110,9 +120,6 @@ public class Server {
         }
     }
     
-    public void writeMessage(String msg){
-        this.refPantalla.getTxaMensajes().append(msg);
-    }
     
     
     public static void main(String[] args) {
@@ -141,13 +148,7 @@ public class Server {
         return socketUsuarios;
     }
 
-    public DataOutputStream getEscritorAlUsuario() {
-        return escritorAlUsuario;
-    }
 
-    public DataInputStream getLectorDelUsuario() {
-        return lectorDelUsuario;
-    }
 
     public ArrayList<ThreadServer> getUsuariosConectados() {
         return usuariosConectados;

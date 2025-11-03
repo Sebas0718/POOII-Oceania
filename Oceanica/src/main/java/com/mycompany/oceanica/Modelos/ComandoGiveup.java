@@ -21,7 +21,8 @@ public class ComandoGiveup extends Comando {
 
     @Override
     public void procesoPorServer(ThreadServer threadServidor) {
-        this.setIsBroadcast(false);
+        this.setIsBroadcast(true);
+        threadServidor.setIsRunning(false);
     }
 
     @Override

@@ -23,16 +23,14 @@ public class Usuario {
     private final int PORT = 12345;
     private final String SERVER_IP = "localhost";
     private Socket socket;
-    
-    
     private ObjectInputStream objetoLector;
     private ObjectOutputStream objetoEscritor;
-    
     private int contador = 5; //Esta es para pruebas borrar luego
     private ThreadUsuario threadUsuario;
-    
     private String name;
 
+    
+    
     public Usuario(PantallaUsuario refPantalla, String name) {
         this.refPantalla = refPantalla;
         this.name = name;
@@ -92,7 +90,11 @@ public class Usuario {
     public void setObjetoEscritor(ObjectOutputStream objetoEscritor) {
         this.objetoEscritor = objetoEscritor;
     }
-    
+
+    public String getName() {
+        return name;
+    }
+
     
 }
     
