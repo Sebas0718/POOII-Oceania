@@ -20,17 +20,14 @@ import java.util.ArrayList;
  * @author xsusk
  */
 public class Server {
-    private final int PORT = 12345;
+    private final int PORT = 54321;
     ServerSocket server;
     Socket socketUsuarios; //El socket de los usuarios
     ArrayList<ThreadServer> usuariosConectados = new ArrayList<ThreadServer>();
     private final int maxConexiones = 4;
     private PantallaServer refPantalla;
     private ThreadConexiones connexionesThread;
-    public Server() {
-        
-    }
-
+    
     public Server(PantallaServer refPantalla) {
         usuariosConectados = new ArrayList<ThreadServer>();
         this.refPantalla = refPantalla;
@@ -57,29 +54,6 @@ public class Server {
         }
     }
     
-    public void recibirConexion(){
-        System.out.println("Esperando conexion ...");
-        try {
-            socketUsuarios = server.accept();
-            System.out.println("Se conecto alguien");
-            
-            System.out.println("Funciono");
-            
-            
-            
-            //Esto es para pruebas se debe borrar mas adelante
-            int i = 0;
-            while (maxConexiones > i){
-                System.out.println("Esperando mensaje ...");
-                i++;
-            }
-            
-            System.out.println("Terminado el server");
-            
-        } catch (IOException ex) {
-            System.getLogger(Server.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-        }
-    }
     
     public void ejecutarComando(Comando comando) {
         if (comando.isIsBroadcast())
@@ -120,12 +94,11 @@ public class Server {
         }
     }
     
-    
-    
-    public static void main(String[] args) {
-        Server s = new Server();
-        s.conectarServer();
-        s.recibirConexion();
+    public void showAllNames(){
+        this.refPantalla.writeMessage("Usuarios conectados");
+        for (ThreadServer client : usuariosConectados) {
+            this.refPantalla.writeMessage(client.getNombre());
+        }
     }
 
     public PantallaServer getRefPantalla() {

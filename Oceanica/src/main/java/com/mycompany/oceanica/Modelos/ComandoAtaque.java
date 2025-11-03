@@ -24,9 +24,9 @@ public class ComandoAtaque extends Comando {
         this.setIsBroadcast(false);
     }
 
-    @Override
-    public void procesoEnUsuario(Usuario usuario) {
-
-    }
+//    @Override
+//    public void procesoEnUsuario(Usuario usuario) {
+//
+//    }
     
 }

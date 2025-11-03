@@ -20,11 +20,12 @@ public class ComandoNombre extends Comando{
     public void procesoPorServer(ThreadServer threadServidor) {
         this.setIsBroadcast(false);
         threadServidor.setNombre(getParametros()[1]);
+        threadServidor.showAllClients();
     }
 
     @Override
     public void procesoEnUsuario(Usuario usuario) {
-        System.out.println("");
+        System.out.println("Conectado el cliente: " + this.getParametros()[1]);
     }
 
 }

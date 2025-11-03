@@ -12,13 +12,16 @@ import javax.swing.JTextArea;
  */
 public class PantallaServer extends javax.swing.JFrame {
     
+    private Server server;
+    
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PantallaServer.class.getName());
-
+    
     /**
      * Creates new form PantallaServer
      */
     public PantallaServer() {
         initComponents();
+        server = new Server(this);
     }
     
     public void writeMessage(String string){

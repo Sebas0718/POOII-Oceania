@@ -25,7 +25,7 @@ public class ComandoMensaje extends Comando {
 
     @Override
     public void procesoEnUsuario(Usuario usuario) {
-        System.out.println("Procesando un mensaje");
+        usuario.getRefPantalla().writeMessage("Mensaje recibido: " + this.getParametros()[1]);
     }
     
 }

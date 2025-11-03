@@ -26,12 +26,14 @@ public class ThreadServer extends Thread{
     
     private String nombre;
     
+    private boolean isActive = true;
+    
     private boolean isRunning = true;
 
     public ThreadServer(Server server, Socket socket) {
-        this.server = server;
-        this.socket = socket;
         try{
+            this.server = server;
+            this.socket = socket;
             objetoEscritor = new ObjectOutputStream(socket.getOutputStream());
             objetoEscritor.flush();
             objetoLector = new ObjectInputStream(socket.getInputStream());
@@ -39,7 +41,6 @@ public class ThreadServer extends Thread{
             System.getLogger(Server.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
     }
-    
     
     
     public void run(){
@@ -51,7 +52,8 @@ public class ThreadServer extends Thread{
                 
                 server.getRefPantalla().writeMessage("ThreadServer recibio: " + comando);
                 comando.procesoPorServer(this);
-                server.ejecutarComando(comando);
+                if(isActive)
+                    server.ejecutarComando(comando);
                 
             } catch(IOException ex){
             
@@ -59,6 +61,10 @@ public class ThreadServer extends Thread{
                 System.getLogger(ThreadServer.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
             }
         }
+    }
+    
+    public void showAllClients (){
+        this.server.showAllNames();
     }
 
     public String getNombre() {
@@ -91,6 +97,14 @@ public class ThreadServer extends Thread{
 
     public void setIsRunning(boolean isRunning) {
         this.isRunning = isRunning;
+    }
+
+    public boolean isIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
     }
     
     

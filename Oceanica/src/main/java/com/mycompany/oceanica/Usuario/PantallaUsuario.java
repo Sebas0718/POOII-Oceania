@@ -94,6 +94,12 @@ public class PantallaUsuario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    public void writeMessage(String string){
+        txaMessages.append(string);
+    }
+    
+    
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
         String msg = txfMessage.getText().trim();
         if (msg.length() > 0){
@@ -107,7 +113,7 @@ public class PantallaUsuario extends javax.swing.JFrame {
                     
                     }
                 } else {
-                    this.txaMessages.append("Error: comando desconocido");
+                    this.txaMessages.append("Error: comando desconocido\n");
                 }
             }
         } else{

@@ -20,20 +20,19 @@ import java.net.Socket;
 public class Usuario {
     
     private PantallaUsuario refPantalla;
-    private final int PORT = 12345;
+    private final int PORT = 54321;
     private final String SERVER_IP = "localhost";
     private Socket socket;
     private ObjectInputStream objetoLector;
     private ObjectOutputStream objetoEscritor;
-    private int contador = 5; //Esta es para pruebas borrar luego
     private ThreadUsuario threadUsuario;
-    private String name;
+    private String nombre;
 
     
     
-    public Usuario(PantallaUsuario refPantalla, String name) {
+    public Usuario(PantallaUsuario refPantalla, String nombre) {
         this.refPantalla = refPantalla;
-        this.name = name;
+        this.nombre = nombre;
         this.conectar();
     }
     
@@ -49,8 +48,11 @@ public class Usuario {
             threadUsuario = new ThreadUsuario(this);
             threadUsuario.start();
              
-            String args[] = {"NAME",this.name};
+            
+            String args[] = {"NAME",this.nombre};
             objetoEscritor.writeObject(ComandoFabrica.getComando(args));
+            
+            
         } catch (IOException ex) {
             System.getLogger(Usuario.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
@@ -91,8 +93,8 @@ public class Usuario {
         this.objetoEscritor = objetoEscritor;
     }
 
-    public String getName() {
-        return name;
+    public String getNombre() {
+        return nombre;
     }
 
     

@@ -23,7 +23,9 @@ public abstract class Comando implements Serializable {
     }
     
     public abstract void procesoPorServer(ThreadServer threadServidor);
-    public abstract void procesoEnUsuario(Usuario usuario);
+    public void procesoEnUsuario(Usuario usuario){
+        usuario.getRefPantalla().writeMessage(this.toString());
+    }
 
 
     public TiposComandos getTipo() {
