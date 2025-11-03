@@ -96,7 +96,7 @@ public class PantallaUsuario extends javax.swing.JFrame {
 
     
     public void writeMessage(String string){
-        txaMessages.append(string);
+        txaMessages.append(string + "\n");
     }
     
     
@@ -116,9 +116,7 @@ public class PantallaUsuario extends javax.swing.JFrame {
                     this.txaMessages.append("Error: comando desconocido\n");
                 }
             }
-        } else{
-            this.txaMessages.append("Error: comando desconocido \n");
-        }
+        } 
     }//GEN-LAST:event_btnSendActionPerformed
 
     /**

@@ -21,7 +21,7 @@ public class ComandoFabrica {
                 return new ComandoMensaje(args);
             case "PRIVATE_MESSAGE":
                 return new ComandoPrivado(args);
-            case "GIVE_UP":
+            case "GIVEUP":
                 return new ComandoGiveup(args);
             case "NAME":    
                 return new ComandoNombre(args);

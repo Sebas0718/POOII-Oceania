@@ -14,7 +14,7 @@ public enum TiposComandos {
     ATTACK (4),  //attack usuario x y
     MESSAGE (2), //message saludo
     PRIVATE_MESSAGE(3), // private usuario saludo
-    GIVE_UP(1), // giveup
+    GIVEUP(1), // giveup
     NAME(2),
     ERROR(1);
     //Estos son ejemplos, si faltan se agregan mas comandos

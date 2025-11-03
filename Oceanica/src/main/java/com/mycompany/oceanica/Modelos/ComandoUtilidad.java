@@ -13,41 +13,41 @@ import java.util.List;
  * @author xsusk
  */
 public class ComandoUtilidad {
-    public static String[] tokenizerArgs(String args){
-        List<String> tokens = new ArrayList<String>();     
-        char[] charArray = args.toCharArray();
-        String contact = "";
-        boolean inText = false;
+    public static String[] tokenizerArgs(String args) {           
+        List<String> tokens = new ArrayList<String>();           
+        char[] charArray = args.toCharArray();           
+        String contact = "";           
+        boolean inText = false;           
         
-        for(char c : charArray) {
-            if (c == ' ' && !inText){
-                if (contact.length() != 0){
-                    tokens.add(contact);
-                    contact = "";
-                }
-            } else if (c == '"'){
-                if(inText) { 
-                    tokens.add(contact);
-                    contact = "";
-                    inText = false;
-                    
-                }else{
-                    contact += c;
-                }
-            }
-        if (contact.trim().length() != 0){
-            tokens.add(contact.trim());
-        }
+        for (char c : charArray) {               
+            if (c == ' ' && !inText) {                   
+                if (contact.length() != 0) {   
+                    tokens.add(contact);                       
+                    contact = "";   
+                }               
+            } else if (c == '"') {
+                if (inText) {   tokens.add(contact);                       
+                contact = "";                       
+                inText = false;                   
+                } else {                       
+                    inText = true;   
+                }               
+            } else {   
+                contact += c;   
+            }   
+        }           
+        if (contact.trim().length() != 0) {   
+            tokens.add(contact.trim());   
+        }           
          
-        
+        String[] argsArray = new String[tokens.size()];   
+        argsArray = tokens.toArray(argsArray);           
+        return argsArray;   
     }
-        String[] argsArray = new String[tokens.size()];
-        argsArray = tokens.toArray(argsArray);
-        return argsArray;
-    }
-    public static void main(String[] args){
-        String commanda = "fila -an c:/emmanuel/emmanuel.txt \"hola mundo tres veces\"";
-        String[] tokens = ComandoUtilidad.tokenizerArgs(commanda);
-        System.out.println(Arrays.toString(tokens));
+    
+    public static void main(String[] args) {           
+        String commanda = "file -an c:/dummy/dummy.txt \"Hola mundo tres veces\"";   
+        String[] tokens = ComandoUtilidad.tokenizerArgs(commanda);   
+        System.out.println(Arrays.toString(tokens));   
     }
 }
