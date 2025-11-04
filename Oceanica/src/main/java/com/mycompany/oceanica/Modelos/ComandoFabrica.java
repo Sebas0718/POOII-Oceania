@@ -11,23 +11,23 @@ package com.mycompany.oceanica.Modelos;
 public class ComandoFabrica {
     
     
-    public static Comando getComando(String[] args){
+    public static Comando getComando(String[] args, String nombre){
         String tipo = args[0].toUpperCase();
         
         switch(tipo){
             case "ATTACK":
-                return new ComandoAtaque(args);
+                return new ComandoAtaque(args, nombre);
             case "MESSAGE":
-                return new ComandoMensaje(args);
+                return new ComandoMensaje(args, nombre);
             case "PRIVATE_MESSAGE":
-                return new ComandoPrivado(args);
+                return new ComandoPrivado(args, nombre);
             case "GIVEUP":
-                return new ComandoGiveup(args);
+                return new ComandoGiveup(args, nombre);
             case "NAME":    
-                return new ComandoNombre(args);
+                return new ComandoNombre(args, nombre);
             default:
-                return null; //TODO: CommandError
-            
+                return new ComandoError(args, nombre);
+                
         }
     }
 }

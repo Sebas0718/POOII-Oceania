@@ -12,8 +12,8 @@ import com.mycompany.oceanica.Usuario.Usuario;
  * @author xsusk
  */
 public class ComandoNombre extends Comando{
-    public ComandoNombre(String[] args){
-        super(TiposComandos.NAME, args);
+    public ComandoNombre(String[] args, String nombre){
+        super(TiposComandos.NAME, args, nombre);
     }
 
     @Override

@@ -30,9 +30,15 @@ public class PantallaUsuario extends javax.swing.JFrame {
      */
     public PantallaUsuario() {
         initComponents();
+        while(true){
         String name = JOptionPane.showInputDialog(this, "Ingrese su nombre");
-        this.setTitle(name);
-        usuario = new Usuario(this, name);
+        if (name.length()>0){
+            this.setTitle(name);
+            usuario = new Usuario(this, name);
+            break;
+        }
+        }
+        
     }
 
     /**
@@ -105,7 +111,7 @@ public class PantallaUsuario extends javax.swing.JFrame {
         if (msg.length() > 0){
             String args[] = ComandoUtilidad.tokenizerArgs(msg);
             if(args.length > 0){
-                Comando comando = ComandoFabrica.getComando(args);
+                Comando comando = ComandoFabrica.getComando(args,usuario.getNombre());
                 if (comando != null){
                     try{
                         usuario.getObjetoEscritor().writeObject(comando);

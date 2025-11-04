@@ -13,8 +13,8 @@ import com.mycompany.oceanica.Usuario.Usuario;
  */
 public class ComandoGiveup extends Comando {
 
-    public ComandoGiveup(String[] args) {
-        super(TiposComandos.GIVEUP, args);
+    public ComandoGiveup(String[] args,String nombre) {
+        super(TiposComandos.GIVEUP, args, nombre);
     }
 
 
@@ -25,9 +25,9 @@ public class ComandoGiveup extends Comando {
         threadServidor.setIsActive(false);
     }
 
-//    @Override
-//    public void procesoEnUsuario(Usuario usuario) {
-//
-//    }
+    @Override
+    public void procesoEnUsuario(Usuario usuario) {
+        usuario.getRefPantalla().writeMessage("El usuario " + this.getNombre() + " se rindio");
+    }
     
 }

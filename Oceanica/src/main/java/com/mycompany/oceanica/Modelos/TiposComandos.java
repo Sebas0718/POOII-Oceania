@@ -11,10 +11,10 @@ package com.mycompany.oceanica.Modelos;
 public enum TiposComandos {
     
     // Colocar cuantos parametros se recibira de cada tipo, para manejar errores
-    ATTACK (4),  //attack usuario x y
-    MESSAGE (2), //message saludo
-    PRIVATE_MESSAGE(3), // private usuario saludo
-    GIVEUP(1), // giveup
+    ATTACK (5),  //attack usuario x y
+    MESSAGE (3), //message saludo
+    PRIVATE_MESSAGE(4), // private usuario saludo
+    GIVEUP(2), // giveup
     NAME(2),
     ERROR(1);
     //Estos son ejemplos, si faltan se agregan mas comandos

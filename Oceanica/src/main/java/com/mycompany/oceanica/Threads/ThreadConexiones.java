@@ -17,7 +17,7 @@ public class ThreadConexiones extends Thread {
 
     public ThreadConexiones(Server server) {
         this.server = server;
-    }
+    } 
     
     @Override
     public void run(){
@@ -29,7 +29,7 @@ public class ThreadConexiones extends Thread {
                 server.getUsuariosConectados().add(newServerThread);
                 newServerThread.start();
                 server.getRefPantalla().writeMessage("cliente conectado");
-                
+                this.server.getRefPantalla().getLblJugadoresConectados().setText(server.getUsuariosConectados().size() + "/4 Jugadores Conectados");
             } catch (IOException ex) {
                 System.getLogger(ThreadConexiones.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
                 server.getRefPantalla().writeMessage("Error: " + ex.getMessage());

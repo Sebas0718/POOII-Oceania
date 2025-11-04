@@ -13,8 +13,8 @@ import com.mycompany.oceanica.Usuario.Usuario;
  */
 public class ComandoPrivado extends Comando {
 
-    public ComandoPrivado(String[] args) {
-        super(TiposComandos.PRIVATE_MESSAGE, args);
+    public ComandoPrivado(String[] args, String nombre) {
+        super(TiposComandos.PRIVATE_MESSAGE, args, nombre);
     }
 
 
@@ -25,7 +25,7 @@ public class ComandoPrivado extends Comando {
 
     @Override
     public void procesoEnUsuario(Usuario usuario) {
-        usuario.getRefPantalla().writeMessage("Mensaje para " + this.getParametros()[1] + ": " + this.getParametros()[2]);
+        usuario.getRefPantalla().writeMessage("Mensaje para " + this.getParametros()[1] + " de parte de " + this.getNombre() + ": "+ this.getParametros()[2]);
     }
     
 }

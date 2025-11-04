@@ -4,6 +4,7 @@
  */
 package com.mycompany.oceanica.Server;
 
+import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
 /**
@@ -40,6 +41,8 @@ public class PantallaServer extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txaMensajes = new javax.swing.JTextArea();
         lblServer = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        lblJugadoresConectados = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,6 +53,12 @@ public class PantallaServer extends javax.swing.JFrame {
         lblServer.setFont(new java.awt.Font("Segoe UI", 3, 72)); // NOI18N
         lblServer.setText("Server ");
 
+        jButton1.setBackground(new java.awt.Color(51, 255, 51));
+        jButton1.setText("Iniciar Juego");
+
+        lblJugadoresConectados.setFont(new java.awt.Font("Jokerman", 1, 14)); // NOI18N
+        lblJugadoresConectados.setText("0/4 Jugadores Conectados");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -57,21 +66,30 @@ public class PantallaServer extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(145, 145, 145)
+                        .addContainerGap()
+                        .addComponent(lblJugadoresConectados)
+                        .addGap(57, 57, 57)
                         .addComponent(lblServer))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(71, Short.MAX_VALUE))
+                        .addGap(156, 156, 156)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(314, 314, 314)
+                        .addComponent(jButton1)))
+                .addContainerGap(158, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblServer)
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblJugadoresConectados)
+                    .addComponent(lblServer, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -103,10 +121,20 @@ public class PantallaServer extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblJugadoresConectados;
     private javax.swing.JLabel lblServer;
     private javax.swing.JTextArea txaMensajes;
     // End of variables declaration//GEN-END:variables
+
+    public JLabel getLblJugadoresConectados() {
+        return lblJugadoresConectados;
+    }
+
+    public void setLblJugadoresConectados(JLabel lblJugadoresConectados) {
+        this.lblJugadoresConectados = lblJugadoresConectados;
+    }
 
 
 }

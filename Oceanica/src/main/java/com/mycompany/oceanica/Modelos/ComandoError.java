@@ -13,8 +13,8 @@ import com.mycompany.oceanica.Usuario.Usuario;
  */
 public class ComandoError extends Comando{
 
-    public ComandoError(TiposComandos tipo, String[] parameters) {
-        super(TiposComandos.ERROR, parameters);
+    public ComandoError(String[] parameters, String nombre) {
+        super(TiposComandos.ERROR, parameters, nombre);
     }
 
     @Override
@@ -24,7 +24,7 @@ public class ComandoError extends Comando{
 
     @Override
     public void procesoEnUsuario(Usuario usuario) {
-    
+        usuario.getRefPantalla().writeMessage("ERROR!!! El comando que se intentó ingresar no es valido");
     }
     
 }

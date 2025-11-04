@@ -13,8 +13,8 @@ import com.mycompany.oceanica.Usuario.Usuario;
  */
 public class ComandoAtaque extends Comando {
 
-    public ComandoAtaque(String[] args) {
-        super(TiposComandos.ATTACK, args);
+    public ComandoAtaque(String[] args, String nombre) {
+        super(TiposComandos.ATTACK, args, nombre);
     }
 
 
@@ -26,7 +26,7 @@ public class ComandoAtaque extends Comando {
 
     @Override
     public void procesoEnUsuario(Usuario usuario) {
-            
+            usuario.getRefPantalla().writeMessage("Conectado el cliente: " + this.getParametros()[1]);
 }
     
 }
