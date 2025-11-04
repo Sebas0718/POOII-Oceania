@@ -4,6 +4,19 @@
  */
 package com.mycompany.oceanica.Usuario;
 
+import com.mycompany.oceanica.Modelos.Comando;
+import com.mycompany.oceanica.Modelos.ComandoAtaque;
+import com.mycompany.oceanica.Modelos.ComandoFabrica;
+import com.mycompany.oceanica.Modelos.ComandoGiveup;
+import com.mycompany.oceanica.Modelos.ComandoMensaje;
+import com.mycompany.oceanica.Modelos.ComandoPrivado;
+import com.mycompany.oceanica.Modelos.ComandoUtilidad;
+import java.io.IOException;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
 /**
  *
  * @author xsusk
@@ -17,6 +30,15 @@ public class PantallaUsuario extends javax.swing.JFrame {
      */
     public PantallaUsuario() {
         initComponents();
+        while(true){
+        String name = JOptionPane.showInputDialog(this, "Ingrese su nombre");
+        if (name.length()>0){
+            this.setTitle(name);
+            usuario = new Usuario(this, name);
+            break;
+        }
+        }
+        
     }
 
     /**
@@ -28,74 +50,80 @@ public class PantallaUsuario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnConectar = new javax.swing.JButton();
-        lblMessage = new javax.swing.JLabel();
-        txfMesagge = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        txfMessage = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         txaMessages = new javax.swing.JTextArea();
+        btnSend = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        btnConectar.setText("Conectar!");
-        btnConectar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConectarActionPerformed(evt);
-            }
-        });
-
-        lblMessage.setText("Message");
-
-        jLabel1.setText("Received Message");
 
         txaMessages.setColumns(20);
         txaMessages.setRows(5);
         jScrollPane1.setViewportView(txaMessages);
+
+        btnSend.setText("Send");
+        btnSend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSendActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(134, 134, 134)
-                        .addComponent(btnConectar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txfMesagge, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(39, Short.MAX_VALUE))
+                        .addGap(15, 15, 15)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(btnSend)
+                        .addGap(31, 31, 31)
+                        .addComponent(txfMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(btnConectar)
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txfMesagge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
-                .addComponent(jLabel1)
+                .addGap(17, 17, 17)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txfMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSend))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConectarActionPerformed
-        Usuario usuario = new Usuario();
-        usuario.conectar();
-        
-    }//GEN-LAST:event_btnConectarActionPerformed
+    
+    public void writeMessage(String string){
+        txaMessages.append(string + "\n");
+    }
+    
+    
+    private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
+        String msg = txfMessage.getText().trim();
+        if (msg.length() > 0){
+            String args[] = ComandoUtilidad.tokenizerArgs(msg);
+            if(args.length > 0){
+                Comando comando = ComandoFabrica.getComando(args,usuario.getNombre());
+                if (comando != null){
+                    try{
+                        usuario.getObjetoEscritor().writeObject(comando);
+                    } catch (IOException ex){
+                    
+                    }
+                } else {
+                    this.txaMessages.append("Error: comando desconocido\n");
+                }
+            }
+        } 
+    }//GEN-LAST:event_btnSendActionPerformed
 
     /**
      * @param args the command line arguments
@@ -122,12 +150,34 @@ public class PantallaUsuario extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> new PantallaUsuario().setVisible(true));
     }
 
+    public JTextArea getTxaMessages() {
+        return txaMessages;
+    }
+
+    public void setTxaMessages(JTextArea txaMessages) {
+        this.txaMessages = txaMessages;
+    }
+
+    public JButton getBtnSend() {
+        return btnSend;
+    }
+
+    public void setBtnSend(JButton btnSend) {
+        this.btnSend = btnSend;
+    }
+
+    public JTextField getTxfMesagge() {
+        return txfMessage;
+    }
+
+    public void setTxfMesagge(JTextField txfMesagge) {
+        this.txfMessage = txfMesagge;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnConectar;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btnSend;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblMessage;
     private javax.swing.JTextArea txaMessages;
-    private javax.swing.JTextField txfMesagge;
+    private javax.swing.JTextField txfMessage;
     // End of variables declaration//GEN-END:variables
 }
