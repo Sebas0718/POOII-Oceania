@@ -4,6 +4,7 @@
  */
 package com.mycompany.oceanica.Usuario;
 
+import com.mycompany.Interfaz.InterfazPrincipal;
 import com.mycompany.oceanica.Modelos.Comando;
 import com.mycompany.oceanica.Modelos.ComandoAtaque;
 import com.mycompany.oceanica.Modelos.ComandoFabrica;
@@ -25,6 +26,8 @@ public class PantallaUsuario extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PantallaUsuario.class.getName());
     private Usuario usuario;
+    private InterfazPrincipal interfazPrincipal;
+    
     /**
      * Creates new form PantallaUsuario
      */
@@ -38,7 +41,7 @@ public class PantallaUsuario extends javax.swing.JFrame {
             break;
         }
         }
-        
+        this.interfazPrincipal = new InterfazPrincipal();
     }
 
     /**

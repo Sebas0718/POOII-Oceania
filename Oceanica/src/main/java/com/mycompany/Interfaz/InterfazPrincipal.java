@@ -217,7 +217,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     
     
     public void atacarCelda(int ataque, Celda celda){
-        celda.recibirAtaque(ataque);
+        celda.recibirAtaqueDirecto(ataque);
     }
     
    

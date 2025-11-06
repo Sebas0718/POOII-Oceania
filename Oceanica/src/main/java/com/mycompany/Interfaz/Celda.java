@@ -51,7 +51,7 @@ public class Celda {
         return texto;
     }
     
-    public void recibirAtaque(int ataque){
+    public void recibirAtaqueDirecto(int ataque){
         
         this.vida -= ataque;
                 if (this.vida <= 0){
@@ -63,6 +63,115 @@ public class Celda {
     
     }
 
+    public int getFila() {
+        return fila;
+    }
+
+    public void setFila(int fila) {
+        this.fila = fila;
+    }
+
+    public int getColumna() {
+        return columna;
+    }
+
+    public void setColumna(int columna) {
+        this.columna = columna;
+    }
+
+    public JLabel getRefLabel() {
+        return refLabel;
+    }
+
+    public void setRefLabel(JLabel refLabel) {
+        this.refLabel = refLabel;
+    }
+
+    public float getVida() {
+        return vida;
+    }
+
+    public void setVida(float vida) {
+        this.vida = vida;
+    }
+
+    public boolean isIsCeldaDestruida() {
+        return isCeldaDestruida;
+    }
+
+    public void setIsCeldaDestruida(boolean isCeldaDestruida) {
+        this.isCeldaDestruida = isCeldaDestruida;
+    }
+
+    public boolean isTieneVolcan() {
+        return tieneVolcan;
+    }
+
+    public void setTieneVolcan(boolean tieneVolcan) {
+        this.tieneVolcan = tieneVolcan;
+    }
+
+    public boolean isTieneRemolino() {
+        return tieneRemolino;
+    }
+
+    public void setTieneRemolino(boolean tieneRemolino) {
+        this.tieneRemolino = tieneRemolino;
+    }
+
+    public boolean isEsRadioactiva() {
+        return esRadioactiva;
+    }
+
+    public void setEsRadioactiva(boolean esRadioactiva) {
+        this.esRadioactiva = esRadioactiva;
+    }
+
+    public String getFueAsesinadaPor() {
+        return fueAsesinadaPor;
+    }
+
+    public void setFueAsesinadaPor(String fueAsesinadaPor) {
+        this.fueAsesinadaPor = fueAsesinadaPor;
+    }
+
+    public ArrayList<String> getAtacadoPor() {
+        return atacadoPor;
+    }
+
+    public void setAtacadoPor(ArrayList<String> atacadoPor) {
+        this.atacadoPor = atacadoPor;
+    }
+
+    public ArrayList<String> getCuradoPor() {
+        return curadoPor;
+    }
+
+    public void setCuradoPor(ArrayList<String> curadoPor) {
+        this.curadoPor = curadoPor;
+    }
+
+    public ArrayList<String> getProtegidoPor() {
+        return protegidoPor;
+    }
+
+    public void setProtegidoPor(ArrayList<String> protegidoPor) {
+        this.protegidoPor = protegidoPor;
+    }
+
+    public Personaje getPersonajeDueño() {
+        return personajeDueño;
+    }
+
+    public void setPersonajeDueño(Personaje personajeDueño) {
+        this.personajeDueño = personajeDueño;
+    }
+    
+    
+    
+    
+    
+    
 
 }
 
