@@ -5,6 +5,8 @@
 package com.mycompany.Interfaz;
 
 import com.mycompany.Personaje.Personaje;
+import com.mycompany.oceanica.Server.PantallaServer;
+import com.mycompany.oceanica.Usuario.PantallaUsuario;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -42,6 +44,11 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     private JLabel [][] tablero = new JLabel [20][20];
     private String[][] ocupados = new String[20][20];
     private ArrayList<String> historial = new ArrayList<>();
+    
+    
+    
+    private PantallaUsuario usuario;
+    private PantallaServer servidor;
     
     
     
@@ -209,10 +216,14 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     }
     
     
+    public void atacarCelda(int ataque, Celda celda){
+        celda.recibirAtaque(ataque);
+    }
+    
+   
     
     
     
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -595,6 +606,78 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
     public void setPorcentajeOcupadoMapa(int porcentajeOcupadoMapa) {
         this.porcentajeOcupadoMapa += porcentajeOcupadoMapa;
+    }
+
+    public int getContadorPersonaje1() {
+        return contadorPersonaje1;
+    }
+
+    public void setContadorPersonaje1(int contadorPersonaje1) {
+        this.contadorPersonaje1 = contadorPersonaje1;
+    }
+
+    public int getContadorPersonaje2() {
+        return contadorPersonaje2;
+    }
+
+    public void setContadorPersonaje2(int contadorPersonaje2) {
+        this.contadorPersonaje2 = contadorPersonaje2;
+    }
+
+    public int getContadorPersonaje3() {
+        return contadorPersonaje3;
+    }
+
+    public void setContadorPersonaje3(int contadorPersonaje3) {
+        this.contadorPersonaje3 = contadorPersonaje3;
+    }
+
+    public Celda[][] getCeldas() {
+        return celdas;
+    }
+
+    public void setCeldas(Celda[][] celdas) {
+        this.celdas = celdas;
+    }
+
+    public JLabel[][] getTablero() {
+        return tablero;
+    }
+
+    public void setTablero(JLabel[][] tablero) {
+        this.tablero = tablero;
+    }
+
+    public String[][] getOcupados() {
+        return ocupados;
+    }
+
+    public void setOcupados(String[][] ocupados) {
+        this.ocupados = ocupados;
+    }
+
+    public ArrayList<String> getHistorial() {
+        return historial;
+    }
+
+    public void setHistorial(ArrayList<String> historial) {
+        this.historial = historial;
+    }
+
+    public PantallaUsuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(PantallaUsuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public PantallaServer getServidor() {
+        return servidor;
+    }
+
+    public void setServidor(PantallaServer servidor) {
+        this.servidor = servidor;
     }
     
     
