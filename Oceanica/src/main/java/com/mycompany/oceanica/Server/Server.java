@@ -20,6 +20,7 @@ import java.util.ArrayList;
  * @author xsusk
  */
 public class Server {
+    
     private final int PORT = 54321;
     ServerSocket server;
     Socket socketUsuarios; //El socket de los usuarios

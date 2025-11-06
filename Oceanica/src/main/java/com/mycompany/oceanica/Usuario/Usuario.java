@@ -47,6 +47,8 @@ public class Usuario {
              
             
             String args[] = {"NAME",this.nombre};
+            objetoEscritor.writeObject(ComandoFabrica.getComando(args, this.nombre));
+
             objetoEscritor.writeObject(ComandoFabrica.getComando(args,this.nombre));
             
             

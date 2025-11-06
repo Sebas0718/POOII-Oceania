@@ -51,4 +51,21 @@ public class Celda {
         return texto;
     }
     
+    public void recibirAtaque(int ataque){
+        
+        this.vida -= ataque;
+                if (this.vida <= 0){
+                    this.isCeldaDestruida = true;
+                    tieneVolcan = false;
+                    tieneRemolino = false;
+                    esRadioactiva = false;
+                }
+    
+    }
+
+
 }
+
+
+
+    
