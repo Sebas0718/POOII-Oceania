@@ -5,6 +5,7 @@
 package com.mycompany.oceanica.Modelos;
 
 import com.mycompany.oceanica.Threads.ThreadServer;
+import com.mycompany.oceanica.Usuario.Usuario;
 
 /**
  *
@@ -12,13 +13,18 @@ import com.mycompany.oceanica.Threads.ThreadServer;
  */
 public class ComandoListo extends Comando {
 
-    public ComandoListo(TiposComandos tipo, String[] parametros, String nombre) {
-        super(tipo, parametros, nombre);
+    public ComandoListo(String[] args, String nombre) {
+        super(TiposComandos.INICIAR, args, nombre);
     }
 
     @Override
     public void procesoPorServer(ThreadServer threadServidor) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.setIsBroadcast(false);
     }
+
+//    @Override
+//    public void procesoEnUsuario(Usuario usuario) {
+//            usuario.getRefPantalla().writeMessage("Conectado el cliente: " + this.getParametros()[1]);
+//    }
     
 }
