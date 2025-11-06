@@ -14,7 +14,7 @@ import com.mycompany.oceanica.Usuario.Usuario;
 public class ComandoGiveup extends Comando {
 
     public ComandoGiveup(String[] args,String nombre) {
-        super(TiposComandos.GIVEUP, args, nombre);
+        super(TiposComandos.RENDIRSE, args, nombre);
     }
 
 

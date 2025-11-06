@@ -5,28 +5,19 @@
 package com.mycompany.oceanica.Modelos;
 
 import com.mycompany.oceanica.Threads.ThreadServer;
-import com.mycompany.oceanica.Usuario.Usuario;
 
 /**
  *
  * @author xsusk
  */
-public class ComandoAtaque extends Comando {
+public class ComandoPintarVivas extends Comando{
 
-    public ComandoAtaque(String[] args, String nombre) {
-        super(TiposComandos.ATAQUE, args, nombre);
+    public ComandoPintarVivas(TiposComandos tipo, String[] parametros, String nombre) {
+        super(tipo, parametros, nombre);
     }
-
-
 
     @Override
     public void procesoPorServer(ThreadServer threadServidor) {
-        this.setIsBroadcast(false);
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
-    @Override
-    public void procesoEnUsuario(Usuario usuario) {
-            usuario.getRefPantalla().writeMessage("Conectado el cliente: " + this.getParametros()[1]);
-}
-    
 }
