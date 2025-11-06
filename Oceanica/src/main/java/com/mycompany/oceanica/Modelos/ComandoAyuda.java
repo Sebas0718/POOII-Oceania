@@ -5,25 +5,20 @@
 package com.mycompany.oceanica.Modelos;
 
 import com.mycompany.oceanica.Threads.ThreadServer;
-import com.mycompany.oceanica.Usuario.Usuario;
 
 /**
  *
  * @author xsusk
  */
-public class ComandoSaltarTurno extends Comando {
+public class ComandoAyuda extends Comando {
 
-    public ComandoSaltarTurno(String[] args, String nombre) {
-        super(TiposComandos.SALTAR, args, nombre);
+    public ComandoAyuda(String[] args, String nombre) {
+        super(TiposComandos.AYUDA, args, nombre);
     }
 
     @Override
     public void procesoPorServer(ThreadServer threadServidor) {
         this.setIsBroadcast(false);
     }
-
-    @Override
-    public void procesoEnUsuario(Usuario usuario) {
-        usuario.getRefPantalla().writeMessage("Se salto el turno");
-    }
+    
 }

@@ -22,10 +22,10 @@ public class ComandoCrearPersonaje extends Comando {
         this.setIsBroadcast(false);
     }
 
-//    @Override
-//    public void procesoEnUsuario(Usuario usuario) {
-//            usuario.getRefPantalla().writeMessage("Conectado el cliente: " + this.getParametros()[1]);
-//}
+    @Override
+    public void procesoEnUsuario(Usuario usuario) {
+            usuario.getRefPantalla().writeMessage("Personaje creado con exito\n");
+    }
     
 }
     

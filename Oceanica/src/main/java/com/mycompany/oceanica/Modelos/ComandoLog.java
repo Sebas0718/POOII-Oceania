@@ -24,7 +24,7 @@ public class ComandoLog extends Comando {
 
     @Override
     public void procesoEnUsuario(Usuario usuario) {
-            usuario.getRefPantalla().writeMessage("Conectado el cliente: " + this.getParametros()[1]);
+            
     }
     
 }

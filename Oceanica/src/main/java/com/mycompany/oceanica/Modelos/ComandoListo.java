@@ -19,12 +19,12 @@ public class ComandoListo extends Comando {
 
     @Override
     public void procesoPorServer(ThreadServer threadServidor) {
-        this.setIsBroadcast(false);
+        this.setIsBroadcast(true);
     }
 
-//    @Override
-//    public void procesoEnUsuario(Usuario usuario) {
-//            usuario.getRefPantalla().writeMessage("Conectado el cliente: " + this.getParametros()[1]);
-//    }
+    @Override
+    public void procesoEnUsuario(Usuario usuario) {
+        usuario.getRefPantalla().writeMessage("El usuario " + this.getNombre() + "Ya esta listo");
+    }
     
 }
