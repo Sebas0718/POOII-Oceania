@@ -46,10 +46,9 @@ public class Usuario {
             threadUsuario.start();
              
             
-            String args[] = {"NAME",this.nombre};
+            String args[] = {"NOMBRE",this.nombre};
             objetoEscritor.writeObject(ComandoFabrica.getComando(args, this.nombre));
 
-            objetoEscritor.writeObject(ComandoFabrica.getComando(args,this.nombre));
             
             
         } catch (IOException ex) {
