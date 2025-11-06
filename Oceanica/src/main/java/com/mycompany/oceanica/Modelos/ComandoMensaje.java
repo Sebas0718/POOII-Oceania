@@ -14,7 +14,7 @@ import com.mycompany.oceanica.Usuario.Usuario;
 public class ComandoMensaje extends Comando {
 
     public ComandoMensaje(String[] args, String nombre) {
-        super(TiposComandos.MESSAGE, args, nombre);
+        super(TiposComandos.MENSAJE, args, nombre);
     }
 
 
