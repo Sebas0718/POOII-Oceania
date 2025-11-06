@@ -11,23 +11,19 @@ import com.mycompany.oceanica.Usuario.Usuario;
  *
  * @author xsusk
  */
-public class ComandoGiveup extends Comando {
+public class ComandoCeldasOcupadas extends Comando {
 
-    public ComandoGiveup(String[] args,String nombre) {
-        super(TiposComandos.RENDIRSE, args, nombre);
+    public ComandoCeldasOcupadas(String[] args, String nombre) {
+        super(TiposComandos.MOSTRAR_CELDAS_OCUPADAS, args, nombre);
     }
-
-
 
     @Override
     public void procesoPorServer(ThreadServer threadServidor) {
-        this.setIsBroadcast(true);
-        threadServidor.setIsActive(false);
+        this.setIsBroadcast(false);
     }
 
-    @Override
-    public void procesoEnUsuario(Usuario usuario) {
-        usuario.getRefPantalla().writeMessage("El usuario " + this.getNombre() + " se rindio");
-    }
+
+    
+
     
 }

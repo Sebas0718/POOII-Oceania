@@ -29,15 +29,12 @@ public class Usuario {
     private String nombre;
 
     
-    
     public Usuario(PantallaUsuario refPantalla, String nombre) {
         this.refPantalla = refPantalla;
         this.nombre = nombre;
         this.conectar();
     }
     
-    
-
     public void conectar(){
         try {
             socket = new Socket(SERVER_IP, PORT);
@@ -51,6 +48,8 @@ public class Usuario {
             
             String args[] = {"NAME",this.nombre};
             objetoEscritor.writeObject(ComandoFabrica.getComando(args, this.nombre));
+
+            objetoEscritor.writeObject(ComandoFabrica.getComando(args,this.nombre));
             
             
         } catch (IOException ex) {
@@ -58,8 +57,6 @@ public class Usuario {
         }
     }
 
-
-     
 
     public PantallaUsuario getRefPantalla() {
         return refPantalla;
@@ -97,6 +94,5 @@ public class Usuario {
         return nombre;
     }
 
-    
 }
     

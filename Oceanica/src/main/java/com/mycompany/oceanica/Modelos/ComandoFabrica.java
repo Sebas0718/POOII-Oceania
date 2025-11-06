@@ -15,19 +15,18 @@ public class ComandoFabrica {
         String tipo = args[0].toUpperCase();
         
         switch(tipo){
-            case "ATTACK":
+            case "ATAQUE":
                 return new ComandoAtaque(args, nombre);
-            case "MESSAGE":
+            case "MENSAJE":
                 return new ComandoMensaje(args, nombre);
-            case "PRIVATE_MESSAGE":
+            case "MENSAJE_PRIVADO":
                 return new ComandoPrivado(args, nombre);
-            case "GIVEUP":
+            case "RENDIRSE":
                 return new ComandoGiveup(args, nombre);
-            case "NAME":    
+            case "NOMBRE":    
                 return new ComandoNombre(args, nombre);
             default:
                 return new ComandoError(args, nombre);
-                
         }
     }
 }
