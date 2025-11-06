@@ -14,7 +14,7 @@ import com.mycompany.oceanica.Usuario.Usuario;
 public class ComandoPrivado extends Comando {
 
     public ComandoPrivado(String[] args, String nombre) {
-        super(TiposComandos.PRIVATE_MESSAGE, args, nombre);
+        super(TiposComandos.MENSAJE_PRIVADO, args, nombre);
     }
 
 

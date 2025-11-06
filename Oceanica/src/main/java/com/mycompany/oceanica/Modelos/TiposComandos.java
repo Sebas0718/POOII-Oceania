@@ -11,12 +11,23 @@ package com.mycompany.oceanica.Modelos;
 public enum TiposComandos {
     
     // Colocar cuantos parametros se recibira de cada tipo, para manejar errores
-    ATTACK (5),  //attack usuario x y
-    MESSAGE (3), //message saludo
-    PRIVATE_MESSAGE(4), // private usuario saludo
-    GIVEUP(2), // giveup
-    NAME(2),
-    ERROR(1);
+    ATAQUE (4),  //attack usuario x y
+    MENSAJE (2), //message saludo
+    MENSAJE_PRIVADO(3), // private usuario saludo
+    RENDIRSE(1), // giveup
+    NAME(1),
+    ERROR(1),
+    CREAR(6),
+    INICIAR(1),
+    SALTAR(1),
+    CONSULTAR_CELDA(3),
+    LOG(2),
+    LOG_RESUMEN(1),
+    CONSULTAR_ENEMIGO(2),
+    MOSTRAR_CELDAS_OCUPADAS(1),
+    MOSTRAR_PORCENTAJES_CELDAS(1),
+    PINTAR_VIVAS(1),
+    AYUDA(1);
     //Estos son ejemplos, si faltan se agregan mas comandos
     
     private int ParametrosRequeridos;
@@ -28,8 +39,4 @@ public enum TiposComandos {
     public int getParametrosRequeridos() {
         return ParametrosRequeridos;
     }
-    
-    
-    
-    
 }
