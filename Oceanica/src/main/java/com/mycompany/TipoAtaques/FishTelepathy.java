@@ -17,49 +17,19 @@ import java.util.Random;
 
 public class FishTelepathy {
     
-    
-    public void ataqueTentaculos(InterfazPrincipal interfazPrincipal, int columna1, int fila1, int columna2, int fila2, int columna3, int fila3){
-        
+    public void ataqueTentaculos(InterfazPrincipal interfazPrincipal, inasd
         Celda[][] celdas = interfazPrincipal.getCeldas();
         for (int i = 0; i < celdas.length; i++){
             for (int j = 0; j < celdas[0].length; j++){
-            
-                if (fila1 == i || fila2 == i || fila3 == i){
-                    if (columna1 == j || columna2 == j || columna3 == j){
-                        
-                        celdas[i][j].recibirAtaque(100);
-                        if ((j-1 >= 0 && j+1 <= celdas.length) && (j-1 >= 0 && j+1 <= celdas.length)) {
-                            celdas[i ]
-                        }
+                if (Math.abs(fila-i) <= 1 || Math.abs(columna-j) <= 1){
+                    celdas[i][j].recibirAtaqueDirecto(100);
                     }
-                } 
-                
-                
-                
                 }
-            
-            
             }
-        
-        
         }
+    public void ataqueKrakenBreath(InterfazPrincipal interfazPrincipal, int fila, int columna)
         
         
         
-        
-        }
-        
-        
-        
-    
-    
-    }
-    
-    
-    
-    
-    
-    
-    
-    
 }
+       
