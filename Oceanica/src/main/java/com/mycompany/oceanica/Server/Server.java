@@ -55,7 +55,6 @@ public class Server {
         }
     }
     
-    
     public void ejecutarComando(Comando comando) {
         if (comando.isIsBroadcast())
             this.broadcast(comando);

@@ -5,6 +5,8 @@
 package com.mycompany.Interfaz;
 
 import com.mycompany.Personaje.Personaje;
+import com.mycompany.TipoAtaques.TipoEfecto;
+
 import java.util.ArrayList;
 import javax.swing.JLabel;
 
@@ -61,6 +63,22 @@ public class Celda {
                     esRadioactiva = false;
                 }
     
+    }
+
+    public void aplicarEfecto(TipoEfecto efecto){
+        switch (efecto) {
+            case RADIACTIVO:
+                this.esRadioactiva = true;
+                break;
+            case VOLCAN:
+                this.tieneVolcan = true;
+                break;
+            case REMOLINO:
+                this.tieneRemolino = true;
+                break;
+            default:
+                break;
+        }
     }
 
     public int getFila() {
