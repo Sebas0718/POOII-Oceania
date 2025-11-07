@@ -65,13 +65,13 @@ public class ReleaseTheKraken {
                     i++;
                     break;
                 case "arriba":
-                    if (fila- i > 0) {
+                    if (fila- i >= 0) {
                         celdas[fila - i][columna].recibirAtaqueDirecto(100);
                     }
                     i++;
                     break;
                 case "izquierda":
-                    if (columna - i > 0) {
+                    if (columna - i >= 0) {
                         celdas[fila][columna - i].recibirAtaqueDirecto(100);
                     }
                     i++;

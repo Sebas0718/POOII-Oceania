@@ -4,10 +4,30 @@
  */
 package com.mycompany.TipoAtaques;
 
+import java.util.Random;
+
+import com.mycompany.Interfaz.Celda;
+import com.mycompany.Interfaz.InterfazPrincipal;
+
 /**
  *
  * @author seb
  */
 public class PoseidonTrident {
+
+    /* 
+     * Three lines: selecciona 3 puntos en el mapa. En cada punto destruye lo que esté de 1 a 4
+     * casillas a la derecha, izquierda, arriba, abajo (aleatorio)
+    */
+
+    
+
+
+ 
+
+
+
+
+
     
 }

@@ -17,7 +17,8 @@ import java.net.Socket;
  *
  * @author xsusk
  */
-public class ThreadServer extends Thread{
+public class ThreadServer extends Thread {
+    
     private Server server;
     private Socket socket;
     
