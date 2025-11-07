@@ -5,6 +5,7 @@
 package com.mycompany.Interfaz;
 
 import com.mycompany.Personaje.Personaje;
+import com.mycompany.oceanica.Modelos.Comando;
 import com.mycompany.oceanica.Server.PantallaServer;
 import com.mycompany.oceanica.Usuario.PantallaUsuario;
 import java.awt.Color;
@@ -21,6 +22,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -65,7 +67,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     }
     
     public void crearMatriz() {
-        jPanelTablero.setLayout(new GridLayout(20, 20, 1, 1)); // Distribuir 25x25
+        jPanelTablero.setLayout(new GridLayout(20, 20, 2, 2)); // Distribuir 20x20
         jPanelTablero.setPreferredSize(new Dimension(500,330));
         jPanelTablero.removeAll();
 
@@ -220,6 +222,13 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         celda.recibirAtaqueDirecto(ataque);
     }
     
+
+
+    public void procesarComando(Comando comando) {
+        SwingUtilities.invokeLater(() -> {
+            jTextAreaHistorial.setText("Esta conectado, se utilizo el comando" + comando.toString());
+        });
+    }
    
     
     
