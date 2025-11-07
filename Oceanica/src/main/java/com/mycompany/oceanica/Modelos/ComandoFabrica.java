@@ -25,6 +25,26 @@ public class ComandoFabrica {
                 return new ComandoGiveup(args, nombre);
             case "NOMBRE":    
                 return new ComandoNombre(args, nombre);
+            case "INICIAR":    
+                return new ComandoListo(args, nombre);
+            case "CREAR":    
+                return new ComandoCrearPersonaje(args, nombre);
+            case "SALTAR":    
+                return new ComandoSaltarTurno(args, nombre);
+            case "CONSULTAR_CELDA":    
+                return new ComandoConsultarCelda(args, nombre);
+            case "LOG":    
+                return new ComandoLog(args, nombre);
+            case "LOG_RESUMEN":    
+                return new ComandoLogResumen(args, nombre);
+            case "CONSULTAR_ENEMIGO":    
+                return new ComandoConsultarEnemigo(args, nombre);
+            case "MOSTRAR_CELDAS_OCUPADAS":    
+                return new ComandoCeldasOcupadas(args, nombre);
+            case "MOSTRAR_PORCENTAJES_CELDAS":    
+                return new ComandoPorcentajeCeldas(args, nombre);
+            case "PINTAR_VIVAS ":    
+                return new ComandoPintarVivas(args, nombre);
             default:
                 return new ComandoError(args, nombre);
         }
