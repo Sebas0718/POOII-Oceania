@@ -13,7 +13,7 @@ import com.mycompany.oceanica.Usuario.Usuario;
  */
 public class ComandoNombre extends Comando{
     public ComandoNombre(String[] args, String nombre){
-        super(TiposComandos.NAME, args, nombre);
+        super(TiposComandos.NOMBRE, args, nombre);
     }
 
     @Override

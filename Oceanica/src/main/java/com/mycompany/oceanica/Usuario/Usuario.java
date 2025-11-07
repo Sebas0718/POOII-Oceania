@@ -4,6 +4,7 @@
  */
 package com.mycompany.oceanica.Usuario;
 
+import com.mycompany.Interfaz.InterfazPrincipal;
 import com.mycompany.oceanica.Modelos.ComandoFabrica;
 import com.mycompany.oceanica.Threads.ThreadUsuario;
 import java.io.DataInputStream;
@@ -28,10 +29,14 @@ public class Usuario {
     private ThreadUsuario threadUsuario;
     private String nombre;
 
+    private InterfazPrincipal interfazPrincipal;
+
     
     public Usuario(PantallaUsuario refPantalla, String nombre) {
         this.refPantalla = refPantalla;
         this.nombre = nombre;
+        this.interfazPrincipal = new InterfazPrincipal();
+        this.interfazPrincipal.setVisible(true);
         this.conectar();
     }
     
@@ -42,14 +47,13 @@ public class Usuario {
             objetoEscritor.flush();
             objetoLector = new ObjectInputStream(socket.getInputStream());
             
-            threadUsuario = new ThreadUsuario(this);
+            threadUsuario = new ThreadUsuario(this, interfazPrincipal);
             threadUsuario.start();
              
             
-            String args[] = {"NAME",this.nombre};
+            String args[] = {"NOMBRE",this.nombre};
             objetoEscritor.writeObject(ComandoFabrica.getComando(args, this.nombre));
 
-            objetoEscritor.writeObject(ComandoFabrica.getComando(args,this.nombre));
             
             
         } catch (IOException ex) {

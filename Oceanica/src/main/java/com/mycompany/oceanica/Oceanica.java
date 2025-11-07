@@ -4,6 +4,7 @@
 
 package com.mycompany.oceanica;
 
+import com.mycompany.oceanica.Server.PantallaServer;
 import com.mycompany.oceanica.Usuario.PantallaUsuario;
 
 /**
@@ -13,6 +14,8 @@ import com.mycompany.oceanica.Usuario.PantallaUsuario;
 public class Oceanica {
 
     public static void main(String[] args) {
+        
         java.awt.EventQueue.invokeLater(() -> new PantallaUsuario().setVisible(true));
+    
     }
 }
