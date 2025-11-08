@@ -17,7 +17,7 @@ public enum TiposComandos {
     RENDIRSE(1), // giveup
     NOMBRE(1),
     ERROR(1),
-    CREAR(6),
+    CREAR(8),
     INICIAR(1),
     SALTAR(1),
     CONSULTAR_CELDA(3),

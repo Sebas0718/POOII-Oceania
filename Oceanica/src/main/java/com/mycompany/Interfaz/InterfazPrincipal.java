@@ -5,7 +5,11 @@
 package com.mycompany.Interfaz;
 
 import com.mycompany.Personaje.Personaje;
+import com.mycompany.Personaje.TipoPersonaje;
+import com.mycompany.Personaje.TipoPersonajeFabrica;
 import com.mycompany.oceanica.Modelos.Comando;
+import com.mycompany.oceanica.Modelos.ComandoCrearPersonaje;
+import com.mycompany.oceanica.Modelos.ComandoError;
 import com.mycompany.oceanica.Modelos.ComandoFabrica;
 import com.mycompany.oceanica.Modelos.ComandoUtilidad;
 import com.mycompany.oceanica.Server.PantallaServer;
@@ -65,16 +69,14 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         initComponents();
         jPanelPersonajes.setLayout(new BoxLayout(jPanelPersonajes, BoxLayout.Y_AXIS));
         while(true){
-        String name = JOptionPane.showInputDialog(this, "Ingrese su nombre");
-        if (name.length()>0){
-            this.setTitle(name);
-            usuario = new Usuario(this, name);
-            break;
-        }
+            String name = JOptionPane.showInputDialog(this, "Ingrese su nombre");
+            if (name.length()>0){
+                this.setTitle(name);
+                usuario = new Usuario(this, name);
+                break;
+            }
         }
         llenarStats();
-        crearPersonajes();
-        crearMatriz();
     }
     
     public void crearMatriz() {
@@ -180,12 +182,15 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     }
     
     
-    public void crearPersonajes(){
-        
+    public void crearPersonajes(ComandoCrearPersonaje comando){
+        if (this.listaPersonajes.size() == 3){
+            this.errorCrearPersonaje(comando);
+        }
         jPanelPersonajes.setPreferredSize(new Dimension(300,200));
         
         for (int i = 0; i < 3; i++){
             Personaje personaje = new Personaje(this);
+            this.asignarValoresPersonaje(comando, personaje);
             Dimension dimension = new Dimension(60, 60);
             
             JPanel nuevoPersonaje = new JPanel();
@@ -197,7 +202,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             JLabel nombre = new JLabel();
             JLabel tipo = new JLabel();
             JLabel porcentajeMapa = new JLabel();
-            ImageIcon imagen = new ImageIcon(getClass().getResource("/Imagenes/bobEsponja.png"));
+            ImageIcon imagen = new ImageIcon(getClass().getResource(comando.getParametros()[3]));
             Image imagenEscalada = imagen.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
             ImageIcon imagenReescalada = new ImageIcon(imagenEscalada);
             
@@ -223,11 +228,37 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             
             this.jPanelPersonajes.add(nuevoPersonaje);
             this.listaPersonajes.add(personaje);
-            
+            if (this.listaPersonajes.size() == 3){
+                this.crearMatriz();
+            }
         }
 
     }
     
+    
+    public void asignarValoresPersonaje(ComandoCrearPersonaje comando, Personaje personaje){
+        try{
+            personaje.setNombre((String) comando.getParametros()[7]);
+            personaje.setPoder(Integer.parseInt(comando.getParametros()[4]));
+            personaje.setResistencia(Integer.parseInt(comando.getParametros()[5]));
+            personaje.setSanidad(Integer.parseInt(comando.getParametros()[6]));
+            String tipo = comando.getParametros()[1].toUpperCase();
+            TipoPersonajeFabrica.getTipoPersonaje(comando, personaje);
+            if (personaje.getTipoPersonaje().equals(null))
+                this.errorCrearPersonaje(comando);
+        } catch(NumberFormatException ex){
+            this.errorCrearPersonaje(comando);
+        }
+    }
+    
+    public void errorCrearPersonaje(ComandoCrearPersonaje comando){
+        try {
+            usuario.getObjetoEscritor().writeObject(new ComandoError(comando.getParametros(),comando.getNombre()));
+        } catch (IOException ex) {
+            System.getLogger(InterfazPrincipal.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+
+    }
     
     public void atacarCelda(int ataque, Celda celda){
         celda.recibirAtaqueDirecto(ataque);
