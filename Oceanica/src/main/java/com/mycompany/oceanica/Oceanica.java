@@ -14,8 +14,10 @@ import com.mycompany.oceanica.Server.PantallaServer;
 public class Oceanica {
 
     public static void main(String[] args) {
+        java.awt.EventQueue.invokeLater(() -> new PantallaServer().setVisible(true));
         
+        for(int i = 0; i < 4; i++){
         java.awt.EventQueue.invokeLater(() -> new InterfazPrincipal().setVisible(true));
-    
+        }
     }
 }

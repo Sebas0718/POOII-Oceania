@@ -43,9 +43,9 @@ public class ComandoFabrica {
                 return new ComandoCeldasOcupadas(args, nombre);
             case "MOSTRAR_PORCENTAJES_CELDAS":    
                 return new ComandoPorcentajeCeldas(args, nombre);
-            case "PINTAR_VIVAS ":    
+            case "PINTAR_VIVAS":    
                 return new ComandoPintarVivas(args, nombre);
-            case "AYUDA ":    
+            case "AYUDA":    
                 return new ComandoAyuda(args, nombre);
             default:
                 return new ComandoError(args, nombre);

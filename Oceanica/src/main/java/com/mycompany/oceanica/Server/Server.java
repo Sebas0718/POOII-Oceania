@@ -78,13 +78,13 @@ public class Server {
     }
     
     public void comandInfo(Comando comando){
-        if (comando.getParametros().length <= 1)
+        if (comando.getParametros().length < 1)
             return;
         String nombre = comando.getNombre();
         for (ThreadServer usuario : usuariosConectados) {
             if (usuario.getNombre().equals(nombre)){
                 try {
-                //simulo enviar solo al primero, pero debe buscarse por nombre
+                    
                     usuario.getObjetoEscritor().writeObject(comando);
                     break;
                 } catch (IOException ex) {
