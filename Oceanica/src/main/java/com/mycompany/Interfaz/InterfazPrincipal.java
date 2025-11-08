@@ -9,7 +9,9 @@ import com.mycompany.Personaje.TipoPersonaje;
 import com.mycompany.Personaje.TipoPersonajeFabrica;
 import com.mycompany.oceanica.Modelos.Comando;
 import com.mycompany.oceanica.Modelos.ComandoCrearPersonaje;
+import com.mycompany.oceanica.Modelos.ComandoCrearPersonajeAsignaciones;
 import com.mycompany.oceanica.Modelos.ComandoCrearPersonajeErrores;
+import com.mycompany.oceanica.Modelos.ComandoCrearPersonajeValidaciones;
 import com.mycompany.oceanica.Modelos.ComandoError;
 import com.mycompany.oceanica.Modelos.ComandoFabrica;
 import com.mycompany.oceanica.Modelos.ComandoUtilidad;
@@ -191,9 +193,10 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         
         for (int i = 0; i < 3; i++){
             Personaje personaje = new Personaje(this);
-            if (!this.asignarValoresPersonaje(comando, personaje)){
+            if (!ComandoCrearPersonajeAsignaciones.asignarValoresPersonaje(comando, personaje, this)){
                 return;
             }
+            System.out.println(personaje);
             Dimension dimension = new Dimension(60, 60);
             
             JPanel nuevoPersonaje = new JPanel();
@@ -237,76 +240,6 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         }
 
     }
-    
-    
-    public boolean asignarValoresPersonaje(ComandoCrearPersonaje comando, Personaje personaje){
-        try{
-            personaje.setNombre((String) comando.getParametros()[7]);
-            personaje.setPoder(Integer.parseInt(comando.getParametros()[4]));
-            personaje.setResistencia(Integer.parseInt(comando.getParametros()[5]));
-            personaje.setSanidad(Integer.parseInt(comando.getParametros()[6]));
-            if (!this.validarEstadisticas(personaje, comando)){
-                return false;
-            }
-            String tipo = comando.getParametros()[1].toUpperCase();
-            TipoPersonajeFabrica.getTipoPersonaje(tipo, personaje);
-            if (personaje.getTipoPersonaje().equals(null)){
-                ComandoCrearPersonajeErrores.error("!!!ERROR!!! Tipo de personaje no existente", this.usuario, comando);
-                return false;
-            }
-        } catch(NumberFormatException ex){
-                ComandoCrearPersonajeErrores.error("!!!ERROR!!! Tipo de formato no valido", this.usuario, comando);
-                return false;
-        }
-        return true;
-    }
-    
-    public boolean validarEstadisticas(Personaje personaje, ComandoCrearPersonaje comando){
-        if (listaPersonajes.size() > 1){
-            for (Personaje personajeActual : this.getListaPersonajes()){
-                if (personaje.getPoder() == personajeActual.getPoder() || personaje.getResistencia() == personajeActual.getResistencia() || personaje.getSanidad() == personajeActual.getSanidad())
-                    ComandoCrearPersonajeErrores.error("!!!ERROR!!! Estadistica usada en otro personaje", this.usuario, comando);
-                    return false;
-                    }
-        }
-        if (!this.validarPoder(personaje)){
-            ComandoCrearPersonajeErrores.error("!!!ERROR!!! La estadistica poder no es valida", this.usuario, comando);
-            return false;
-        }
-        
-        if (!this.validarResistencia(personaje)){
-            ComandoCrearPersonajeErrores.error("!!!ERROR!!! La estadistica poder no es valida", this.usuario, comando);
-            return false;
-        }
-        
-        if (!this.validarSanidad(personaje)){
-            ComandoCrearPersonajeErrores.error("!!!ERROR!!! La estadistica poder no es valida", this.usuario, comando);
-            return false;
-        }
-        
-        return true;
-    }
-    
-    
-    public boolean validarPoder(Personaje personaje){
-        if (this.statsPoder[0] == personaje.getPoder() || this.statsPoder[1] == personaje.getPoder() || this.statsPoder[2] == personaje.getPoder()){
-            return true;
-        }
-        return false;
-}
-    public boolean validarResistencia(Personaje personaje){
-        if (this.statsResistencia[0] == personaje.getResistencia() || this.statsResistencia[1] == personaje.getResistencia() || this.statsResistencia[2] == personaje.getResistencia()){
-            return true;
-        }
-        return false;
-}
-    public boolean validarSanidad(Personaje personaje){
-        if (this.statsSanidad[0] == personaje.getSanidad() || this.statsSanidad[1] == personaje.getSanidad() || this.statsSanidad[2] == personaje.getSanidad()){
-            return true;
-        }
-        return false;
-}
-    
     
     public void atacarCelda(int ataque, Celda celda){
         celda.recibirAtaqueDirecto(ataque);
@@ -818,6 +751,14 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
     public void setServidor(PantallaServer servidor) {
         this.servidor = servidor;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
     
     

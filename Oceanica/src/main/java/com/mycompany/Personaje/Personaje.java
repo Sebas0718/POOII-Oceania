@@ -143,6 +143,10 @@ public class Personaje {
     public int getPorcentajeMapa() {
         return porcentajeMapa;
     }
+
+    public void setPorcentajeMapa(int porcentajeMapa) {
+        this.porcentajeMapa = porcentajeMapa;
+    }
     
     
     
