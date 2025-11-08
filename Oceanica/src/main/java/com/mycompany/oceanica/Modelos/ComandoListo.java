@@ -25,7 +25,7 @@ public class ComandoListo extends Comando {
 
     @Override
     public void procesoEnUsuario(Usuario usuario) {
-        usuario.getInterfazPrincipal().writeMessage("El usuario " + this.getNombre() + "Ya esta listo");
+        usuario.getInterfazPrincipal().writeMessage("El usuario " + this.getNombre() + " ya esta listo", this);
     }
     
 }

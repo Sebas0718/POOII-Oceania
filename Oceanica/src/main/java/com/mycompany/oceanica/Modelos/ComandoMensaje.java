@@ -26,7 +26,7 @@ public class ComandoMensaje extends Comando {
 
     @Override
     public void procesoEnUsuario(Usuario usuario) {
-        usuario.getInterfazPrincipal().writeMessage("Mensaje recibido de " + this.getNombre() + ": "+ this.getParametros()[1]);
+        usuario.getInterfazPrincipal().writeMessage("Mensaje recibido de " + this.getNombre() + ": "+ this.getParametros()[1],this);
     }
     
 }

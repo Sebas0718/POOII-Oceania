@@ -24,20 +24,20 @@ public class ComandoAyuda extends Comando {
     }
     
     public void procesoEnUsuario(Usuario usuario) {
-            usuario.getInterfazPrincipal().writeMessage("COMANDOS: \n" +"ATAQUE nombreUsuarioAtacar tipoDeAtaque x y\n" +
-                                                            "MENSAJE \"mensaje\"\n" +
-                                                            "MENSAJE_PRIVADO nombreUsuario \"mensaje\"\n" +
+            usuario.getInterfazPrincipal().writeMessage("COMANDOS: \n" +"ATAQUE nombreUsuarioAtacar  tipoDeAtaque  x  y\n" +
+                                                            "MENSAJE  \"mensaje\"\n" +
+                                                            "MENSAJE_PRIVADO  nombreUsuario  \"mensaje\"\n" +
                                                             "RENDIRSE\n" +
-                                                            "CREAR tipo stad1 stad2 stad3 nombre\n" +
+                                                            "CREAR  tipo  stad1  stad2  stad3  nombre\n" +
                                                             "INICIAR\n" +
                                                             "SALTAR\n" +
-                                                            "CONSULTAR_CELDA x y\n" +
+                                                            "CONSULTAR_CELDA  x  y\n" +
                                                             "LOG detalle\n" +
                                                             "LOG_RESUMEN \n" +
-                                                            "CONSULTAR_ENEMIGO nombreUsuario\n" +
+                                                            "CONSULTAR_ENEMIGO  nombreUsuario\n" +
                                                             "MOSTRAR_CELDAS_OCUPADAS\n" +
                                                             "MOSTRAR_PORCENTAJES_CELDAS\n" +
-                                                            "PINTAR_VIVAS ");
+                                                            "PINTAR_VIVAS ", this);
                                                             }
     
 }

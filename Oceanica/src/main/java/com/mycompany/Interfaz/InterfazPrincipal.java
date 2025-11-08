@@ -237,9 +237,9 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
    
     
-    public void writeMessage(String string){
-        txaHistorial.append(string + "\n");
-        txaComandoActual.setText(string);
+    public void writeMessage(String string, Comando comando){
+        txaHistorial.append(comando + "\n");
+        txaBitacora.setText(string);
         
     }
     
@@ -461,6 +461,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         jLabelBitacora.add(jLabelBitaco, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         txaBitacora.setColumns(20);
+        txaBitacora.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
         txaBitacora.setRows(5);
         jScrollPane1.setViewportView(txaBitacora);
 
@@ -474,6 +475,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         jPanelHistorial.add(jLabelHistorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         txaHistorial.setColumns(20);
+        txaHistorial.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txaHistorial.setRows(5);
         jScrollPane2.setViewportView(txaHistorial);
 
@@ -494,12 +496,12 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         jPanelPrincipal.setLayout(jPanelPrincipalLayout);
         jPanelPrincipalLayout.setHorizontalGroup(
             jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelPrincipalLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPrincipalLayout.createSequentialGroup()
                 .addGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelBitacora, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanelHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addComponent(jPanelPrincipalTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelPersonajes, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jPanelConsola, javax.swing.GroupLayout.PREFERRED_SIZE, 1010, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(jPanelConsolaSecundaria, javax.swing.GroupLayout.PREFERRED_SIZE, 1010, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -540,7 +542,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 1009, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 13, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(txfComando, javax.swing.GroupLayout.PREFERRED_SIZE, 840, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -556,7 +558,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txfComando, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEnviar))
-                .addGap(0, 21, Short.MAX_VALUE))
+                .addGap(0, 11, Short.MAX_VALUE))
         );
 
         pack();

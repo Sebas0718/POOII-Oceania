@@ -25,6 +25,6 @@ public class ComandoSaltarTurno extends Comando {
 
     @Override
     public void procesoEnUsuario(Usuario usuario) {
-        usuario.getInterfazPrincipal().writeMessage("Se salto el turno");
+        usuario.getInterfazPrincipal().writeMessage("Se salto el turno",this);
     }
 }
