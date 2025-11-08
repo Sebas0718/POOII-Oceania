@@ -12,8 +12,8 @@ import com.mycompany.oceanica.Modelos.ComandoCrearPersonaje;
  */
 public class TipoPersonajeFabrica {
     
-    public static void getTipoPersonaje (ComandoCrearPersonaje comando,Personaje personaje){
-    String tipo = comando.getParametros()[1].toUpperCase();
+    public static void getTipoPersonaje (String tipo,Personaje personaje){
+    
         
         switch(tipo){
             case "THE_TRIDDENT":
