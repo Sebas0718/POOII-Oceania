@@ -24,7 +24,7 @@ public class ComandoConsultarCelda extends Comando {
 
     @Override
     public void procesoEnUsuario(Usuario usuario) {
-            usuario.getRefPantalla().writeMessage("Se consulto la celda (" + this.getParametros()[1] +", " + this.getParametros()[2] + ")" );
+            usuario.getInterfazPrincipal().writeMessage("Se consulto la celda (" + this.getParametros()[1] +", " + this.getParametros()[2] + ")" );
     }
     
 }

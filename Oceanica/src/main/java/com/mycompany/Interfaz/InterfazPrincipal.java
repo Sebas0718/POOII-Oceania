@@ -6,20 +6,24 @@ package com.mycompany.Interfaz;
 
 import com.mycompany.Personaje.Personaje;
 import com.mycompany.oceanica.Modelos.Comando;
+import com.mycompany.oceanica.Modelos.ComandoFabrica;
+import com.mycompany.oceanica.Modelos.ComandoUtilidad;
 import com.mycompany.oceanica.Server.PantallaServer;
-import com.mycompany.oceanica.Usuario.PantallaUsuario;
+import com.mycompany.oceanica.Usuario.Usuario;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
@@ -48,11 +52,10 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     private ArrayList<String> historial = new ArrayList<>();
     
     
-    
-    private PantallaUsuario usuario;
+   
     private PantallaServer servidor;
     
-    
+    private Usuario usuario;
     
     
     /**
@@ -61,6 +64,14 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     public InterfazPrincipal() {
         initComponents();
         jPanelPersonajes.setLayout(new BoxLayout(jPanelPersonajes, BoxLayout.Y_AXIS));
+        while(true){
+        String name = JOptionPane.showInputDialog(this, "Ingrese su nombre");
+        if (name.length()>0){
+            this.setTitle(name);
+            usuario = new Usuario(this, name);
+            break;
+        }
+        }
         llenarStats();
         crearPersonajes();
         crearMatriz();
@@ -224,14 +235,11 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     
 
 
-    public void procesarComando(Comando comando) {
-        SwingUtilities.invokeLater(() -> {
-            jTextAreaHistorial.setText("Esta conectado, se utilizo el comando" + comando.toString());
-        });
-    }
    
     
-    
+    public void writeMessage(String string){
+        txaHistorial.append(string + "\n");
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -270,11 +278,12 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         jPanelHistorial = new javax.swing.JPanel();
         jLabelHistorial = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextAreaHistorial = new javax.swing.JTextArea();
+        txaHistorial = new javax.swing.JTextArea();
         jPanelConsola = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
         jPanelConsolaSecundaria = new javax.swing.JPanel();
-        jTextField2 = new javax.swing.JTextField();
+        txfComando = new javax.swing.JTextField();
+        btnEnviar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -458,13 +467,12 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         jPanelHistorial.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabelHistorial.setFont(new java.awt.Font("Liberation Sans", 1, 30)); // NOI18N
-        jLabelHistorial.setForeground(new java.awt.Color(0, 0, 0));
         jLabelHistorial.setText("Historial");
         jPanelHistorial.add(jLabelHistorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        jTextAreaHistorial.setColumns(20);
-        jTextAreaHistorial.setRows(5);
-        jScrollPane2.setViewportView(jTextAreaHistorial);
+        txaHistorial.setColumns(20);
+        txaHistorial.setRows(5);
+        jScrollPane2.setViewportView(txaHistorial);
 
         jPanelHistorial.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 260, 190));
 
@@ -479,7 +487,15 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         jPanelConsola.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 990, 80));
 
         jPanelConsolaSecundaria.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanelConsolaSecundaria.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 990, -1));
+        jPanelConsolaSecundaria.add(txfComando, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 840, -1));
+
+        btnEnviar.setText("Enviar");
+        btnEnviar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnviarActionPerformed(evt);
+            }
+        });
+        jPanelConsolaSecundaria.add(btnEnviar, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 10, -1, -1));
 
         javax.swing.GroupLayout jPanelPrincipalLayout = new javax.swing.GroupLayout(jPanelPrincipal);
         jPanelPrincipal.setLayout(jPanelPrincipalLayout);
@@ -532,6 +548,25 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
+        String msg = txfComando.getText().trim();
+        if (msg.length() > 0){
+            String args[] = ComandoUtilidad.tokenizerArgs(msg);
+            if(args.length > 0){
+                Comando comando = ComandoFabrica.getComando(args,usuario.getNombre());
+                if (comando != null){
+                    try{
+                        usuario.getObjetoEscritor().writeObject(comando);
+                    } catch (IOException ex){
+                    
+                    }
+                } else {
+                    this.txaHistorial.append("Error: comando desconocido\n");
+                }
+            }
+        } 
+    }//GEN-LAST:event_btnEnviarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -558,6 +593,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEnviar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelBitaco;
     private javax.swing.JPanel jLabelBitacora;
@@ -588,9 +624,9 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextAreaBitacora;
-    private javax.swing.JTextArea jTextAreaHistorial;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextArea txaHistorial;
+    private javax.swing.JTextField txfComando;
     // End of variables declaration//GEN-END:variables
 
 
@@ -671,14 +707,6 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
     public void setHistorial(ArrayList<String> historial) {
         this.historial = historial;
-    }
-
-    public PantallaUsuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(PantallaUsuario usuario) {
-        this.usuario = usuario;
     }
 
     public PantallaServer getServidor() {

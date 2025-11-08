@@ -25,7 +25,7 @@ public class ComandoPrivado extends Comando {
 
     @Override
     public void procesoEnUsuario(Usuario usuario) {
-        usuario.getRefPantalla().writeMessage("Mensaje para " + this.getParametros()[1] + " de parte de " + this.getNombre() + ": "+ this.getParametros()[2]);
+        usuario.getInterfazPrincipal().writeMessage("Mensaje para " + this.getParametros()[1] + " de parte de " + this.getNombre() + ": "+ this.getParametros()[2]);
     }
     
 }

@@ -28,7 +28,7 @@ public abstract class Comando implements Serializable {
 
     
     public void procesoEnUsuario(Usuario usuario){
-        usuario.getRefPantalla().writeMessage(this.toString());
+        usuario.getInterfazPrincipal().writeMessage(this.toString());
     }
 
 

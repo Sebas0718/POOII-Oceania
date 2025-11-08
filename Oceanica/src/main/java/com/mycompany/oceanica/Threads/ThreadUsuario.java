@@ -34,7 +34,6 @@ public class ThreadUsuario extends Thread {
         while(isRunning){
             try{
                 comandoRecibido = (Comando) usuario.getObjetoLector().readObject();
-                this.interfazPrincipal.procesarComando(comandoRecibido);
                 comandoRecibido.procesoEnUsuario(usuario);
                 
             }catch(IOException ex){

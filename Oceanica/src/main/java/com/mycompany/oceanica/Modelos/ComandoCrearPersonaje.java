@@ -24,7 +24,7 @@ public class ComandoCrearPersonaje extends Comando {
 
     @Override
     public void procesoEnUsuario(Usuario usuario) {
-            usuario.getRefPantalla().writeMessage("Personaje creado con exito\n");
+            usuario.getInterfazPrincipal().writeMessage("Personaje creado con exito\n");
     }
     
 }
