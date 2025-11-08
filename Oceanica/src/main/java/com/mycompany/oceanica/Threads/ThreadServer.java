@@ -27,8 +27,9 @@ public class ThreadServer extends Thread {
     
     private String nombre;
     
+
     private boolean isActive = true;
-    
+    private boolean haPerdido = false;
     private boolean isRunning = true;
 
     public ThreadServer(Server server, Socket socket) {
@@ -43,6 +44,8 @@ public class ThreadServer extends Thread {
         }
     }
     
+
+
     
     public void run(){
         Comando comando;
@@ -50,18 +53,31 @@ public class ThreadServer extends Thread {
         while(isRunning){
             try{
                 comando = (Comando)objetoLector.readObject();
-                
                 server.getRefPantalla().writeMessage("ThreadServer recibio: " + comando);
-                comando.procesoPorServer(this);
-                if(isActive)
-                    server.ejecutarComando(comando);
-                
-            } catch(IOException ex){
-            
-            } catch (ClassNotFoundException ex) {
-                System.getLogger(ThreadServer.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-            }
+                if (server.getGestorTurnos().isJuegoActivo()){
+                    comando.procesoPorServer(this);
+                    server.getGestorTurnos().procesarComando(comando, this);
+                } else {
+                    if(isActive) server.ejecutarComando(comando);    
+                }
+            } catch (IOException | ClassNotFoundException ex) {
+                manejarDesconexion();
+                break;
+
+            } 
         }
+    }
+
+    public void manejarDesconexion() {
+        
+        server.getRefPantalla().writeMessage("Usuario" + nombre + " se ha desconectado");
+
+        server.getUsuariosConectados().remove(this);
+        
+        server.getRefPantalla().getLblJugadoresConectados().setText(
+            server.getUsuariosConectados().size() + "/4 Jugadores conectados"
+        );
+
     }
     
     public void showAllClients (){
@@ -108,7 +124,14 @@ public class ThreadServer extends Thread {
         this.isActive = isActive;
     }
     
-    
+    public boolean getHaPerdido() {
+        return haPerdido;
+    }
+
+    public void setHaPerdido(boolean bool) {
+        this.haPerdido = bool;
+    }
+
     
     
 }

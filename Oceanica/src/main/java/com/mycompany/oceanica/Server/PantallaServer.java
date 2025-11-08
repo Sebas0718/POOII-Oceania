@@ -29,6 +29,11 @@ public class PantallaServer extends javax.swing.JFrame {
         txaMensajes.append(string + "\n");
     }
     
+    private void jButton1ActionPerfomed(java.awt.event.ActionEvent evt){
+        server.getGestorTurnos().iniciarJuego();
+    }
+
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

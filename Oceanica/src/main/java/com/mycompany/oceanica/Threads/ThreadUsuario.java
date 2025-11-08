@@ -19,7 +19,7 @@ public class ThreadUsuario extends Thread {
     private InterfazPrincipal interfazPrincipal;
     
     private boolean isRunning = true;
-
+    
 
 
     public ThreadUsuario(Usuario usuario, InterfazPrincipal interfazPrincipal) {
