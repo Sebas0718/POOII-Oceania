@@ -47,6 +47,8 @@ public class ComandoFabrica {
                 return new ComandoPintarVivas(args, nombre);
             case "AYUDA":    
                 return new ComandoAyuda(args, nombre);
+            case "USUARIO":
+                return new ComandoUsuarios(args,nombre);
             default:
                 return new ComandoError(args, nombre);
         }

@@ -27,7 +27,8 @@ public enum TiposComandos {
     MOSTRAR_CELDAS_OCUPADAS(1),
     MOSTRAR_PORCENTAJES_CELDAS(1),
     PINTAR_VIVAS(1),
-    AYUDA(1);
+    AYUDA(1),
+    USUARIOS(1);
     //Estos son ejemplos, si faltan se agregan mas comandos
     
     private int ParametrosRequeridos;

@@ -109,8 +109,12 @@ public class ThreadServer extends Thread {
     public void setIsActive(boolean isActive) {
         this.isActive = isActive;
     }
-    
-    
-    
-    
+
+    public Server getServer() {
+        return server;
+    }
+
+    public void setServer(Server server) {
+        this.server = server;
+    }
 }

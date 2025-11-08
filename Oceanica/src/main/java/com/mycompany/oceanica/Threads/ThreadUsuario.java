@@ -6,8 +6,10 @@ package com.mycompany.oceanica.Threads;
 
 import com.mycompany.Interfaz.InterfazPrincipal;
 import com.mycompany.oceanica.Modelos.Comando;
+import com.mycompany.oceanica.Modelos.TiposComandos;
 import com.mycompany.oceanica.Usuario.Usuario;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,6 +21,8 @@ public class ThreadUsuario extends Thread {
     private InterfazPrincipal interfazPrincipal;
     
     private boolean isRunning = true;
+    
+    private ArrayList<String> usuarios = new ArrayList<String>();
 
 
 
@@ -35,6 +39,7 @@ public class ThreadUsuario extends Thread {
             try{
                 comandoRecibido = (Comando) usuario.getObjetoLector().readObject();
                 comandoRecibido.procesoEnUsuario(usuario);
+               
                 
             }catch(IOException ex){
             
