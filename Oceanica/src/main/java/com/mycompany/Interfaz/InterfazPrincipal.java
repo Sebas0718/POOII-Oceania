@@ -70,6 +70,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
      */
     public InterfazPrincipal() {
         initComponents();
+        llenarStats();
         jPanelPersonajes.setLayout(new BoxLayout(jPanelPersonajes, BoxLayout.Y_AXIS));
         while(true){
             String name = JOptionPane.showInputDialog(this, "Ingrese su nombre");
@@ -79,7 +80,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                 break;
             }
         }
-        llenarStats();
+        
     }
     
     public void crearMatriz() {
@@ -190,56 +191,65 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                 ComandoCrearPersonajeErrores.error("!!!ERROR!!! Ya se crearon los 3 personajes posibles", this.usuario, comando);
         }
         jPanelPersonajes.setPreferredSize(new Dimension(300,200));
-        
-        for (int i = 0; i < 3; i++){
-            Personaje personaje = new Personaje(this);
-            if (!ComandoCrearPersonajeAsignaciones.asignarValoresPersonaje(comando, personaje, this)){
-                return;
-            }
-            System.out.println(personaje);
-            Dimension dimension = new Dimension(60, 60);
-            
-            JPanel nuevoPersonaje = new JPanel();
-            nuevoPersonaje.setPreferredSize(dimension);
-           
-            JLabel poder = new JLabel();
-            JLabel resistencia = new JLabel();
-            JLabel sanidad = new JLabel();
-            JLabel nombre = new JLabel();
-            JLabel tipo = new JLabel();
-            JLabel porcentajeMapa = new JLabel();
-            ImageIcon imagen = new ImageIcon(getClass().getResource(comando.getParametros()[3]));
-            Image imagenEscalada = imagen.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
-            ImageIcon imagenReescalada = new ImageIcon(imagenEscalada);
-            
-            JLabel image = new JLabel(imagenReescalada);
-            
-            
-            
-            nombre.setText(personaje.getNombre());
-            tipo.setText("Tipo de Ataque: " + personaje.getTipoPersonaje().toString());
-            poder.setText("Poder: " + String.valueOf(personaje.getPoder()));
-            resistencia.setText("Resistencia: " + String.valueOf(personaje.getResistencia()));
-            sanidad.setText("Sanidad: " + String.valueOf(personaje.getSanidad()));
-            porcentajeMapa.setText("Mapa: " + String.valueOf(personaje.getPorcentajeMapa()));
-            
-            nuevoPersonaje.add(nombre);
-            nuevoPersonaje.add(tipo);
-            nuevoPersonaje.add(poder);
-            nuevoPersonaje.add(resistencia);
-            nuevoPersonaje.add(sanidad);
-            nuevoPersonaje.add(porcentajeMapa);
-            nuevoPersonaje.add(image);
-            
-            
-            this.jPanelPersonajes.add(nuevoPersonaje);
-            this.listaPersonajes.add(personaje);
-            if (this.listaPersonajes.size() == 3){
-                this.crearMatriz();
-            }
+        for (int i = 0; i < 8; i++){
+            System.out.println(comando.getParametros()[i]);
         }
+        Personaje personaje = new Personaje();
+        System.out.println("ts1");
+        if (!ComandoCrearPersonajeAsignaciones.asignarValoresPersonaje(comando, personaje, this)){
+            return;
+        }
+        System.out.println("ts8");
+        System.out.println(personaje);
+        Dimension dimension = new Dimension(60, 60);
 
-    }
+        JPanel nuevoPersonaje = new JPanel();
+        nuevoPersonaje.setPreferredSize(dimension);
+        System.out.println("ts9");
+        JLabel poder = new JLabel();
+        JLabel resistencia = new JLabel();
+        JLabel sanidad = new JLabel();
+        JLabel nombre = new JLabel();
+        JLabel tipo = new JLabel();
+        JLabel porcentajeMapa = new JLabel();
+        ImageIcon imagen = new ImageIcon(getClass().getResource(comando.getParametros()[3]));
+        Image imagenEscalada = imagen.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+        ImageIcon imagenReescalada = new ImageIcon(imagenEscalada);
+        System.out.println("ts10");
+        JLabel image = new JLabel(imagenReescalada);
+
+
+        
+        nombre.setText(personaje.getNombre());
+        tipo.setText("Tipo de Ataque: " + personaje.getTipoPersonaje().toString());
+        poder.setText("Poder: " + String.valueOf(personaje.getPoder()));
+        resistencia.setText("Resistencia: " + String.valueOf(personaje.getResistencia()));
+        sanidad.setText("Sanidad: " + String.valueOf(personaje.getSanidad()));
+        porcentajeMapa.setText("Mapa: " + String.valueOf(personaje.getPorcentajeMapa()));
+        System.out.println("ts11");
+        nuevoPersonaje.add(nombre);
+        nuevoPersonaje.add(tipo);
+        nuevoPersonaje.add(poder);
+        nuevoPersonaje.add(resistencia);
+        nuevoPersonaje.add(sanidad);
+        nuevoPersonaje.add(porcentajeMapa);
+        nuevoPersonaje.add(image);
+        System.out.println("ts12");
+
+        this.jPanelPersonajes.add(nuevoPersonaje);
+        this.listaPersonajes.add(personaje);
+        this.usuario.getInterfazPrincipal().writeMessage("Personaje creado con exito\n", comando);
+        
+        this.jPanelPersonajes.revalidate();
+        this.jPanelPersonajes.repaint();
+        this.jPanelPersonajes.updateUI();
+        
+        if (this.listaPersonajes.size() == 3){
+            this.crearMatriz();
+        }
+        System.out.println("ts13");
+}
+    
     
     public void atacarCelda(int ataque, Celda celda){
         celda.recibirAtaqueDirecto(ataque);
