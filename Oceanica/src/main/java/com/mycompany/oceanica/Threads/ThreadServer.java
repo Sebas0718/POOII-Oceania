@@ -27,6 +27,7 @@ public class ThreadServer extends Thread {
     
     private String nombre;
     
+    private int cantidadPersonajesCreados = 0;
 
     private boolean isActive = true;
     private boolean haPerdido = false;
@@ -77,6 +78,24 @@ public class ThreadServer extends Thread {
         server.getRefPantalla().getLblJugadoresConectados().setText(
             server.getUsuariosConectados().size() + "/4 Jugadores conectados"
         );
+
+        if (server.getGestorTurnos().isJuegoActivo()) {
+            this.setHaPerdido(true);
+        }
+        if (server.getGestorTurnos().getJugadorActual() == this) {
+            server.getGestorTurnos().siguienteTurno();
+        }
+
+        try {
+            isActive = false;
+            isRunning = false;
+            if (objetoEscritor!= null) objetoEscritor.close();
+            if (objetoLector != null) objetoLector.close();
+            if (socket != null) socket.close();
+        } catch (Exception e) {
+            server.getRefPantalla().writeMessage("Error al cerrar la conexión del jugador " +  nombre);
+        }
+
 
     }
     

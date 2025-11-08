@@ -33,7 +33,18 @@ public class PantallaServer extends javax.swing.JFrame {
         server.getGestorTurnos().iniciarJuego();
     }
 
-    
+    public void actualizarEstadoJuego(String estado) {
+        txaMensajes.append("Estado: " + estado);
+    }
+
+    public void actualizarTurnoActual(String jugador) {
+        txaMensajes.append("Turno de: " + jugador);
+    }
+
+    public void actualizarTiempoRestante(int segundos) {
+        txaMensajes.append("Tiempo: " + segundos + "s");
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

@@ -298,9 +298,11 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         jPanelStatsTablero.setPreferredSize(new java.awt.Dimension(500, 140));
 
         jLabel1.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Casillas Destruidas: ");
 
         jLabelNumVida.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
+        jLabelNumVida.setForeground(new java.awt.Color(0, 0, 0));
         jLabelNumVida.setText("0");
 
         jPanelStatsPersonaje1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -320,22 +322,47 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         jLabelCasillasOcupadasPersonaje1.setOpaque(true);
         jPanelStatsPersonaje1.add(jLabelCasillasOcupadasPersonaje1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 66, 134, 16));
 
-        jPanelStatsPersonaje2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
         jLabelPorcentajeOcupadoPersonaje2.setBackground(new java.awt.Color(153, 255, 255));
         jLabelPorcentajeOcupadoPersonaje2.setFont(new java.awt.Font("Liberation Sans", 0, 14)); // NOI18N
         jLabelPorcentajeOcupadoPersonaje2.setOpaque(true);
-        jPanelStatsPersonaje2.add(jLabelPorcentajeOcupadoPersonaje2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 88, 16));
 
         jLabelNombrePersonaje2.setBackground(new java.awt.Color(0, 102, 102));
         jLabelNombrePersonaje2.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
         jLabelNombrePersonaje2.setOpaque(true);
-        jPanelStatsPersonaje2.add(jLabelNombrePersonaje2, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 10, 130, 32));
 
         jLabelCasillasOcupadasPersonaje2.setBackground(new java.awt.Color(0, 204, 204));
         jLabelCasillasOcupadasPersonaje2.setFont(new java.awt.Font("Liberation Sans", 0, 14)); // NOI18N
         jLabelCasillasOcupadasPersonaje2.setOpaque(true);
-        jPanelStatsPersonaje2.add(jLabelCasillasOcupadasPersonaje2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 134, 16));
+
+        javax.swing.GroupLayout jPanelStatsPersonaje2Layout = new javax.swing.GroupLayout(jPanelStatsPersonaje2);
+        jPanelStatsPersonaje2.setLayout(jPanelStatsPersonaje2Layout);
+        jPanelStatsPersonaje2Layout.setHorizontalGroup(
+            jPanelStatsPersonaje2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelStatsPersonaje2Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jLabelPorcentajeOcupadoPersonaje2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanelStatsPersonaje2Layout.createSequentialGroup()
+                .addGroup(jPanelStatsPersonaje2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelStatsPersonaje2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabelNombrePersonaje2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelStatsPersonaje2Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelCasillasOcupadasPersonaje2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanelStatsPersonaje2Layout.setVerticalGroup(
+            jPanelStatsPersonaje2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelStatsPersonaje2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelNombrePersonaje2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelPorcentajeOcupadoPersonaje2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelCasillasOcupadasPersonaje2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
 
         jLabelPorcentajeOcupadoPersonaje3.setBackground(new java.awt.Color(153, 255, 255));
         jLabelPorcentajeOcupadoPersonaje3.setFont(new java.awt.Font("Liberation Sans", 0, 14)); // NOI18N
@@ -354,32 +381,36 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         jPanelStatsPersonaje3Layout.setHorizontalGroup(
             jPanelStatsPersonaje3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelStatsPersonaje3Layout.createSequentialGroup()
-                .addGroup(jPanelStatsPersonaje3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelStatsPersonaje3Layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(jLabelNombrePersonaje3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelStatsPersonaje3Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabelPorcentajeOcupadoPersonaje3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabelCasillasOcupadasPersonaje3, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addGap(4, 4, 4)
+                .addComponent(jLabelNombrePersonaje3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanelStatsPersonaje3Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jLabelPorcentajeOcupadoPersonaje3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelStatsPersonaje3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabelCasillasOcupadasPersonaje3, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanelStatsPersonaje3Layout.setVerticalGroup(
             jPanelStatsPersonaje3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelStatsPersonaje3Layout.createSequentialGroup()
                 .addContainerGap(8, Short.MAX_VALUE)
                 .addComponent(jLabelNombrePersonaje3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelPorcentajeOcupadoPersonaje3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelCasillasOcupadasPersonaje3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         jLabelVidaTablero.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
+        jLabelVidaTablero.setForeground(new java.awt.Color(0, 0, 0));
         jLabelVidaTablero.setText("VIDA: ");
 
         jLabelNumVidaTablero.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
+        jLabelNumVidaTablero.setForeground(new java.awt.Color(0, 0, 0));
         jLabelNumVidaTablero.setText("100%");
 
         javax.swing.GroupLayout jPanelStatsTableroLayout = new javax.swing.GroupLayout(jPanelStatsTablero);
@@ -389,22 +420,21 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             .addGroup(jPanelStatsTableroLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(jPanelStatsTableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelVidaTablero)
                     .addGroup(jPanelStatsTableroLayout.createSequentialGroup()
-                        .addGroup(jPanelStatsTableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelVidaTablero)
-                            .addGroup(jPanelStatsTableroLayout.createSequentialGroup()
-                                .addGap(70, 70, 70)
-                                .addComponent(jLabelNumVidaTablero)))
-                        .addGap(93, 93, 93)
-                        .addComponent(jLabel1)
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabelNumVida))
-                    .addGroup(jPanelStatsTableroLayout.createSequentialGroup()
-                        .addComponent(jPanelStatsPersonaje1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(jPanelStatsPersonaje2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(jPanelStatsPersonaje3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(70, 70, 70)
+                        .addComponent(jLabelNumVidaTablero)))
+                .addGap(93, 93, 93)
+                .addComponent(jLabel1)
+                .addGap(6, 6, 6)
+                .addComponent(jLabelNumVida))
+            .addGroup(jPanelStatsTableroLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanelStatsPersonaje1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22)
+                .addComponent(jPanelStatsPersonaje2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(jPanelStatsPersonaje3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanelStatsTableroLayout.setVerticalGroup(
             jPanelStatsTableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -418,8 +448,10 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                 .addGap(2, 2, 2)
                 .addGroup(jPanelStatsTableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanelStatsPersonaje1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanelStatsPersonaje2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanelStatsPersonaje3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanelStatsPersonaje3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanelStatsTableroLayout.createSequentialGroup()
+                        .addComponent(jPanelStatsPersonaje2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
 
         javax.swing.GroupLayout jPanelPrincipalTableroLayout = new javax.swing.GroupLayout(jPanelPrincipalTablero);
