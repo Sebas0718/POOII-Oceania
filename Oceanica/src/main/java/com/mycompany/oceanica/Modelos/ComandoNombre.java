@@ -19,6 +19,7 @@ public class ComandoNombre extends Comando{
     @Override
     public void procesoPorServer(ThreadServer threadServidor) {
         this.setIsBroadcast(true);
+        this.setInfo(false);
         threadServidor.setNombre(getParametros()[1]);
         threadServidor.showAllClients();
     }

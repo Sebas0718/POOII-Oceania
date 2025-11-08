@@ -16,6 +16,7 @@ public abstract class Comando implements Serializable {
     private TiposComandos tipo;
     private String[] parametros;
     private boolean isBroadcast;
+    private boolean info;
     private String  nombre;
 
     public Comando(TiposComandos tipo, String[] parametros, String nombre) {
@@ -59,6 +60,14 @@ public abstract class Comando implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public boolean isInfo() {
+        return info;
+    }
+
+    public void setInfo(boolean info) {
+        this.info = info;
     }
         
     

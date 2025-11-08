@@ -5,6 +5,7 @@
 package com.mycompany.oceanica.Server;
 
 import com.mycompany.oceanica.Modelos.Comando;
+import com.mycompany.oceanica.Modelos.TiposComandos;
 import com.mycompany.oceanica.Threads.ThreadConexiones;
 import com.mycompany.oceanica.Threads.ThreadServer;
 import com.mycompany.oceanica.Usuario.Usuario;
@@ -56,7 +57,10 @@ public class Server {
     }
     
     public void ejecutarComando(Comando comando) {
-        if (comando.isIsBroadcast())
+        if (comando.isInfo())
+            this.comandInfo(comando);
+        
+        else if (comando.isIsBroadcast())
             this.broadcast(comando);
         else
             this.sendPrivate(comando);
@@ -67,15 +71,31 @@ public class Server {
         for (ThreadServer usuario : usuariosConectados) {
             try {
                 usuario.getObjetoEscritor().writeObject(comando);
-            } catch (IOException ex) {
-                
+            } catch (IOException ex) {   
             }
         }
 
     }
     
+    public void comandInfo(Comando comando){
+        if (comando.getParametros().length <= 1)
+            return;
+        String nombre = comando.getNombre();
+        for (ThreadServer usuario : usuariosConectados) {
+            if (usuario.getNombre().equals(nombre)){
+                try {
+                //simulo enviar solo al primero, pero debe buscarse por nombre
+                    usuario.getObjetoEscritor().writeObject(comando);
+                    break;
+                } catch (IOException ex) {
+                
+                }
+            }
+        }
+    }
+    
+    
     public void sendPrivate(Comando comando){
-        //asumo que el nombre del cliente viene en la posición 1 .  private_message Andres "Hola"
         if (comando.getParametros().length <= 1)
             return;
         
@@ -84,8 +104,11 @@ public class Server {
         for (ThreadServer usuario : usuariosConectados) {
             if (usuario.getNombre().equals(searchName)){
                 try {
-                //simulo enviar solo al primero, pero debe buscarse por nombre
                     usuario.getObjetoEscritor().writeObject(comando);
+                    if (comando.getTipo().equals(TiposComandos.RENDIRSE)){
+                        usuario.setIsActive(false);
+                        usuariosConectados.remove(usuario);
+                    }
                     break;
                 } catch (IOException ex) {
                 

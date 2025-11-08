@@ -30,7 +30,9 @@ public class ThreadServer extends Thread {
     private boolean isActive = true;
     
     private boolean isRunning = true;
-
+    
+    
+    
     public ThreadServer(Server server, Socket socket) {
         try{
             this.server = server;
@@ -53,7 +55,7 @@ public class ThreadServer extends Thread {
                 
                 server.getRefPantalla().writeMessage("ThreadServer recibio: " + comando);
                 comando.procesoPorServer(this);
-                if(isActive)
+                if(isActive) 
                     server.ejecutarComando(comando);
                 
             } catch(IOException ex){

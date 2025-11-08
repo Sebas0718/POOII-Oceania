@@ -21,6 +21,7 @@ public class ComandoMensaje extends Comando {
     @Override
     public void procesoPorServer(ThreadServer threadServidor) {
         this.setIsBroadcast(true);
+        this.setInfo(false);
     }
 
     @Override

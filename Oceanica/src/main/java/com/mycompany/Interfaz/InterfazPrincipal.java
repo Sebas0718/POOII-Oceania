@@ -134,7 +134,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
 
                     Celda celdaSeleccionada = celdas[finalFila][finalColumna];
-                    jTextAreaBitacora.setText(celdaSeleccionada.toString());
+                    txaBitacora.setText(celdaSeleccionada.toString());
 
                 }
             });
@@ -239,6 +239,8 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     
     public void writeMessage(String string){
         txaHistorial.append(string + "\n");
+        txaComandoActual.setText(string);
+        
     }
     
     /**
@@ -274,13 +276,14 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         jLabelBitacora = new javax.swing.JPanel();
         jLabelBitaco = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextAreaBitacora = new javax.swing.JTextArea();
+        txaBitacora = new javax.swing.JTextArea();
         jPanelHistorial = new javax.swing.JPanel();
         jLabelHistorial = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txaHistorial = new javax.swing.JTextArea();
         jPanelConsola = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txaComandoActual = new javax.swing.JTextArea();
         jPanelConsolaSecundaria = new javax.swing.JPanel();
         txfComando = new javax.swing.JTextField();
         btnEnviar = new javax.swing.JButton();
@@ -457,9 +460,9 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         jLabelBitaco.setText("Bitácora");
         jLabelBitacora.add(jLabelBitaco, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        jTextAreaBitacora.setColumns(20);
-        jTextAreaBitacora.setRows(5);
-        jScrollPane1.setViewportView(jTextAreaBitacora);
+        txaBitacora.setColumns(20);
+        txaBitacora.setRows(5);
+        jScrollPane1.setViewportView(txaBitacora);
 
         jLabelBitacora.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 260, 160));
 
@@ -479,23 +482,13 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         jPanelConsola.setBackground(new java.awt.Color(153, 153, 153));
         jPanelConsola.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-        jPanelConsola.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 990, 80));
+        txaComandoActual.setColumns(20);
+        txaComandoActual.setRows(5);
+        jScrollPane3.setViewportView(txaComandoActual);
+
+        jPanelConsola.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 990, 110));
 
         jPanelConsolaSecundaria.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanelConsolaSecundaria.add(txfComando, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 840, -1));
-
-        btnEnviar.setText("Enviar");
-        btnEnviar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEnviarActionPerformed(evt);
-            }
-        });
-        jPanelConsolaSecundaria.add(btnEnviar, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 10, -1, -1));
 
         javax.swing.GroupLayout jPanelPrincipalLayout = new javax.swing.GroupLayout(jPanelPrincipal);
         jPanelPrincipal.setLayout(jPanelPrincipalLayout);
@@ -521,10 +514,25 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                         .addComponent(jPanelHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanelPrincipalTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanelPersonajes, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addComponent(jPanelConsola, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanelConsolaSecundaria, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelConsola, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelConsolaSecundaria, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
+
+        txfComando.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfComandoActionPerformed(evt);
+            }
+        });
+
+        btnEnviar.setText("Enviar");
+        btnEnviar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnviarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -533,20 +541,26 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 1009, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txfComando, javax.swing.GroupLayout.PREFERRED_SIZE, 840, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(btnEnviar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 617, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txfComando, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEnviar))
+                .addGap(0, 21, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
         String msg = txfComando.getText().trim();
@@ -566,6 +580,10 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             }
         } 
     }//GEN-LAST:event_btnEnviarActionPerformed
+
+    private void txfComandoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfComandoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txfComandoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -623,8 +641,9 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelTablero;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextAreaBitacora;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTextArea txaBitacora;
+    private javax.swing.JTextArea txaComandoActual;
     private javax.swing.JTextArea txaHistorial;
     private javax.swing.JTextField txfComando;
     // End of variables declaration//GEN-END:variables

@@ -19,6 +19,7 @@ public class ComandoConsultarCelda extends Comando {
 
 @Override
     public void procesoPorServer(ThreadServer threadServidor) {
+        this.setInfo(true);
         this.setIsBroadcast(false);
     }
 
