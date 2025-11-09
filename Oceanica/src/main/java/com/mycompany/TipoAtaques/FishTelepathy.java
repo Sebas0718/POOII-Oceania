@@ -25,9 +25,9 @@ public class FishTelepathy extends Personaje{
 
     public FishTelepathy(TipoPersonaje tipoPersonaje) {
         super(tipoPersonaje);
-        this.ataques[0] = "Tentaculos";
-        this.ataques[1] = "KrakenBreath";
-        this.ataques[2] = "ReleaseTheKraken";
+        this.ataques[0] = "Cardumen";
+        this.ataques[1] = "Shark_attack";
+        this.ataques[2] = "Pulp";
     }
     
     

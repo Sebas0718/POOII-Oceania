@@ -17,6 +17,9 @@ public class ThundersUnderTheSea extends Personaje{
     
     public ThundersUnderTheSea(TipoPersonaje tipoPersonaje) {
         super(tipoPersonaje);
+        this.ataques[0] = "Volcano_raising";
+        this.ataques[1] = "Volcano_explosion";
+        this.ataques[2] = "Termal_rush";
     }
     
 }

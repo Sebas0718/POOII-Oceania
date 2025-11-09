@@ -17,6 +17,9 @@ public class WavesControl extends Personaje{
     
     public WavesControl(TipoPersonaje tipoPersonaje) {
         super(tipoPersonaje);
+        this.ataques[0] = "Swirl_raising";
+        this.ataques[1] = "Send_human_garbage";
+        this.ataques[2] = "Radioactive_rush";
     }
     
 }

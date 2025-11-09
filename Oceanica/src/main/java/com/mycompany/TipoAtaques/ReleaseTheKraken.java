@@ -22,6 +22,9 @@ public class ReleaseTheKraken extends Personaje{
     
     public ReleaseTheKraken(TipoPersonaje tipoPersonaje) {
         super(tipoPersonaje);
+        this.ataques[0] = "Tentaculos";
+        this.ataques[1] = "Kraken_breath";
+        this.ataques[2] = "Release_the_kraken";
     }
 
 

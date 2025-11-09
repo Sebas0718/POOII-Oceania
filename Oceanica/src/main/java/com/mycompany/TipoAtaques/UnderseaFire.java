@@ -17,6 +17,9 @@ public class UnderseaFire extends Personaje{
     
     public UnderseaFire(TipoPersonaje tipoPersonaje) {
         super(tipoPersonaje);
+        this.ataques[0] = "Thunder_rain";
+        this.ataques[1] = "Poseidon_thunders";
+        this.ataques[2] = "Eel_atack";
     }
     
 }

@@ -24,6 +24,9 @@ public class PoseidonTrident extends Personaje {
     private String[] ataques = new String[3];
     public PoseidonTrident(TipoPersonaje tipoPersonaje) {
         super(tipoPersonaje);
+        this.ataques[0] = "Three_lines";
+        this.ataques[1] = "Three_numbers";
+        this.ataques[2] = "Control_the_kraken";
     }
 
     
