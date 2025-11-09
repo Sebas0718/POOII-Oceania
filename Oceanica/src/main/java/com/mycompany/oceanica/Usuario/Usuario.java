@@ -28,6 +28,7 @@ public class Usuario {
     private ThreadUsuario threadUsuario;
     private String nombre;
 
+    private boolean haPerdido = false;
     private InterfazPrincipal interfazPrincipal;
 
     
@@ -86,6 +87,16 @@ public class Usuario {
     public String getNombre() {
         return nombre;
     }
+
+    public boolean getHaPerdido() {
+        return haPerdido;
+    }
+
+    public void setHaPerdido(boolean bool) {
+        this.haPerdido = bool;
+    }
+
+
 
     public InterfazPrincipal getInterfazPrincipal() {
         return interfazPrincipal;
