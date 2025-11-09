@@ -19,12 +19,14 @@ public class ComandoCrearPersonaje extends Comando {
 
     @Override
     public void procesoPorServer(ThreadServer threadServidor) {
+        this.setInfo(true);
         this.setIsBroadcast(false);
     }
 
     @Override
     public void procesoEnUsuario(Usuario usuario) {
-            usuario.getRefPantalla().writeMessage("Personaje creado con exito\n");
+            usuario.getInterfazPrincipal().crearPersonajes(this);
+            
     }
     
 }

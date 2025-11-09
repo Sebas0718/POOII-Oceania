@@ -4,8 +4,8 @@
 
 package com.mycompany.oceanica;
 
+import com.mycompany.Interfaz.InterfazPrincipal;
 import com.mycompany.oceanica.Server.PantallaServer;
-import com.mycompany.oceanica.Usuario.PantallaUsuario;
 
 /**
  *
@@ -14,8 +14,10 @@ import com.mycompany.oceanica.Usuario.PantallaUsuario;
 public class Oceanica {
 
     public static void main(String[] args) {
+        java.awt.EventQueue.invokeLater(() -> new PantallaServer().setVisible(true));
         
-        java.awt.EventQueue.invokeLater(() -> new PantallaUsuario().setVisible(true));
-    
+        for(int i = 0; i < 2; i++){
+        java.awt.EventQueue.invokeLater(() -> new InterfazPrincipal().setVisible(true));
+        }
     }
 }

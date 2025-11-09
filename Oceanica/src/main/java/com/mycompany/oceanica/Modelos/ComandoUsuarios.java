@@ -5,16 +5,15 @@
 package com.mycompany.oceanica.Modelos;
 
 import com.mycompany.oceanica.Threads.ThreadServer;
-import com.mycompany.oceanica.Usuario.Usuario;
 
 /**
  *
  * @author xsusk
  */
-public class ComandoSaltarTurno extends Comando {
+public class ComandoUsuarios extends Comando{
 
-    public ComandoSaltarTurno(String[] args, String nombre) {
-        super(TiposComandos.SALTAR, args, nombre);
+    public ComandoUsuarios(String[] parametros, String nombre) {
+        super(TiposComandos.USUARIOS, parametros, nombre);
     }
 
     @Override
@@ -22,9 +21,5 @@ public class ComandoSaltarTurno extends Comando {
         this.setInfo(true);
         this.setIsBroadcast(false);
     }
-
-    @Override
-    public void procesoEnUsuario(Usuario usuario) {
-        usuario.getInterfazPrincipal().writeMessage("Se salto el turno",this);
-    }
+    
 }

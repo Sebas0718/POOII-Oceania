@@ -22,12 +22,13 @@ public class ComandoGiveup extends Comando {
     @Override
     public void procesoPorServer(ThreadServer threadServidor) {
         this.setIsBroadcast(true);
-        threadServidor.setIsActive(false);
+        this.setInfo(false);
+        
     }
 
     @Override
     public void procesoEnUsuario(Usuario usuario) {
-        usuario.getRefPantalla().writeMessage("El usuario " + this.getNombre() + " se rindio");
+        usuario.getInterfazPrincipal().writeMessage("El usuario " + this.getNombre() + " se rindio", this);
     }
     
 }

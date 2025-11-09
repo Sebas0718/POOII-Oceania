@@ -20,7 +20,6 @@ import java.net.Socket;
  */
 public class Usuario {
     
-    private PantallaUsuario refPantalla;
     private final int PORT = 54321;
     private final String SERVER_IP = "localhost";
     private Socket socket;
@@ -33,11 +32,9 @@ public class Usuario {
     private InterfazPrincipal interfazPrincipal;
 
     
-    public Usuario(PantallaUsuario refPantalla, String nombre) {
-        this.refPantalla = refPantalla;
+    public Usuario(InterfazPrincipal interfazPrincipal, String nombre) {
+        this.interfazPrincipal = interfazPrincipal;
         this.nombre = nombre;
-        this.interfazPrincipal = new InterfazPrincipal();
-        this.interfazPrincipal.setVisible(true);
         this.conectar();
     }
     
@@ -62,14 +59,6 @@ public class Usuario {
         }
     }
 
-
-    public PantallaUsuario getRefPantalla() {
-        return refPantalla;
-    }
-
-    public void setRefPantalla(PantallaUsuario refPantalla) {
-        this.refPantalla = refPantalla;
-    }
 
     public Socket getSocket() {
         return socket;
@@ -108,6 +97,14 @@ public class Usuario {
     }
 
 
+
+    public InterfazPrincipal getInterfazPrincipal() {
+        return interfazPrincipal;
+    }
+
+    public void setInterfazPrincipal(InterfazPrincipal interfazPrincipal) {
+        this.interfazPrincipal = interfazPrincipal;
+    }
 
 }
     

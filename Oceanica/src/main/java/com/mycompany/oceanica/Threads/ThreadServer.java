@@ -32,7 +32,9 @@ public class ThreadServer extends Thread {
     private boolean isActive = true;
     private boolean haPerdido = false;
     private boolean isRunning = true;
-
+    
+    
+    
     public ThreadServer(Server server, Socket socket) {
         try{
             this.server = server;
@@ -151,6 +153,12 @@ public class ThreadServer extends Thread {
         this.haPerdido = bool;
     }
 
-    
-    
+
+    public Server getServer() {
+        return server;
+    }
+
+    public void setServer(Server server) {
+        this.server = server;
+    }
 }

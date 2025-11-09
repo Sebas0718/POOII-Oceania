@@ -5,6 +5,8 @@
 package com.mycompany.oceanica.Server;
 
 import com.mycompany.oceanica.Modelos.Comando;
+import com.mycompany.oceanica.Modelos.ComandoUsuarios;
+import com.mycompany.oceanica.Modelos.TiposComandos;
 import com.mycompany.oceanica.Threads.ThreadConexiones;
 import com.mycompany.oceanica.Threads.ThreadServer;
 import com.mycompany.oceanica.Usuario.Usuario;
@@ -14,6 +16,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -25,6 +28,7 @@ public class Server {
     ServerSocket server;
     Socket socketUsuarios; //El socket de los usuarios
     ArrayList<ThreadServer> usuariosConectados = new ArrayList<ThreadServer>();
+    ArrayList<Usuario> arrayUsuarios = new ArrayList<Usuario>();
     private final int maxConexiones = 4;
     private PantallaServer refPantalla;
     private ThreadConexiones connexionesThread;
@@ -60,11 +64,15 @@ public class Server {
 
     public void ejecutarComando(Comando comando) {
 
+
         if (gestorTurnos.isJuegoActivo()) {
             ThreadServer jugadorActual = gestorTurnos.getJugadorActual();
             gestorTurnos.procesarComando(comando, jugadorActual);
         } else {
-            if (comando.isIsBroadcast()) {
+            if (comando.isInfo()){
+            this.comandInfo(comando);
+            }
+            else if (comando.isIsBroadcast()) {
                 this.broadcast(comando);
             } else {
                 this.sendPrivate(comando);
@@ -85,6 +93,51 @@ public class Server {
 
     public void sendPrivate(Comando comando) {
         //asumo que el nombre del cliente viene en la posición 1 .  private_message Andres "Hola"
+            } catch (IOException ex) {   
+            }
+        }
+
+    }
+    
+    public void comandInfo(Comando comando){
+        if (comando.getParametros().length < 1)
+            return;
+        String nombre = comando.getNombre();
+        for (ThreadServer usuario : usuariosConectados) {
+            if (usuario.getNombre().equals(nombre)){
+                try {
+                     if (comando.getTipo().equals(TiposComandos.USUARIOS)) {
+                    // Construir una lista con los nombres de todos los conectados
+                    List<String> nombres = new ArrayList<>();
+                    for (ThreadServer usuarioActual : usuariosConectados) {
+                        nombres.add(usuarioActual.getNombre());
+                    }
+
+                    // Convertir la lista a un arreglo para el comando
+                    String[] parametros = new String[nombres.size()];
+                    parametros = nombres.toArray(parametros);
+
+                    // Crear un nuevo comando con esa información
+                    ComandoUsuarios respuesta = new ComandoUsuarios(parametros, nombre);
+
+                    // Enviar la respuesta al cliente
+                    usuario.getObjetoEscritor().writeObject(respuesta);
+                    usuario.getObjetoEscritor().flush();
+                } else {
+                    // Enviar cualquier otro comando normalmente
+                    usuario.getObjetoEscritor().writeObject(comando);
+                    usuario.getObjetoEscritor().flush();
+                }
+                break;
+                } catch (IOException ex) {
+                
+                }
+            }
+        }
+    }
+    
+    
+    public void sendPrivate(Comando comando){
         if (comando.getParametros().length <= 1)
             return;
 
@@ -93,8 +146,11 @@ public class Server {
         for (ThreadServer usuario : usuariosConectados) {
             if (usuario.getNombre().equals(searchName)) {
                 try {
-                    //simulo enviar solo al primero, pero debe buscarse por nombre
                     usuario.getObjetoEscritor().writeObject(comando);
+                    if (comando.getTipo().equals(TiposComandos.RENDIRSE)){
+                        usuario.setIsActive(false);
+                        usuariosConectados.remove(usuario);
+                    }
                     break;
                 } catch (IOException ex) {
 

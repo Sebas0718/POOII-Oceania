@@ -21,12 +21,13 @@ public class ComandoAtaque extends Comando {
 
     @Override
     public void procesoPorServer(ThreadServer threadServidor) {
+        this.setInfo(false);
         this.setIsBroadcast(false);
     }
 
     @Override
     public void procesoEnUsuario(Usuario usuario) {
-            usuario.getRefPantalla().writeMessage("Conectado el cliente: " + this.getParametros()[1]);
+            usuario.getInterfazPrincipal().writeMessage("Conectado el cliente: " + this.getParametros()[1], this);
 }
     
 }

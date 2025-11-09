@@ -5,21 +5,32 @@
 package com.mycompany.Interfaz;
 
 import com.mycompany.Personaje.Personaje;
+import com.mycompany.Personaje.TipoPersonaje;
+import com.mycompany.Personaje.TipoPersonajeFabrica;
 import com.mycompany.oceanica.Modelos.Comando;
+import com.mycompany.oceanica.Modelos.ComandoCrearPersonaje;
+import com.mycompany.oceanica.Modelos.ComandoCrearPersonajeAsignaciones;
+import com.mycompany.oceanica.Modelos.ComandoCrearPersonajeErrores;
+import com.mycompany.oceanica.Modelos.ComandoCrearPersonajeValidaciones;
+import com.mycompany.oceanica.Modelos.ComandoError;
+import com.mycompany.oceanica.Modelos.ComandoFabrica;
+import com.mycompany.oceanica.Modelos.ComandoUtilidad;
 import com.mycompany.oceanica.Server.PantallaServer;
-import com.mycompany.oceanica.Usuario.PantallaUsuario;
+import com.mycompany.oceanica.Usuario.Usuario;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
@@ -48,11 +59,10 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     private ArrayList<String> historial = new ArrayList<>();
     
     
-    
-    private PantallaUsuario usuario;
+   
     private PantallaServer servidor;
     
-    
+    private Usuario usuario;
     
     
     /**
@@ -60,10 +70,17 @@ public class InterfazPrincipal extends javax.swing.JFrame {
      */
     public InterfazPrincipal() {
         initComponents();
-        jPanelPersonajes.setLayout(new BoxLayout(jPanelPersonajes, BoxLayout.Y_AXIS));
         llenarStats();
-        crearPersonajes();
-        crearMatriz();
+        jPanelPersonajes.setLayout(new BoxLayout(jPanelPersonajes, BoxLayout.Y_AXIS));
+        while(true){
+            String name = JOptionPane.showInputDialog(this, "Ingrese su nombre");
+            if (name.length()>0){
+                this.setTitle(name);
+                usuario = new Usuario(this, name);
+                break;
+            }
+        }
+        
     }
     
     public void crearMatriz() {
@@ -123,7 +140,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
 
                     Celda celdaSeleccionada = celdas[finalFila][finalColumna];
-                    jTextAreaBitacora.setText(celdaSeleccionada.toString());
+                    txaBitacora.setText(celdaSeleccionada.toString());
 
                 }
             });
@@ -169,53 +186,69 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     }
     
     
-    public void crearPersonajes(){
-        
-        jPanelPersonajes.setPreferredSize(new Dimension(300,200));
-        
-        for (int i = 0; i < 3; i++){
-            Personaje personaje = new Personaje(this);
-            Dimension dimension = new Dimension(60, 60);
-            
-            JPanel nuevoPersonaje = new JPanel();
-            nuevoPersonaje.setPreferredSize(dimension);
-           
-            JLabel poder = new JLabel();
-            JLabel resistencia = new JLabel();
-            JLabel sanidad = new JLabel();
-            JLabel nombre = new JLabel();
-            JLabel tipo = new JLabel();
-            JLabel porcentajeMapa = new JLabel();
-            ImageIcon imagen = new ImageIcon(getClass().getResource("/Imagenes/bobEsponja.png"));
-            Image imagenEscalada = imagen.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
-            ImageIcon imagenReescalada = new ImageIcon(imagenEscalada);
-            
-            JLabel image = new JLabel(imagenReescalada);
-            
-            
-            
-            nombre.setText(personaje.getNombre());
-            tipo.setText("Tipo de Ataque: " + personaje.getTipoPersonaje().toString());
-            poder.setText("Poder: " + String.valueOf(personaje.getPoder()));
-            resistencia.setText("Resistencia: " + String.valueOf(personaje.getResistencia()));
-            sanidad.setText("Sanidad: " + String.valueOf(personaje.getSanidad()));
-            porcentajeMapa.setText("Mapa: " + String.valueOf(personaje.getPorcentajeMapa()));
-            
-            nuevoPersonaje.add(nombre);
-            nuevoPersonaje.add(tipo);
-            nuevoPersonaje.add(poder);
-            nuevoPersonaje.add(resistencia);
-            nuevoPersonaje.add(sanidad);
-            nuevoPersonaje.add(porcentajeMapa);
-            nuevoPersonaje.add(image);
-            
-            
-            this.jPanelPersonajes.add(nuevoPersonaje);
-            this.listaPersonajes.add(personaje);
-            
+    public void crearPersonajes(ComandoCrearPersonaje comando){
+        if (this.listaPersonajes.size() == 3){
+                ComandoCrearPersonajeErrores.error("!!!ERROR!!! Ya se crearon los 3 personajes posibles", this.usuario, comando);
         }
+        jPanelPersonajes.setPreferredSize(new Dimension(300,200));
+        for (int i = 0; i < 8; i++){
+            System.out.println(comando.getParametros()[i]);
+        }
+        Personaje personaje = new Personaje();
+        System.out.println("ts1");
+        if (!ComandoCrearPersonajeAsignaciones.asignarValoresPersonaje(comando, personaje, this)){
+            return;
+        }
+        System.out.println("ts8");
+        System.out.println(personaje);
+        Dimension dimension = new Dimension(60, 60);
 
-    }
+        JPanel nuevoPersonaje = new JPanel();
+        nuevoPersonaje.setPreferredSize(dimension);
+        System.out.println("ts9");
+        JLabel poder = new JLabel();
+        JLabel resistencia = new JLabel();
+        JLabel sanidad = new JLabel();
+        JLabel nombre = new JLabel();
+        JLabel tipo = new JLabel();
+        JLabel porcentajeMapa = new JLabel();
+        ImageIcon imagen = new ImageIcon(getClass().getResource(comando.getParametros()[3]));
+        Image imagenEscalada = imagen.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+        ImageIcon imagenReescalada = new ImageIcon(imagenEscalada);
+        System.out.println("ts10");
+        JLabel image = new JLabel(imagenReescalada);
+
+
+        
+        nombre.setText(personaje.getNombre());
+        tipo.setText("Tipo de Ataque: " + personaje.getTipoPersonaje().toString());
+        poder.setText("Poder: " + String.valueOf(personaje.getPoder()));
+        resistencia.setText("Resistencia: " + String.valueOf(personaje.getResistencia()));
+        sanidad.setText("Sanidad: " + String.valueOf(personaje.getSanidad()));
+        porcentajeMapa.setText("Mapa: " + String.valueOf(personaje.getPorcentajeMapa()));
+        System.out.println("ts11");
+        nuevoPersonaje.add(nombre);
+        nuevoPersonaje.add(tipo);
+        nuevoPersonaje.add(poder);
+        nuevoPersonaje.add(resistencia);
+        nuevoPersonaje.add(sanidad);
+        nuevoPersonaje.add(porcentajeMapa);
+        nuevoPersonaje.add(image);
+        System.out.println("ts12");
+
+        this.jPanelPersonajes.add(nuevoPersonaje);
+        this.listaPersonajes.add(personaje);
+        this.usuario.getInterfazPrincipal().writeMessage("Personaje creado con exito\n", comando);
+        
+        this.jPanelPersonajes.revalidate();
+        this.jPanelPersonajes.repaint();
+        this.jPanelPersonajes.updateUI();
+        
+        if (this.listaPersonajes.size() == 3){
+            this.crearMatriz();
+        }
+        System.out.println("ts13");
+}
     
     
     public void atacarCelda(int ataque, Celda celda){
@@ -224,14 +257,16 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     
 
 
-    public void procesarComando(Comando comando) {
-        SwingUtilities.invokeLater(() -> {
-            jTextAreaHistorial.setText("Esta conectado, se utilizo el comando" + comando.toString());
-        });
+   public void writeError(String string){
+       txaHistorial.append(string);
+       txaBitacora.setText(string);
+   }
+    
+    public void writeMessage(String string, Comando comando){
+        txaHistorial.append(comando + "\n");
+        txaBitacora.setText(string);
+        
     }
-   
-    
-    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -266,15 +301,17 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         jLabelBitacora = new javax.swing.JPanel();
         jLabelBitaco = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextAreaBitacora = new javax.swing.JTextArea();
+        txaBitacora = new javax.swing.JTextArea();
         jPanelHistorial = new javax.swing.JPanel();
         jLabelHistorial = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextAreaHistorial = new javax.swing.JTextArea();
+        txaHistorial = new javax.swing.JTextArea();
         jPanelConsola = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txaComandoActual = new javax.swing.JTextArea();
         jPanelConsolaSecundaria = new javax.swing.JPanel();
-        jTextField2 = new javax.swing.JTextField();
+        txfComando = new javax.swing.JTextField();
+        btnEnviar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -480,9 +517,10 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         jLabelBitaco.setText("Bitácora");
         jLabelBitacora.add(jLabelBitaco, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        jTextAreaBitacora.setColumns(20);
-        jTextAreaBitacora.setRows(5);
-        jScrollPane1.setViewportView(jTextAreaBitacora);
+        txaBitacora.setColumns(20);
+        txaBitacora.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        txaBitacora.setRows(5);
+        jScrollPane1.setViewportView(txaBitacora);
 
         jLabelBitacora.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 260, 160));
 
@@ -490,39 +528,37 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         jPanelHistorial.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabelHistorial.setFont(new java.awt.Font("Liberation Sans", 1, 30)); // NOI18N
-        jLabelHistorial.setForeground(new java.awt.Color(0, 0, 0));
         jLabelHistorial.setText("Historial");
         jPanelHistorial.add(jLabelHistorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        jTextAreaHistorial.setColumns(20);
-        jTextAreaHistorial.setRows(5);
-        jScrollPane2.setViewportView(jTextAreaHistorial);
+        txaHistorial.setColumns(20);
+        txaHistorial.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txaHistorial.setRows(5);
+        jScrollPane2.setViewportView(txaHistorial);
 
         jPanelHistorial.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 260, 190));
 
         jPanelConsola.setBackground(new java.awt.Color(153, 153, 153));
         jPanelConsola.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-        jPanelConsola.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 990, 80));
+        txaComandoActual.setColumns(20);
+        txaComandoActual.setRows(5);
+        jScrollPane3.setViewportView(txaComandoActual);
+
+        jPanelConsola.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 990, 110));
 
         jPanelConsolaSecundaria.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanelConsolaSecundaria.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 990, -1));
 
         javax.swing.GroupLayout jPanelPrincipalLayout = new javax.swing.GroupLayout(jPanelPrincipal);
         jPanelPrincipal.setLayout(jPanelPrincipalLayout);
         jPanelPrincipalLayout.setHorizontalGroup(
             jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelPrincipalLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPrincipalLayout.createSequentialGroup()
                 .addGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelBitacora, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanelHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addComponent(jPanelPrincipalTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelPersonajes, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jPanelConsola, javax.swing.GroupLayout.PREFERRED_SIZE, 1010, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(jPanelConsolaSecundaria, javax.swing.GroupLayout.PREFERRED_SIZE, 1010, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -537,10 +573,25 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                         .addComponent(jPanelHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanelPrincipalTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanelPersonajes, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addComponent(jPanelConsola, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanelConsolaSecundaria, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelConsola, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelConsolaSecundaria, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
+
+        txfComando.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfComandoActionPerformed(evt);
+            }
+        });
+
+        btnEnviar.setText("Enviar");
+        btnEnviar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnviarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -548,21 +599,50 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 1009, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 13, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txfComando, javax.swing.GroupLayout.PREFERRED_SIZE, 840, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(btnEnviar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 617, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txfComando, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEnviar))
+                .addGap(0, 11, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
+        String msg = txfComando.getText().trim();
+        if (msg.length() > 0){
+            String args[] = ComandoUtilidad.tokenizerArgs(msg);
+            if(args.length > 0){
+                Comando comando = ComandoFabrica.getComando(args,usuario.getNombre());
+                if (comando != null){
+                    try{
+                        usuario.getObjetoEscritor().writeObject(comando);
+                    } catch (IOException ex){
+                    
+                    }
+                } else {
+                    this.txaHistorial.append("Error: comando desconocido\n");
+                }
+            }
+        } 
+    }//GEN-LAST:event_btnEnviarActionPerformed
+
+    private void txfComandoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfComandoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txfComandoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -590,6 +670,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEnviar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelBitaco;
     private javax.swing.JPanel jLabelBitacora;
@@ -619,10 +700,11 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelTablero;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextAreaBitacora;
-    private javax.swing.JTextArea jTextAreaHistorial;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTextArea txaBitacora;
+    private javax.swing.JTextArea txaComandoActual;
+    private javax.swing.JTextArea txaHistorial;
+    private javax.swing.JTextField txfComando;
     // End of variables declaration//GEN-END:variables
 
 
@@ -705,20 +787,20 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         this.historial = historial;
     }
 
-    public PantallaUsuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(PantallaUsuario usuario) {
-        this.usuario = usuario;
-    }
-
     public PantallaServer getServidor() {
         return servidor;
     }
 
     public void setServidor(PantallaServer servidor) {
         this.servidor = servidor;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
     
     
