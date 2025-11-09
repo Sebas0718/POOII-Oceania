@@ -29,6 +29,14 @@ public class FishTelepathy extends Personaje{
         this.ataques[1] = "Shark_attack";
         this.ataques[2] = "Pulp";
     }
+
+    public String[] getAtaques() {
+        return ataques;
+    }
+
+    public void setAtaques(String[] ataques) {
+        this.ataques = ataques;
+    }
     
     
     

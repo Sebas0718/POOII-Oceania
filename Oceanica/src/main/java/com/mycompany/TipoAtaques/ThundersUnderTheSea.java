@@ -21,5 +21,13 @@ public class ThundersUnderTheSea extends Personaje{
         this.ataques[1] = "Volcano_explosion";
         this.ataques[2] = "Termal_rush";
     }
+
+    public String[] getAtaques() {
+        return ataques;
+    }
+
+    public void setAtaques(String[] ataques) {
+        this.ataques = ataques;
+    }
     
 }

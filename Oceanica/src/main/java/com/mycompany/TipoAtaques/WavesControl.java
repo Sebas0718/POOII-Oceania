@@ -21,5 +21,13 @@ public class WavesControl extends Personaje{
         this.ataques[1] = "Send_human_garbage";
         this.ataques[2] = "Radioactive_rush";
     }
+
+    public String[] getAtaques() {
+        return ataques;
+    }
+
+    public void setAtaques(String[] ataques) {
+        this.ataques = ataques;
+    }
     
 }

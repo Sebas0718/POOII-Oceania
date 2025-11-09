@@ -21,5 +21,13 @@ public class UnderseaFire extends Personaje{
         this.ataques[1] = "Poseidon_thunders";
         this.ataques[2] = "Eel_atack";
     }
+
+    public String[] getAtaques() {
+        return ataques;
+    }
+
+    public void setAtaques(String[] ataques) {
+        this.ataques = ataques;
+    }
     
 }

@@ -136,6 +136,14 @@ public class ReleaseTheKraken extends Personaje{
 
     }
 
+    public String[] getAtaques() {
+        return ataques;
+    }
+
+    public void setAtaques(String[] ataques) {
+        this.ataques = ataques;
+    }
+
     
     
 }

@@ -29,5 +29,13 @@ public class PoseidonTrident extends Personaje {
         this.ataques[2] = "Control_the_kraken";
     }
 
+    public String[] getAtaques() {
+        return ataques;
+    }
+
+    public void setAtaques(String[] ataques) {
+        this.ataques = ataques;
+    }
+
     
 }
