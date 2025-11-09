@@ -26,7 +26,6 @@ public class Ataque {
                 celdas[i][j].recibirAtaqueDirecto(ataque);
             }
         }
-
     }
 
     public void atacarLineaRecta(InterfazPrincipal interfazPrincipal, String direccion, int rango, int fila, int columna, int ataque){
@@ -65,7 +64,6 @@ public class Ataque {
                     break;
             }
         }
-    
     };  
 
 
@@ -87,9 +85,4 @@ public class Ataque {
             }
         }
     }
-
-
 }
-
-
-

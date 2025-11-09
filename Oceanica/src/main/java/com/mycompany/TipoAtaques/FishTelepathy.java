@@ -6,6 +6,9 @@ package com.mycompany.TipoAtaques;
 
 import com.mycompany.Interfaz.Celda;
 import com.mycompany.Interfaz.InterfazPrincipal;
+import com.mycompany.Personaje.Personaje;
+import com.mycompany.Personaje.TipoPersonaje;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -15,9 +18,27 @@ import java.util.Random;
 
 
 
-public class FishTelepathy {
+public class FishTelepathy extends Personaje{
     
+    private String[] ataques = new String[3];
+   
 
+    public FishTelepathy(TipoPersonaje tipoPersonaje) {
+        super(tipoPersonaje);
+        this.ataques[0] = "Cardumen";
+        this.ataques[1] = "Shark_attack";
+        this.ataques[2] = "Pulp";
+    }
 
+    public String[] getAtaques() {
+        return ataques;
+    }
+
+    public void setAtaques(String[] ataques) {
+        this.ataques = ataques;
+    }
+    
+    
+    
 
 }

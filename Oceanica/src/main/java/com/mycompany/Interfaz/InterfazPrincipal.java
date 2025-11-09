@@ -196,7 +196,10 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         for (int i = 0; i < 8; i++) {
             System.out.println(comando.getParametros()[i]);
         }
-        Personaje personaje = new Personaje();
+        Personaje personaje = TipoPersonajeFabrica.getTipoPersonaje(comando.getParametros()[1]);
+        if (personaje.getTipoPersonaje().equals(null)){
+                ComandoCrearPersonajeErrores.error("!!!ERROR!!! Tipo de personaje no existente", this.getUsuario(), comando);
+            }
         System.out.println("ts1");
         if (!ComandoCrearPersonajeAsignaciones.asignarValoresPersonaje(comando, personaje, this)) {
             return;
