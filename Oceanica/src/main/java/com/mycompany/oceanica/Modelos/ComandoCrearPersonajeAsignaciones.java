@@ -26,7 +26,11 @@ public class ComandoCrearPersonajeAsignaciones {
             System.out.println("ts10");
             
             personaje.setPorcentajeMapa(Integer.parseInt(comando.getParametros()[2]));
-            
+            if (!ComandoCrearPersonajeValidaciones.validarPorcentajeMapa(personaje, comando, interfaz)) {
+                return false;
+            };
+
+
             String tipo = comando.getParametros()[1].toUpperCase();
             TipoPersonajeFabrica.getTipoPersonaje(tipo);
             

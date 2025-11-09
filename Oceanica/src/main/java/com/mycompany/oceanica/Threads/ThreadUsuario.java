@@ -31,17 +31,16 @@ public class ThreadUsuario extends Thread {
         this.interfazPrincipal = interfazPrincipal;
     }
     
-    public void run(){
+    public void run() {
+        
         Comando comandoRecibido;
         
-        
         while(isRunning){
-            try{
+            try {
+                
                 comandoRecibido = (Comando) usuario.getObjetoLector().readObject();
                 comandoRecibido.procesoEnUsuario(usuario);
-               
-                
-            }catch(IOException ex){
+            } catch(IOException ex){
             
             } catch (ClassNotFoundException ex) {
                 System.getLogger(ThreadUsuario.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
