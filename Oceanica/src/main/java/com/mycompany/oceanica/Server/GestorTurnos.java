@@ -25,6 +25,7 @@ public class GestorTurnos {
 
     public void agregarJugador(ThreadServer jugador) {
         if (!jugadores.contains(jugador)) {
+            System.out.println("TS20: AGREGAR JUGADOR");
             jugadores.add(jugador);
             server.getRefPantalla().writeMessage("Jugador agregado: " + jugador.getNombre());
         }
@@ -34,7 +35,9 @@ public class GestorTurnos {
     //#######################################################################################
 
     public void iniciarJuego() {
-        if (jugadores.size() >= 2 && jugadoresPersonajesCompletos()) {
+        System.out.println("TS25: INICIAR JUEGO EXTERNO");
+        if (jugadores.size() >= 2) {
+            System.out.println("TS30: INICIAR JUEGO INTERNO");
             juegoActivo = true;
             jugadorActual = 0;
             server.getRefPantalla().writeMessage("¡Juego iniciado! Turno de: " + getJugadorActual().getNombre());

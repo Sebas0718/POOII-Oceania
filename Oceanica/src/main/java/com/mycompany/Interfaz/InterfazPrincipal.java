@@ -187,7 +187,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     
     
     public void crearPersonajes(ComandoCrearPersonaje comando) {
-        System.out.println("Mapa antes de: " + porcentajeOcupadoMapa);
+
         if (this.listaPersonajes.size() == 3) {
             ComandoCrearPersonajeErrores.error("!!!ERROR!!! Ya se crearon los 3 personajes posibles", this.usuario,
                     comando);
@@ -196,9 +196,15 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         for (int i = 0; i < 8; i++) {
             System.out.println(comando.getParametros()[i]);
         }
+        System.out.println("TS05");
         Personaje personaje = TipoPersonajeFabrica.getTipoPersonaje(comando.getParametros()[1]);
-        if (personaje.getTipoPersonaje().equals(null)){
-                ComandoCrearPersonajeErrores.error("!!!ERROR!!! Tipo de personaje no existente", this.getUsuario(), comando);
+
+        if (personaje == null || personaje.getTipoPersonaje().equals(null))
+
+    {
+            ComandoCrearPersonajeErrores.error("!!!ERROR!!! Tipo de personaje no existente", this.getUsuario(),
+                    comando);
+                return ;
             }
         System.out.println("ts1");
         if (!ComandoCrearPersonajeAsignaciones.asignarValoresPersonaje(comando, personaje, this)) {
@@ -628,6 +634,9 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
+    //#########################################################################################3
+
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
         String msg = txfComando.getText().trim();
         if (msg.length() > 0){
@@ -635,7 +644,8 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             if(args.length > 0){
                 Comando comando = ComandoFabrica.getComando(args,usuario.getNombre());
                 if (comando != null){
-                    try{
+                    try {
+                        System.out.println("TS01: BTN ENVIAR");
                         usuario.getObjetoEscritor().writeObject(comando);
                     } catch (IOException ex){
                     

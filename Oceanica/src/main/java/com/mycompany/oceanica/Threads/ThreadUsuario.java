@@ -40,6 +40,7 @@ public class ThreadUsuario extends Thread {
                 
                 comandoRecibido = (Comando) usuario.getObjetoLector().readObject();
                 comandoRecibido.procesoEnUsuario(usuario);
+                System.out.println("TS02: THREADUSUARIO");
             } catch(IOException ex){
             
             } catch (ClassNotFoundException ex) {
