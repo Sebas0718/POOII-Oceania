@@ -4,10 +4,19 @@
  */
 package com.mycompany.TipoAtaques;
 
+import com.mycompany.Personaje.Personaje;
+import com.mycompany.Personaje.TipoPersonaje;
+
 /**
  *
  * @author seb
  */
-public class WavesControl {
+public class WavesControl extends Personaje{
+    
+    private String[] ataques = new String[3];
+    
+    public WavesControl(TipoPersonaje tipoPersonaje) {
+        super(tipoPersonaje);
+    }
     
 }

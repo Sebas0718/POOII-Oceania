@@ -3,10 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.Personaje;
-
-import com.mycompany.Interfaz.InterfazPrincipal;
-import java.util.ArrayList;
-import java.util.Random;
 public class Personaje {
     
     private int poder;
@@ -17,8 +13,11 @@ public class Personaje {
     private String nombre;
     private TipoPersonaje tipoPersonaje;
 
-    public Personaje() {
+    public Personaje(TipoPersonaje tipoPersonaje) {
+        this.tipoPersonaje = tipoPersonaje;
     }
+
+    
     
    
     
@@ -75,10 +74,4 @@ public class Personaje {
     public String toString() {
         return "Personaje{" + "poder=" + poder + ", resistencia=" + resistencia + ", sanidad=" + sanidad + ", porcentajeMapa=" + porcentajeMapa + ", nombre=" + nombre + ", tipoPersonaje=" + tipoPersonaje + '}';
     }
-    
-    
-    
-    
-    
-    
 }

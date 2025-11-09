@@ -4,10 +4,19 @@
  */
 package com.mycompany.TipoAtaques;
 
+import com.mycompany.Personaje.Personaje;
+import com.mycompany.Personaje.TipoPersonaje;
+
 /**
  *
  * @author seb
  */
-public class ThundersUnderTheSea {
+public class ThundersUnderTheSea extends Personaje{
+    
+    private String[] ataques = new String[3];
+    
+    public ThundersUnderTheSea(TipoPersonaje tipoPersonaje) {
+        super(tipoPersonaje);
+    }
     
 }

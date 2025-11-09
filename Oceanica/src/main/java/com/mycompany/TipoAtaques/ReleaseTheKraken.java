@@ -9,12 +9,20 @@ import java.util.Random;
 
 import com.mycompany.Interfaz.Celda;
 import com.mycompany.Interfaz.InterfazPrincipal;
+import com.mycompany.Personaje.Personaje;
+import com.mycompany.Personaje.TipoPersonaje;
 
 /**
  *
  * @author seb
  */
-public class ReleaseTheKraken {
+public class ReleaseTheKraken extends Personaje{
+    
+    private String[] ataques = new String[3];
+    
+    public ReleaseTheKraken(TipoPersonaje tipoPersonaje) {
+        super(tipoPersonaje);
+    }
 
 
         /*

@@ -7,6 +7,8 @@ package com.mycompany.oceanica.Server;
 import com.mycompany.oceanica.Modelos.Comando;
 import com.mycompany.oceanica.Modelos.ComandoUsuarios;
 import com.mycompany.oceanica.Modelos.TiposComandos;
+import com.mycompany.oceanica.Server.GestorTurnos;
+import com.mycompany.oceanica.Server.PantallaServer;
 import com.mycompany.oceanica.Threads.ThreadConexiones;
 import com.mycompany.oceanica.Threads.ThreadServer;
 import com.mycompany.oceanica.Usuario.Usuario;
@@ -23,7 +25,7 @@ import java.util.List;
  * @author xsusk
  */
 public class Server {
-
+    
     private final int PORT = 54321;
     ServerSocket server;
     Socket socketUsuarios; //El socket de los usuarios
@@ -91,13 +93,9 @@ public class Server {
 
     }
 
-    public void sendPrivate(Comando comando) {
-        //asumo que el nombre del cliente viene en la posición 1 .  private_message Andres "Hola"
-            } catch (IOException ex) {   
-            }
-        }
+    
 
-    }
+    
     
     public void comandInfo(Comando comando){
         if (comando.getParametros().length < 1)

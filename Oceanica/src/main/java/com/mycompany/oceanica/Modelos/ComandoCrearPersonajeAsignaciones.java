@@ -28,11 +28,8 @@ public class ComandoCrearPersonajeAsignaciones {
             personaje.setPorcentajeMapa(Integer.parseInt(comando.getParametros()[2]));
             
             String tipo = comando.getParametros()[1].toUpperCase();
-            TipoPersonajeFabrica.getTipoPersonaje(tipo, personaje);
-            if (personaje.getTipoPersonaje().equals(null)){
-                ComandoCrearPersonajeErrores.error("!!!ERROR!!! Tipo de personaje no existente", interfaz.getUsuario(), comando);
-                return false;
-            }
+            TipoPersonajeFabrica.getTipoPersonaje(tipo);
+            
         } catch(NumberFormatException ex){
                 ComandoCrearPersonajeErrores.error("!!!ERROR!!! Tipo de formato no valido", interfaz.getUsuario(), comando);
                 return false;

@@ -11,7 +11,7 @@ package com.mycompany.Personaje;
 public enum TipoPersonaje {
     
     THE_TRIDDENT,
-    VOLCANO,
+    UNDERSEA_FIRE,
     THUNDERS_UTS,
     FISH_TELEPATHY,
     RELEASE_THE_KRAKEN,
