@@ -27,12 +27,12 @@ public class ThreadServer extends Thread {
     
     private String nombre;
     
-    private int cantidadPersonajesCreados = 0;
+    private int personajesCreados = 0;
 
     private boolean isActive = true;
     private boolean haPerdido = false;
     private boolean isRunning = true;
-    
+    private boolean isReady = false; 
     
     
     public ThreadServer(Server server, Socket socket) {
@@ -48,8 +48,6 @@ public class ThreadServer extends Thread {
     }
     
 
-
-    
     public void run(){
         Comando comando;
         
@@ -57,12 +55,9 @@ public class ThreadServer extends Thread {
             try{
                 comando = (Comando)objetoLector.readObject();
                 server.getRefPantalla().writeMessage("ThreadServer recibio: " + comando);
-                if (server.getGestorTurnos().isJuegoActivo()){
-                    comando.procesoPorServer(this);
-                    server.getGestorTurnos().procesarComando(comando, this);
-                } else {
-                    if(isActive) server.ejecutarComando(comando);    
-                }
+                comando.procesoPorServer(this);
+                server.ejecutarComando(comando);;
+                
             } catch (IOException | ClassNotFoundException ex) {
                 manejarDesconexion();
                 break;
@@ -161,4 +156,26 @@ public class ThreadServer extends Thread {
     public void setServer(Server server) {
         this.server = server;
     }
+
+    public void setIsReady(boolean bool) {
+        this.isReady = bool;
+    }
+
+    public boolean getIsReady() {
+        return this.isReady;
+    }
+
+    public int getPersonajesCreados() {
+        return this.personajesCreados;
+    }
+
+    public void aumentarPersonajesCreados() {
+        if (this.personajesCreados < 3) {
+            this.personajesCreados++;
+            return;
+        }
+    }
+
+
+
 }

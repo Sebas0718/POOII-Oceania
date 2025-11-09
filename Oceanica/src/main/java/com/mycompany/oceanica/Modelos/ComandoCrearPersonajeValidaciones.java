@@ -12,23 +12,30 @@ import com.mycompany.Personaje.Personaje;
  * @author xsusk
  */
 public class ComandoCrearPersonajeValidaciones {
+
+
+
     public static boolean validarPorcentajeMapa(Personaje personaje, ComandoCrearPersonaje comando, InterfazPrincipal interfaz){
         if (personaje.getPorcentajeMapa() > 98){
                 ComandoCrearPersonajeErrores.error("!!!ERROR!!!  El maximo a ocupar de un personaje es 98", interfaz.getUsuario(), comando);
                 return false;
             }
-        int porcentajeActual = interfaz.getPorcentajeOcupadoMapa();
-        interfaz.setPorcentajeOcupadoMapa(porcentajeActual += personaje.getPorcentajeMapa());
-        if (interfaz.getPorcentajeOcupadoMapa() > 100){
-            ComandoCrearPersonajeErrores.error("!!!ERROR!!! Se esta ocupando mas del 100% del mapa", interfaz.getUsuario(), comando);
+        if (interfaz.getPorcentajeOcupadoMapa() + personaje.getPorcentajeMapa()> 100){
+            ComandoCrearPersonajeErrores.error("!!!ERROR!!! Se esta ocupando mas del 100% del mapa",
+                    interfaz.getUsuario(), comando);                    
             return false;
+
         }
 
-        if (interfaz.getPorcentajeOcupadoMapa() < 100 && interfaz.getListaPersonajes().size() == 2){
-            ComandoCrearPersonajeErrores.error("!!!ERROR!!! Se esta ocupando menos del 100% del mapa y es el ultimo personaje", interfaz.getUsuario(), comando);
+        if (interfaz.getPorcentajeOcupadoMapa() + personaje.getPorcentajeMapa() < 100 && interfaz.getListaPersonajes().size() == 2) {
+            ComandoCrearPersonajeErrores.error(
+                    "!!!ERROR!!! Se esta ocupando menos del 100% del mapa y es el ultimo personaje",
+                    interfaz.getUsuario(), comando);
             return false;
         }
         
+        int porcentajeActual = interfaz.getPorcentajeOcupadoMapa();
+        interfaz.setPorcentajeOcupadoMapa(porcentajeActual + personaje.getPorcentajeMapa());
         return true;
     }
     

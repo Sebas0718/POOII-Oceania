@@ -109,7 +109,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                     int colorCelda = rand.nextInt(3);
                     switch(colorCelda) {
                         case 0:
-                            if (this.contadorPersonaje1 < 400*0.5){
+                            if (this.contadorPersonaje1 < (400*listaPersonajes.get(0).getPorcentajeMapa())/100){
                                 contadorPersonaje1++;
                                 celdas[fila][columna] = new Celda(nuevoLabel,listaPersonajes.get(0), fila, columna);
                                 nuevoLabel.setBackground(new Color(20,20,200));
@@ -117,7 +117,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                             }
                             break;
                         case 1:
-                            if (this.contadorPersonaje2 < 400*0.3){
+                            if (this.contadorPersonaje2 < (400*listaPersonajes.get(1).getPorcentajeMapa())/100){
                                 contadorPersonaje2++;
                                 celdas[fila][columna] = new Celda(nuevoLabel,listaPersonajes.get(1), fila, columna);
                                 nuevoLabel.setBackground(new Color(200,20,20));
@@ -125,7 +125,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                             }
                             break;
                      case 2:
-                            if (this.contadorPersonaje3 < 400*0.2){
+                            if (this.contadorPersonaje3 < (400*listaPersonajes.get(2).getPorcentajeMapa())/100){
                                 contadorPersonaje3++;
                                 celdas[fila][columna] = new Celda(nuevoLabel,listaPersonajes.get(2), fila, columna);
                                 nuevoLabel.setBackground(new Color(20,200,20));
@@ -186,26 +186,32 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     }
     
     
-    public void crearPersonajes(ComandoCrearPersonaje comando){
-        if (this.listaPersonajes.size() == 3){
-                ComandoCrearPersonajeErrores.error("!!!ERROR!!! Ya se crearon los 3 personajes posibles", this.usuario, comando);
+    public void crearPersonajes(ComandoCrearPersonaje comando) {
+        System.out.println("Mapa antes de: " + porcentajeOcupadoMapa);
+        if (this.listaPersonajes.size() == 3) {
+            ComandoCrearPersonajeErrores.error("!!!ERROR!!! Ya se crearon los 3 personajes posibles", this.usuario,
+                    comando);
         }
-        jPanelPersonajes.setPreferredSize(new Dimension(300,200));
-        for (int i = 0; i < 8; i++){
+        jPanelPersonajes.setPreferredSize(new Dimension(300, 150));
+        for (int i = 0; i < 8; i++) {
             System.out.println(comando.getParametros()[i]);
         }
         Personaje personaje = new Personaje();
         System.out.println("ts1");
-        if (!ComandoCrearPersonajeAsignaciones.asignarValoresPersonaje(comando, personaje, this)){
+        if (!ComandoCrearPersonajeAsignaciones.asignarValoresPersonaje(comando, personaje, this)) {
             return;
         }
-        System.out.println("ts8");
-        System.out.println(personaje);
-        Dimension dimension = new Dimension(60, 60);
+        pintarPersonajes(personaje, comando);
 
+    }
+
+    public void pintarPersonajes(Personaje personaje, Comando comando) {
+
+        Dimension dimension = new Dimension(60, 60);
         JPanel nuevoPersonaje = new JPanel();
+
         nuevoPersonaje.setPreferredSize(dimension);
-        System.out.println("ts9");
+    
         JLabel poder = new JLabel();
         JLabel resistencia = new JLabel();
         JLabel sanidad = new JLabel();
@@ -215,18 +221,16 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         ImageIcon imagen = new ImageIcon(getClass().getResource(comando.getParametros()[3]));
         Image imagenEscalada = imagen.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
         ImageIcon imagenReescalada = new ImageIcon(imagenEscalada);
-        System.out.println("ts10");
+        
         JLabel image = new JLabel(imagenReescalada);
 
-
-        
         nombre.setText(personaje.getNombre());
         tipo.setText("Tipo de Ataque: " + personaje.getTipoPersonaje().toString());
         poder.setText("Poder: " + String.valueOf(personaje.getPoder()));
         resistencia.setText("Resistencia: " + String.valueOf(personaje.getResistencia()));
         sanidad.setText("Sanidad: " + String.valueOf(personaje.getSanidad()));
         porcentajeMapa.setText("Mapa: " + String.valueOf(personaje.getPorcentajeMapa()));
-        System.out.println("ts11");
+        
         nuevoPersonaje.add(nombre);
         nuevoPersonaje.add(tipo);
         nuevoPersonaje.add(poder);
@@ -234,21 +238,21 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         nuevoPersonaje.add(sanidad);
         nuevoPersonaje.add(porcentajeMapa);
         nuevoPersonaje.add(image);
-        System.out.println("ts12");
+        
 
         this.jPanelPersonajes.add(nuevoPersonaje);
         this.listaPersonajes.add(personaje);
         this.usuario.getInterfazPrincipal().writeMessage("Personaje creado con exito\n", comando);
-        
+
         this.jPanelPersonajes.revalidate();
         this.jPanelPersonajes.repaint();
         this.jPanelPersonajes.updateUI();
-        
-        if (this.listaPersonajes.size() == 3){
+
+        if (this.listaPersonajes.size() == 3) {
             this.crearMatriz();
         }
-        System.out.println("ts13");
-}
+
+    }
     
     
     public void atacarCelda(int ataque, Celda celda){
@@ -728,7 +732,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     }
 
     public void setPorcentajeOcupadoMapa(int porcentajeOcupadoMapa) {
-        this.porcentajeOcupadoMapa += porcentajeOcupadoMapa;
+        this.porcentajeOcupadoMapa = porcentajeOcupadoMapa;
     }
 
     public int getContadorPersonaje1() {

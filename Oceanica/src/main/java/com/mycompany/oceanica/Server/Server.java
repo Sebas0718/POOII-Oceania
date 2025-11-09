@@ -36,49 +36,106 @@ public class Server {
     private GestorTurnos gestorTurnos;
 
     public Server(PantallaServer refPantalla) {
-        usuariosConectados = new ArrayList<ThreadServer>();
+        this.usuariosConectados = new ArrayList<ThreadServer>();
         this.refPantalla = refPantalla;
         this.gestorTurnos = new GestorTurnos(this);
-        this.init();
-        connexionesThread = new ThreadConexiones(this);
-        connexionesThread.start();
-    }
 
-    private void init() {
+        // Inicializar el servidor directamente aquí
         try {
             server = new ServerSocket(PORT);
-            refPantalla.writeMessage("El servidor esta corriendo");
+            refPantalla.writeMessage("El servidor esta corriendo en puerto " + PORT);
+
+            // Iniciar el thread de conexiones
+            connexionesThread = new ThreadConexiones(this);
+            connexionesThread.start();
         } catch (IOException ex) {
-            refPantalla.writeMessage("Error: " + ex.getMessage());
+            refPantalla.writeMessage("Error iniciando servidor: " + ex.getMessage());
         }
     }
 
+    //#######################################################################################
+
+    
     public void conectarServer() {
-
         try {
+            if (server != null && !server.isClosed()) {
+                server.close();
+            }
             server = new ServerSocket(PORT);
+            refPantalla.writeMessage("Servidor reconectado en puerto " + PORT);
         } catch (IOException ex) {
-            System.getLogger(Server.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            refPantalla.writeMessage("Error reconectando servidor: " + ex.getMessage());
         }
     }
+
+
+    //#######################################################################################
 
     public void ejecutarComando(Comando comando) {
+        // Solo procesar NOMBRE si el usuario no tiene nombre
+        if (comando.getTipo() == TiposComandos.NOMBRE) {
+            broadcast(comando);
+            return;
+        }
 
+        // Para otros comandos, el usuario debe tener nombre
+        ThreadServer jugador = buscarJugador(comando.getNombre());
+        if (jugador == null) {
+            refPantalla.writeMessage("Error: comando de usuario desconocido");
+            return;
+        }
 
+        // Comandos de juego
         if (gestorTurnos.isJuegoActivo()) {
             ThreadServer jugadorActual = gestorTurnos.getJugadorActual();
-            gestorTurnos.procesarComando(comando, jugadorActual);
-        } else {
-            if (comando.isInfo()){
-            this.comandInfo(comando);
+
+            // Validar turno para comandos que lo requieren
+            if (requiresTurno(comando.getTipo()) && jugador != jugadorActual) {
+                refPantalla.writeMessage("Error: no es el turno de " + jugador.getNombre());
+                return;
             }
-            else if (comando.isIsBroadcast()) {
-                this.broadcast(comando);
+
+            // Procesar comando
+            if (comando.isInfo()) {
+                comandInfo(comando);
+            } else if (comando.isIsBroadcast()) {
+                broadcast(comando);
             } else {
-                this.sendPrivate(comando);
+                sendPrivate(comando);
+                if (requiresTurno(comando.getTipo())) {
+                    gestorTurnos.siguienteTurno();
+                }
             }
         }
+        // Si el juego no está activo, solo permitir comandos básicos
+        else if (comando.getTipo() == TiposComandos.INICIAR) {
+            gestorTurnos.iniciarJuego();
+        } else if (comando.isIsBroadcast()) {
+            System.out.println("TS04");
+            broadcast(comando);
+        } else if (comando.isInfo()) {
+            comandInfo(comando);
+        }
     }
+    
+    //#######################################################################################
+
+    private ThreadServer buscarJugador(String nombre) {
+        for (ThreadServer jugador : usuariosConectados) {
+            if (jugador.getNombre() != null && jugador.getNombre().equals(nombre)) {
+                return jugador;
+            }
+        }
+        return null;
+    }
+//#######################################################################################
+
+    private boolean requiresTurno(TiposComandos tipo) {
+        return tipo == TiposComandos.ATAQUE ||
+                tipo == TiposComandos.SALTAR;
+    }
+
+//#######################################################################################
 
     public void broadcast(Comando comando) {
         for (ThreadServer usuario : usuariosConectados) {
@@ -90,54 +147,49 @@ public class Server {
         }
 
     }
-
-    public void sendPrivate(Comando comando) {
-        //asumo que el nombre del cliente viene en la posición 1 .  private_message Andres "Hola"
-            } catch (IOException ex) {   
-            }
-        }
-
-    }
+    //#######################################################################################
     
-    public void comandInfo(Comando comando){
+    public void comandInfo(Comando comando) {
         if (comando.getParametros().length < 1)
             return;
         String nombre = comando.getNombre();
         for (ThreadServer usuario : usuariosConectados) {
-            if (usuario.getNombre().equals(nombre)){
+            if (usuario.getNombre().equals(nombre)) {
                 try {
-                     if (comando.getTipo().equals(TiposComandos.USUARIOS)) {
-                    // Construir una lista con los nombres de todos los conectados
-                    List<String> nombres = new ArrayList<>();
-                    for (ThreadServer usuarioActual : usuariosConectados) {
-                        nombres.add(usuarioActual.getNombre());
+                    if (comando.getTipo().equals(TiposComandos.USUARIOS)) {
+                        // Construir una lista con los nombres de todos los conectados
+                        List<String> nombres = new ArrayList<>();
+                        for (ThreadServer usuarioActual : usuariosConectados) {
+                            nombres.add(usuarioActual.getNombre());
+                        }
+
+                        // Convertir la lista a un arreglo para el comando
+                        String[] parametros = new String[nombres.size()];
+                        parametros = nombres.toArray(parametros);
+
+                        // Crear un nuevo comando con esa información
+                        ComandoUsuarios respuesta = new ComandoUsuarios(parametros, nombre);
+
+                        // Enviar la respuesta al cliente
+                        usuario.getObjetoEscritor().writeObject(respuesta);
+                        usuario.getObjetoEscritor().flush();
+                    } else {
+                        // Enviar cualquier otro comando normalmente
+                        usuario.getObjetoEscritor().writeObject(comando);
+                        usuario.getObjetoEscritor().flush();
                     }
-
-                    // Convertir la lista a un arreglo para el comando
-                    String[] parametros = new String[nombres.size()];
-                    parametros = nombres.toArray(parametros);
-
-                    // Crear un nuevo comando con esa información
-                    ComandoUsuarios respuesta = new ComandoUsuarios(parametros, nombre);
-
-                    // Enviar la respuesta al cliente
-                    usuario.getObjetoEscritor().writeObject(respuesta);
-                    usuario.getObjetoEscritor().flush();
-                } else {
-                    // Enviar cualquier otro comando normalmente
-                    usuario.getObjetoEscritor().writeObject(comando);
-                    usuario.getObjetoEscritor().flush();
-                }
-                break;
+                    break;
                 } catch (IOException ex) {
-                
+
                 }
             }
         }
     }
     
+    //#######################################################################################
     
-    public void sendPrivate(Comando comando){
+    
+    public void sendPrivate(Comando comando) {
         if (comando.getParametros().length <= 1)
             return;
 
@@ -147,7 +199,7 @@ public class Server {
             if (usuario.getNombre().equals(searchName)) {
                 try {
                     usuario.getObjetoEscritor().writeObject(comando);
-                    if (comando.getTipo().equals(TiposComandos.RENDIRSE)){
+                    if (comando.getTipo().equals(TiposComandos.RENDIRSE)) {
                         usuario.setIsActive(false);
                         usuariosConectados.remove(usuario);
                     }
@@ -158,6 +210,8 @@ public class Server {
             }
         }
     }
+    
+    //#######################################################################################
 
     public void showAllNames() {
         this.refPantalla.writeMessage("Usuarios conectados");
@@ -165,6 +219,9 @@ public class Server {
             this.refPantalla.writeMessage(client.getNombre());
         }
     }
+
+
+    //#######################################################################################
 
     public PantallaServer getRefPantalla() {
         return refPantalla;
