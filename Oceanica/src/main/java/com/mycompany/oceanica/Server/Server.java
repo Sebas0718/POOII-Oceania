@@ -99,10 +99,17 @@ public class Server {
 
             // Procesar comando
             if (comando.isInfo()) {
+                System.out.println("TS035");
                 comandInfo(comando);
+                System.out.println("TS040");
+                return;
             } else if (comando.isIsBroadcast()) {
+                System.out.println("TS045");
                 broadcast(comando);
+                System.out.println("TS050");
+                return;
             } else {
+                System.out.println("TS055");
                 sendPrivate(comando);
                 if (requiresTurno(comando.getTipo())) {
                     gestorTurnos.siguienteTurno();

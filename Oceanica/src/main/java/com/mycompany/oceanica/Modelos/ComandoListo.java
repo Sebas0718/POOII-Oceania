@@ -22,9 +22,13 @@ public class ComandoListo extends Comando {
         this.setInfo(false);
         this.setIsBroadcast(true);
         threadServidor.setIsReady(true);
-        System.out.println("TS010: COMANDO LISTO");
-        threadServidor.getServer().getGestorTurnos().agregarJugador(threadServidor);
-        threadServidor.getServer().getGestorTurnos().iniciarJuego();
+        
+        if (threadServidor.getPersonajesCreados() == 3) {
+            threadServidor.getServer().getGestorTurnos().agregarJugador(threadServidor);
+            threadServidor.getServer().getGestorTurnos().iniciarJuego();
+            return;
+        } 
+        threadServidor.getServer().getRefPantalla().writeMessage(getNombre() + " no puede iniciar, no ha creado todos los personajes");
     }
 
     @Override
