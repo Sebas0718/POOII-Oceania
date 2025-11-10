@@ -650,7 +650,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                     if (personajeActual == null){
                         comando = ComandoFabrica.getComando(args,usuario.getNombre());
                     }
-                    comando = ComandosAtaquesFabrica.getComandoAtaque(args,usuario.getNombre(), personajeActual);
+                    comando = ComandosAtaquesFabrica.getComandoAtaque(args,usuario.getNombre(),this);
                 }
                 else{
                 comando = ComandoFabrica.getComando(args,usuario.getNombre());

@@ -33,10 +33,11 @@ public class ComandosAtaquesFabrica {
                 switch (ataque) {
                     case "THREE_LINES":
                         if (TiposAtaques.THREE_LINES.getParametrosRequeridos() < args.length){
-                            
                             return new ComandoError(args, nombre);
                         }
-                        
+                        if (!ComandoAtaqueValidacion.fueraDeAlcanceXY(Integer.parseInt(args[4]), Integer.parseInt(args[5])) || !ComandoAtaqueValidacion.fueraDeAlcanceXY(Integer.parseInt(args[6]), Integer.parseInt(args[7])) || !ComandoAtaqueValidacion.fueraDeAlcanceXY(Integer.parseInt(args[8]), Integer.parseInt(args[9]))){
+                                return new ComandoError(args, nombre);
+                            }
                         comando = new ComandoAtaque(args, nombre);
                         poseidon.ataqueThreeLines(interfaz, (ComandoAtaque) comando);
                         return comando;
@@ -44,13 +45,16 @@ public class ComandosAtaquesFabrica {
                         if (TiposAtaques.THREE_NUMBERS.getParametrosRequeridos() < args.length){
                             return new ComandoError(args, nombre);
                         }
-                        
+                        if (!ComandoAtaqueValidacion.fueraDeAlcanceThreeNumbers(Integer.parseInt(args[4]),Integer.parseInt(args[5]),Integer.parseInt(args[6]))){
+                                return new ComandoError(args, nombre);
+                            }
                         comando = new ComandoAtaque(args, nombre);
                         poseidon.ataqueThreeNumbers(interfaz, (ComandoAtaque) comando);
                         return comando;
                     case "CONTROL_THE_KRAKEN":
-                        if (TiposAtaques.CONTROL_THE_KRAKEN.getParametrosRequeridos() < args.length)
+                        if (TiposAtaques.CONTROL_THE_KRAKEN.getParametrosRequeridos() < args.length){
                             return new ComandoError(args, nombre);
+                        }
                         comando = new ComandoAtaque(args, nombre);
                         poseidon.ataqueControlTheKraken(interfaz, (ComandoAtaque) comando);
                         return comando;
@@ -58,19 +62,25 @@ public class ComandosAtaquesFabrica {
                         return new ComandoError(args, nombre);
                 }
 
-            case "RELEASE_KRAKEN": // o "RELEASE_THE_KRAKEN_TYPE" según tu nomenclatura
+            case "RELEASE_KRAKEN":
                 ReleaseTheKraken kraken = new ReleaseTheKraken(TipoPersonaje.RELEASE_THE_KRAKEN);
                 switch (ataque) {
                     case "TENTACULOS":
-                        if (TiposAtaques.TENTACULOS.getParametrosRequeridos() < args.length)
+                        if (TiposAtaques.TENTACULOS.getParametrosRequeridos() < args.length){
                             return new ComandoError(args, nombre);
+                        }
+                        if (!ComandoAtaqueValidacion.fueraDeAlcanceXY(Integer.parseInt(args[4]), Integer.parseInt(args[5])) || !ComandoAtaqueValidacion.fueraDeAlcanceXY(Integer.parseInt(args[6]), Integer.parseInt(args[7])) || !ComandoAtaqueValidacion.fueraDeAlcanceXY(Integer.parseInt(args[8]), Integer.parseInt(args[9]))){
+                                return new ComandoError(args, nombre);
+                        }
                         comando = new ComandoAtaque(args, nombre);
                         kraken.ataqueTentaculos(interfaz, (ComandoAtaque) comando);
                         return comando;
                     case "KRAKEN_BREATH":
                         if (TiposAtaques.KRAKEN_BREATH.getParametrosRequeridos() < args.length)
                             return new ComandoError(args, nombre);
-                        
+                        if (!ComandoAtaqueValidacion.fueraDeAlcanceXY(Integer.parseInt(args[4]), Integer.parseInt(args[5]))){
+                            return new ComandoError(args, nombre);
+                        }
                         comando = new ComandoAtaque(args, nombre);
                         kraken.ataqueKrakenBreath(interfaz, (ComandoAtaque) comando);
                         return comando;

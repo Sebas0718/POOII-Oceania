@@ -13,6 +13,7 @@ import com.mycompany.Personaje.Personaje;
 import com.mycompany.Personaje.TipoPersonaje;
 import com.mycompany.oceanica.Modelos.Comando;
 import com.mycompany.oceanica.Modelos.ComandoAtaque;
+import com.mycompany.oceanica.Modelos.ComandoAtaqueValidacion;
 
 /**
  *
@@ -40,28 +41,21 @@ public class ReleaseTheKraken extends Personaje{
     public void ataqueTentaculos(InterfazPrincipal interfazPrincipal, ComandoAtaque comando) {
             
         Celda[][] celdas = interfazPrincipal.getCeldas();
-        for (int i = 0; i < celdas.length; i++){
-            for (int j = 0; j < celdas[0].length; j++){
-
-                if (fila == i && columna == j){
-                    celdas[i][j].recibirAtaqueDirecto(100);
-                }
-
-                if (Math.abs(fila-i) == 1 && Math.abs(columna-j) == 1){
-                    celdas[i][j].recibirAtaqueDirecto(100);
-                    }
-                }
-            }
+        String[] args = comando.getParametros();
+        int tentaculox1 = Integer.parseInt(args[4]);
+        int tentaculox2 = Integer.parseInt(args[6]);
+        int tentaculox3 = Integer.parseInt(args[8]);
+        int tentaculoy1 = Integer.parseInt(args[5]);
+        int tentaculoy2 = Integer.parseInt(args[7]);
+        int tentaculoy3 = Integer.parseInt(args[9]);
+        
+        aplicarAtaqueTentaculo(celdas, tentaculox1, tentaculoy1);
+        aplicarAtaqueTentaculo(celdas, tentaculox2, tentaculoy2);
+        aplicarAtaqueTentaculo(celdas, tentaculox3, tentaculoy3);
+        
     }
         
-        /* 
-        Kraken Breath: se selecciona una
-        casilla donde el Kraken lanza su
-        aliento hacia una dirección: arriba,
-        abajo, derecha, izquierda. El aliento
-        destruye entre 1 y 8 casillas en esa
-        dirección
-        */
+        
     public void ataqueKrakenBreath(InterfazPrincipal interfazPrincipal,  ComandoAtaque comando){
     
         direccion = direccion.trim().toLowerCase();
@@ -146,6 +140,17 @@ public class ReleaseTheKraken extends Personaje{
         this.ataques = ataques;
     }
 
-    
+    private void aplicarAtaqueTentaculo(Celda[][] celdas, int x, int y) {
+    for (int dx = -1; dx <= 1; dx++) {
+        for (int dy = -1; dy <= 1; dy++) {
+            int nx = x + dx;
+            int ny = y + dy;
+
+            if (ComandoAtaqueValidacion.fueraDeAlcanceXY(nx, ny)) {
+                celdas[nx][ny].recibirAtaqueDirecto(100);
+            }
+        }
+    }
+}
     
 }
