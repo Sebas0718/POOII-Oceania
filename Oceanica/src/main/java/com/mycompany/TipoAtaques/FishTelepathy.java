@@ -18,16 +18,16 @@ import java.util.Random;
 
 
 
-public class FishTelepathy extends Personaje{
+public class FishTelepathy extends Ataque {
     
     private String[] ataques = new String[3];
    
+    private boolean requiereCoordenadas = false;
 
     public FishTelepathy(TipoPersonaje tipoPersonaje) {
-        super(tipoPersonaje);
-        this.ataques[0] = "Cardumen";
-        this.ataques[1] = "Shark_attack";
-        this.ataques[2] = "Pulp";
+        this.ataques[0] = "CARDUMEN";
+        this.ataques[1] = "SHARK_ATTACK";
+        this.ataques[2] = "PULP";
     }
 
     public String[] getAtaques() {

@@ -153,6 +153,21 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     }
 
 
+    public void actualizarInterfaz(){
+
+        for (int i = 0; i < celdas.length; i++){
+            for (int j = 0; j < celdas[0].length; j++){
+                if (celdas[i][j].getVida() <= 0){
+                    celdas[i][j].getRefLabel().setBackground(new Color(0,0,0));
+                }
+            }
+        }
+        llenarPanelStats();
+
+
+    }
+
+
     
     public void crearMatriz() {
         jPanelTablero.setLayout(new GridLayout(20, 20, 2, 2)); // Distribuir 20x20
@@ -267,8 +282,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         for (int i = 0; i < 8; i++) {
             System.out.println(comando.getParametros()[i]);
         }
-        System.out.println("TS05");
-        Personaje personaje = TipoPersonajeFabrica.getTipoPersonaje(comando.getParametros()[1]);
+        Personaje personaje = new Personaje(TipoPersonajeFabrica.getTipoPersonaje(comando.getParametros()[1]));
 
         if (personaje == null || personaje.getTipoPersonaje().equals(null))
 
@@ -277,7 +291,6 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                     comando);
                 return ;
             }
-        System.out.println("ts1");
         if (!ComandoCrearPersonajeAsignaciones.asignarValoresPersonaje(comando, personaje, this)) {
             return;
         }
@@ -375,8 +388,8 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     }
     
     
-    public void atacarCelda(int ataque, Celda celda){
-        celda.recibirAtaqueDirecto(ataque);
+    public void atacarCelda(Usuario usuarioAtacante, int ataque, Celda celda){
+        celda.recibirAtaque(usuarioAtacante, ataque);
     }
     
 
@@ -781,7 +794,6 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     //#########################################################################################3
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
-        System.out.println("Entro aqui");
         String msg = txfComando.getText().trim();
         if (msg.length() > 0){
             String args[] = ComandoUtilidad.tokenizerArgs(msg);
@@ -789,7 +801,6 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                 Comando comando = ComandoFabrica.getComando(args,usuario.getNombre());
                 if (comando != null){
                     try {
-                        System.out.println("TS01: BTN ENVIAR");
                         usuario.getObjetoEscritor().writeObject(comando);
                     } catch (IOException ex){
                     

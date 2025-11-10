@@ -70,10 +70,10 @@ public class ThreadServer extends Thread {
         
         server.getRefPantalla().writeMessage("Usuario" + nombre + " se ha desconectado");
 
-        server.getUsuariosConectados().remove(this);
+        server.getThreadsConectados().remove(this);
         
         server.getRefPantalla().getLblJugadoresConectados().setText(
-            server.getUsuariosConectados().size() + "/4 Jugadores conectados"
+            server.getThreadsConectados().size() + "/4 Jugadores conectados"
         );
 
         if (server.getGestorTurnos().isJuegoActivo()) {

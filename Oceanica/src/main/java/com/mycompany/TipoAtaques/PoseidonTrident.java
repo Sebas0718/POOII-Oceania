@@ -15,7 +15,7 @@ import com.mycompany.Personaje.TipoPersonaje;
  *
  * @author seb
  */
-public class PoseidonTrident extends Personaje {
+public class PoseidonTrident extends Ataque{
 
     /* 
      * Three lines: selecciona 3 puntos en el mapa. En cada punto destruye lo que esté de 1 a 4
@@ -23,10 +23,9 @@ public class PoseidonTrident extends Personaje {
     */
     private String[] ataques = new String[3];
     public PoseidonTrident(TipoPersonaje tipoPersonaje) {
-        super(tipoPersonaje);
-        this.ataques[0] = "Three_lines";
-        this.ataques[1] = "Three_numbers";
-        this.ataques[2] = "Control_the_kraken";
+        this.ataques[0] = "THREE_LINES";
+        this.ataques[1] = "THREE_NUMBERS";
+        this.ataques[2] = "CONTROL_THE_KRAKEN";
     }
 
     public String[] getAtaques() {

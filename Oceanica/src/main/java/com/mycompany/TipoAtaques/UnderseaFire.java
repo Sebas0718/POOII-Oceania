@@ -11,16 +11,17 @@ import com.mycompany.Personaje.TipoPersonaje;
  *
  * @author seb
  */
-public class UnderseaFire extends Personaje{
+public class UnderseaFire extends Ataque{
     
     private String[] ataques = new String[3];
     
     public UnderseaFire(TipoPersonaje tipoPersonaje) {
-        super(tipoPersonaje);
-        this.ataques[0] = "Thunder_rain";
-        this.ataques[1] = "Poseidon_thunders";
-        this.ataques[2] = "Eel_atack";
+        this.ataques[0] = "VOLCANO_RAISING";
+        this.ataques[1] = "VOLCANO_EXPLOSION";
+        this.ataques[2] = "TERMAL_RUSH";
     }
+
+    
 
     public String[] getAtaques() {
         return ataques;

@@ -13,6 +13,7 @@ import com.mycompany.oceanica.Usuario.Usuario;
  */
 public class ComandoAtaque extends Comando {
 
+
     public ComandoAtaque(String[] args, String nombre) {
         super(TiposComandos.ATAQUE, args, nombre);
     }
@@ -23,11 +24,18 @@ public class ComandoAtaque extends Comando {
     public void procesoPorServer(ThreadServer threadServidor) {
         this.setInfo(false);
         this.setIsBroadcast(false);
+        if (threadServidor.getServer().getGestorAtaques().buscarUsuario(this.getParametros()[1])!=null) {
+            System.out.println("TS50: Entro a procesoPorServer");
+            Usuario usuarioAtacante = threadServidor.getServer().getGestorAtaques().buscarUsuario(threadServidor.getNombre());
+            Usuario usuarioVictima = threadServidor.getServer().getGestorAtaques().buscarUsuario(this.getParametros()[1]);
+            threadServidor.getServer().getGestorAtaques().atacarUsuario(this, usuarioAtacante, usuarioVictima);
+        }
     }
 
     @Override
     public void procesoEnUsuario(Usuario usuario) {
             usuario.getInterfazPrincipal().writeMessage("Conectado el cliente: " + this.getParametros()[1], this);
+            usuario.getInterfazPrincipal().actualizarInterfaz();
 }
     
 }
