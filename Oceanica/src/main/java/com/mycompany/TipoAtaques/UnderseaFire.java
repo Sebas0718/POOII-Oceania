@@ -4,8 +4,10 @@
  */
 package com.mycompany.TipoAtaques;
 
+import com.mycompany.Interfaz.InterfazPrincipal;
 import com.mycompany.Personaje.Personaje;
 import com.mycompany.Personaje.TipoPersonaje;
+import com.mycompany.oceanica.Modelos.ComandoAtaque;
 
 /**
  *
@@ -22,6 +24,18 @@ public class UnderseaFire extends Personaje{
         this.ataques[2] = "Eel_atack";
     }
 
+    public void ataqueThunderRain(InterfazPrincipal interfaz, ComandoAtaque comando){
+    
+    }
+    
+    public void ataquePoseidonThunders(InterfazPrincipal interfaz, ComandoAtaque comando){
+        
+    }
+    
+    public void ataqueEelAtack(InterfazPrincipal interfaz, ComandoAtaque comando){
+        
+    }
+    
     public String[] getAtaques() {
         return ataques;
     }

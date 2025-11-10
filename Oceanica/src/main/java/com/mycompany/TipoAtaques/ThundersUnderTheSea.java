@@ -4,8 +4,10 @@
  */
 package com.mycompany.TipoAtaques;
 
+import com.mycompany.Interfaz.InterfazPrincipal;
 import com.mycompany.Personaje.Personaje;
 import com.mycompany.Personaje.TipoPersonaje;
+import com.mycompany.oceanica.Modelos.ComandoAtaque;
 
 /**
  *
@@ -21,7 +23,19 @@ public class ThundersUnderTheSea extends Personaje{
         this.ataques[1] = "Volcano_explosion";
         this.ataques[2] = "Termal_rush";
     }
-
+    
+    public void ataqueVolcanoRaising(InterfazPrincipal interfaz, ComandoAtaque comando){
+    
+    }
+    
+    public void ataqueVolcanoExplosion(InterfazPrincipal interfaz, ComandoAtaque comando){
+    
+    }
+    
+    public void ataqueTermalRush(){
+    
+    }
+    
     public String[] getAtaques() {
         return ataques;
     }

@@ -29,7 +29,7 @@ public enum TiposComandos {
     PINTAR_VIVAS(1),
     AYUDA(1),
     USUARIOS(1);
-    //Estos son ejemplos, si faltan se agregan mas comandos
+    
     
     private int ParametrosRequeridos;
 

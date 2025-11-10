@@ -4,8 +4,10 @@
  */
 package com.mycompany.TipoAtaques;
 
+import com.mycompany.Interfaz.InterfazPrincipal;
 import com.mycompany.Personaje.Personaje;
 import com.mycompany.Personaje.TipoPersonaje;
+import com.mycompany.oceanica.Modelos.ComandoAtaque;
 
 /**
  *
@@ -21,7 +23,19 @@ public class WavesControl extends Personaje{
         this.ataques[1] = "Send_human_garbage";
         this.ataques[2] = "Radioactive_rush";
     }
+    
+    public void ataqueSwirlRaising(InterfazPrincipal interfaz, ComandoAtaque comando){
+        
+    }
 
+    public void ataqueSendHumanGarbage(InterfazPrincipal interfaz, ComandoAtaque comando){
+        
+    }
+    
+    public void ataqueRadioactiveRush(InterfazPrincipal interfaz, ComandoAtaque comando){
+    
+    }
+    
     public String[] getAtaques() {
         return ataques;
     }

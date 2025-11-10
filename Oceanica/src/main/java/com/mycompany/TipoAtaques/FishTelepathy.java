@@ -8,6 +8,7 @@ import com.mycompany.Interfaz.Celda;
 import com.mycompany.Interfaz.InterfazPrincipal;
 import com.mycompany.Personaje.Personaje;
 import com.mycompany.Personaje.TipoPersonaje;
+import com.mycompany.oceanica.Modelos.ComandoAtaque;
 import java.util.List;
 import java.util.Random;
 
@@ -28,6 +29,19 @@ public class FishTelepathy extends Personaje{
         this.ataques[0] = "Cardumen";
         this.ataques[1] = "Shark_attack";
         this.ataques[2] = "Pulp";
+    }
+    
+    
+    public void ataqueCardumen (InterfazPrincipal interfaz, ComandoAtaque comando){
+        
+    }
+    
+    public void ataqueSharkAttack(InterfazPrincipal interfaz, ComandoAtaque comando){
+    
+    }
+    
+    public void ataquePulp(InterfazPrincipal interfaz, ComandoAtaque comando){
+    
     }
 
     public String[] getAtaques() {

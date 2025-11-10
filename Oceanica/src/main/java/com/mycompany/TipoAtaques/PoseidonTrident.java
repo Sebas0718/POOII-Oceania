@@ -10,6 +10,7 @@ import com.mycompany.Interfaz.Celda;
 import com.mycompany.Interfaz.InterfazPrincipal;
 import com.mycompany.Personaje.Personaje;
 import com.mycompany.Personaje.TipoPersonaje;
+import com.mycompany.oceanica.Modelos.ComandoAtaque;
 
 /**
  *
@@ -28,7 +29,20 @@ public class PoseidonTrident extends Personaje {
         this.ataques[1] = "Three_numbers";
         this.ataques[2] = "Control_the_kraken";
     }
-
+    
+    
+    public void ataqueThreeLines(InterfazPrincipal interfaz, ComandoAtaque comando){
+        
+    }
+    
+    public void ataqueThreeNumbers(InterfazPrincipal interfaz, ComandoAtaque comando){
+    
+    }
+    
+    public void ataqueControlTheKraken(InterfazPrincipal interfaz, ComandoAtaque comando){
+    
+    }
+    
     public String[] getAtaques() {
         return ataques;
     }
