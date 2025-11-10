@@ -57,54 +57,46 @@ public class ReleaseTheKraken extends Personaje{
         
         
     public void ataqueKrakenBreath(InterfazPrincipal interfazPrincipal,  ComandoAtaque comando){
-    
-        direccion = direccion.trim().toLowerCase();
+        String[] args = comando.getParametros();
+        int alientox = Integer.parseInt(args[4]);
+        int alientoy = Integer.parseInt(args[5]);
         Random rand = new Random();
         int cantCasillasAtacadas = rand.nextInt(8) + 1;
+        rand = new Random();
+        int direccion = rand.nextInt(4) + 1;
         Celda[][] celdas = interfazPrincipal.getCeldas();
-        int i = 0;
-        while(i < cantCasillasAtacadas){
-            switch (direccion) {
-                case "abajo":
-                    if (fila + i < 20) {
-                        celdas[fila + i][columna].recibirAtaqueDirecto(100);
+        switch (direccion){
+            case 1: //Abajo
+                for (int i = 0; i < cantCasillasAtacadas; i++){
+                    if (ComandoAtaqueValidacion.fueraDeAlcanceXY(alientox + i, alientoy)) {
+                        celdas[alientox + i][alientoy].recibirAtaqueDirecto(100);
                     }
-                    i++;
-                    break;
-                case "arriba":
-                    if (fila- i >= 0) {
-                        celdas[fila - i][columna].recibirAtaqueDirecto(100);
-                    }
-                    i++;
-                    break;
-                case "izquierda":
-                    if (columna - i >= 0) {
-                        celdas[fila][columna - i].recibirAtaqueDirecto(100);
-                    }
-                    i++;
-                    break;
-
-                case "derecha":
-                if (columna + i < 20) {
-                        celdas[fila][columna+i].recibirAtaqueDirecto(100);
-                    }
-                    i++;    
+                }
                 break;
-            default:
-                System.out.println("ERROR500: ATAQUEKRAKENBREATH DIRECCION INVALIDA");
-                    break;
-            }
+            case 2: //Arriba
+                for (int i = 0; i < cantCasillasAtacadas; i++){
+                    if (ComandoAtaqueValidacion.fueraDeAlcanceXY(alientox - i, alientoy)) {
+                        celdas[alientox - i][alientoy].recibirAtaqueDirecto(100);
+                    }
+                }
+                break;
+            case 3: //Derecha
+                for (int i = 0; i < cantCasillasAtacadas; i++){
+                    if (ComandoAtaqueValidacion.fueraDeAlcanceXY(alientox, alientoy + i)) {
+                        celdas[alientox][alientoy + i].recibirAtaqueDirecto(100);
+                    }
+                }
+                break;
+            case 4: //Izquierda
+                for (int i = 0; i < cantCasillasAtacadas; i++){
+                    if (ComandoAtaqueValidacion.fueraDeAlcanceXY(alientox, alientoy - i)) {
+                        celdas[alientox][alientoy - i].recibirAtaqueDirecto(100);
+                    }
+                }
+                break;
         }
+    }
     
-    };  
-    
-    /*
-     * Release the Kraken: el Kraken
-     * aparece en un punto del mapa y
-     * destruye todo en un radio de 
-     * 1,2,3,4,5,6,7,8,9 casillas.
-     * 
-     */
     public void ataqueReleaseTheKraken(InterfazPrincipal interfazPrincipal,  ComandoAtaque comando) {
     
 
@@ -153,4 +145,5 @@ public class ReleaseTheKraken extends Personaje{
     }
 }
     
+
 }
