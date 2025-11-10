@@ -17,19 +17,25 @@ import com.mycompany.oceanica.Modelos.ComandoFabrica;
 import com.mycompany.oceanica.Modelos.ComandoUtilidad;
 import com.mycompany.oceanica.Server.PantallaServer;
 import com.mycompany.oceanica.Usuario.Usuario;
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -67,21 +73,86 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     
     /**
      * Creates new form InterfazPrincipal
-     */
+        */
     public InterfazPrincipal() {
-        initComponents();
-        llenarStats();
-        jPanelPersonajes.setLayout(new BoxLayout(jPanelPersonajes, BoxLayout.Y_AXIS));
-        while(true){
-            String name = JOptionPane.showInputDialog(this, "Ingrese su nombre");
-            if (name.length()>0){
-                this.setTitle(name);
-                usuario = new Usuario(this, name);
-                break;
+        
+        
+       initComponents(); 
+       llenarStats();
+       jPanelPersonajes.setLayout(new BoxLayout(jPanelPersonajes, BoxLayout.Y_AXIS));
+
+       this.revalidate();
+       this.repaint();
+       while (true) {
+           String name = JOptionPane.showInputDialog(this, "Ingrese su nombre");
+           if (name != null && name.length() > 0) {
+               this.setTitle(name);
+               usuario = new Usuario(this, name);
+               break;
+           }
+       }
+   }
+    
+    public void llenarPanelStats() {
+
+        Personaje personaje1 = listaPersonajes.get(0);
+        Personaje personaje2 = listaPersonajes.get(1);
+        Personaje personaje3 = listaPersonajes.get(2);
+        
+        jLabelNombrePersonaje1.setText(personaje1.getNombre());
+        jLabelNombrePersonaje2.setText(personaje2.getNombre());
+        jLabelNombrePersonaje3.setText(personaje3.getNombre());
+
+
+
+        int casillasVivasPersonaje1 = obtenerCasillasVivasPersonaje(personaje1) ;
+        int casillasVivasPersonaje2 = obtenerCasillasVivasPersonaje(personaje2);
+        int casillasVivasPersonaje3 =  obtenerCasillasVivasPersonaje(personaje3);
+        
+        int cantidadTotalCasillasP1 = (400 * personaje1.getPorcentajeMapa()) / 100;
+        int cantidadTotalCasillasP2 = (400 * personaje2.getPorcentajeMapa()) / 100;
+        int cantidadTotalCasillasP3 = (400 * personaje3.getPorcentajeMapa()) / 100;
+
+        jLabelPorcentajeOcupadoPersonaje1.setText(((100*casillasVivasPersonaje1)/cantidadTotalCasillasP1) + "%");
+        jLabelPorcentajeOcupadoPersonaje2.setText(((100*casillasVivasPersonaje2)/cantidadTotalCasillasP2) + "%");
+        jLabelPorcentajeOcupadoPersonaje3.setText(((100*casillasVivasPersonaje3)/cantidadTotalCasillasP3) + "%");
+
+        jLabelCasillasOcupadasPersonaje1
+                .setText(casillasVivasPersonaje1 + " de " + cantidadTotalCasillasP1+ " casillas");
+        jLabelCasillasOcupadasPersonaje2
+                .setText(casillasVivasPersonaje2 + " de " + cantidadTotalCasillasP2+ " casillas");
+        jLabelCasillasOcupadasPersonaje3
+                .setText(casillasVivasPersonaje3 + " de " + cantidadTotalCasillasP3 + " casillas");
+                
+        jLabelNombrePersonaje1.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabelNombrePersonaje2.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabelNombrePersonaje3.setHorizontalAlignment(SwingConstants.CENTER);
+
+        jLabelPorcentajeOcupadoPersonaje1.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabelPorcentajeOcupadoPersonaje2.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabelPorcentajeOcupadoPersonaje3.setHorizontalAlignment(SwingConstants.CENTER);
+
+        jLabelCasillasOcupadasPersonaje1.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabelCasillasOcupadasPersonaje2.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabelCasillasOcupadasPersonaje3.setHorizontalAlignment(SwingConstants.CENTER);
+
+
+    }
+    
+    public int obtenerCasillasVivasPersonaje(Personaje personaje) {
+        int cantidad = 0;
+        for (int i = 0; i < celdas.length; i++) {
+            for (int j = 0; j < celdas[0].length; j++) {
+                Celda celda = celdas[i][j];
+                if (celda.getPersonajeDueño() == personaje && !celda.isIsCeldaDestruida()) {
+                    cantidad++;
+                }
             }
         }
-        
+        return cantidad;
     }
+
+
     
     public void crearMatriz() {
         jPanelTablero.setLayout(new GridLayout(20, 20, 2, 2)); // Distribuir 20x20
@@ -192,7 +263,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             ComandoCrearPersonajeErrores.error("!!!ERROR!!! Ya se crearon los 3 personajes posibles", this.usuario,
                     comando);
         }
-        jPanelPersonajes.setPreferredSize(new Dimension(300, 150));
+        jPanelPersonajes.setPreferredSize(new Dimension(320, 150));
         for (int i = 0; i < 8; i++) {
             System.out.println(comando.getParametros()[i]);
         }
@@ -216,11 +287,34 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
     public void pintarPersonajes(Personaje personaje, Comando comando) {
 
-        Dimension dimension = new Dimension(60, 60);
+        
+        Dimension dimension = new Dimension(Integer.MAX_VALUE, jPanelPersonajes.getHeight()/3);
+        Dimension maxDimension = new Dimension(Integer.MAX_VALUE,jPanelPersonajes.getHeight()/3);
         JPanel nuevoPersonaje = new JPanel();
 
+        JPanel contenedorImagen = new JPanel();
+        JPanel contenedorTexto = new JPanel();
+        JPanel contenedorTitulos = new JPanel();
+        JPanel contenedorStats = new JPanel();
+
         nuevoPersonaje.setPreferredSize(dimension);
-    
+        nuevoPersonaje.setMaximumSize(maxDimension);
+
+        contenedorImagen.setMaximumSize(new Dimension(100, 200));
+        contenedorTexto.setMaximumSize(new Dimension(jPanelPersonajes.getWidth()-100,200));
+        contenedorTitulos.setMaximumSize(new Dimension(jPanelPersonajes.getWidth()-100, 100));
+        contenedorStats.setMaximumSize(new Dimension(jPanelPersonajes.getWidth()-100, 100));
+
+        nuevoPersonaje.setLayout(new BoxLayout(nuevoPersonaje, BoxLayout.X_AXIS));
+
+        contenedorTexto.setLayout(new BoxLayout(contenedorTexto, BoxLayout.Y_AXIS));
+        contenedorTitulos.setLayout(new BoxLayout(contenedorTitulos,BoxLayout.Y_AXIS));
+        contenedorStats.setLayout(new BoxLayout(contenedorStats,BoxLayout.Y_AXIS));
+
+
+        
+
+
         JLabel poder = new JLabel();
         JLabel resistencia = new JLabel();
         JLabel sanidad = new JLabel();
@@ -228,26 +322,42 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         JLabel tipo = new JLabel();
         JLabel porcentajeMapa = new JLabel();
         ImageIcon imagen = new ImageIcon(getClass().getResource(comando.getParametros()[3]));
-        Image imagenEscalada = imagen.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+        Image imagenEscalada = imagen.getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH);
         ImageIcon imagenReescalada = new ImageIcon(imagenEscalada);
-        
         JLabel image = new JLabel(imagenReescalada);
+        
 
         nombre.setText(personaje.getNombre());
-        tipo.setText("Tipo de Ataque: " + personaje.getTipoPersonaje().toString());
-        poder.setText("Poder: " + String.valueOf(personaje.getPoder()));
-        resistencia.setText("Resistencia: " + String.valueOf(personaje.getResistencia()));
-        sanidad.setText("Sanidad: " + String.valueOf(personaje.getSanidad()));
-        porcentajeMapa.setText("Mapa: " + String.valueOf(personaje.getPorcentajeMapa()));
+        tipo.setText("Tipo: " + personaje.getTipoPersonaje().toString());
+        poder.setText("Poder: " + String.valueOf(personaje.getPoder()) + "%");
+        resistencia.setText("Resistencia: " + String.valueOf(personaje.getResistencia()) + "%");
+        sanidad.setText("Sanidad: " + String.valueOf(personaje.getSanidad())+ "%");
+        porcentajeMapa.setText("Mapa: " + String.valueOf(personaje.getPorcentajeMapa())+ " %");
         
-        nuevoPersonaje.add(nombre);
-        nuevoPersonaje.add(tipo);
-        nuevoPersonaje.add(poder);
-        nuevoPersonaje.add(resistencia);
-        nuevoPersonaje.add(sanidad);
-        nuevoPersonaje.add(porcentajeMapa);
-        nuevoPersonaje.add(image);
+        nombre.setAlignmentX(Component.CENTER_ALIGNMENT);
+        tipo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        poder.setAlignmentX(Component.CENTER_ALIGNMENT);
+        resistencia.setAlignmentX(Component.CENTER_ALIGNMENT);
+        sanidad.setAlignmentX(Component.CENTER_ALIGNMENT);
+        porcentajeMapa.setAlignmentX(Component.CENTER_ALIGNMENT);
+        image.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+
+        contenedorImagen.add(image);
+
+        contenedorTitulos.add(porcentajeMapa);
+        contenedorTitulos.add(nombre);
+        contenedorTitulos.add(tipo);
         
+        contenedorStats.add(poder);
+        contenedorStats.add(resistencia);
+        contenedorStats.add(sanidad);
+
+        contenedorTexto.add(contenedorTitulos);
+        contenedorTexto.add(contenedorStats);
+        nuevoPersonaje.add(contenedorImagen);
+        nuevoPersonaje.add(contenedorTexto);
+
 
         this.jPanelPersonajes.add(nuevoPersonaje);
         this.listaPersonajes.add(personaje);
@@ -259,6 +369,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
         if (this.listaPersonajes.size() == 3) {
             this.crearMatriz();
+            llenarPanelStats();
         }
 
     }
@@ -329,6 +440,9 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanelPrincipal.setBackground(new java.awt.Color(204, 204, 204));
+        jPanelPrincipal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+
+        jPanelPrincipalTablero.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
 
         jPanelTablero.setBackground(new java.awt.Color(255, 255, 204));
 
@@ -344,45 +458,50 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         );
 
         jPanelStatsTablero.setBackground(new java.awt.Color(255, 204, 102));
+        jPanelStatsTablero.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jPanelStatsTablero.setName(""); // NOI18N
         jPanelStatsTablero.setPreferredSize(new java.awt.Dimension(500, 140));
 
         jLabel1.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Casillas Destruidas: ");
 
         jLabelNumVida.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
-        jLabelNumVida.setForeground(new java.awt.Color(0, 0, 0));
         jLabelNumVida.setText("0");
 
+        jPanelStatsPersonaje1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jPanelStatsPersonaje1.setOpaque(false);
         jPanelStatsPersonaje1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabelNombrePersonaje1.setBackground(new java.awt.Color(0, 102, 102));
+        jLabelNombrePersonaje1.setBackground(new java.awt.Color(254, 254, 254));
         jLabelNombrePersonaje1.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
-        jLabelNombrePersonaje1.setOpaque(true);
+        jLabelNombrePersonaje1.setFocusable(false);
         jPanelStatsPersonaje1.add(jLabelNombrePersonaje1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 128, 32));
 
-        jLabelPorcentajeOcupadoPersonaje1.setBackground(new java.awt.Color(153, 255, 255));
+        jLabelPorcentajeOcupadoPersonaje1.setBackground(new java.awt.Color(254, 254, 254));
         jLabelPorcentajeOcupadoPersonaje1.setFont(new java.awt.Font("Liberation Sans", 0, 14)); // NOI18N
-        jLabelPorcentajeOcupadoPersonaje1.setOpaque(true);
+        jLabelPorcentajeOcupadoPersonaje1.setFocusable(false);
         jPanelStatsPersonaje1.add(jLabelPorcentajeOcupadoPersonaje1, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 44, 88, 16));
 
-        jLabelCasillasOcupadasPersonaje1.setBackground(new java.awt.Color(0, 204, 204));
+        jLabelCasillasOcupadasPersonaje1.setBackground(new java.awt.Color(254, 254, 254));
         jLabelCasillasOcupadasPersonaje1.setFont(new java.awt.Font("Liberation Sans", 0, 14)); // NOI18N
-        jLabelCasillasOcupadasPersonaje1.setOpaque(true);
+        jLabelCasillasOcupadasPersonaje1.setFocusable(false);
         jPanelStatsPersonaje1.add(jLabelCasillasOcupadasPersonaje1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 66, 134, 16));
 
-        jLabelPorcentajeOcupadoPersonaje2.setBackground(new java.awt.Color(153, 255, 255));
-        jLabelPorcentajeOcupadoPersonaje2.setFont(new java.awt.Font("Liberation Sans", 0, 14)); // NOI18N
-        jLabelPorcentajeOcupadoPersonaje2.setOpaque(true);
+        jPanelStatsPersonaje2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jPanelStatsPersonaje2.setOpaque(false);
 
-        jLabelNombrePersonaje2.setBackground(new java.awt.Color(0, 102, 102));
+        jLabelPorcentajeOcupadoPersonaje2.setBackground(new java.awt.Color(254, 254, 254));
+        jLabelPorcentajeOcupadoPersonaje2.setFont(new java.awt.Font("Liberation Sans", 0, 14)); // NOI18N
+        jLabelPorcentajeOcupadoPersonaje2.setFocusable(false);
+
+        jLabelNombrePersonaje2.setBackground(new java.awt.Color(254, 254, 254));
         jLabelNombrePersonaje2.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
-        jLabelNombrePersonaje2.setOpaque(true);
+        jLabelNombrePersonaje2.setFocusable(false);
 
         jLabelCasillasOcupadasPersonaje2.setBackground(new java.awt.Color(0, 204, 204));
         jLabelCasillasOcupadasPersonaje2.setFont(new java.awt.Font("Liberation Sans", 0, 14)); // NOI18N
-        jLabelCasillasOcupadasPersonaje2.setOpaque(true);
+        jLabelCasillasOcupadasPersonaje2.setToolTipText("");
+        jLabelCasillasOcupadasPersonaje2.setFocusable(false);
 
         javax.swing.GroupLayout jPanelStatsPersonaje2Layout = new javax.swing.GroupLayout(jPanelStatsPersonaje2);
         jPanelStatsPersonaje2.setLayout(jPanelStatsPersonaje2Layout);
@@ -411,20 +530,23 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabelPorcentajeOcupadoPersonaje2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelCasillasOcupadasPersonaje2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
+
+        jPanelStatsPersonaje3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jPanelStatsPersonaje3.setOpaque(false);
 
         jLabelPorcentajeOcupadoPersonaje3.setBackground(new java.awt.Color(153, 255, 255));
         jLabelPorcentajeOcupadoPersonaje3.setFont(new java.awt.Font("Liberation Sans", 0, 14)); // NOI18N
-        jLabelPorcentajeOcupadoPersonaje3.setOpaque(true);
+        jLabelPorcentajeOcupadoPersonaje3.setFocusable(false);
 
         jLabelNombrePersonaje3.setBackground(new java.awt.Color(0, 102, 102));
         jLabelNombrePersonaje3.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
-        jLabelNombrePersonaje3.setOpaque(true);
+        jLabelNombrePersonaje3.setFocusable(false);
 
         jLabelCasillasOcupadasPersonaje3.setBackground(new java.awt.Color(0, 204, 204));
         jLabelCasillasOcupadasPersonaje3.setFont(new java.awt.Font("Liberation Sans", 0, 14)); // NOI18N
-        jLabelCasillasOcupadasPersonaje3.setOpaque(true);
+        jLabelCasillasOcupadasPersonaje3.setFocusable(false);
 
         javax.swing.GroupLayout jPanelStatsPersonaje3Layout = new javax.swing.GroupLayout(jPanelStatsPersonaje3);
         jPanelStatsPersonaje3.setLayout(jPanelStatsPersonaje3Layout);
@@ -446,7 +568,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         jPanelStatsPersonaje3Layout.setVerticalGroup(
             jPanelStatsPersonaje3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelStatsPersonaje3Layout.createSequentialGroup()
-                .addContainerGap(8, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabelNombrePersonaje3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelPorcentajeOcupadoPersonaje3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -456,12 +578,9 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         );
 
         jLabelVidaTablero.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
-        jLabelVidaTablero.setForeground(new java.awt.Color(0, 0, 0));
         jLabelVidaTablero.setText("VIDA: ");
 
         jLabelNumVidaTablero.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
-        jLabelNumVidaTablero.setForeground(new java.awt.Color(0, 0, 0));
-        jLabelNumVidaTablero.setText("100%");
 
         javax.swing.GroupLayout jPanelStatsTableroLayout = new javax.swing.GroupLayout(jPanelStatsTablero);
         jPanelStatsTablero.setLayout(jPanelStatsTableroLayout);
@@ -508,8 +627,13 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         jPanelPrincipalTablero.setLayout(jPanelPrincipalTableroLayout);
         jPanelPrincipalTableroLayout.setHorizontalGroup(
             jPanelPrincipalTableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jPanelStatsTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanelPrincipalTableroLayout.createSequentialGroup()
+                .addGroup(jPanelPrincipalTableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanelStatsTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanelPrincipalTableroLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanelTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanelPrincipalTableroLayout.setVerticalGroup(
             jPanelPrincipalTableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -519,10 +643,13 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                 .addComponent(jPanelStatsTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanelPersonajes.setBackground(new java.awt.Color(0, 51, 102));
+        jPanelPersonajes.setBackground(new java.awt.Color(204, 204, 204));
+        jPanelPersonajes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jPanelPersonajes.setFocusable(false);
         jPanelPersonajes.setLayout(new javax.swing.BoxLayout(jPanelPersonajes, javax.swing.BoxLayout.LINE_AXIS));
 
         jLabelBitacora.setBackground(new java.awt.Color(0, 102, 102));
+        jLabelBitacora.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jLabelBitacora.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabelBitaco.setFont(new java.awt.Font("Liberation Sans", 1, 30)); // NOI18N
@@ -535,9 +662,10 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         txaBitacora.setRows(5);
         jScrollPane1.setViewportView(txaBitacora);
 
-        jLabelBitacora.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 260, 160));
+        jLabelBitacora.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 220, 160));
 
         jPanelHistorial.setBackground(new java.awt.Color(204, 255, 204));
+        jPanelHistorial.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jPanelHistorial.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabelHistorial.setFont(new java.awt.Font("Liberation Sans", 1, 30)); // NOI18N
@@ -549,32 +677,72 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         txaHistorial.setRows(5);
         jScrollPane2.setViewportView(txaHistorial);
 
-        jPanelHistorial.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 260, 190));
+        jPanelHistorial.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 220, 190));
 
         jPanelConsola.setBackground(new java.awt.Color(153, 153, 153));
+        jPanelConsola.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jPanelConsola.setForeground(new java.awt.Color(255, 255, 255));
         jPanelConsola.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jScrollPane3.setOpaque(false);
 
         txaComandoActual.setColumns(20);
         txaComandoActual.setRows(5);
+        txaComandoActual.setOpaque(false);
         jScrollPane3.setViewportView(txaComandoActual);
 
         jPanelConsola.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 990, 110));
 
-        jPanelConsolaSecundaria.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        txfComando.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txfComando.setOpaque(true);
+        txfComando.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfComandoActionPerformed(evt);
+            }
+        });
+
+        btnEnviar.setText("Enviar");
+        btnEnviar.setOpaque(true);
+        btnEnviar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnviarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelConsolaSecundariaLayout = new javax.swing.GroupLayout(jPanelConsolaSecundaria);
+        jPanelConsolaSecundaria.setLayout(jPanelConsolaSecundariaLayout);
+        jPanelConsolaSecundariaLayout.setHorizontalGroup(
+            jPanelConsolaSecundariaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelConsolaSecundariaLayout.createSequentialGroup()
+                .addComponent(txfComando, javax.swing.GroupLayout.PREFERRED_SIZE, 943, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(btnEnviar))
+        );
+        jPanelConsolaSecundariaLayout.setVerticalGroup(
+            jPanelConsolaSecundariaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelConsolaSecundariaLayout.createSequentialGroup()
+                .addComponent(btnEnviar)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(txfComando, javax.swing.GroupLayout.Alignment.TRAILING)
+        );
 
         javax.swing.GroupLayout jPanelPrincipalLayout = new javax.swing.GroupLayout(jPanelPrincipal);
         jPanelPrincipal.setLayout(jPanelPrincipalLayout);
         jPanelPrincipalLayout.setHorizontalGroup(
             jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPrincipalLayout.createSequentialGroup()
-                .addGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelBitacora, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanelHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addComponent(jPanelPrincipalTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelPersonajes, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jPanelConsola, javax.swing.GroupLayout.PREFERRED_SIZE, 1010, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jPanelConsolaSecundaria, javax.swing.GroupLayout.PREFERRED_SIZE, 1010, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanelPrincipalLayout.createSequentialGroup()
+                    .addGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jPanelHistorial, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+                        .addComponent(jLabelBitacora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGap(0, 0, 0)
+                    .addComponent(jPanelPrincipalTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jPanelPersonajes, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanelConsola, javax.swing.GroupLayout.PREFERRED_SIZE, 1010, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanelPrincipalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanelConsolaSecundaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanelPrincipalLayout.setVerticalGroup(
             jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -585,50 +753,25 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                         .addGap(0, 0, 0)
                         .addComponent(jPanelHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanelPrincipalTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanelPersonajes, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanelPersonajes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelConsola, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelConsolaSecundaria, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jPanelConsolaSecundaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
         );
-
-        txfComando.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txfComandoActionPerformed(evt);
-            }
-        });
-
-        btnEnviar.setText("Enviar");
-        btnEnviar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEnviarActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 1009, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 13, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txfComando, javax.swing.GroupLayout.PREFERRED_SIZE, 840, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(btnEnviar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 6, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 617, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txfComando, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEnviar))
-                .addGap(0, 11, Short.MAX_VALUE))
+            .addComponent(jPanelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -638,6 +781,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     //#########################################################################################3
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
+        System.out.println("Entro aqui");
         String msg = txfComando.getText().trim();
         if (msg.length() > 0){
             String args[] = ComandoUtilidad.tokenizerArgs(msg);
