@@ -21,6 +21,11 @@ public class ComandoCrearPersonaje extends Comando {
     public void procesoPorServer(ThreadServer threadServidor) {
         this.setInfo(true);
         this.setIsBroadcast(false);
+        threadServidor.aumentarPersonajesCreados();
+        threadServidor.getServer().getRefPantalla().writeMessage(getNombre() + " ha creado un personaje" + threadServidor.getPersonajesCreados() + "/3");
+        if (threadServidor.getPersonajesCreados() == 3) {
+            threadServidor.getServer().getRefPantalla().writeMessage(getNombre() + " ha creado todos sus personajes");
+        }
     }
 
     @Override

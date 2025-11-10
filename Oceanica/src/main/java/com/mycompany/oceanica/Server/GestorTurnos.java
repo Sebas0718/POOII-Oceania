@@ -24,8 +24,7 @@ public class GestorTurnos {
     //#######################################################################################
 
     public void agregarJugador(ThreadServer jugador) {
-        if (!jugadores.contains(jugador)) {
-            System.out.println("TS20: AGREGAR JUGADOR");
+        if (!jugadores.contains(jugador) && jugadoresPersonajesCompletos()) {
             jugadores.add(jugador);
             server.getRefPantalla().writeMessage("Jugador agregado: " + jugador.getNombre());
         }
@@ -35,9 +34,7 @@ public class GestorTurnos {
     //#######################################################################################
 
     public void iniciarJuego() {
-        System.out.println("TS25: INICIAR JUEGO EXTERNO");
-        if (jugadores.size() >= 2) {
-            System.out.println("TS30: INICIAR JUEGO INTERNO");
+        if (jugadores.size() >= 2 && jugadoresPersonajesCompletos()) {
             juegoActivo = true;
             jugadorActual = 0;
             server.getRefPantalla().writeMessage("¡Juego iniciado! Turno de: " + getJugadorActual().getNombre());
@@ -51,6 +48,7 @@ public class GestorTurnos {
         
         for (ThreadServer jugador : jugadores) {
             if (jugador.getPersonajesCreados() != 3) {
+                server.getRefPantalla().writeMessage("No se puede iniciar, no todos los jugadores han creado todos los personajes");
                 return false;
             }
         }
@@ -79,6 +77,11 @@ public class GestorTurnos {
         if (!juegoActivo || jugadores.isEmpty())
             return null;
         return jugadores.get(jugadorActual);
+    }
+
+
+    public ArrayList<ThreadServer> getJugadores() {
+        return this.jugadores;
     }
 
 }

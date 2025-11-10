@@ -21,6 +21,17 @@ public class ComandoSaltarTurno extends Comando {
     public void procesoPorServer(ThreadServer threadServidor) {
         this.setInfo(true);
         this.setIsBroadcast(false);
+        
+        if (threadServidor.getServer().getGestorTurnos().getJugadorActual().equals(null)) {
+            threadServidor.getServer().getRefPantalla().writeMessage("Error no es el turno de: " + getNombre());
+            return;
+        }
+
+        if (threadServidor.getServer().getGestorTurnos().getJugadorActual().equals(threadServidor)){
+            threadServidor.getServer().getRefPantalla().writeMessage(getNombre() + " ha saltado su turno");
+            threadServidor.getServer().getGestorTurnos().siguienteTurno();            
+        }
+
     }
 
     @Override
