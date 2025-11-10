@@ -4,6 +4,8 @@
  */
 package com.mycompany.oceanica.Modelos;
 
+import com.mycompany.Personaje.Personaje;
+
 /**
  *
  * @author xsusk
@@ -15,10 +17,6 @@ public class ComandoFabrica {
         String tipo = args[0].toUpperCase();
         
         switch(tipo){
-            case "ATAQUE":
-                if (TiposComandos.ATAQUE.getParametrosRequeridos() < args.length)
-                    return new ComandoError(args, nombre);
-                return new ComandoAtaque(args, nombre);
             case "MENSAJE":
                 if (TiposComandos.MENSAJE.getParametrosRequeridos() < args.length)
                     return new ComandoError(args, nombre);

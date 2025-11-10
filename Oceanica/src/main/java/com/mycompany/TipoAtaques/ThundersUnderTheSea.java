@@ -19,20 +19,20 @@ public class ThundersUnderTheSea extends Personaje{
     
     public ThundersUnderTheSea(TipoPersonaje tipoPersonaje) {
         super(tipoPersonaje);
-        this.ataques[0] = "Volcano_raising";
-        this.ataques[1] = "Volcano_explosion";
-        this.ataques[2] = "Termal_rush";
+        this.ataques[0] = "Thunder_rain";
+        this.ataques[1] = "Poseidon_thunders";
+        this.ataques[2] = "Eel_Atack";
     }
     
-    public void ataqueVolcanoRaising(InterfazPrincipal interfaz, ComandoAtaque comando){
-    
-    }
-    
-    public void ataqueVolcanoExplosion(InterfazPrincipal interfaz, ComandoAtaque comando){
+    public void ataqueThunderRain(InterfazPrincipal interfaz, ComandoAtaque comando){
     
     }
     
-    public void ataqueTermalRush(){
+    public void ataquePoseidonThunders(InterfazPrincipal interfaz, ComandoAtaque comando){
+    
+    }
+    
+    public void ataqueEelAtack(InterfazPrincipal interfaz, ComandoAtaque comando){
     
     }
     

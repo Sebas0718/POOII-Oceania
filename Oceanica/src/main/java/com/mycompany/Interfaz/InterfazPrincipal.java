@@ -15,6 +15,7 @@ import com.mycompany.oceanica.Modelos.ComandoCrearPersonajeValidaciones;
 import com.mycompany.oceanica.Modelos.ComandoError;
 import com.mycompany.oceanica.Modelos.ComandoFabrica;
 import com.mycompany.oceanica.Modelos.ComandoUtilidad;
+import com.mycompany.oceanica.Modelos.ComandosAtaquesFabrica;
 import com.mycompany.oceanica.Server.PantallaServer;
 import com.mycompany.oceanica.Usuario.Usuario;
 import java.awt.Color;
@@ -630,10 +631,30 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
         String msg = txfComando.getText().trim();
+        Personaje personajeActual = null;
+        Comando comando = null;
         if (msg.length() > 0){
             String args[] = ComandoUtilidad.tokenizerArgs(msg);
             if(args.length > 0){
-                Comando comando = ComandoFabrica.getComando(args,usuario.getNombre());
+                if (args[0].equals("ATAQUE")){
+                    if (this.listaPersonajes.size() == 0){
+                        comando = ComandoFabrica.getComando(args,usuario.getNombre());
+                    }
+                    
+                    for (Personaje personaje : this.listaPersonajes){
+                        if (args[2].equals(personaje.getNombre())){
+                            personajeActual = personaje;
+                            break;
+                        }
+                    }
+                    if (personajeActual == null){
+                        comando = ComandoFabrica.getComando(args,usuario.getNombre());
+                    }
+                    comando = ComandosAtaquesFabrica.getComandoAtaque(args,usuario.getNombre(), personajeActual);
+                }
+                else{
+                comando = ComandoFabrica.getComando(args,usuario.getNombre());
+                }
                 if (comando != null){
                     try{
                         usuario.getObjetoEscritor().writeObject(comando);

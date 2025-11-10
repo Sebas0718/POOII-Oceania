@@ -4,6 +4,7 @@
  */
 package com.mycompany.oceanica.Modelos;
 
+import com.mycompany.Personaje.Personaje;
 import com.mycompany.oceanica.Threads.ThreadServer;
 import com.mycompany.oceanica.Usuario.Usuario;
 
@@ -12,9 +13,11 @@ import com.mycompany.oceanica.Usuario.Usuario;
  * @author xsusk
  */
 public class ComandoAtaque extends Comando {
-
+    
+    
     public ComandoAtaque(String[] args, String nombre) {
         super(TiposComandos.ATAQUE, args, nombre);
+        
     }
 
 

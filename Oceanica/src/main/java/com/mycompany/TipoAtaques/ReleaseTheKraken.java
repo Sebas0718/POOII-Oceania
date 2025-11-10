@@ -11,6 +11,8 @@ import com.mycompany.Interfaz.Celda;
 import com.mycompany.Interfaz.InterfazPrincipal;
 import com.mycompany.Personaje.Personaje;
 import com.mycompany.Personaje.TipoPersonaje;
+import com.mycompany.oceanica.Modelos.Comando;
+import com.mycompany.oceanica.Modelos.ComandoAtaque;
 
 /**
  *
@@ -35,7 +37,7 @@ public class ReleaseTheKraken extends Personaje{
             radio de 1 casilla alrededor
          * 
          */
-    public void ataqueTentaculos(InterfazPrincipal interfazPrincipal, int fila, int columna) {
+    public void ataqueTentaculos(InterfazPrincipal interfazPrincipal, ComandoAtaque comando) {
             
         Celda[][] celdas = interfazPrincipal.getCeldas();
         for (int i = 0; i < celdas.length; i++){
@@ -60,7 +62,7 @@ public class ReleaseTheKraken extends Personaje{
         destruye entre 1 y 8 casillas en esa
         dirección
         */
-    public void ataqueKrakenBreath(InterfazPrincipal interfazPrincipal, int fila, int columna, String direccion){
+    public void ataqueKrakenBreath(InterfazPrincipal interfazPrincipal,  ComandoAtaque comando){
     
         direccion = direccion.trim().toLowerCase();
         Random rand = new Random();
@@ -109,7 +111,7 @@ public class ReleaseTheKraken extends Personaje{
      * 1,2,3,4,5,6,7,8,9 casillas.
      * 
      */
-    public void ataqueReleaseTheKraken(InterfazPrincipal interfazPrincipal) {
+    public void ataqueReleaseTheKraken(InterfazPrincipal interfazPrincipal,  ComandoAtaque comando) {
     
 
         Random rand = new Random();

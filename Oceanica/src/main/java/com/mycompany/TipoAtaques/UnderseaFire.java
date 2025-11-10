@@ -19,20 +19,21 @@ public class UnderseaFire extends Personaje{
     
     public UnderseaFire(TipoPersonaje tipoPersonaje) {
         super(tipoPersonaje);
-        this.ataques[0] = "Thunder_rain";
-        this.ataques[1] = "Poseidon_thunders";
-        this.ataques[2] = "Eel_atack";
+        this.ataques[0] = "Volcano_raising";
+        this.ataques[1] = "Volcano_explosion";
+        this.ataques[2] = "Termal_rush";
+        
     }
 
-    public void ataqueThunderRain(InterfazPrincipal interfaz, ComandoAtaque comando){
+    public void ataqueVolcanoRaising(InterfazPrincipal interfaz, ComandoAtaque comando){
     
     }
     
-    public void ataquePoseidonThunders(InterfazPrincipal interfaz, ComandoAtaque comando){
+    public void ataqueVolcanoExplosion(InterfazPrincipal interfaz, ComandoAtaque comando){
         
     }
     
-    public void ataqueEelAtack(InterfazPrincipal interfaz, ComandoAtaque comando){
+    public void ataqueTermalRush(InterfazPrincipal interfaz, ComandoAtaque comando){
         
     }
     
