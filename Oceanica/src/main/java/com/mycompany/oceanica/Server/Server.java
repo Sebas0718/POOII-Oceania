@@ -31,6 +31,7 @@ public class Server {
     Socket socketUsuarios; //El socket de los usuarios
     ArrayList<ThreadServer> usuariosConectados = new ArrayList<ThreadServer>();
     ArrayList<Usuario> arrayUsuarios = new ArrayList<Usuario>();
+    
     private final int maxConexiones = 4;
     private PantallaServer refPantalla;
     private ThreadConexiones connexionesThread;
@@ -42,7 +43,7 @@ public class Server {
         this.usuariosConectados = new ArrayList<ThreadServer>();
         this.refPantalla = refPantalla;
         this.gestorTurnos = new GestorTurnos(this);
-        this.gestorAtaques = new GestorAtaques(this);
+        
 
         // Inicializar el servidor directamente aquí
         try {
@@ -55,6 +56,7 @@ public class Server {
         } catch (IOException ex) {
             refPantalla.writeMessage("Error iniciando servidor: " + ex.getMessage());
         }
+        this.gestorAtaques = new GestorAtaques(this);
     }
 
     //#######################################################################################

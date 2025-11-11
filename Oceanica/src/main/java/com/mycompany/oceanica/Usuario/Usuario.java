@@ -51,7 +51,7 @@ public class Usuario {
             
             String args[] = {"NOMBRE",this.nombre};
             objetoEscritor.writeObject(ComandoFabrica.getComando(args, this.nombre));
-
+            
             
             
         } catch (IOException ex) {

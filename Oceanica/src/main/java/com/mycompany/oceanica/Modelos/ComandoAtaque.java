@@ -24,17 +24,23 @@ public class ComandoAtaque extends Comando {
     public void procesoPorServer(ThreadServer threadServidor) {
         this.setInfo(false);
         this.setIsBroadcast(false);
+        
+        System.out.println("TS40: ENTRO A PROCESO POR SERVER");
+        System.out.println(this.getParametros()[1]);
+        System.out.println(threadServidor.getServer().getGestorAtaques().buscarUsuario(this.getParametros()[1]));
+
+
         if (threadServidor.getServer().getGestorAtaques().buscarUsuario(this.getParametros()[1])!=null) {
             System.out.println("TS50: Entro a procesoPorServer");
-            Usuario usuarioAtacante = threadServidor.getServer().getGestorAtaques().buscarUsuario(threadServidor.getNombre());
-            Usuario usuarioVictima = threadServidor.getServer().getGestorAtaques().buscarUsuario(this.getParametros()[1]);
-            threadServidor.getServer().getGestorAtaques().atacarUsuario(this, usuarioAtacante, usuarioVictima);
+            ThreadServer threadAtacante = threadServidor.getServer().getGestorAtaques().buscarUsuario(threadServidor.getNombre());
+            ThreadServer threadVictima = threadServidor.getServer().getGestorAtaques().buscarUsuario(this.getParametros()[1]);
+            threadServidor.getServer().getGestorAtaques().atacarUsuario(this,threadAtacante, threadVictima);
         }
     }
 
     @Override
     public void procesoEnUsuario(Usuario usuario) {
-            usuario.getInterfazPrincipal().writeMessage("Conectado el cliente: " + this.getParametros()[1], this);
+            usuario.getInterfazPrincipal().writeMessage(usuario.getNombre() + " ha atacado a: " + this.getParametros()[1],  this);
             usuario.getInterfazPrincipal().actualizarInterfaz();
 }
     
