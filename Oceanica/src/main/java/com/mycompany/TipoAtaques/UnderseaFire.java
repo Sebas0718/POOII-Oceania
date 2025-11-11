@@ -13,7 +13,7 @@ import com.mycompany.oceanica.Modelos.ComandoAtaque;
  *
  * @author seb
  */
-public class UnderseaFire extends Personaje{
+public class UnderseaFire extends Ataque{
     
     private String[] ataques = new String[3];
     
@@ -37,9 +37,6 @@ public class UnderseaFire extends Personaje{
         
     }
     
-    public String[] getAtaques() {
-        return ataques;
-    }
 
     public void setAtaques(String[] ataques) {
         this.ataques = ataques;

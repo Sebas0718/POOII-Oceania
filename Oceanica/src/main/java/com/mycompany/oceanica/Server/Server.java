@@ -36,11 +36,13 @@ public class Server {
     private ThreadConexiones connexionesThread;
 
     private GestorTurnos gestorTurnos;
+    private GestorAtaques gestorAtaques;
 
     public Server(PantallaServer refPantalla) {
         this.usuariosConectados = new ArrayList<ThreadServer>();
         this.refPantalla = refPantalla;
         this.gestorTurnos = new GestorTurnos(this);
+        this.gestorAtaques = new GestorAtaques(this);
 
         // Inicializar el servidor directamente aquí
         try {
@@ -100,8 +102,10 @@ public class Server {
             // Procesar comando
             if (comando.isInfo()) {
                 comandInfo(comando);
+                return;
             } else if (comando.isIsBroadcast()) {
                 broadcast(comando);
+                return;
             } else {
                 sendPrivate(comando);
                 if (requiresTurno(comando.getTipo())) {
@@ -113,7 +117,6 @@ public class Server {
         else if (comando.getTipo() == TiposComandos.INICIAR) {
             gestorTurnos.iniciarJuego();
         } else if (comando.isIsBroadcast()) {
-            System.out.println("TS04");
             broadcast(comando);
         } else if (comando.isInfo()) {
             comandInfo(comando);
@@ -245,7 +248,7 @@ public class Server {
         return socketUsuarios;
     }
 
-    public ArrayList<ThreadServer> getUsuariosConectados() {
+    public ArrayList<ThreadServer> getThreadsConectados() {
         return usuariosConectados;
     }
 
@@ -256,5 +259,14 @@ public class Server {
     public GestorTurnos getGestorTurnos() {
         return this.gestorTurnos;
     }
+
+    public ArrayList<Usuario> getUsuarios(){
+        return this.arrayUsuarios;
+    }
+    public GestorAtaques getGestorAtaques(){
+        return this.gestorAtaques;
+    }
+    
+
 
 }

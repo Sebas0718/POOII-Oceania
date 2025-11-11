@@ -53,7 +53,7 @@ public class ThreadServer extends Thread {
         
         while(isRunning){
             try{
-                comando = (Comando)objetoLector.readObject();
+                comando = (Comando) objetoLector.readObject();
                 server.getRefPantalla().writeMessage("ThreadServer recibio: " + comando);
                 comando.procesoPorServer(this);
                 server.ejecutarComando(comando);;
@@ -70,10 +70,10 @@ public class ThreadServer extends Thread {
         
         server.getRefPantalla().writeMessage("Usuario" + nombre + " se ha desconectado");
 
-        server.getUsuariosConectados().remove(this);
+        server.getThreadsConectados().remove(this);
         
         server.getRefPantalla().getLblJugadoresConectados().setText(
-            server.getUsuariosConectados().size() + "/4 Jugadores conectados"
+            server.getThreadsConectados().size() + "/4 Jugadores conectados"
         );
 
         if (server.getGestorTurnos().isJuegoActivo()) {

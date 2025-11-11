@@ -24,7 +24,7 @@ public class GestorTurnos {
     //#######################################################################################
 
     public void agregarJugador(ThreadServer jugador) {
-        if (!jugadores.contains(jugador)) {
+        if (!jugadores.contains(jugador) && jugadoresPersonajesCompletos()) {
             jugadores.add(jugador);
             server.getRefPantalla().writeMessage("Jugador agregado: " + jugador.getNombre());
         }
@@ -48,6 +48,7 @@ public class GestorTurnos {
         
         for (ThreadServer jugador : jugadores) {
             if (jugador.getPersonajesCreados() != 3) {
+                server.getRefPantalla().writeMessage("No se puede iniciar, no todos los jugadores han creado todos los personajes");
                 return false;
             }
         }
@@ -76,6 +77,11 @@ public class GestorTurnos {
         if (!juegoActivo || jugadores.isEmpty())
             return null;
         return jugadores.get(jugadorActual);
+    }
+
+
+    public ArrayList<ThreadServer> getJugadores() {
+        return this.jugadores;
     }
 
 }

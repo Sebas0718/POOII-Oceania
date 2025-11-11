@@ -19,11 +19,16 @@ public class ComandoListo extends Comando {
 
     @Override
     public void procesoPorServer(ThreadServer threadServidor) {
-        threadServidor.setIsReady(true);
-        threadServidor.getServer().getGestorTurnos().agregarJugador(threadServidor);
-        threadServidor.getServer().getGestorTurnos().iniciarJuego();
         this.setInfo(false);
         this.setIsBroadcast(true);
+        threadServidor.setIsReady(true);
+        
+        if (threadServidor.getPersonajesCreados() == 3) {
+            threadServidor.getServer().getGestorTurnos().agregarJugador(threadServidor);
+            threadServidor.getServer().getGestorTurnos().iniciarJuego();
+            return;
+        } 
+        threadServidor.getServer().getRefPantalla().writeMessage(getNombre() + " no puede iniciar, no ha creado todos los personajes");
     }
 
     @Override

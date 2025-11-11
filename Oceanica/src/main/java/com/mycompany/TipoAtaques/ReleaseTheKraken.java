@@ -19,15 +19,14 @@ import com.mycompany.oceanica.Modelos.ComandoAtaqueValidacion;
  *
  * @author seb
  */
-public class ReleaseTheKraken extends Personaje{
+public class ReleaseTheKraken extends Ataque {
     
     private String[] ataques = new String[3];
     
     public ReleaseTheKraken(TipoPersonaje tipoPersonaje) {
-        super(tipoPersonaje);
-        this.ataques[0] = "Tentaculos";
-        this.ataques[1] = "Kraken_breath";
-        this.ataques[2] = "Release_the_kraken";
+        this.ataques[0] = "TENTACULOS";
+        this.ataques[1] = "KRAKEN_BREATH";
+        this.ataques[2] = "RELEASE_THE_KRAKEN";
     }
 
 
@@ -118,9 +117,10 @@ public class ReleaseTheKraken extends Personaje{
 
         for (int i = r_inicio; i <= r_fin; i++) {
             for (int j = c_inicio; j <= c_fin; j++) {            
-                celdas[i][j].recibirAtaqueDirecto(100);
+                celdas[i][j].recibirAtaque(usuarioAtacante, 100);
             }
         }
+        interfazPrincipal.actualizarInterfaz();
 
     }
 

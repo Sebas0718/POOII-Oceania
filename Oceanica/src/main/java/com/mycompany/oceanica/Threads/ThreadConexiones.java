@@ -22,20 +22,18 @@ public class ThreadConexiones extends Thread {
     @Override
     public void run(){
         Socket newSocket = null;
-        while( server.getUsuariosConectados().size() < server.getMaxConexiones()){
+        while( server.getThreadsConectados().size() < server.getMaxConexiones()){
             try{
                 newSocket = server.getServer().accept();
                 ThreadServer newServerThread = new ThreadServer(server,newSocket);
-                server.getUsuariosConectados().add(newServerThread);
+                server.getThreadsConectados().add(newServerThread);
                 newServerThread.start();
                 server.getRefPantalla().writeMessage("cliente conectado");
-                this.server.getRefPantalla().getLblJugadoresConectados().setText(server.getUsuariosConectados().size() + "/4 Jugadores Conectados");
+                this.server.getRefPantalla().getLblJugadoresConectados().setText(server.getThreadsConectados().size() + "/4 Jugadores Conectados");
             } catch (IOException ex) {
                 System.getLogger(ThreadConexiones.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
                 server.getRefPantalla().writeMessage("Error: " + ex.getMessage());
             }
         } 
-        
     }
-    
 }

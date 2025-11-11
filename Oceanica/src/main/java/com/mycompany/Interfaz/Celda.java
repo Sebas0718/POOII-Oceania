@@ -4,11 +4,16 @@
  */
 package com.mycompany.Interfaz;
 
+import java.awt.Color;
+
 import com.mycompany.Personaje.Personaje;
 import com.mycompany.TipoAtaques.TipoEfecto;
 
 import java.util.ArrayList;
+
 import javax.swing.JLabel;
+
+import com.mycompany.oceanica.Usuario.Usuario;
 
 /**
  *
@@ -53,16 +58,17 @@ public class Celda {
         return texto;
     }
     
-    public void recibirAtaqueDirecto(int ataque){
+    public void recibirAtaque(Usuario usuarioAtacante, int ataque){
         
         this.vida -= ataque;
+        this.atacadoPor.add(usuarioAtacante.getNombre());
                 if (this.vida <= 0){
                     this.isCeldaDestruida = true;
                     tieneVolcan = false;
                     tieneRemolino = false;
                     esRadioactiva = false;
                 }
-    
+
     }
 
     public void aplicarEfecto(TipoEfecto efecto){

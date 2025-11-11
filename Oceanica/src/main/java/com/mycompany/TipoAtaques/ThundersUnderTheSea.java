@@ -13,7 +13,7 @@ import com.mycompany.oceanica.Modelos.ComandoAtaque;
  *
  * @author seb
  */
-public class ThundersUnderTheSea extends Personaje{
+public class ThundersUnderTheSea extends Ataque {
     
     private String[] ataques = new String[3];
     
