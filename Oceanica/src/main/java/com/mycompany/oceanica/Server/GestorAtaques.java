@@ -15,18 +15,15 @@ import com.mycompany.oceanica.Usuario.Usuario;
 public class GestorAtaques {
 
     private Server server;   
-    private ArrayList<Usuario> usuarios;
-    private ArrayList<ThreadServer> threadServers; 
+
 
     public GestorAtaques(Server server){
         this.server = server;
-        this.threadServers = server.getThreadsConectados();
-        this.usuarios = server.getUsuarios();
+
     }
 
-    public void atacarUsuario(ComandoAtaque comando, Usuario usuarioAtacante, Usuario usuarioVictima){
-        
-        InterfazPrincipal interfazVictima = usuarioVictima.getInterfazPrincipal(); 
+    public void atacarUsuario(ComandoAtaque comando, ThreadServer threadAtacante, ThreadServer threadVictima){
+
 
         try {
             
@@ -64,7 +61,7 @@ public class GestorAtaques {
                 break;
             case "RELEASE_THE_KRAKEN":
                 System.out.println("TS10: LLEGO HASTA ATACAR CON EL KRAKEN");
-                ReleaseTheKraken.ataqueReleaseTheKraken(usuarioAtacante, interfazVictima);
+                // ReleaseTheKraken.ataqueReleaseTheKraken(threadAtacante);
 
             case "VOLCANO_RAISING":
                 break;
@@ -77,20 +74,17 @@ public class GestorAtaques {
         } catch (Exception e) {
             System.out.println("E150: No se ha podido atacar al usuario");
         }
-        usuarioAtacante.getInterfazPrincipal().writeMessage("Se ha atacado con exito", comando);
+        threadAtacante.getServer().getRefPantalla().writeMessage("Usuario: " + threadAtacante.getNombre() + " ha atacado a " + threadVictima.getNombre());
 
     }
 
     
-
-
-
-
-
-    public Usuario buscarUsuario(String nombre){
-        for (Usuario usuario: usuarios){
-            if (usuario.getNombre().equals(nombre)){
-                return usuario;
+    public ThreadServer buscarUsuario(String nombre){
+        
+        for (ThreadServer thread: server.getThreadsConectados()){
+            System.out.println(thread.getNombre());
+            if (thread.getNombre().equals(nombre)){
+                return thread;
             }
         }
         return null;

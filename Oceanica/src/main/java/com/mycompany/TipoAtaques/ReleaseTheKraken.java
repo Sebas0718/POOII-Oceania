@@ -120,7 +120,6 @@ public class ReleaseTheKraken extends Ataque {
                 celdas[i][j].recibirAtaque(usuarioAtacante, 100);
             }
         }
-        interfazPrincipal.actualizarInterfaz();
 
     }
 
