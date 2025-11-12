@@ -22,7 +22,7 @@ public class ThreadUsuario extends Thread {
     
     private boolean isRunning = true;
     
-    private ArrayList<String> usuarios = new ArrayList<String>();
+    
 
 
 
@@ -39,6 +39,10 @@ public class ThreadUsuario extends Thread {
             try {
                 
                 comandoRecibido = (Comando) usuario.getObjetoLector().readObject();
+                String[] args = comandoRecibido.getParametros();
+                if (comandoRecibido.getTipo().equals(TiposComandos.ATAQUE) && comandoRecibido.getNombre().equals(args[1])){
+                    usuario.recibirAtaque(comandoRecibido);
+                }
                 comandoRecibido.procesoEnUsuario(usuario);
             } catch(IOException ex){
             

@@ -23,7 +23,7 @@ public class ReleaseTheKraken extends Personaje {
     
     private String[] ataques = new String[3];
     
-    public ReleaseTheKraken(TipoPersonaje tipoPersonaje) {
+    public ReleaseTheKraken() {
         super(TipoPersonaje.RELEASE_THE_KRAKEN);
         this.ataques[0] = "TENTACULOS";
         this.ataques[1] = "KRAKEN_BREATH";
@@ -144,6 +144,26 @@ public class ReleaseTheKraken extends Personaje {
         }
     }
 }
+
+    @Override
+    public void realizarAtaque(ComandoAtaque comando, InterfazPrincipal interfaz) {
+        String[] args = comando.getParametros();
+        for (String ataque : this.ataques){
+            if (ataque.equals(args[3].toUpperCase())){
+                switch(ataque){
+                    case "TENTACULOS":
+                        ataqueTentaculos(interfaz,comando);
+                        return;
+                    case "KRAKEN_BREATH":
+                        ataqueKrakenBreath(interfaz, comando);
+                        return;
+                    case "RELEASE_THE_KRAKEN":
+                        ataqueReleaseTheKraken(interfaz, comando);
+                        return;
+                }
+            }
+        }
+    }
     
 
 }

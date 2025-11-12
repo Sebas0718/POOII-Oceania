@@ -25,7 +25,7 @@ public class ComandosAtaquesFabrica {
             return new ComandoError(args, nombre);
         
         TipoPersonaje tipo = personaje.getTipoPersonaje();
-        String ataque = args[2].toUpperCase();
+        String ataque = args[3].toUpperCase();
         Comando comando = null;
 
         

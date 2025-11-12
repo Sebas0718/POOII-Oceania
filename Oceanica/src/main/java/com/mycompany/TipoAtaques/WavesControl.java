@@ -13,12 +13,12 @@ import com.mycompany.oceanica.Modelos.ComandoAtaque;
  *
  * @author seb
  */
-public class WavesControl extends Ataque {
+public class WavesControl extends Personaje {
     
     private String[] ataques = new String[3];
     
-    public WavesControl(TipoPersonaje tipoPersonaje) {
-        
+    public WavesControl() {
+        super(TipoPersonaje.RELEASE_THE_KRAKEN);
         this.ataques[0] = "SWIRL_RAISING";
         this.ataques[1] = "SEND_HUMAN_GARBAGE";
         this.ataques[2] = "RADIOACTIVE_RUSH";
@@ -40,8 +40,26 @@ public class WavesControl extends Ataque {
         return ataques;
     }
 
-    public void setAtaques(String[] ataques) {
-        this.ataques = ataques;
+    
+
+    @Override
+    public void realizarAtaque(ComandoAtaque comando, InterfazPrincipal interfaz) {
+        String[] args = comando.getParametros();
+        for (String ataque : this.ataques){
+            if (ataque.equals(args[3].toUpperCase())){
+                switch(ataque){
+                    case "SWIRL_RAISING":
+                        ataqueSwirlRaising(interfaz,comando);
+                        return;
+                    case "SEND_HUMAN_GARBAGE":
+                        ataqueSendHumanGarbage(interfaz, comando);
+                        return;
+                    case "RADIOACTIVE_RUSH":
+                        ataqueRadioactiveRush(interfaz, comando);
+                        return;
+                }
+            }
+        }
     }
 
 

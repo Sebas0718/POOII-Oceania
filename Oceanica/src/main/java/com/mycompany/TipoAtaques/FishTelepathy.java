@@ -19,13 +19,14 @@ import java.util.Random;
 
 
 
-public class FishTelepathy extends Ataque {
+public class FishTelepathy extends Personaje {
     
     private String[] ataques = new String[3];
    
     private boolean requiereCoordenadas = false;
 
-    public FishTelepathy(TipoPersonaje tipoPersonaje) {
+    public FishTelepathy() {
+        super(TipoPersonaje.FISH_TELEPATHY);
         this.ataques[0] = "CARDUMEN";
         this.ataques[1] = "SHARK_ATTACK";
         this.ataques[2] = "PULP";
@@ -51,8 +52,25 @@ public class FishTelepathy extends Ataque {
     public void setAtaques(String[] ataques) {
         this.ataques = ataques;
     }
-    
-    
-    
+
+    @Override
+    public void realizarAtaque(ComandoAtaque comando, InterfazPrincipal interfaz) {
+        String[] args = comando.getParametros();
+        for (String ataque : this.ataques){
+            if (ataque.equals(args[3].toUpperCase())){
+                switch(ataque){
+                    case "CARDUMEN":
+                        ataqueCardumen(interfaz,comando);
+                        return;
+                    case "SHARK_ATTACK":
+                        ataqueSharkAttack(interfaz, comando);
+                        return;
+                    case "PULP":
+                        ataquePulp(interfaz, comando);
+                        return;
+                }
+            }
+        }
+    }
 
 }

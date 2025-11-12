@@ -19,9 +19,9 @@ public class ThundersUnderTheSea extends Personaje {
     
     public ThundersUnderTheSea() {
         super(TipoPersonaje.THUNDERS_UTS);
-        this.ataques[0] = "Thunder_rain";
-        this.ataques[1] = "Poseidon_thunders";
-        this.ataques[2] = "Eel_Atack";
+        this.ataques[0] = "THUNDER_RAIN";
+        this.ataques[1] = "POSEIDON_THUNDERS";
+        this.ataques[2] = "EEL_ATTACK";
     }
     
     public void ataqueThunderRain(InterfazPrincipal interfaz, ComandoAtaque comando){
@@ -40,8 +40,26 @@ public class ThundersUnderTheSea extends Personaje {
         return ataques;
     }
 
-    public void setAtaques(String[] ataques) {
-        this.ataques = ataques;
+    
+
+    @Override
+    public void realizarAtaque(ComandoAtaque comando, InterfazPrincipal interfaz) {
+        String[] args = comando.getParametros();
+        for (String ataque : this.ataques){
+            if (ataque.equals(args[3].toUpperCase())){
+                switch(ataque){
+                    case "THUNDER_RAIN":
+                        ataqueThunderRain(interfaz,comando);
+                        return;
+                    case "POSEIDON_THUNDERS":
+                        ataquePoseidonThunders(interfaz, comando);
+                        return;
+                    case "EEL_ATTACK":
+                        ataqueEelAtack(interfaz, comando);
+                        return;
+                }
+            }
+        }
     }
     
 }

@@ -18,26 +18,26 @@ import com.mycompany.oceanica.Modelos.ComandoCrearPersonaje;
  */
 public class TipoPersonajeFabrica {
     
-    public static TipoPersonaje getTipoPersonaje (String tipo){
+    public static Personaje getTipoPersonaje (String tipo){
     
         tipo = tipo.toUpperCase();
         switch(tipo){
             case "THE_TRIDDENT":
-                return TipoPersonaje.THE_TRIDDENT;
+                return new PoseidonTrident();
             case "UNDERSEA_FIRE":
-                return TipoPersonaje.UNDERSEA_FIRE;
+                return new UnderseaFire();
             case "THUNDERS_UTS":
-                return TipoPersonaje.THUNDERS_UTS;
+                return new ThundersUnderTheSea();
             case "FISH_TELEPATHY":
-                return TipoPersonaje.FISH_TELEPATHY;
+                return new FishTelepathy();
             case "RELEASE_THE_KRAKEN":    
-                return TipoPersonaje.RELEASE_THE_KRAKEN;
+                return new ReleaseTheKraken();
             case "WAVES_CONTROL":    
-                return TipoPersonaje.WAVES_CONTROL;
+                return new WavesControl();
             default:
                 break;
         }
         return null;
-}
+    }
     
 }

@@ -5,6 +5,9 @@
 package com.mycompany.oceanica.Usuario;
 
 import com.mycompany.Interfaz.InterfazPrincipal;
+import com.mycompany.Personaje.Personaje;
+import com.mycompany.oceanica.Modelos.Comando;
+import com.mycompany.oceanica.Modelos.ComandoAtaque;
 import com.mycompany.oceanica.Modelos.ComandoFabrica;
 import com.mycompany.oceanica.Threads.ThreadUsuario;
 import java.io.DataInputStream;
@@ -59,7 +62,13 @@ public class Usuario {
         }
     }
 
-
+    public void recibirAtaque(Comando comando){
+        ComandoAtaque comandoAtaque = (ComandoAtaque) comando;
+        Personaje personaje = comandoAtaque.getPersonaje();
+        personaje.realizarAtaque(comandoAtaque, interfazPrincipal);
+    }
+    
+    
     public Socket getSocket() {
         return socket;
     }

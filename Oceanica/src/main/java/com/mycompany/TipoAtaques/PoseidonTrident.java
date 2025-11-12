@@ -16,14 +16,16 @@ import com.mycompany.oceanica.Modelos.ComandoAtaque;
  *
  * @author seb
  */
-public class PoseidonTrident extends Ataque{
+public class PoseidonTrident extends Personaje{
 
     /* 
      * Three lines: selecciona 3 puntos en el mapa. En cada punto destruye lo que esté de 1 a 4
      * casillas a la derecha, izquierda, arriba, abajo (aleatorio)
     */
+    
     private String[] ataques = new String[3];
-    public PoseidonTrident(TipoPersonaje tipoPersonaje) {
+    public PoseidonTrident() {
+        super(TipoPersonaje.THE_TRIDDENT);
         this.ataques[0] = "THREE_LINES";
         this.ataques[1] = "THREE_NUMBERS";
         this.ataques[2] = "CONTROL_THE_KRAKEN";
@@ -50,5 +52,24 @@ public class PoseidonTrident extends Ataque{
         this.ataques = ataques;
     }
 
-    
+    @Override
+    public void realizarAtaque(ComandoAtaque comando, InterfazPrincipal interfaz) {
+        
+        String[] args = comando.getParametros();
+        for (String ataque : this.ataques){
+            if (ataque.equals(args[3].toUpperCase())){
+                switch(ataque){
+                    case "THREE_LINES":
+                        ataqueThreeLines(interfaz,comando);
+                        return;
+                    case "THREE_NUMBERS":
+                        ataqueThreeNumbers(interfaz, comando);
+                        return;
+                    case "CONTROL_THE_KRAKEN":
+                        ataqueControlTheKraken(interfaz, comando);
+                        return;
+                }
+            }
+        }
+    }
 }

@@ -17,11 +17,11 @@ public class UnderseaFire extends Personaje{
     
     private String[] ataques = new String[3];
     
-    public UnderseaFire(TipoPersonaje tipoPersonaje) {
-        super(tipoPersonaje.UNDERSEA_FIRE);
-        this.ataques[0] = "Volcano_raising";
-        this.ataques[1] = "Volcano_explosion";
-        this.ataques[2] = "Termal_rush";
+    public UnderseaFire() {
+        super(TipoPersonaje.UNDERSEA_FIRE);
+        this.ataques[0] = "VOLCANO_RAISING";
+        this.ataques[1] = "VOLCANO_EXPLOSION";
+        this.ataques[2] = "TERMAL_RUSH";
         
     }
 
@@ -38,8 +38,24 @@ public class UnderseaFire extends Personaje{
     }
     
 
-    public void setAtaques(String[] ataques) {
-        this.ataques = ataques;
+    @Override
+    public void realizarAtaque(ComandoAtaque comando, InterfazPrincipal interfaz) {
+        String[] args = comando.getParametros();
+        for (String ataque : this.ataques){
+            if (ataque.equals(args[3].toUpperCase())){
+                switch(ataque){
+                    case "VOLCANO_RAISING":
+                        ataqueVolcanoRaising(interfaz,comando);
+                        return;
+                    case "VOLCANO_EXPLOSION":
+                        ataqueVolcanoExplosion(interfaz, comando);
+                        return;
+                    case "TERMAL_RUSH":
+                        ataqueTermalRush(interfaz, comando);
+                        return;
+                }
+            }
+        }
     }
     
 }

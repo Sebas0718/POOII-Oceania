@@ -283,7 +283,8 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         for (int i = 0; i < 8; i++) {
             System.out.println(comando.getParametros()[i]);
         }
-        Personaje personaje = new Personaje(TipoPersonajeFabrica.getTipoPersonaje(comando.getParametros()[1]));
+        
+        Personaje personaje = TipoPersonajeFabrica.getTipoPersonaje(comando.getParametros()[1]);
 
         if (personaje == null || personaje.getTipoPersonaje().equals(null))
 

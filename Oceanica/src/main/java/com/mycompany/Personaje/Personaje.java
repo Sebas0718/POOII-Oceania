@@ -3,7 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.Personaje;
-public class Personaje {
+
+import com.mycompany.Interfaz.InterfazPrincipal;
+import com.mycompany.oceanica.Modelos.ComandoAtaque;
+
+public abstract class Personaje {
     
     private int poder;
     private int resistencia;
@@ -18,7 +22,7 @@ public class Personaje {
     }
 
     
-    
+    public abstract void realizarAtaque(ComandoAtaque comando, InterfazPrincipal interfaz);
    
     
 
