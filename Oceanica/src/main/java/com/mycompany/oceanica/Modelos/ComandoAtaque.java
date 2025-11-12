@@ -14,8 +14,11 @@ import com.mycompany.oceanica.Usuario.Usuario;
  */
 public class ComandoAtaque extends Comando {
     
-    public ComandoAtaque(String[] args, String nombre) {
+    private Personaje personaje;
+    
+    public ComandoAtaque(String[] args, String nombre, Personaje personaje) {
         super(TiposComandos.ATAQUE, args, nombre);
+        this.personaje = personaje;
         
     }
 
@@ -44,5 +47,11 @@ public class ComandoAtaque extends Comando {
             usuario.getInterfazPrincipal().writeMessage(usuario.getNombre() + " ha atacado a: " + this.getParametros()[1],  this);
             usuario.getInterfazPrincipal().actualizarInterfaz();
 }
+
+    public Personaje getPersonaje() {
+        return personaje;
+    }
+
+   
     
 }

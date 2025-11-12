@@ -13,12 +13,12 @@ import com.mycompany.oceanica.Modelos.ComandoAtaque;
  *
  * @author seb
  */
-public class ThundersUnderTheSea extends Ataque {
+public class ThundersUnderTheSea extends Personaje {
     
     private String[] ataques = new String[3];
     
-    public ThundersUnderTheSea(TipoPersonaje tipoPersonaje) {
-        super(tipoPersonaje);
+    public ThundersUnderTheSea() {
+        super(TipoPersonaje.THUNDERS_UTS);
         this.ataques[0] = "Thunder_rain";
         this.ataques[1] = "Poseidon_thunders";
         this.ataques[2] = "Eel_Atack";

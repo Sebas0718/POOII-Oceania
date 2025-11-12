@@ -28,7 +28,8 @@ public enum TiposComandos {
     MOSTRAR_PORCENTAJES_CELDAS(1),
     PINTAR_VIVAS(1),
     AYUDA(1),
-    USUARIOS(1);
+    USUARIOS(1),
+    ATAQUES_PERSONAJES(1);
     
     
     private int ParametrosRequeridos;
