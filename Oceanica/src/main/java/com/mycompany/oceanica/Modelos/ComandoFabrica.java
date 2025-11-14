@@ -81,6 +81,10 @@ public class ComandoFabrica {
                 if (TiposComandos.USUARIOS.getParametrosRequeridos() < args.length)
                     return new ComandoError(args, nombre);
                 return new ComandoUsuarios(args,nombre);
+            case "ATAQUES_PERSONAJES":
+                if (TiposComandos.USUARIOS.getParametrosRequeridos() < args.length)
+                    return new ComandoError(args, nombre);
+                return new ComandoAtaquesPersonajes(args,nombre);
             default:
                 return new ComandoError(args, nombre);
         }

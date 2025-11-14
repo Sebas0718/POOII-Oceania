@@ -79,7 +79,7 @@ public class Server {
 
     public void ejecutarComando(Comando comando) {
         // Solo procesar NOMBRE si el usuario no tiene nombre
-        if (comando.getTipo() == TiposComandos.NOMBRE) {
+        if (comando.getTipo().equals(TiposComandos.NOMBRE)) {
             broadcast(comando);
             return;
         }

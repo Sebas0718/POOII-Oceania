@@ -15,7 +15,7 @@ public enum TiposComandos {
     MENSAJE (2), //message saludo
     MENSAJE_PRIVADO(3), // private usuario saludo
     RENDIRSE(1), // giveup
-    NOMBRE(1),
+    NOMBRE(2),
     ERROR(1),
     CREAR(8),
     INICIAR(1),

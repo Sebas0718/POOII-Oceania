@@ -27,18 +27,17 @@ public class ComandoAyuda extends Comando {
             usuario.getInterfazPrincipal().writeMessage("COMANDOS: \n" +
                                                             "MENSAJE  \"mensaje\"  (Mensaje para todos los usuarios)\n" +
                                                             "MENSAJE_PRIVADO  \"nombreUsuario\"  \"mensaje\"  (Mensaje para un solo usuario)\n" +
-                                                            "RENDIRSE\n (Te rindes)" +
+                                                            "RENDIRSE  (Te rindes)\n" +
                                                             "CREAR  \"tipo\" \"porcentaje a representar\" \"Imagen\"  \"Poder\"  \"Resistencia\"  \"Sanidad\"  \"nombre\" (Creas un personaje) \n" +
-                                                            "INICIAR\n  (Darle a listo)" +
-                                                            "SALTAR\n  (Salta el turno)" +
+                                                            "INICIAR  (Darle a listo)\n" +
+                                                            "SALTAR  (Salta el turno)\n" +
                                                             "CONSULTAR_CELDA  \"x\"  \"y\"  (Consulta una celda de tu tablero)\n " +
                                                             "LOG (muestra un detalle de TODOS los eventos que han sucedido)\n " +
                                                             "LOG_RESUMEN  (da cuántos ataques se han realizado y cuál es el porcentaje de éxito) \n" +
                                                             "CONSULTAR_ENEMIGO  \"nombreUsuario\"  (muestra el estado del enemigo)\n" +
                                                             "MOSTRAR_CELDAS_OCUPADAS  (muestra en el mapa las celdas ocupadas por volcanes y remolinos.)\n" +
                                                             "MOSTRAR_PORCENTAJES_CELDAS  (muestra en el mapa la vida de cada celda)\n" +
-                                                            "PINTAR_VIVAS  (muestra en el mapa las celdas que están vivas de un color, de otro las muertas.) \n " +
+                                                            "PINTAR_VIVAS  (muestra en el mapa las celdas que están vivas de un color, de otro las muertas.) \n" +
                                                             "ATAQUES_PERSONAJES (muestra como enviar ataques segun el tipo de personaje)", this);
                                                             }
-    
 }
