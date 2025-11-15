@@ -4,6 +4,9 @@
  */
 package com.mycompany.TipoAtaques;
 
+import java.awt.Color;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Random;
 
 import com.mycompany.Interfaz.Celda;
@@ -18,7 +21,6 @@ import com.mycompany.oceanica.Modelos.ComandoAtaque;
  */
 public class WavesControl extends Personaje {
     
-    private int rangoUltimoRemolino;
     private String[] ataques = new String[3];
     
     public WavesControl() {
@@ -36,7 +38,8 @@ public class WavesControl extends Personaje {
         int F = celdas.length;
         int C = celdas[0].length;
         int rango = rand.nextInt(9) + 2;
-        this.rangoUltimoRemolino = rango;
+        interfaz.setRangoUltimoRemolino(rango);
+
         
         int fila = rand.nextInt(20);
         int columna = rand.nextInt(20);
@@ -54,13 +57,17 @@ public class WavesControl extends Personaje {
             }
         }
         celdas[fila][columna].aplicarEfecto(TipoEfecto.REMOLINO);
+        celdas[fila][columna].getRefLabel().setBackground(new Color(0, 148, 198));
     }
 
+    // TODO: FALTA HACER QUE FUNCIONE UTILIZANDO EL REMOLINO SELECCIONADO, AHORITA SOLO AGARRA EL ULTIMO RANGO
     public void ataqueSendHumanGarbage(InterfazPrincipal interfaz, ComandoAtaque comando){
         
         Random rand = new Random();
-        int remolino = Integer.parseInt(comando.getParametros()[4]);
-        int rango = 10*this.rangoUltimoRemolino;
+        int rango = 10 * interfaz.getRangoUltimoRemolino();
+        if (rango == 0) {
+            rango = 10;
+        }
         int cantBasura = 0;
         Celda[][] celdas = interfaz.getCeldas();
 
@@ -68,25 +75,35 @@ public class WavesControl extends Personaje {
             int fila = rand.nextInt(20);
             int columna = rand.nextInt(20);
             int esRadioactiva = rand.nextInt(2); 
-            for (int i = 0; i < celdas.length; i++) {
-                for (int j = 0; j < celdas[0].length; j++){
-                    celdas[i][j].recibirAtaque(interfaz.getUsuario(), rango);
+            celdas[fila][columna].recibirAtaque(interfaz.getUsuario(), 25);
 
-                }
+            if (esRadioactiva == 1) {
+                celdas[fila][columna].aplicarEfecto(TipoEfecto.RADIACTIVO);
             }
+            cantBasura++;
         }
-
     }
     
     public void ataqueRadioactiveRush(InterfazPrincipal interfaz, ComandoAtaque comando) {
 
+        Random rand = new Random();
         Celda[][] celdas = interfaz.getCeldas();
+        
+        ArrayList<Celda> celdasRadioactivas = new ArrayList<Celda>();
         for (Celda[] filaCeldas : celdas) {
             for (int i = 0; i < filaCeldas.length; i++) {
-                if (filaCeldas[i].isEsRadioactiva()){
-                    filaCeldas[i].recibirAtaque(interfaz.getUsuario(), 10);
+                if (filaCeldas[i].isEsRadioactiva()) {
+                    celdasRadioactivas.add(filaCeldas[i]);
                 }
             }
+        }
+        
+        int segundos = rand.nextInt(11);
+        while (0 < segundos) {
+            for (Celda celda : celdasRadioactivas) {
+                celda.recibirAtaque(interfaz.getUsuario(), 25);
+            }
+            segundos--;
         }
     }
 

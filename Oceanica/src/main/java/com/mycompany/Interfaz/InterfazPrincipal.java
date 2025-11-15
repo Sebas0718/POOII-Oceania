@@ -18,6 +18,7 @@ import com.mycompany.oceanica.Modelos.ComandoUtilidad;
 import com.mycompany.oceanica.Modelos.ComandosAtaquesFabrica;
 import com.mycompany.oceanica.Server.PantallaServer;
 import com.mycompany.oceanica.Usuario.Usuario;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -29,8 +30,10 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
+
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -64,9 +67,13 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     private JLabel [][] tablero = new JLabel [20][20];
     private String[][] ocupados = new String[20][20];
 
-    private ArrayList<String> ataquesRecibios = new ArrayList<>(); 
+    private ArrayList<String> ataquesRecibidos = new ArrayList<>(); 
     private ArrayList<String> historial = new ArrayList<>();
     
+    // private ArrayList<int> rangoVolcanesCreados = new ArrayList<int>();
+    // private ArrayList<int> rangoRemolinosCreados = new ArrayList<int>();
+    private int rangoUltimoVolcan = 0;
+    private int rangoUltimoRemolino = 0;
     
    
     private PantallaServer servidor;
@@ -172,8 +179,8 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     public void actualizarAtaquesRecibidos() {
         
         this.txaComandoActual.setText("");
-        for (int i = 0; i < ataquesRecibios.size(); i++) {
-            this.txaComandoActual.append(ataquesRecibios.get(i));
+        for (int i = 0; i < ataquesRecibidos.size(); i++) {
+            this.txaComandoActual.append(ataquesRecibidos.get(i));
         }
     }
 
@@ -1005,8 +1012,22 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
+    public int getRangoUltimoRemolino() {
+        return this.rangoUltimoRemolino;
+    }
     
+    public void setRangoUltimoRemolino(int rango) {
+        this.rangoUltimoRemolino = rango;
+    }
+
+    public int getRangoUltimoVolcan() {
+        return this.rangoUltimoVolcan;
+    }
     
+    public void setRangoUltimoVolcan(int rango) {
+        this.rangoUltimoVolcan= rango;
+    }
 
 
 
