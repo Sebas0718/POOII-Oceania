@@ -813,7 +813,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             if(args.length > 0){
                 if (args[0].toUpperCase().equals("ATAQUE")){
                     if (this.listaPersonajes.size() == 0){
-                        comando = ComandoFabrica.getComando(args,usuario.getNombre());
+                        comando = ComandoFabrica.getComando(args, this.usuario.getNombre());
                     }
                     for (Personaje personaje : this.listaPersonajes){
                         if (args[2].equals(personaje.getNombre())){
@@ -824,15 +824,15 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                     if (personajeActual == null){
                         comando = ComandoFabrica.getComando(args,usuario.getNombre());
                     } else  {
-                        comando = ComandosAtaquesFabrica.getComandoAtaque(args,usuario.getNombre(), personajeActual);
+                        comando = ComandosAtaquesFabrica.getComandoAtaque(args, this.usuario.getNombre(), personajeActual);
                     }
                 }
                 else{
-                comando = ComandoFabrica.getComando(args,usuario.getNombre());
+                comando = ComandoFabrica.getComando(args, this.usuario.getNombre());
                 }
                 if (comando != null){
                     try {
-                        usuario.getObjetoEscritor().writeObject(comando);
+                        this.usuario.getObjetoEscritor().writeObject(comando);
                     } catch (IOException ex){
                     
                     }

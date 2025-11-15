@@ -45,21 +45,71 @@ public class FishTelepathy extends Personaje {
 
             int x = rand.nextInt(20);  // fila aleatoria
             int y = rand.nextInt(20);  // columna aleatoria
-
-            // Validación de bordes
-            if (ComandoAtaqueValidacion.fueraDeAlcanceXY(x, y)) {
                 celdas[x][y].recibirAtaque(comando.getNombre(), 33);
-            }
         }
     }
     
     public void ataqueSharkAttack(InterfazPrincipal interfaz, ComandoAtaque comando){
-        
+        Random rand = new Random();
+    Celda[][] celdas = interfaz.getCeldas();
+
+    int rango = rand.nextInt(10) + 1; // 1 a 10
+
+    // 🔹 1. Superior Izquierda (0,0)
+    for (int i = 0; i < rango; i++){
+        for (int j = 0; j < rango; j++){
+            if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
+                celdas[i][j].recibirAtaque(comando.getNombre(), 100);
+            }
+        }
     }
-    
+
+    // 🔹 2. Superior Derecha (0,19)
+    for (int i = 0; i < rango; i++){
+        for (int j = 19 - rango + 1; j <= 19; j++){
+            if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
+                celdas[i][j].recibirAtaque(comando.getNombre(), 100);
+            }
+        }
+    }
+
+    // 🔹 3. Inferior Izquierda (19,0)
+    for (int i = 19 - rango + 1; i <= 19; i++){
+        for (int j = 0; j < rango; j++){
+            if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
+                celdas[i][j].recibirAtaque(comando.getNombre(), 100);
+            }
+        }
+    }
+
+    // 🔹 4. Inferior Derecha (19,19)
+    for (int i = 19 - rango + 1; i <= 19; i++){
+        for (int j = 19 - rango + 1; j <= 19; j++){
+            if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
+                celdas[i][j].recibirAtaque(comando.getNombre(), 100);
+            }
+        }
+    }
+    }
     public void ataquePulp(InterfazPrincipal interfaz, ComandoAtaque comando){
+        Random rand = new Random();
+        Celda[][] celdas = interfaz.getCeldas();
+
+        // Cantidad de pulpos entre 20 y 50
+        int cantidadPulpos = rand.nextInt(31) + 20;
+
+        // Cada pulpo lanza 8 tentáculos que dañan 25 cada uno
+        for (int p = 0; p < cantidadPulpos; p++) {
+            for (int t = 0; t < 8; t++) {
+
+                int x = rand.nextInt(20);  // fila aleatoria
+                int y = rand.nextInt(20);  // columna aleatoria
+
+                celdas[x][y].recibirAtaque(comando.getNombre(), 25);
+            }
+        }
+}
     
-    }
 
     public String[] getAtaques() {
         return ataques;
@@ -88,5 +138,4 @@ public class FishTelepathy extends Personaje {
             }
         }
     }
-
 }
