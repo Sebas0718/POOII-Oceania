@@ -51,7 +51,13 @@ public class PoseidonTrident extends Personaje{
     }
     
     public void ataqueThreeNumbers(InterfazPrincipal interfaz, ComandoAtaque comando){
-        //TODO preguntar en la interfaz por 3 numeros entre 0 a 9
+        Celda[][] celdas = interfaz.getCeldas();
+        String[] args = comando.getParametros();
+        int[] numeros = {Integer.parseInt(args[4]),Integer.parseInt(args[5]),Integer.parseInt(args[6])};
+        if (interfaz.ataqueThreeNumbers(numeros)){
+            int celdasAtacar = numeros[1] * numeros[2] * numeros[3];
+            this.realizarThreeNumbers(celdasAtacar, celdas, comando.getNombre());
+        }
     }
     
     public void ataqueControlTheKraken(InterfazPrincipal interfaz, ComandoAtaque comando){
@@ -68,6 +74,26 @@ public class PoseidonTrident extends Personaje{
                 if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
                     celdas[i][j].recibirAtaque(comando.getNombre(),100);
                 }
+            }
+        }
+    }
+    
+    public void realizarThreeNumbers(int celdasAtacar, Celda[][] celdas, String nombre){
+         Random rand = new Random();
+        int atacadas = 0;
+        int seguridad = 0;
+        int limiteSeguridad = 20 * 20; // 400 intentos máximos
+
+        while (atacadas < celdasAtacar && seguridad < limiteSeguridad) {
+            seguridad++;
+
+            int x = rand.nextInt(20);
+            int y = rand.nextInt(20);
+
+            // Atacar solo si la celda no está muerta
+            if (celdas[x][y].getVida() > 0.0) {
+                celdas[x][y].recibirAtaque(nombre, 100);
+                atacadas++;
             }
         }
     }

@@ -8,6 +8,7 @@ import com.mycompany.Personaje.Personaje;
 import com.mycompany.Personaje.TipoPersonaje;
 import com.mycompany.Personaje.TipoPersonajeFabrica;
 import com.mycompany.oceanica.Modelos.Comando;
+import com.mycompany.oceanica.Modelos.ComandoAtaque;
 import com.mycompany.oceanica.Modelos.ComandoCrearPersonaje;
 import com.mycompany.oceanica.Modelos.ComandoCrearPersonajeAsignaciones;
 import com.mycompany.oceanica.Modelos.ComandoCrearPersonajeErrores;
@@ -846,7 +847,30 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     private void txfComandoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfComandoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txfComandoActionPerformed
-
+    
+    public boolean ataqueThreeNumbers(int[] numeros){
+        int contador = 0;
+        
+        while (contador == 3) {
+           String name = JOptionPane.showInputDialog(this, "Ingrese un numero entre 1 a 9");
+           try{
+               int valorActual = Integer.parseInt(name);
+               if (valorActual >= 10){
+                   this.writeError("ERROR!!! ELIJE UN NUMERO ENTRE 1 A 9");
+                   continue;
+               }
+               for (int num : numeros){
+                    if (num == valorActual){
+                        return true;
+                    }
+           }
+               contador++;
+           } catch(NumberFormatException e){
+               this.writeError("ERROR!!! FORMATO NO VALIDO, ELIJE UN NUMERO");
+           }
+       }
+        return false;
+    }
     /**
      * @param args the command line arguments
      */
