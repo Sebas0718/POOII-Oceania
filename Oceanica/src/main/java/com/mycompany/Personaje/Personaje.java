@@ -23,8 +23,7 @@ public abstract class Personaje {
 
     
     public abstract void realizarAtaque(ComandoAtaque comando, InterfazPrincipal interfaz);
-   
-    
+
 
     public int getPoder() {
         return poder;

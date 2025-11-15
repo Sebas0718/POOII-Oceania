@@ -4,6 +4,9 @@
  */
 package com.mycompany.oceanica.Modelos;
 
+import com.mycompany.Interfaz.Celda;
+import com.mycompany.Interfaz.InterfazPrincipal;
+
 /**
  *
  * @author xsusk
@@ -20,4 +23,30 @@ public class ComandoAtaqueValidacion {
         
     }
     
+    public static boolean validarRemolinoSeleccionado(int numRemolino) {
+
+        // int cantidadRemolinos = buscarRemolinosEnTablero(InterfazPrincipal interfaz);
+        // if (numRemolino > cantidadRemolinos){
+        //     return false;   
+        // }
+        return true;
+    }
+
+
+    private int buscarRemolinosEnTablero(InterfazPrincipal interfaz) {
+        
+        Celda[][] celdas = interfaz.getCeldas();
+        int cantidadRemolinos = 0;
+        for (Celda[] filaCeldas : celdas) {
+            for (int j = 0; j < celdas[0].length; j++) {
+                if (filaCeldas[j].isTieneRemolino()) {
+                    cantidadRemolinos++;
+                }
+            }
+        }
+        return cantidadRemolinos;
+    }
+    
+
+
 }

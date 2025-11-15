@@ -63,6 +63,8 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     private Celda [][] celdas  = new Celda[20][20];
     private JLabel [][] tablero = new JLabel [20][20];
     private String[][] ocupados = new String[20][20];
+
+    private ArrayList<String> ataquesRecibios = new ArrayList<>(); 
     private ArrayList<String> historial = new ArrayList<>();
     
     
@@ -164,8 +166,15 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             }
         }
         llenarPanelStats();
+        actualizarAtaquesRecibidos();
+    }
 
-
+    public void actualizarAtaquesRecibidos() {
+        
+        this.txaComandoActual.setText("");
+        for (int i = 0; i < ataquesRecibios.size(); i++) {
+            this.txaComandoActual.append(ataquesRecibios.get(i));
+        }
     }
 
 
@@ -806,7 +815,6 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                     if (this.listaPersonajes.size() == 0){
                         comando = ComandoFabrica.getComando(args,usuario.getNombre());
                     }
-                    
                     for (Personaje personaje : this.listaPersonajes){
                         if (args[2].equals(personaje.getNombre())){
                             personajeActual = personaje;
@@ -815,8 +823,9 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                     }
                     if (personajeActual == null){
                         comando = ComandoFabrica.getComando(args,usuario.getNombre());
+                    } else  {
+                        comando = ComandosAtaquesFabrica.getComandoAtaque(args,usuario.getNombre(), personajeActual);
                     }
-                    comando = ComandosAtaquesFabrica.getComandoAtaque(args,usuario.getNombre(), personajeActual);
                 }
                 else{
                 comando = ComandoFabrica.getComando(args,usuario.getNombre());

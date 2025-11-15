@@ -4,6 +4,9 @@
  */
 package com.mycompany.TipoAtaques;
 
+import java.util.Random;
+
+import com.mycompany.Interfaz.Celda;
 import com.mycompany.Interfaz.InterfazPrincipal;
 import com.mycompany.Personaje.Personaje;
 import com.mycompany.Personaje.TipoPersonaje;
@@ -15,6 +18,7 @@ import com.mycompany.oceanica.Modelos.ComandoAtaque;
  */
 public class WavesControl extends Personaje {
     
+    private int rangoUltimoRemolino;
     private String[] ataques = new String[3];
     
     public WavesControl() {
@@ -26,15 +30,67 @@ public class WavesControl extends Personaje {
     
     public void ataqueSwirlRaising(InterfazPrincipal interfaz, ComandoAtaque comando){
         
+        Random rand = new Random();
+
+        Celda[][] celdas = interfaz.getCeldas();
+        int F = celdas.length;
+        int C = celdas[0].length;
+        int rango = rand.nextInt(9) + 2;
+        this.rangoUltimoRemolino = rango;
+        
+        int fila = rand.nextInt(20);
+        int columna = rand.nextInt(20);
+
+        
+            // 1. Determinar los límites de búsqueda seguros
+        int r_inicio = Math.max(0, fila - rango);
+        int r_fin = Math.min(F - 1, fila + rango);
+        int c_inicio = Math.max(0, columna - rango);
+        int c_fin = Math.min(C - 1, columna + rango);
+
+        for (int i = r_inicio; i <= r_fin; i++) {
+            for (int j = c_inicio; j <= c_fin; j++) {
+                celdas[i][j].recibirAtaque(interfaz.getUsuario(), 100);
+            }
+        }
+        celdas[fila][columna].aplicarEfecto(TipoEfecto.REMOLINO);
     }
 
     public void ataqueSendHumanGarbage(InterfazPrincipal interfaz, ComandoAtaque comando){
         
+        Random rand = new Random();
+        int remolino = Integer.parseInt(comando.getParametros()[4]);
+        int rango = 10*this.rangoUltimoRemolino;
+        int cantBasura = 0;
+        Celda[][] celdas = interfaz.getCeldas();
+
+        while (cantBasura < rango) {
+            int fila = rand.nextInt(20);
+            int columna = rand.nextInt(20);
+            int esRadioactiva = rand.nextInt(2); 
+            for (int i = 0; i < celdas.length; i++) {
+                for (int j = 0; j < celdas[0].length; j++){
+                    celdas[i][j].recibirAtaque(interfaz.getUsuario(), rango);
+
+                }
+            }
+        }
+
     }
     
-    public void ataqueRadioactiveRush(InterfazPrincipal interfaz, ComandoAtaque comando){
-    
+    public void ataqueRadioactiveRush(InterfazPrincipal interfaz, ComandoAtaque comando) {
+
+        Celda[][] celdas = interfaz.getCeldas();
+        for (Celda[] filaCeldas : celdas) {
+            for (int i = 0; i < filaCeldas.length; i++) {
+                if (filaCeldas[i].isEsRadioactiva()){
+                    filaCeldas[i].recibirAtaque(interfaz.getUsuario(), 10);
+                }
+            }
+        }
     }
+
+
     
     public String[] getAtaques() {
         return ataques;

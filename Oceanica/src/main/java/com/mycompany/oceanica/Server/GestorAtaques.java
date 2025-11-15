@@ -60,7 +60,6 @@ public class GestorAtaques {
             case "KRAKEN_BREATH":
                 break;
             case "RELEASE_THE_KRAKEN":
-                System.out.println("TS10: LLEGO HASTA ATACAR CON EL KRAKEN");
                 // ReleaseTheKraken.ataqueReleaseTheKraken(threadAtacante);
 
             case "VOLCANO_RAISING":

@@ -29,13 +29,12 @@ public class ComandoAtaque extends Comando {
         this.setInfo(false);
         this.setIsBroadcast(false);
         
-        System.out.println("TS40: ENTRO A PROCESO POR SERVER");
         System.out.println(this.getParametros()[1]);
         System.out.println(threadServidor.getServer().getGestorAtaques().buscarUsuario(this.getParametros()[1]));
 
 
         if (threadServidor.getServer().getGestorAtaques().buscarUsuario(this.getParametros()[1])!=null) {
-            System.out.println("TS50: Entro a procesoPorServer");
+
             ThreadServer threadAtacante = threadServidor.getServer().getGestorAtaques().buscarUsuario(threadServidor.getNombre());
             ThreadServer threadVictima = threadServidor.getServer().getGestorAtaques().buscarUsuario(this.getParametros()[1]);
             threadServidor.getServer().getGestorAtaques().atacarUsuario(this,threadAtacante, threadVictima);
