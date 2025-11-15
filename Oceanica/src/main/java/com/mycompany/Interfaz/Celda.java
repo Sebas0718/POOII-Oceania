@@ -58,10 +58,10 @@ public class Celda {
         return texto;
     }
     
-    public void recibirAtaque(Usuario usuarioAtacante, int ataque){
+    public void recibirAtaque(String nombreUsuario, int ataque){
         
         this.vida -= ataque;
-        this.atacadoPor.add(usuarioAtacante.getNombre());
+        this.atacadoPor.add(nombreUsuario);
                 if (this.vida <= 0){
                     this.isCeldaDestruida = true;
                     tieneVolcan = false;

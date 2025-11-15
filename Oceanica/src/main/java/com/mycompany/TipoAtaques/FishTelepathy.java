@@ -9,6 +9,7 @@ import com.mycompany.Interfaz.InterfazPrincipal;
 import com.mycompany.Personaje.Personaje;
 import com.mycompany.Personaje.TipoPersonaje;
 import com.mycompany.oceanica.Modelos.ComandoAtaque;
+import com.mycompany.oceanica.Modelos.ComandoAtaqueValidacion;
 import java.util.List;
 import java.util.Random;
 
@@ -34,11 +35,26 @@ public class FishTelepathy extends Personaje {
     
     
     public void ataqueCardumen (InterfazPrincipal interfaz, ComandoAtaque comando){
-        
+        Random rand = new Random();
+        Celda[][] celdas = interfaz.getCeldas();
+
+        // Número de peces entre 100 y 300
+        int cantidadPeces = rand.nextInt(201) + 100; 
+
+        for (int i = 0; i < cantidadPeces; i++) {
+
+            int x = rand.nextInt(20);  // fila aleatoria
+            int y = rand.nextInt(20);  // columna aleatoria
+
+            // Validación de bordes
+            if (ComandoAtaqueValidacion.fueraDeAlcanceXY(x, y)) {
+                celdas[x][y].recibirAtaque(comando.getNombre(), 33);
+            }
+        }
     }
     
     public void ataqueSharkAttack(InterfazPrincipal interfaz, ComandoAtaque comando){
-    
+        
     }
     
     public void ataquePulp(InterfazPrincipal interfaz, ComandoAtaque comando){

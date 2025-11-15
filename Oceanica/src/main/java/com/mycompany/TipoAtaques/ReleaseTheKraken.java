@@ -49,9 +49,9 @@ public class ReleaseTheKraken extends Personaje {
         int tentaculoy2 = Integer.parseInt(args[7]);
         int tentaculoy3 = Integer.parseInt(args[9]);
         
-        aplicarAtaqueTentaculo(celdas, tentaculox1, tentaculoy1,interfazPrincipal);
-        aplicarAtaqueTentaculo(celdas, tentaculox2, tentaculoy2,interfazPrincipal);
-        aplicarAtaqueTentaculo(celdas, tentaculox3, tentaculoy3,interfazPrincipal);
+        aplicarAtaqueTentaculo(celdas, tentaculox1, tentaculoy1,interfazPrincipal, comando.getNombre());
+        aplicarAtaqueTentaculo(celdas, tentaculox2, tentaculoy2,interfazPrincipal, comando.getNombre());
+        aplicarAtaqueTentaculo(celdas, tentaculox3, tentaculoy3,interfazPrincipal, comando.getNombre());
         
     }
         
@@ -69,28 +69,28 @@ public class ReleaseTheKraken extends Personaje {
             case 1: //Abajo
                 for (int i = 0; i < cantCasillasAtacadas; i++){
                     if (ComandoAtaqueValidacion.fueraDeAlcanceXY(alientox + i, alientoy)) {
-                        celdas[alientox + i][alientoy].recibirAtaque(interfazPrincipal.getUsuario(), 100);
+                        celdas[alientox + i][alientoy].recibirAtaque(comando.getNombre(), 100);
                     }
                 }
                 break;
             case 2: //Arriba
                 for (int i = 0; i < cantCasillasAtacadas; i++){
                     if (ComandoAtaqueValidacion.fueraDeAlcanceXY(alientox - i, alientoy)) {
-                        celdas[alientox - i][alientoy].recibirAtaque(interfazPrincipal.getUsuario(), 100);
+                        celdas[alientox - i][alientoy].recibirAtaque(comando.getNombre(), 100);
                     }
                 }
                 break;
             case 3: //Derecha
                 for (int i = 0; i < cantCasillasAtacadas; i++){
                     if (ComandoAtaqueValidacion.fueraDeAlcanceXY(alientox, alientoy + i)) {
-                        celdas[alientox][alientoy + i].recibirAtaque(interfazPrincipal.getUsuario(), 100);
+                        celdas[alientox][alientoy + i].recibirAtaque(comando.getNombre(), 100);
                     }
                 }
                 break;
             case 4: //Izquierda
                 for (int i = 0; i < cantCasillasAtacadas; i++){
                     if (ComandoAtaqueValidacion.fueraDeAlcanceXY(alientox, alientoy - i)) {
-                        celdas[alientox][alientoy - i].recibirAtaque(interfazPrincipal.getUsuario(), 100);
+                        celdas[alientox][alientoy - i].recibirAtaque(comando.getNombre(), 100);
                     }
                 }
                 break;
@@ -103,25 +103,18 @@ public class ReleaseTheKraken extends Personaje {
         Random rand = new Random();
 
         Celda[][] celdas = interfazPrincipal.getCeldas();
-        int F = celdas.length;
-        int C = celdas[0].length;
-        int rango = 9;
+        int rango = rand.nextInt(9) + 1;
         
         int fila = rand.nextInt(20);
         int columna = rand.nextInt(20);
         
-            // 1. Determinar los límites de búsqueda seguros
-        int r_inicio = Math.max(0, fila - rango);
-        int r_fin = Math.min(F - 1, fila + rango);
-        int c_inicio = Math.max(0, columna - rango);
-        int c_fin = Math.min(C - 1, columna + rango);
-
-        for (int i = r_inicio; i <= r_fin; i++) {
-            for (int j = c_inicio; j <= c_fin; j++) {            
-                celdas[i][j].recibirAtaque(interfazPrincipal.getUsuario(), 100);
+        for (int i = fila - rango; i <= fila + rango; i++) {
+            for (int j = columna - rango; j <= columna + rango; j++) {
+                if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
+                celdas[i][j].recibirAtaque(comando.getNombre(),100);
+                }
             }
         }
-
     }
 
     public String[] getAtaques() {
@@ -132,14 +125,14 @@ public class ReleaseTheKraken extends Personaje {
         this.ataques = ataques;
     }
 
-    private void aplicarAtaqueTentaculo(Celda[][] celdas, int x, int y, InterfazPrincipal interfaz) {
+    private void aplicarAtaqueTentaculo(Celda[][] celdas, int x, int y, InterfazPrincipal interfaz, String nombre) {
     for (int dx = -1; dx <= 1; dx++) {
         for (int dy = -1; dy <= 1; dy++) {
             int nx = x + dx;
             int ny = y + dy;
 
             if (ComandoAtaqueValidacion.fueraDeAlcanceXY(nx, ny)) {
-                celdas[nx][ny].recibirAtaque(interfaz.getUsuario(),100);
+                celdas[nx][ny].recibirAtaque(nombre,100);
             }
         }
     }

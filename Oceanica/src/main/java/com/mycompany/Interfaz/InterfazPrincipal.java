@@ -391,7 +391,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     
     
     public void atacarCelda(Usuario usuarioAtacante, int ataque, Celda celda){
-        celda.recibirAtaque(usuarioAtacante, ataque);
+        celda.recibirAtaque(usuarioAtacante.getNombre(), ataque);
     }
     
 
@@ -802,7 +802,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         if (msg.length() > 0){
             String args[] = ComandoUtilidad.tokenizerArgs(msg);
             if(args.length > 0){
-                if (args[0].equals("ATAQUE")){
+                if (args[0].toUpperCase().equals("ATAQUE")){
                     if (this.listaPersonajes.size() == 0){
                         comando = ComandoFabrica.getComando(args,usuario.getNombre());
                     }

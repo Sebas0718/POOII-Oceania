@@ -65,9 +65,8 @@ public class Usuario {
     public void recibirAtaque(Comando comando){
         ComandoAtaque comandoAtaque = (ComandoAtaque) comando;
         Personaje personaje = comandoAtaque.getPersonaje();
-        personaje.realizarAtaque(comandoAtaque, interfazPrincipal);
+        personaje.realizarAtaque(comandoAtaque,  this.interfazPrincipal);
     }
-    
     
     public Socket getSocket() {
         return socket;
