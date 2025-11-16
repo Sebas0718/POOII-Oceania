@@ -40,7 +40,7 @@ public class ThreadUsuario extends Thread {
                 
                 comandoRecibido = (Comando) usuario.getObjetoLector().readObject();
                 String[] args = comandoRecibido.getParametros();
-                if (comandoRecibido.getTipo().equals(TiposComandos.ATAQUE) && comandoRecibido.getUsuario().equals(args[1])){
+                if (comandoRecibido.getTipo().equals(TiposComandos.ATAQUE) && this.usuario.equals(args[1])){
                     usuario.recibirAtaque(comandoRecibido);
                 }
                 comandoRecibido.procesoEnUsuario(usuario);

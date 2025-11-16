@@ -15,6 +15,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,18 +24,18 @@ import java.util.List;
  *
  * @author xsusk
  */
-public class Usuario {
+public class Usuario implements Serializable{
     
-    private final int PORT = 54321;
-    private final String SERVER_IP = "localhost";
-    private Socket socket;
-    private ObjectInputStream objetoLector;
-    private ObjectOutputStream objetoEscritor;
-    private ThreadUsuario threadUsuario;
+    private transient final int PORT = 54321;
+    private transient final String SERVER_IP = "localhost";
+    private transient Socket socket;
+    private transient ObjectInputStream objetoLector;
+    private transient ObjectOutputStream objetoEscritor;
+    private transient ThreadUsuario threadUsuario;
     private String nombre;
 
     private boolean haPerdido = false;
-    private InterfazPrincipal interfazPrincipal;
+    private transient InterfazPrincipal interfazPrincipal;
     
     private List<String> resultadoAtaqueRecibido = new ArrayList<>();
     private List<String> resultadoAtaqueEnviado = new ArrayList<>();

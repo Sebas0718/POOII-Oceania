@@ -59,6 +59,8 @@ public class ThreadServer extends Thread {
                 server.ejecutarComando(comando);;
                 
             } catch (IOException | ClassNotFoundException ex) {
+                System.getLogger(ThreadConexiones.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                server.getRefPantalla().writeMessage("Error: " + ex.getMessage());
                 manejarDesconexion();
                 break;
 

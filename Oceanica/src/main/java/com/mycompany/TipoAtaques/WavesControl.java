@@ -24,7 +24,7 @@ public class WavesControl extends Personaje {
     private String[] ataques = new String[3];
     
     public WavesControl() {
-        super(TipoPersonaje.RELEASE_THE_KRAKEN);
+        super(TipoPersonaje.WAVES_CONTROL);
         this.ataques[0] = "SWIRL_RAISING";
         this.ataques[1] = "SEND_HUMAN_GARBAGE";
         this.ataques[2] = "RADIOACTIVE_RUSH";

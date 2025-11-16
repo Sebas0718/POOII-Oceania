@@ -6,8 +6,9 @@ package com.mycompany.Personaje;
 
 import com.mycompany.Interfaz.InterfazPrincipal;
 import com.mycompany.oceanica.Modelos.ComandoAtaque;
+import java.io.Serializable;
 
-public abstract class Personaje {
+public abstract class Personaje implements Serializable {
     
     private int poder;
     private int resistencia;
