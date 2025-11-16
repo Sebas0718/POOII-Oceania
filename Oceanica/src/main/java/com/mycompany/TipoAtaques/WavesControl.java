@@ -85,7 +85,7 @@ public class WavesControl extends Personaje {
             int fila = rand.nextInt(20);
             int columna = rand.nextInt(20);
             int esRadioactiva = rand.nextInt(2); 
-            celdas[fila][columna].recibirAtaque(interfaz.getUsuario(), 25);
+            celdas[fila][columna].recibirAtaque(comando,25,interfaz);
 
             if (esRadioactiva == 1) {
                 celdas[fila][columna].aplicarEfecto(TipoEfecto.RADIACTIVO);
@@ -111,7 +111,7 @@ public class WavesControl extends Personaje {
         int segundos = rand.nextInt(11);
         while (0 < segundos) {
             for (Celda celda : celdasRadioactivas) {
-                celda.recibirAtaque(interfaz.getUsuario(), 25);
+                celda.recibirAtaque(comando,25,interfaz);
             }
             segundos--;
         }
