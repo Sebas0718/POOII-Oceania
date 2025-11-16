@@ -28,6 +28,21 @@ public class ComandoPorcentajeCeldas extends Comando {
     @Override
     public void procesoEnUsuario(Usuario usuario) {
         Celda[][] celdas = usuario.getInterfazPrincipal().getCeldas();
+        StringBuilder informacion = new StringBuilder();
+
+        for (int i = 0; i < celdas.length; i++) {
+            for (int j = 0; j < celdas[i].length; j++) {
+                Celda celda = celdas[i][j];
+                float vida = celda.getVida();
+
+                informacion.append("Celda (")
+                           .append(i).append(", ")
+                           .append(j).append(") tiene ")
+                           .append(String.format("%.2f", vida))   
+                           .append(" de vida\n");
+            }
+        }
+        usuario.getInterfazPrincipal().writeMessage(informacion.toString(), this);
         
     }
     
