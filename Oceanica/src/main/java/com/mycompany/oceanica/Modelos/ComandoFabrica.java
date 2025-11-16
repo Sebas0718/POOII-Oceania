@@ -53,7 +53,13 @@ public class ComandoFabrica {
             case "LOG":    
                 if (TiposComandos.LOG.getParametrosRequeridos() < args.length)
                     return new ComandoError(args, nombre);
-                return new ComandoLog(args, nombre);
+                if (args[1].toUpperCase().equals("RECIBIDOS")){
+                    return new ComandoLog(args, nombre);
+                }
+                else if (args[2].toUpperCase().equals("REALIZADOS")){
+                    return new ComandoLog(args, nombre);
+                }
+                return new ComandoError(args, nombre);
             case "LOG_RESUMEN":    
                 if (TiposComandos.LOG_RESUMEN.getParametrosRequeridos() < args.length)
                     return new ComandoError(args, nombre);

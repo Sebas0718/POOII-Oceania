@@ -68,6 +68,9 @@ public class PoseidonTrident extends Personaje{
             comando.getUsuario().getInterfazPrincipal().writeResultadoAtaque("EL RESULTADO DEL ATAQUE FUE:");
             this.realizarThreeNumbers(celdasAtacar, celdas, comando, interfaz);
         }
+        else{
+            comando.getUsuario().setAtaquesfallados(comando.getUsuario().getAtaquesfallados() + 1);
+        }
     }
     
     public void ataqueControlTheKraken(InterfazPrincipal interfaz, ComandoAtaque comando){

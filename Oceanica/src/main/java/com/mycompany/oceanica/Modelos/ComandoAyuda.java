@@ -25,14 +25,14 @@ public class ComandoAyuda extends Comando {
     
     public void procesoEnUsuario(Usuario usuario) {
             usuario.getInterfazPrincipal().writeMessage("COMANDOS: \n" +
-                                                            "MENSAJE  \"mensaje\"  (Mensaje para todos los usuarios)\n" +
-                                                            "MENSAJE_PRIVADO  \"nombreUsuario\"  \"mensaje\"  (Mensaje para un solo usuario)\n" +
+                                                            "MENSAJE  \"mensaje\"  (Mensaje para todos los usuarios, es necesario colocar parentesis en el mensaje)\n" +
+                                                            "MENSAJE_PRIVADO  \"nombreUsuario\"  \"mensaje\"  (Mensaje para un solo usuario, es necesario colocar parentesis en el mensaje)\n" +
                                                             "RENDIRSE  (Te rindes)\n" +
                                                             "CREAR  \"tipo\" \"porcentaje a representar\" \"Imagen\"  \"Poder\"  \"Resistencia\"  \"Sanidad\"  \"nombre\" (Creas un personaje) \n" +
                                                             "INICIAR  (Darle a listo)\n" +
                                                             "SALTAR  (Salta el turno)\n" +
                                                             "CONSULTAR_CELDA  \"x\"  \"y\"  (Consulta una celda de tu tablero)\n " +
-                                                            "LOG (muestra un detalle de TODOS los eventos que han sucedido)\n " +
+                                                            "LOG \"detalle\" (muestra un detalle de TODOS los eventos que han sucedido, puede elegir entre: recibidos y realizados)\n " +
                                                             "LOG_RESUMEN  (da cuántos ataques se han realizado y cuál es el porcentaje de éxito) \n" +
                                                             "CONSULTAR_ENEMIGO  \"nombreUsuario\"  (muestra el estado del enemigo)\n" +
                                                             "MOSTRAR_CELDAS_OCUPADAS  (muestra en el mapa las celdas ocupadas por volcanes y remolinos.)\n" +

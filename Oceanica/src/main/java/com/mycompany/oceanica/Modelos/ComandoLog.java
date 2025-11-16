@@ -25,8 +25,35 @@ public class ComandoLog extends Comando {
 
     @Override
     public void procesoEnUsuario(Usuario usuario) {
+        StringBuilder informacion = new StringBuilder();
+        if (this.getParametros()[1].toUpperCase().equals("RECIBIDOS")){
+            for (String ataque : usuario.getResultadoAtaqueRecibido()){
+                informacion.append(ataque).append("\n");
+            }
+            String resultado = informacion.toString();
+            if (resultado.length() == 0){
+                usuario.getInterfazPrincipal().writeMessage("NO SE HA RECIBIDO NINGUN ATAQUE", this);
+            }
+            else{
+                usuario.getInterfazPrincipal().writeMessage(resultado, this);
+            }
+        } 
+        else {
+            for (String ataque : usuario.getResultadoAtaqueEnviado()){
+                    informacion.append(ataque).append("\n");
+            }
             
+            String resultado = informacion.toString();
+            if (resultado.length() == 0){
+                usuario.getInterfazPrincipal().writeMessage("NO SE HA RECIBIDO NINGUN ATAQUE", this);
+            }
+            else{
+                usuario.getInterfazPrincipal().writeMessage(resultado, this);
+            }
+        }
     }
+    
+    
     
 }
     

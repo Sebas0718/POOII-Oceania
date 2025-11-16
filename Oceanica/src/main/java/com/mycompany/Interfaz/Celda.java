@@ -91,7 +91,6 @@ public class Celda {
     
     public void resultadoAtaque(InterfazPrincipal atacante, InterfazPrincipal victima, ComandoAtaque comando){
         atacante.getUsuario().setAtaquesAtinados(+1);
-        atacante.getUsuario().setAtaquesEnviados(+1);
         atacante.writeResultadoAtaque("[ATAQUE] En ("  + this.columna + ", " + ") se quedo con " + this.vida + " de vida, ataco con el personaje " + comando.getPersonaje().getNombre());
         atacante.getUsuario().getResultadoAtaqueEnviado().add("[ATAQUE] En ("  + this.columna + ", " + ") se quedo con " + this.vida + " de vida, ataco con el personaje " + comando.getPersonaje().getNombre());
         atacante.getUsuario().getResultadosHistorialAtaques().add("[ATAQUE] En ("  + this.columna + ", " + ") se quedo con " + this.vida + " de vida, ataco con el personaje " + comando.getPersonaje().getNombre());

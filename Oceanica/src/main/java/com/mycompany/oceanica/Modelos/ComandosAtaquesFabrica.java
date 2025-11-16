@@ -36,6 +36,7 @@ public class ComandosAtaquesFabrica {
                     if (!ComandoAtaqueValidacion.fueraDeAlcanceXY(Integer.parseInt(args[4]), Integer.parseInt(args[5])) || !ComandoAtaqueValidacion.fueraDeAlcanceXY(Integer.parseInt(args[6]), Integer.parseInt(args[7])) || !ComandoAtaqueValidacion.fueraDeAlcanceXY(Integer.parseInt(args[8]), Integer.parseInt(args[9]))){
                             return new ComandoError(args, nombre);
                         }
+                    nombre.setAtaquesEnviados(nombre.getAtaquesEnviados() + 1);
                     comando = new ComandoAtaque(args, nombre, personaje);
                     return comando;
                 case "THREE_NUMBERS":
@@ -45,14 +46,15 @@ public class ComandosAtaquesFabrica {
                     if (!ComandoAtaqueValidacion.fueraDeAlcanceThreeNumbers(Integer.parseInt(args[4]),Integer.parseInt(args[5]),Integer.parseInt(args[6]))){
                             return new ComandoError(args, nombre);
                         }
+                    nombre.setAtaquesEnviados(nombre.getAtaquesEnviados() + 1);
                     comando = new ComandoAtaque(args, nombre, personaje);
                     return comando;
                 case "CONTROL_THE_KRAKEN":
                     if (TiposAtaques.CONTROL_THE_KRAKEN.getParametrosRequeridos() < args.length){
                         return new ComandoError(args, nombre);
                     }
-                    comando = new ComandoAtaque(args, nombre, personaje);
-                    return comando;
+                    nombre.setAtaquesEnviados(nombre.getAtaquesEnviados() + 1);
+                    return new ComandoAtaque(args, nombre, personaje);
                 default:
                     return new ComandoError(args, nombre);
             }
@@ -67,21 +69,21 @@ public class ComandosAtaquesFabrica {
                     if (!ComandoAtaqueValidacion.fueraDeAlcanceXY(Integer.parseInt(args[4]), Integer.parseInt(args[5])) || !ComandoAtaqueValidacion.fueraDeAlcanceXY(Integer.parseInt(args[6]), Integer.parseInt(args[7])) || !ComandoAtaqueValidacion.fueraDeAlcanceXY(Integer.parseInt(args[8]), Integer.parseInt(args[9]))){
                             return new ComandoError(args, nombre);
                     }
-                    comando = new ComandoAtaque(args, nombre, personaje);
-                    return comando;
+                    nombre.setAtaquesEnviados(nombre.getAtaquesEnviados() + 1);
+                    return new ComandoAtaque(args, nombre, personaje);
                 case "KRAKEN_BREATH":
                     if (TiposAtaques.KRAKEN_BREATH.getParametrosRequeridos() < args.length)
                         return new ComandoError(args, nombre);
                     if (!ComandoAtaqueValidacion.fueraDeAlcanceXY(Integer.parseInt(args[4]), Integer.parseInt(args[5]))){
                         return new ComandoError(args, nombre);
                     }
-                    comando = new ComandoAtaque(args, nombre, personaje);
-                    return comando;
+                    nombre.setAtaquesEnviados(nombre.getAtaquesEnviados() + 1);
+                    return new ComandoAtaque(args, nombre, personaje);
                 case "RELEASE_THE_KRAKEN":
                     if (TiposAtaques.RELEASE_THE_KRAKEN.getParametrosRequeridos() < args.length)
                         return new ComandoError(args, nombre);
-                    comando = new ComandoAtaque(args, nombre, personaje);
-                    return comando;
+                    nombre.setAtaquesEnviados(nombre.getAtaquesEnviados() + 1);
+                    return new ComandoAtaque(args, nombre, personaje);
                 default:
                     return new ComandoError(args, nombre);
             }
@@ -91,18 +93,20 @@ public class ComandosAtaquesFabrica {
                 case "CARDUMEN":
                     if (TiposAtaques.CARDUMEN.getParametrosRequeridos() < args.length)
                         return new ComandoError(args, nombre);
-                    comando = new ComandoAtaque(args, nombre, personaje);
-                    return comando;
+                    nombre.setAtaquesEnviados(nombre.getAtaquesEnviados() + 1);
+                    return new ComandoAtaque(args, nombre, personaje);
+                    
                 case "SHARK_ATTACK":
                     if (TiposAtaques.SHARK_ATTACK.getParametrosRequeridos() < args.length)
                         return new ComandoError(args, nombre);
-                    comando = new ComandoAtaque(args, nombre, personaje);
-                    return comando;
+                    nombre.setAtaquesEnviados(nombre.getAtaquesEnviados() + 1);
+                    return new ComandoAtaque(args, nombre, personaje);
+                    
                 case "PULP":
                     if (TiposAtaques.PULP.getParametrosRequeridos() < args.length)
                         return new ComandoError(args, nombre);
-                    comando = new ComandoAtaque(args, nombre, personaje);
-                    return comando;
+                    nombre.setAtaquesEnviados(nombre.getAtaquesEnviados() + 1);
+                    return new ComandoAtaque(args, nombre, personaje);
                 default:
                     return new ComandoError(args, nombre);
             }
@@ -112,20 +116,20 @@ public class ComandosAtaquesFabrica {
                 case "VOLCANO_RAISING":
                     if (TiposAtaques.VOLCANO_RAISING.getParametrosRequeridos() < args.length)
                         return new ComandoError(args, nombre);
-                    comando = new ComandoAtaque(args, nombre, personaje);
-                    return comando;
+                    nombre.setAtaquesEnviados(nombre.getAtaquesEnviados() + 1);
+                    return new ComandoAtaque(args, nombre, personaje);
 
                 case "VOLCANO_EXPLOSION":
                     if (TiposAtaques.VOLCANO_EXPLOSION.getParametrosRequeridos() < args.length)
                         return new ComandoError(args, nombre);
-                    comando = new ComandoAtaque(args, nombre, personaje);
-                    return comando;
+                    nombre.setAtaquesEnviados(nombre.getAtaquesEnviados() + 1);
+                    return new ComandoAtaque(args, nombre, personaje);
 
                 case "TERMAL_RUSH":
                     if (TiposAtaques.TERMAL_RUSH.getParametrosRequeridos() < args.length)
                         return new ComandoError(args, nombre);
-                    comando = new ComandoAtaque(args, nombre, personaje);
-                    return comando;
+                    nombre.setAtaquesEnviados(nombre.getAtaquesEnviados() + 1);
+                    return new ComandoAtaque(args, nombre, personaje);
                 default:
                     return new ComandoError(args, nombre);
             }
@@ -137,23 +141,23 @@ public class ComandosAtaquesFabrica {
                     if (TiposAtaques.THUNDER_RAIN.getParametrosRequeridos() < args.length)
                         return new ComandoError(args, nombre);
 
-                    comando = new ComandoAtaque(args, nombre, personaje);
-
-                    return comando;
+                    nombre.setAtaquesEnviados(nombre.getAtaquesEnviados() + 1);
+                    return new ComandoAtaque(args, nombre, personaje);
+                    
                 case "POSEIDON_THUNDERS":
                     if (TiposAtaques.POSEIDON_THUNDERS.getParametrosRequeridos() < args.length)
                         return new ComandoError(args, nombre);
 
-                    comando = new ComandoAtaque(args, nombre, personaje);
-
-                    return comando;
+                    nombre.setAtaquesEnviados(nombre.getAtaquesEnviados() + 1);
+                    return new ComandoAtaque(args, nombre, personaje);
+                    
                 case "EEL_ATACK":
                     if (TiposAtaques.EEL_ATACK.getParametrosRequeridos() < args.length)
                         return new ComandoError(args, nombre);
 
-                    comando = new ComandoAtaque(args, nombre, personaje);
-
-                    return comando;
+                    nombre.setAtaquesEnviados(nombre.getAtaquesEnviados() + 1);
+                    return new ComandoAtaque(args, nombre, personaje);
+                    
                 default:
                     return new ComandoError(args, nombre);
             }
@@ -164,20 +168,20 @@ public class ComandosAtaquesFabrica {
                 case "SWIRL_RAISING":
                     if (TiposAtaques.SWIRL_RAISING.getParametrosRequeridos() < args.length)
                         return new ComandoError(args, nombre);
-                    comando = new ComandoAtaque(args, nombre, personaje);
-                    return comando;
+                    nombre.setAtaquesEnviados(nombre.getAtaquesEnviados() + 1);
+                    return new ComandoAtaque(args, nombre, personaje);
 
                 case "SEND_HUMAN_GARBAGE":
                     if (TiposAtaques.SEND_HUMAN_GARBAGE.getParametrosRequeridos() < args.length)
                         return new ComandoError(args, nombre);
-                    comando = new ComandoAtaque(args, nombre, personaje);
-                    return comando;
+                    nombre.setAtaquesEnviados(nombre.getAtaquesEnviados() + 1);
+                    return new ComandoAtaque(args, nombre, personaje);
 
                 case "RADIOACTIVE_RUSH":
                     if (TiposAtaques.RADIOACTIVE_RUSH.getParametrosRequeridos() < args.length)
                         return new ComandoError(args, nombre);
-                    comando = new ComandoAtaque(args, nombre, personaje);
-                    return comando;
+                    nombre.setAtaquesEnviados(nombre.getAtaquesEnviados() + 1);
+                    return new ComandoAtaque(args, nombre, personaje);
 
                 default:
                     return new ComandoError(args, nombre);
