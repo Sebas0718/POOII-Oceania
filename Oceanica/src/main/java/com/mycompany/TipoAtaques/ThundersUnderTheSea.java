@@ -10,6 +10,9 @@ import com.mycompany.Personaje.Personaje;
 import com.mycompany.Personaje.TipoPersonaje;
 import com.mycompany.oceanica.Modelos.ComandoAtaque;
 import com.mycompany.oceanica.Modelos.ComandoAtaqueValidacion;
+import com.mycompany.oceanica.Modelos.ComandoResultadoAtaque;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -27,10 +30,10 @@ public class ThundersUnderTheSea extends Personaje {
         this.ataques[2] = "EEL_ATTACK";
     }
     
-    public void ataqueThunderRain(InterfazPrincipal interfaz, ComandoAtaque comando){
+    public ComandoResultadoAtaque ataqueThunderRain(InterfazPrincipal interfaz, ComandoAtaque comando){
         Random rand = new Random();
         Celda[][] celdas = interfaz.getCeldas();
-
+        List<String> mensajes = new ArrayList<>();
         int cantidadRayos = 100;
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
@@ -46,13 +49,28 @@ public class ThundersUnderTheSea extends Personaje {
             int daño = rand.nextInt(11) + 10;  // 10 a 20
             
             celdas[x][y].recibirAtaque(comando, daño, interfaz);
+            String msg = "[Volcano Explosion] Celda (" + x + "," + y +
+                ") quedó con " + celdas[x][y].getVida() + " de vida.";
+               mensajes.add(msg);
         }
+        String[] resultadoArray = new String[mensajes.size() + 2];
+
+        resultadoArray[0] = "RESULTADO_ATAQUE";
+        resultadoArray[1] = comando.getNombreUsuario();  // ✔ el atacante va aquí siempre
+
+        for (int i = 0; i < mensajes.size(); i++) {
+            resultadoArray[i + 2] = mensajes.get(i);
+        }
+
+        // Entregamos el comando directamente
+        return new ComandoResultadoAtaque(resultadoArray, interfaz.getUsuario().getNombre(), true);
+            
     }
     
-    public void ataquePoseidonThunders(InterfazPrincipal interfaz, ComandoAtaque comando){
+    public ComandoResultadoAtaque ataquePoseidonThunders(InterfazPrincipal interfaz, ComandoAtaque comando){
         Random rand = new Random();
         Celda[][] celdas = interfaz.getCeldas();
-
+        List<String> mensajes = new ArrayList<>();
         // Cantidad de rayos: entre 5 y 10
         int cantidadRayos = rand.nextInt(6) + 5;
         interfaz.borrarMensajes();
@@ -76,16 +94,31 @@ public class ThundersUnderTheSea extends Personaje {
 
                         // Daño estándar de 100%
                         celdas[i][j].recibirAtaque(comando, 100, interfaz);
+                        String msg = "[Volcano Explosion] Celda (" + i + "," + j +
+                        ") quedó con " + celdas[i][j].getVida() + " de vida.";
+                       mensajes.add(msg);
                     }
                 }
             }
         }
+        String[] resultadoArray = new String[mensajes.size() + 2];
+
+        resultadoArray[0] = "RESULTADO_ATAQUE";
+        resultadoArray[1] = comando.getNombreUsuario();  // ✔ el atacante va aquí siempre
+
+        for (int i = 0; i < mensajes.size(); i++) {
+            resultadoArray[i + 2] = mensajes.get(i);
+        }
+
+        // Entregamos el comando directamente
+        return new ComandoResultadoAtaque(resultadoArray, interfaz.getUsuario().getNombre(), true);
+            
     }
     
-    public void ataqueEelAtack(InterfazPrincipal interfaz, ComandoAtaque comando){
+    public ComandoResultadoAtaque ataqueEelAtack(InterfazPrincipal interfaz, ComandoAtaque comando){
         Random rand = new Random();
         Celda[][] celdas = interfaz.getCeldas();
-        
+        List<String> mensajes = new ArrayList<>();
         // Cantidad de anguilas entre 25 y 100
         int cantidadAnguilas = rand.nextInt(76) + 25;
         interfaz.borrarMensajes();
@@ -104,7 +137,22 @@ public class ThundersUnderTheSea extends Personaje {
 
             // Aplicar daño
             celdas[x][y].recibirAtaque(comando, dannoTotal, interfaz);
+            String msg = "[Volcano Explosion] Celda (" + x + "," + y +
+                ") quedó con " + celdas[x][y].getVida() + " de vida.";
+               mensajes.add(msg);
         }
+        String[] resultadoArray = new String[mensajes.size() + 2];
+
+        resultadoArray[0] = "RESULTADO_ATAQUE";
+        resultadoArray[1] = comando.getNombreUsuario();  // ✔ el atacante va aquí siempre
+
+        for (int i = 0; i < mensajes.size(); i++) {
+            resultadoArray[i + 2] = mensajes.get(i);
+        }
+
+        // Entregamos el comando directamente
+        return new ComandoResultadoAtaque(resultadoArray, interfaz.getUsuario().getNombre(), true);
+            
     }
     
     public String[] getAtaques() {
@@ -114,23 +162,25 @@ public class ThundersUnderTheSea extends Personaje {
     
 
     @Override
-    public void realizarAtaque(ComandoAtaque comando, InterfazPrincipal interfaz) {
+    public ComandoResultadoAtaque realizarAtaque(ComandoAtaque comando, InterfazPrincipal interfaz) {
         String[] args = comando.getParametros();
+        ComandoResultadoAtaque result = null;
         for (String ataque : this.ataques){
             if (ataque.equals(args[3].toUpperCase())){
                 switch(ataque){
                     case "THUNDER_RAIN":
-                        ataqueThunderRain(interfaz,comando);
-                        return;
+                        result = ataqueThunderRain(interfaz,comando);
+                        return result;
                     case "POSEIDON_THUNDERS":
-                        ataquePoseidonThunders(interfaz, comando);
-                        return;
+                        result = ataquePoseidonThunders(interfaz, comando);
+                        return result;
                     case "EEL_ATTACK":
-                        ataqueEelAtack(interfaz, comando);
-                        return;
+                        result = ataqueEelAtack(interfaz, comando);
+                        return result;
                 }
             }
         }
+        return result;
     }
     
 }

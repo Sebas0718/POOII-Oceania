@@ -14,6 +14,8 @@ import com.mycompany.Interfaz.InterfazPrincipal;
 import com.mycompany.Personaje.Personaje;
 import com.mycompany.Personaje.TipoPersonaje;
 import com.mycompany.oceanica.Modelos.ComandoAtaque;
+import com.mycompany.oceanica.Modelos.ComandoResultadoAtaque;
+import java.util.List;
 
 /**
  *
@@ -30,10 +32,10 @@ public class WavesControl extends Personaje {
         this.ataques[2] = "RADIOACTIVE_RUSH";
     }
     
-    public void ataqueSwirlRaising(InterfazPrincipal interfaz, ComandoAtaque comando){
+    public ComandoResultadoAtaque ataqueSwirlRaising(InterfazPrincipal interfaz, ComandoAtaque comando){
         
         Random rand = new Random();
-        
+        List<String> mensajes = new ArrayList<>();
         Celda[][] celdas = interfaz.getCeldas();
         int F = celdas.length;
         int C = celdas[0].length;
@@ -58,14 +60,28 @@ public class WavesControl extends Personaje {
         for (int i = r_inicio; i <= r_fin; i++) {
             for (int j = c_inicio; j <= c_fin; j++) {
                 celdas[i][j].recibirAtaque(comando, 100, interfaz);
+                String msg = "[Volcano Explosion] Celda (" + fila + "," + columna +
+                ") quedó con " + celdas[fila][columna].getVida() + " de vida.";
+               mensajes.add(msg);
             }
         }
         celdas[fila][columna].aplicarEfecto(TipoEfecto.REMOLINO);
         celdas[fila][columna].getRefLabel().setBackground(new Color(0, 148, 198));
+        String[] resultadoArray = new String[mensajes.size() + 2];
+
+        resultadoArray[0] = "RESULTADO_ATAQUE";
+        resultadoArray[1] = comando.getNombreUsuario();  // ✔ el atacante va aquí siempre
+
+        for (int i = 0; i < mensajes.size(); i++) {
+            resultadoArray[i + 2] = mensajes.get(i);
+        }
+
+        // Entregamos el comando directamente
+        return new ComandoResultadoAtaque(resultadoArray, interfaz.getUsuario().getNombre(), true);
     }
 
     // TODO: FALTA HACER QUE FUNCIONE UTILIZANDO EL REMOLINO SELECCIONADO, AHORITA SOLO AGARRA EL ULTIMO RANGO
-    public void ataqueSendHumanGarbage(InterfazPrincipal interfaz, ComandoAtaque comando){
+    public ComandoResultadoAtaque ataqueSendHumanGarbage(InterfazPrincipal interfaz, ComandoAtaque comando){
         
         Random rand = new Random();
         int rango = 10 * interfaz.getRangoUltimoRemolino();
@@ -74,29 +90,42 @@ public class WavesControl extends Personaje {
         }
         int cantBasura = 0;
         Celda[][] celdas = interfaz.getCeldas();
-        
+        List<String> mensajes = new ArrayList<>();
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
-        
-        
+
         while (cantBasura < rango) {
             int fila = rand.nextInt(20);
             int columna = rand.nextInt(20);
             int esRadioactiva = rand.nextInt(2); 
             celdas[fila][columna].recibirAtaque(comando, 25, interfaz);
+            String msg = "[Volcano Explosion] Celda (" + fila + "," + columna +
+                ") quedó con " + celdas[fila][columna].getVida() + " de vida.";
+               mensajes.add(msg);
 
             if (esRadioactiva == 1) {
                 celdas[fila][columna].aplicarEfecto(TipoEfecto.RADIACTIVO);
             }
             cantBasura++;
         }
+        String[] resultadoArray = new String[mensajes.size() + 2];
+
+        resultadoArray[0] = "RESULTADO_ATAQUE";
+        resultadoArray[1] = comando.getNombreUsuario();  // ✔ el atacante va aquí siempre
+
+        for (int i = 0; i < mensajes.size(); i++) {
+            resultadoArray[i + 2] = mensajes.get(i);
+        }
+
+        // Entregamos el comando directamente
+        return new ComandoResultadoAtaque(resultadoArray, interfaz.getUsuario().getNombre(), true);
     }
     
-    public void ataqueRadioactiveRush(InterfazPrincipal interfaz, ComandoAtaque comando) {
+    public ComandoResultadoAtaque ataqueRadioactiveRush(InterfazPrincipal interfaz, ComandoAtaque comando) {
 
         Random rand = new Random();
         Celda[][] celdas = interfaz.getCeldas();
-        
+        List<String> mensajes = new ArrayList<>();
         ArrayList<Celda> celdasRadioactivas = new ArrayList<Celda>();
         for (Celda[] filaCeldas : celdas) {
             for (int i = 0; i < filaCeldas.length; i++) {
@@ -110,9 +139,23 @@ public class WavesControl extends Personaje {
         while (0 < segundos) {
             for (Celda celda : celdasRadioactivas) {
                 celda.recibirAtaque(comando, 25, interfaz);
+                String msg = "[Volcano Explosion] Celda (" + celda.getFila() + "," + celda.getColumna() +
+                ") quedó con " + celda.getVida() + " de vida.";
+               mensajes.add(msg);
             }
             segundos--;
         }
+        String[] resultadoArray = new String[mensajes.size() + 2];
+
+        resultadoArray[0] = "RESULTADO_ATAQUE";
+        resultadoArray[1] = comando.getNombreUsuario();  // ✔ el atacante va aquí siempre
+
+        for (int i = 0; i < mensajes.size(); i++) {
+            resultadoArray[i + 2] = mensajes.get(i);
+        }
+
+        // Entregamos el comando directamente
+        return new ComandoResultadoAtaque(resultadoArray, interfaz.getUsuario().getNombre(), true);
     }
 
 
@@ -124,23 +167,25 @@ public class WavesControl extends Personaje {
     
 
     @Override
-    public void realizarAtaque(ComandoAtaque comando, InterfazPrincipal interfaz) {
+    public ComandoResultadoAtaque realizarAtaque(ComandoAtaque comando, InterfazPrincipal interfaz) {
         String[] args = comando.getParametros();
+        ComandoResultadoAtaque result = null;
         for (String ataque : this.ataques){
             if (ataque.equals(args[3].toUpperCase())){
                 switch(ataque){
                     case "SWIRL_RAISING":
-                        ataqueSwirlRaising(interfaz,comando);
-                        return;
+                        result = ataqueSwirlRaising(interfaz,comando);
+                        return result;
                     case "SEND_HUMAN_GARBAGE":
-                        ataqueSendHumanGarbage(interfaz, comando);
-                        return;
+                        result = ataqueSendHumanGarbage(interfaz, comando);
+                        return result;
                     case "RADIOACTIVE_RUSH":
                         ataqueRadioactiveRush(interfaz, comando);
-                        return;
+                        return result;
                 }
             }
         }
+        return result;
     }
 
 

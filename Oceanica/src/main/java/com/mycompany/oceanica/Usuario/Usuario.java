@@ -9,6 +9,7 @@ import com.mycompany.Personaje.Personaje;
 import com.mycompany.oceanica.Modelos.Comando;
 import com.mycompany.oceanica.Modelos.ComandoAtaque;
 import com.mycompany.oceanica.Modelos.ComandoFabrica;
+import com.mycompany.oceanica.Modelos.ComandoResultadoAtaque;
 import com.mycompany.oceanica.Threads.ThreadUsuario;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -73,7 +74,15 @@ public class Usuario{
     public void recibirAtaque(Comando comando){
         ComandoAtaque comandoAtaque = (ComandoAtaque) comando;
         Personaje personaje = comandoAtaque.getPersonaje();
-        personaje.realizarAtaque(comandoAtaque,  this.interfazPrincipal);
+        ComandoResultadoAtaque comandoRecibido = personaje.realizarAtaque(comandoAtaque,  this.interfazPrincipal);
+        enviarComando(comandoRecibido);
+    }
+    
+    public void enviarComando(Comando c) {
+        try {
+            objetoEscritor.writeObject(c);
+            objetoEscritor.flush();
+        } catch (IOException e) { }
     }
     
     public Socket getSocket() {
@@ -167,8 +176,6 @@ public class Usuario{
     public void setAtaquesfallados(int ataquesfallados) {
         this.ataquesfallados = ataquesfallados;
     }
-    
-    
-    
+
 }
     

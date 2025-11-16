@@ -4,20 +4,22 @@
  */
 package com.mycompany.TipoAtaques;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Random;
-
 import com.mycompany.Interfaz.Celda;
 import com.mycompany.Interfaz.InterfazPrincipal;
 import com.mycompany.Personaje.Personaje;
 import com.mycompany.Personaje.TipoPersonaje;
 import com.mycompany.oceanica.Modelos.ComandoAtaque;
+import com.mycompany.oceanica.Modelos.ComandoResultadoAtaque;
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 /**
  *
- * @author seb
+ * @author xsusk
  */
+
 public class UnderseaFire extends Personaje {
     
     private String[] ataques = new String[3];
@@ -30,13 +32,14 @@ public class UnderseaFire extends Personaje {
         
     }
 
-    public void ataqueVolcanoRaising(InterfazPrincipal interfaz, ComandoAtaque comando){
+    public ComandoResultadoAtaque ataqueVolcanoRaising(InterfazPrincipal interfaz, ComandoAtaque comando){
         
         Random rand = new Random();
         Celda[][] celdas = interfaz.getCeldas();
+        List<String> mensajes = new ArrayList<>();
         int F = celdas.length;
         int C = celdas[0].length;
-
+        
         int rango = rand.nextInt(10) + 1;
         interfaz.setRangoUltimoVolcan(rango);
         
@@ -44,7 +47,7 @@ public class UnderseaFire extends Personaje {
         int columna = rand.nextInt(20);
 
         
-            // 1. Determinar los límites de búsqueda seguros
+        // 1. Determinar los límites de búsqueda seguros
         int r_inicio = Math.max(0, fila - rango);
         int r_fin = Math.min(F - 1, fila + rango);
         int c_inicio = Math.max(0, columna - rango);
@@ -53,13 +56,29 @@ public class UnderseaFire extends Personaje {
         for (int i = r_inicio; i <= r_fin; i++) {
             for (int j = c_inicio; j <= c_fin; j++) {
                 celdas[i][j].recibirAtaque(comando, 100, interfaz);
+                String msg = "[Volcano Explosion] Celda (" + fila + "," + columna +
+                ") quedó con " + celdas[fila][columna].getVida() + " de vida.";
+               mensajes.add(msg);
             }
         }
+        
         celdas[fila][columna].aplicarEfecto(TipoEfecto.VOLCAN);
         celdas[fila][columna].getRefLabel().setBackground(new Color(244, 172, 50));
+        String[] resultadoArray = new String[mensajes.size() + 2];
+
+        resultadoArray[0] = "RESULTADO_ATAQUE";
+        resultadoArray[1] = comando.getNombreUsuario();  // ✔ el atacante va aquí siempre
+
+        for (int i = 0; i < mensajes.size(); i++) {
+            resultadoArray[i + 2] = mensajes.get(i);
+        }
+
+        // Entregamos el comando directamente
+        return new ComandoResultadoAtaque(resultadoArray, interfaz.getUsuario().getNombre(), true);
+            
     }
     
-    public void ataqueVolcanoExplosion(InterfazPrincipal interfaz, ComandoAtaque comando) {
+    public ComandoResultadoAtaque ataqueVolcanoExplosion(InterfazPrincipal interfaz, ComandoAtaque comando) {
 
         Random rand = new Random();
         int rango = 10 * interfaz.getRangoUltimoVolcan();
@@ -68,22 +87,36 @@ public class UnderseaFire extends Personaje {
         }
         int cantPiedras = 0;
         Celda[][] celdas = interfaz.getCeldas();
-
+        List<String> mensajes = new ArrayList<>();
+        
         while (cantPiedras< rango) {
             int fila = rand.nextInt(20);
             int columna = rand.nextInt(20);
             
             celdas[fila][columna].recibirAtaque(comando, 20, interfaz);
             cantPiedras++;
+            String msg = "[Volcano Explosion] Celda (" + fila + "," + columna +
+                     ") quedó con " + celdas[fila][columna].getVida() + " de vida.";
+            mensajes.add(msg);
         }
-        
+        String[] resultadoArray = new String[mensajes.size() + 2];
+
+        resultadoArray[0] = "RESULTADO_ATAQUE";
+        resultadoArray[1] = comando.getNombreUsuario();  // ✔ el atacante va aquí siempre
+
+        for (int i = 0; i < mensajes.size(); i++) {
+            resultadoArray[i + 2] = mensajes.get(i);
+        }
+
+        // Entregamos el comando directamente
+        return new ComandoResultadoAtaque(resultadoArray, interfaz.getUsuario().getNombre(), true);
     }
     
-    public void ataqueTermalRush(InterfazPrincipal interfaz, ComandoAtaque comando){
+    public ComandoResultadoAtaque ataqueTermalRush(InterfazPrincipal interfaz, ComandoAtaque comando){
         
         Random rand = new Random();
         Celda[][] celdas = interfaz.getCeldas();
-        
+        List<String> mensajes = new ArrayList<>();
         ArrayList<Celda> celdasVolcanicas = new ArrayList<Celda>();
         for (Celda[] filaCeldas : celdas) {
             for (int i = 0; i < filaCeldas.length; i++) {
@@ -118,32 +151,48 @@ public class UnderseaFire extends Personaje {
                 for (int i = r_inicio; i <= r_fin; i++) {
                     for (int j = c_inicio; j <= c_fin; j++) {
                         celdas[i][j].recibirAtaque(comando, ataque, interfaz);
+                        String msg = "[Volcano Explosion] Celda (" + fila + "," + columna +
+                        ") quedó con " + celdas[fila][columna].getVida() + " de vida.";
+                        mensajes.add(msg);
                     }
                 }
             }
             segundos--;
         }
+        String[] resultadoArray = new String[mensajes.size() + 2];
+
+        resultadoArray[0] = "RESULTADO_ATAQUE";
+        resultadoArray[1] = comando.getNombreUsuario();  // ✔ el atacante va aquí siempre
+
+        for (int i = 0; i < mensajes.size(); i++) {
+            resultadoArray[i + 2] = mensajes.get(i);
+        }
+
+        // Entregamos el comando directamente
+        return new ComandoResultadoAtaque(resultadoArray, interfaz.getUsuario().getNombre(), true);
     }
+    
     
 
     @Override
-    public void realizarAtaque(ComandoAtaque comando, InterfazPrincipal interfaz) {
+    public ComandoResultadoAtaque realizarAtaque(ComandoAtaque comando, InterfazPrincipal interfaz) {
         String[] args = comando.getParametros();
+        ComandoResultadoAtaque result = null;
         for (String ataque : this.ataques){
             if (ataque.equals(args[3].toUpperCase())){
                 switch(ataque){
                     case "VOLCANO_RAISING":
-                        ataqueVolcanoRaising(interfaz,comando);
-                        return;
+                         result = ataqueVolcanoRaising(interfaz,comando);
+                        return result;
                     case "VOLCANO_EXPLOSION":
-                        ataqueVolcanoExplosion(interfaz, comando);
-                        return;
+                        result = ataqueVolcanoExplosion(interfaz, comando);
+                        return result;
                     case "TERMAL_RUSH":
-                        ataqueTermalRush(interfaz, comando);
-                        return;
+                        result = ataqueTermalRush(interfaz, comando);
+                        return result;
                 }
             }
         }
+    return result;
     }
-    
 }

@@ -12,7 +12,10 @@ import com.mycompany.Personaje.Personaje;
 import com.mycompany.Personaje.TipoPersonaje;
 import com.mycompany.oceanica.Modelos.ComandoAtaque;
 import com.mycompany.oceanica.Modelos.ComandoAtaqueValidacion;
+import com.mycompany.oceanica.Modelos.ComandoResultadoAtaque;
 import com.mycompany.oceanica.Usuario.Usuario;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -33,9 +36,10 @@ public class PoseidonTrident extends Personaje{
         this.ataques[2] = "CONTROL_THE_KRAKEN";
     }
     
-    public void ataqueThreeLines(InterfazPrincipal interfaz, ComandoAtaque comando){
+    public ComandoResultadoAtaque ataqueThreeLines(InterfazPrincipal interfaz, ComandoAtaque comando){
         Celda[][] celdas = interfaz.getCeldas();
         String[] args = comando.getParametros();
+        List<String> mensajes = new ArrayList<>();
         int tentaculox1 = Integer.parseInt(args[4]);
         int tentaculox2 = Integer.parseInt(args[6]);
         int tentaculox3 = Integer.parseInt(args[8]);
@@ -49,14 +53,26 @@ public class PoseidonTrident extends Personaje{
         celdas[tentaculox1][tentaculoy1].recibirAtaque(comando, 100, interfaz);
         celdas[tentaculox2][tentaculoy2].recibirAtaque(comando, 100, interfaz);
         celdas[tentaculox3][tentaculoy3].recibirAtaque(comando, 100, interfaz);
-        this.aplicarThreeLines(celdas, tentaculox1, tentaculoy1, comando, interfaz);
-        this.aplicarThreeLines(celdas, tentaculox2, tentaculoy2, comando, interfaz);
-        this.aplicarThreeLines(celdas, tentaculox3, tentaculoy3, comando, interfaz);
+        this.aplicarThreeLines(celdas, tentaculox1, tentaculoy1, comando, interfaz, mensajes);
+        this.aplicarThreeLines(celdas, tentaculox2, tentaculoy2, comando, interfaz, mensajes);
+        this.aplicarThreeLines(celdas, tentaculox3, tentaculoy3, comando, interfaz, mensajes);
         
+        String[] resultadoArray = new String[mensajes.size() + 2];
+
+        resultadoArray[0] = "RESULTADO_ATAQUE";
+        resultadoArray[1] = comando.getNombreUsuario();  // ✔ el atacante va aquí siempre
+
+        for (int i = 0; i < mensajes.size(); i++) {
+            resultadoArray[i + 2] = mensajes.get(i);
+        }
+
+        // Entregamos el comando directamente
+        return new ComandoResultadoAtaque(resultadoArray, interfaz.getUsuario().getNombre(),true);
     }
     
-    public void ataqueThreeNumbers(InterfazPrincipal interfaz, ComandoAtaque comando){
+    public ComandoResultadoAtaque ataqueThreeNumbers(InterfazPrincipal interfaz, ComandoAtaque comando){
         Celda[][] celdas = interfaz.getCeldas();
+        List<String> mensajes = new ArrayList<>();
         String[] args = comando.getParametros();
         int[] numeros = {Integer.parseInt(args[4]),Integer.parseInt(args[5]),Integer.parseInt(args[6])};
         if (interfaz.ataqueThreeNumbers(numeros)){
@@ -64,16 +80,36 @@ public class PoseidonTrident extends Personaje{
             interfaz.borrarMensajes();
             interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
             
-            this.realizarThreeNumbers(celdasAtacar, celdas, comando, interfaz);
+            this.realizarThreeNumbers(celdasAtacar, celdas, comando, interfaz, mensajes);
+            String[] resultadoArray = new String[mensajes.size() + 2];
+
+            resultadoArray[0] = "RESULTADO_ATAQUE";
+            resultadoArray[1] = comando.getNombreUsuario();  // ✔ el atacante va aquí siempre
+
+            for (int i = 0; i < mensajes.size(); i++) {
+                resultadoArray[i + 2] = mensajes.get(i);
+            }
+
+            // Entregamos el comando directamente
+            return new ComandoResultadoAtaque(resultadoArray, interfaz.getUsuario().getNombre(),true);
         }
-        else{
-            
+        
+        String[] resultadoArray = new String[mensajes.size() + 2];
+
+        resultadoArray[0] = "RESULTADO_ATAQUE";
+        resultadoArray[1] = comando.getNombreUsuario();  // ✔ el atacante va aquí siempre
+
+        for (int i = 0; i < mensajes.size(); i++) {
+            resultadoArray[i + 2] = mensajes.get(i);
         }
+
+        // Entregamos el comando directamente
+        return new ComandoResultadoAtaque(resultadoArray, interfaz.getUsuario().getNombre(),false);
     }
     
-    public void ataqueControlTheKraken(InterfazPrincipal interfaz, ComandoAtaque comando){
+    public ComandoResultadoAtaque ataqueControlTheKraken(InterfazPrincipal interfaz, ComandoAtaque comando){
         Random rand = new Random();
-
+        List<String> mensajes = new ArrayList<>();
         Celda[][] celdas = interfaz.getCeldas();
         int rango = rand.nextInt(9) + 1;
         
@@ -86,12 +122,26 @@ public class PoseidonTrident extends Personaje{
             for (int j = columna - rango; j <= columna + rango; j++) {
                 if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
                     celdas[i][j].recibirAtaque(comando ,100, interfaz);
+                    String msg = "[Volcano Explosion] Celda (" + fila + "," + columna +
+                    ") quedó con " + celdas[fila][columna].getVida() + " de vida.";
+                    mensajes.add(msg);
                 }
             }
         }
+        String[] resultadoArray = new String[mensajes.size() + 2];
+
+        resultadoArray[0] = "RESULTADO_ATAQUE";
+        resultadoArray[1] = comando.getNombreUsuario();  // ✔ el atacante va aquí siempre
+
+        for (int i = 0; i < mensajes.size(); i++) {
+            resultadoArray[i + 2] = mensajes.get(i);
+        }
+
+        // Entregamos el comando directamente
+        return new ComandoResultadoAtaque(resultadoArray, interfaz.getUsuario().getNombre(),true);
     }
     
-    public void realizarThreeNumbers(int celdasAtacar, Celda[][] celdas, ComandoAtaque comando, InterfazPrincipal interfaz){
+    public void realizarThreeNumbers(int celdasAtacar, Celda[][] celdas, ComandoAtaque comando, InterfazPrincipal interfaz, List<String> mensajes){
          Random rand = new Random();
         int atacadas = 0;
         int seguridad = 0;
@@ -105,6 +155,9 @@ public class PoseidonTrident extends Personaje{
             // Atacar solo si la celda no está muerta
             if (celdas[x][y].getVida() > 0.0) {
                 celdas[x][y].recibirAtaque(comando, 100, interfaz);
+                String msg = "[Volcano Explosion] Celda (" + x + "," + y +
+                ") quedó con " + celdas[x][y].getVida() + " de vida.";
+                mensajes.add(msg);
                 atacadas++;
             }
         }
@@ -118,7 +171,7 @@ public class PoseidonTrident extends Personaje{
         this.ataques = ataques;
     }
     
-    public void aplicarThreeLines(Celda[][] celdas, int x, int y, ComandoAtaque comando, InterfazPrincipal interfaz){
+    public void aplicarThreeLines(Celda[][] celdas, int x, int y, ComandoAtaque comando, InterfazPrincipal interfaz, List<String> mensajes){
         Random rand = new Random();
         
         int rango = rand.nextInt(4) + 1;
@@ -127,6 +180,9 @@ public class PoseidonTrident extends Personaje{
         for (int i = x - rango; i < x; i++ ){
             if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, y)) {
                 celdas[i][y].recibirAtaque(comando, 100, interfaz);
+                String msg = "[Volcano Explosion] Celda (" + x + "," + y +
+                ") quedó con " + celdas[x][y].getVida() + " de vida.";
+               mensajes.add(msg);
                 }
         }
         
@@ -134,6 +190,9 @@ public class PoseidonTrident extends Personaje{
         for (int i = x + 1; i <= x + rango; i++){
             if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, y)) {
                 celdas[i][y].recibirAtaque(comando, 100, interfaz);
+                String msg = "[Volcano Explosion] Celda (" + x + "," + y +
+                ") quedó con " + celdas[x][y].getVida() + " de vida.";
+               mensajes.add(msg);
                 }
         }
         
@@ -141,6 +200,9 @@ public class PoseidonTrident extends Personaje{
         for (int j = y - rango; j < y; j++ ){
             if (ComandoAtaqueValidacion.fueraDeAlcanceXY(x, j)) {
                 celdas[x][j].recibirAtaque(comando, 100, interfaz);
+                String msg = "[Volcano Explosion] Celda (" + x + "," + y +
+                ") quedó con " + celdas[x][y].getVida() + " de vida.";
+               mensajes.add(msg);
                 }
         }
         
@@ -148,29 +210,33 @@ public class PoseidonTrident extends Personaje{
         for (int j = y + 1; j <= y + rango; j++){
             if (ComandoAtaqueValidacion.fueraDeAlcanceXY(x, j)) {
                 celdas[x][j].recibirAtaque(comando, 100, interfaz);
+                String msg = "[Volcano Explosion] Celda (" + x + "," + y +
+                ") quedó con " + celdas[x][y].getVida() + " de vida.";
+               mensajes.add(msg);
                 }
         }
     }
     
     
     @Override
-    public void realizarAtaque(ComandoAtaque comando, InterfazPrincipal interfaz) {
-        
+    public ComandoResultadoAtaque realizarAtaque(ComandoAtaque comando, InterfazPrincipal interfaz) {
+        ComandoResultadoAtaque result = null;
         String[] args = comando.getParametros();
         for (String ataque : this.ataques){
             if (ataque.equals(args[3].toUpperCase())){
                 switch(ataque){
                     case "THREE_LINES":
-                        ataqueThreeLines(interfaz,comando);
-                        return;
+                        result = ataqueThreeLines(interfaz,comando);
+                        return result;
                     case "THREE_NUMBERS":
-                        ataqueThreeNumbers(interfaz, comando);
-                        return;
+                        result = ataqueThreeNumbers(interfaz, comando);
+                        return result;
                     case "CONTROL_THE_KRAKEN":
-                        ataqueControlTheKraken(interfaz, comando);
-                        return;
+                        result = ataqueControlTheKraken(interfaz, comando);
+                        return result;
                 }
             }
         }
+        return result;
     }
 }

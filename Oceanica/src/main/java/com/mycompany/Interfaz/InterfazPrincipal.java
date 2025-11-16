@@ -423,7 +423,6 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     public void writeMessage(String string, Comando comando){
         txaHistorial.append(comando + "\n");
         txaBitacora.setText(string);
-        
     }
     
     /**

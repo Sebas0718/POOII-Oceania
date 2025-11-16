@@ -29,7 +29,8 @@ public enum TiposComandos {
     PINTAR_VIVAS(1),
     AYUDA(1),
     USUARIOS(1),
-    ATAQUES_PERSONAJES(1);
+    ATAQUES_PERSONAJES(1),
+    RESULTADO_ATAQUE(0);
     
     
     private int ParametrosRequeridos;
