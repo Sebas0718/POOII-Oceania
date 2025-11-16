@@ -60,7 +60,7 @@ public class WavesControl extends Personaje {
         for (int i = r_inicio; i <= r_fin; i++) {
             for (int j = c_inicio; j <= c_fin; j++) {
                 celdas[i][j].recibirAtaque(comando, 100, interfaz);
-                String msg = "[Volcano Explosion] Celda (" + fila + "," + columna +
+                String msg = "[Swirl_Raising] Celda (" + fila + "," + columna +
                 ") quedó con " + celdas[fila][columna].getVida() + " de vida.";
                mensajes.add(msg);
             }
@@ -99,7 +99,7 @@ public class WavesControl extends Personaje {
             int columna = rand.nextInt(20);
             int esRadioactiva = rand.nextInt(2); 
             celdas[fila][columna].recibirAtaque(comando, 25, interfaz);
-            String msg = "[Volcano Explosion] Celda (" + fila + "," + columna +
+            String msg = "[Send_Human_Garbage] Celda (" + fila + "," + columna +
                 ") quedó con " + celdas[fila][columna].getVida() + " de vida.";
                mensajes.add(msg);
 
@@ -139,7 +139,7 @@ public class WavesControl extends Personaje {
         while (0 < segundos) {
             for (Celda celda : celdasRadioactivas) {
                 celda.recibirAtaque(comando, 25, interfaz);
-                String msg = "[Volcano Explosion] Celda (" + celda.getFila() + "," + celda.getColumna() +
+                String msg = "[Radioactive_Rush] Celda (" + celda.getFila() + "," + celda.getColumna() +
                 ") quedó con " + celda.getVida() + " de vida.";
                mensajes.add(msg);
             }

@@ -92,7 +92,7 @@ public class ReleaseTheKraken extends Personaje {
                 for (int i = 0; i < cantCasillasAtacadas; i++){
                     if (ComandoAtaqueValidacion.fueraDeAlcanceXY(alientox + i, alientoy)) {
                         celdas[alientox + i][alientoy].recibirAtaque(comando, 100, interfaz);
-                        String msg = "[Volcano Explosion] Celda (" + (alientox + i) + "," + alientoy +
+                        String msg = "[Kraken_Breath] Celda (" + (alientox + i) + "," + alientoy +
                         ") quedó con " + celdas[alientox + i][alientoy].getVida() + " de vida.";
                         mensajes.add(msg);
                     }
@@ -102,7 +102,7 @@ public class ReleaseTheKraken extends Personaje {
                 for (int i = 0; i < cantCasillasAtacadas; i++){
                     if (ComandoAtaqueValidacion.fueraDeAlcanceXY(alientox - i, alientoy)) {
                         celdas[alientox - i][alientoy].recibirAtaque(comando, 100, interfaz);
-                        String msg = "[Volcano Explosion] Celda (" + (alientox - i) + "," + alientoy +
+                        String msg = "[Kraken_Breath] Celda (" + (alientox - i) + "," + alientoy +
                         ") quedó con " + celdas[alientox - i][alientoy].getVida() + " de vida.";
                         mensajes.add(msg);
                     }
@@ -112,7 +112,7 @@ public class ReleaseTheKraken extends Personaje {
                 for (int i = 0; i < cantCasillasAtacadas; i++){
                     if (ComandoAtaqueValidacion.fueraDeAlcanceXY(alientox, alientoy + i)) {
                         celdas[alientox][alientoy + i].recibirAtaque(comando, 100, interfaz);
-                        String msg = "[Volcano Explosion] Celda (" + alientox + "," + (alientoy + i) +
+                        String msg = "[Kraken_Breath] Celda (" + alientox + "," + (alientoy + i) +
                         ") quedó con " + celdas[alientox][alientoy + i].getVida() + " de vida.";
                         mensajes.add(msg);
                     }
@@ -122,7 +122,7 @@ public class ReleaseTheKraken extends Personaje {
                 for (int i = 0; i < cantCasillasAtacadas; i++){
                     if (ComandoAtaqueValidacion.fueraDeAlcanceXY(alientox, alientoy - i)) {
                         celdas[alientox][alientoy - i].recibirAtaque(comando, 100, interfaz);
-                        String msg = "[Volcano Explosion] Celda (" + alientox + "," + (alientoy - i) +
+                        String msg = "[Kraken_Breath] Celda (" + alientox + "," + (alientoy - i) +
                         ") quedó con " + celdas[alientox][alientoy - i].getVida() + " de vida.";
                         mensajes.add(msg);
                     }
@@ -160,7 +160,7 @@ public class ReleaseTheKraken extends Personaje {
             for (int j = columna - rango; j <= columna + rango; j++) {
                 if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
                 celdas[i][j].recibirAtaque(comando,100, interfaz);
-                String msg = "[Volcano Explosion] Celda (" + fila + "," + columna +
+                String msg = "[Release_The_Kraken] Celda (" + fila + "," + columna +
                 ") quedó con " + celdas[fila][columna].getVida() + " de vida.";
                mensajes.add(msg);
                 }
@@ -196,7 +196,7 @@ public class ReleaseTheKraken extends Personaje {
 
             if (ComandoAtaqueValidacion.fueraDeAlcanceXY(nx, ny)) {
                 celdas[nx][ny].recibirAtaque(comando,100, interfaz);
-                String msg = "[Volcano Explosion] Celda (" + nx + "," + ny +
+                String msg = "[Tentaculos] Celda (" + nx + "," + ny +
                 ") quedó con " + celdas[nx][ny].getVida() + " de vida.";
                mensajes.add(msg);
             }

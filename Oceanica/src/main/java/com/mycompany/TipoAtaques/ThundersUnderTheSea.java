@@ -49,7 +49,7 @@ public class ThundersUnderTheSea extends Personaje {
             int daño = rand.nextInt(11) + 10;  // 10 a 20
             
             celdas[x][y].recibirAtaque(comando, daño, interfaz);
-            String msg = "[Volcano Explosion] Celda (" + x + "," + y +
+            String msg = "[Thunder_Rain] Celda (" + x + "," + y +
                 ") quedó con " + celdas[x][y].getVida() + " de vida.";
                mensajes.add(msg);
         }
@@ -94,7 +94,7 @@ public class ThundersUnderTheSea extends Personaje {
 
                         // Daño estándar de 100%
                         celdas[i][j].recibirAtaque(comando, 100, interfaz);
-                        String msg = "[Volcano Explosion] Celda (" + i + "," + j +
+                        String msg = "[Poseidon_Thunders] Celda (" + i + "," + j +
                         ") quedó con " + celdas[i][j].getVida() + " de vida.";
                        mensajes.add(msg);
                     }
@@ -137,7 +137,7 @@ public class ThundersUnderTheSea extends Personaje {
 
             // Aplicar daño
             celdas[x][y].recibirAtaque(comando, dannoTotal, interfaz);
-            String msg = "[Volcano Explosion] Celda (" + x + "," + y +
+            String msg = "[Eel_Atack] Celda (" + x + "," + y +
                 ") quedó con " + celdas[x][y].getVida() + " de vida.";
                mensajes.add(msg);
         }

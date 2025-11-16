@@ -51,7 +51,7 @@ public class FishTelepathy extends Personaje {
             int x = rand.nextInt(20);  // fila aleatoria
             int y = rand.nextInt(20);  // columna aleatoria
                 celdas[x][y].recibirAtaque(comando, 33, interfaz);
-                String msg = "[Volcano Explosion] Celda (" + x + "," + y +
+                String msg = "[Cardumen] Celda (" + x + "," + y +
                 ") quedó con " + celdas[x][y].getVida() + " de vida.";
                 mensajes.add(msg);
         }
@@ -81,7 +81,7 @@ public class FishTelepathy extends Personaje {
             for (int j = 0; j < rango; j++){
                 if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
                     celdas[i][j].recibirAtaque(comando, 100, interfaz);
-                    String msg = "[Volcano Explosion] Celda (" + i + "," + j +
+                    String msg = "[SharkAttack] Celda (" + i + "," + j +
                         ") quedó con " + celdas[i][j].getVida() + " de vida.";
                         mensajes.add(msg);
                 }
@@ -93,7 +93,7 @@ public class FishTelepathy extends Personaje {
             for (int j = 19 - rango + 1; j <= 19; j++){
                 if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
                     celdas[i][j].recibirAtaque(comando, 100, interfaz);
-                    String msg = "[Volcano Explosion] Celda (" + i + "," + j +
+                    String msg = "[SharkAttack] Celda (" + i + "," + j +
                         ") quedó con " + celdas[i][j].getVida() + " de vida.";
                         mensajes.add(msg);
                 }
@@ -105,7 +105,7 @@ public class FishTelepathy extends Personaje {
             for (int j = 0; j < rango; j++){
                 if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
                     celdas[i][j].recibirAtaque(comando, 100, interfaz);
-                    String msg = "[Volcano Explosion] Celda (" + i + "," + j +
+                    String msg = "[SharkAttack] Celda (" + i + "," + j +
                         ") quedó con " + celdas[i][j].getVida() + " de vida.";
                         mensajes.add(msg);
                 }
@@ -117,7 +117,7 @@ public class FishTelepathy extends Personaje {
             for (int j = 19 - rango + 1; j <= 19; j++){
                 if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
                     celdas[i][j].recibirAtaque(comando, 100, interfaz);
-                    String msg = "[Volcano Explosion] Celda (" + i + "," + j +
+                    String msg = "[SharkAttack] Celda (" + i + "," + j +
                         ") quedó con " + celdas[i][j].getVida() + " de vida.";
                         mensajes.add(msg);
                 }
@@ -154,7 +154,7 @@ public class FishTelepathy extends Personaje {
                 int y = rand.nextInt(20);  // columna aleatoria
 
                 celdas[x][y].recibirAtaque(comando, 25, interfaz);
-                String msg = "[Volcano Explosion] Celda (" + x + "," + y +
+                String msg = "[Pulp] Celda (" + x + "," + y +
                 ") quedó con " + celdas[x][y].getVida() + " de vida.";
                 mensajes.add(msg);
             }

@@ -122,7 +122,7 @@ public class PoseidonTrident extends Personaje{
             for (int j = columna - rango; j <= columna + rango; j++) {
                 if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
                     celdas[i][j].recibirAtaque(comando ,100, interfaz);
-                    String msg = "[Volcano Explosion] Celda (" + fila + "," + columna +
+                    String msg = "[Control_The_Kraken] Celda (" + fila + "," + columna +
                     ") quedó con " + celdas[fila][columna].getVida() + " de vida.";
                     mensajes.add(msg);
                 }
@@ -155,7 +155,7 @@ public class PoseidonTrident extends Personaje{
             // Atacar solo si la celda no está muerta
             if (celdas[x][y].getVida() > 0.0) {
                 celdas[x][y].recibirAtaque(comando, 100, interfaz);
-                String msg = "[Volcano Explosion] Celda (" + x + "," + y +
+                String msg = "[Three_Numbers] Celda (" + x + "," + y +
                 ") quedó con " + celdas[x][y].getVida() + " de vida.";
                 mensajes.add(msg);
                 atacadas++;
@@ -180,7 +180,7 @@ public class PoseidonTrident extends Personaje{
         for (int i = x - rango; i < x; i++ ){
             if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, y)) {
                 celdas[i][y].recibirAtaque(comando, 100, interfaz);
-                String msg = "[Volcano Explosion] Celda (" + x + "," + y +
+                String msg = "[Three_Lines] Celda (" + x + "," + y +
                 ") quedó con " + celdas[x][y].getVida() + " de vida.";
                mensajes.add(msg);
                 }
@@ -190,7 +190,7 @@ public class PoseidonTrident extends Personaje{
         for (int i = x + 1; i <= x + rango; i++){
             if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, y)) {
                 celdas[i][y].recibirAtaque(comando, 100, interfaz);
-                String msg = "[Volcano Explosion] Celda (" + x + "," + y +
+                String msg = "[Three_Lines] Celda (" + x + "," + y +
                 ") quedó con " + celdas[x][y].getVida() + " de vida.";
                mensajes.add(msg);
                 }
@@ -200,7 +200,7 @@ public class PoseidonTrident extends Personaje{
         for (int j = y - rango; j < y; j++ ){
             if (ComandoAtaqueValidacion.fueraDeAlcanceXY(x, j)) {
                 celdas[x][j].recibirAtaque(comando, 100, interfaz);
-                String msg = "[Volcano Explosion] Celda (" + x + "," + y +
+                String msg = "[Three_Lines] Celda (" + x + "," + y +
                 ") quedó con " + celdas[x][y].getVida() + " de vida.";
                mensajes.add(msg);
                 }
@@ -210,7 +210,7 @@ public class PoseidonTrident extends Personaje{
         for (int j = y + 1; j <= y + rango; j++){
             if (ComandoAtaqueValidacion.fueraDeAlcanceXY(x, j)) {
                 celdas[x][j].recibirAtaque(comando, 100, interfaz);
-                String msg = "[Volcano Explosion] Celda (" + x + "," + y +
+                String msg = "[Three_Lines] Celda (" + x + "," + y +
                 ") quedó con " + celdas[x][y].getVida() + " de vida.";
                mensajes.add(msg);
                 }
