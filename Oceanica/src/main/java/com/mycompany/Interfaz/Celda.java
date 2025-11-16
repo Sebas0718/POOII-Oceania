@@ -58,16 +58,16 @@ public class Celda {
         return texto;
     }
     
-    public void recibirAtaque(String nombreUsuario, int ataque){
+    public void recibirAtaque(Usuario usuario, int ataque){
         
         this.vida -= ataque;
-        this.atacadoPor.add(nombreUsuario);
-                if (this.vida <= 0){
-                    this.isCeldaDestruida = true;
-                    tieneVolcan = false;
-                    tieneRemolino = false;
-                    esRadioactiva = false;
-                }
+        this.atacadoPor.add(usuario.getNombre());
+            if (this.vida <= 0){
+                this.isCeldaDestruida = true;
+                tieneVolcan = false;
+                tieneRemolino = false;
+                esRadioactiva = false;
+            }
 
     }
 

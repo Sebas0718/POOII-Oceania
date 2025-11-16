@@ -42,7 +42,7 @@ public class ThundersUnderTheSea extends Personaje {
             // Daño entre 10% y 20%
             int daño = rand.nextInt(11) + 10;  // 10 a 20
 
-            celdas[x][y].recibirAtaque(comando.getNombre(), daño);
+            celdas[x][y].recibirAtaque(comando.getUsuario(), daño);
         }
     }
     
@@ -70,7 +70,7 @@ public class ThundersUnderTheSea extends Personaje {
                     if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
 
                         // Daño estándar de 100%
-                        celdas[i][j].recibirAtaque(comando.getNombre(), 100);
+                        celdas[i][j].recibirAtaque(comando.getUsuario(), 100);
                     }
                 }
             }
@@ -95,7 +95,7 @@ public class ThundersUnderTheSea extends Personaje {
             int danoTotal = descargas * 10; // 10% por descarga
 
             // Aplicar daño
-            celdas[x][y].recibirAtaque("Eel Attack", danoTotal);
+            celdas[x][y].recibirAtaque(comando.getUsuario(), danoTotal);
         }
     }
     

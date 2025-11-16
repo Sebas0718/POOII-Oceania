@@ -401,7 +401,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     
     
     public void atacarCelda(Usuario usuarioAtacante, int ataque, Celda celda){
-        celda.recibirAtaque(usuarioAtacante.getNombre(), ataque);
+        celda.recibirAtaque(usuarioAtacante, ataque);
     }
     
 
@@ -814,7 +814,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             if(args.length > 0){
                 if (args[0].toUpperCase().equals("ATAQUE")){
                     if (this.listaPersonajes.size() == 0){
-                        comando = ComandoFabrica.getComando(args, this.usuario.getNombre());
+                        comando = ComandoFabrica.getComando(args, this.usuario);
                     }
                     for (Personaje personaje : this.listaPersonajes){
                         if (args[2].equals(personaje.getNombre())){
@@ -823,13 +823,13 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                         }
                     }
                     if (personajeActual == null){
-                        comando = ComandoFabrica.getComando(args,usuario.getNombre());
+                        comando = ComandoFabrica.getComando(args,this.usuario);
                     } else  {
-                        comando = ComandosAtaquesFabrica.getComandoAtaque(args, this.usuario.getNombre(), personajeActual);
+                        comando = ComandosAtaquesFabrica.getComandoAtaque(args, this.usuario, personajeActual);
                     }
                 }
                 else{
-                comando = ComandoFabrica.getComando(args, this.usuario.getNombre());
+                comando = ComandoFabrica.getComando(args, this.usuario);
                 }
                 if (comando != null){
                     try {

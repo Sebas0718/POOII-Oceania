@@ -13,7 +13,7 @@ import com.mycompany.oceanica.Usuario.Usuario;
  */
 public class ComandoPintarVivas extends Comando{
 
-    public ComandoPintarVivas(String[] args, String nombre) {
+    public ComandoPintarVivas(String[] args, Usuario nombre) {
         super(TiposComandos.PINTAR_VIVAS, args, nombre);
     }
 

@@ -85,7 +85,7 @@ public class Server {
         }
 
         // Para otros comandos, el usuario debe tener nombre
-        ThreadServer jugador = buscarJugador(comando.getNombre());
+        ThreadServer jugador = buscarJugador(comando.getUsuario().getNombre());
         if (jugador == null) {
             refPantalla.writeMessage("Error: comando de usuario desconocido");
             return;
@@ -159,7 +159,7 @@ public class Server {
     public void comandInfo(Comando comando) {
         if (comando.getParametros().length < 1)
             return;
-        String nombre = comando.getNombre();
+        String nombre = comando.getUsuario().getNombre();
         for (ThreadServer usuario : usuariosConectados) {
             if (usuario.getNombre().equals(nombre)) {
                 try {
@@ -175,7 +175,7 @@ public class Server {
                         parametros = nombres.toArray(parametros);
 
                         // Crear un nuevo comando con esa información
-                        ComandoUsuarios respuesta = new ComandoUsuarios(parametros, nombre);
+                        ComandoUsuarios respuesta = new ComandoUsuarios(parametros, comando.getUsuario());
 
                         // Enviar la respuesta al cliente
                         usuario.getObjetoEscritor().writeObject(respuesta);

@@ -14,6 +14,7 @@ import com.mycompany.Personaje.TipoPersonaje;
 import com.mycompany.oceanica.Modelos.Comando;
 import com.mycompany.oceanica.Modelos.ComandoAtaque;
 import com.mycompany.oceanica.Modelos.ComandoAtaqueValidacion;
+import com.mycompany.oceanica.Usuario.Usuario;
 
 /**
  *
@@ -49,9 +50,9 @@ public class ReleaseTheKraken extends Personaje {
         int tentaculoy2 = Integer.parseInt(args[7]);
         int tentaculoy3 = Integer.parseInt(args[9]);
         
-        aplicarAtaqueTentaculo(celdas, tentaculox1, tentaculoy1,interfazPrincipal, comando.getNombre());
-        aplicarAtaqueTentaculo(celdas, tentaculox2, tentaculoy2,interfazPrincipal, comando.getNombre());
-        aplicarAtaqueTentaculo(celdas, tentaculox3, tentaculoy3,interfazPrincipal, comando.getNombre());
+        aplicarAtaqueTentaculo(celdas, tentaculox1, tentaculoy1,interfazPrincipal, comando.getUsuario());
+        aplicarAtaqueTentaculo(celdas, tentaculox2, tentaculoy2,interfazPrincipal, comando.getUsuario());
+        aplicarAtaqueTentaculo(celdas, tentaculox3, tentaculoy3,interfazPrincipal, comando.getUsuario());
         
     }
         
@@ -69,28 +70,28 @@ public class ReleaseTheKraken extends Personaje {
             case 1: //Abajo
                 for (int i = 0; i < cantCasillasAtacadas; i++){
                     if (ComandoAtaqueValidacion.fueraDeAlcanceXY(alientox + i, alientoy)) {
-                        celdas[alientox + i][alientoy].recibirAtaque(comando.getNombre(), 100);
+                        celdas[alientox + i][alientoy].recibirAtaque(comando.getUsuario(), 100);
                     }
                 }
                 break;
             case 2: //Arriba
                 for (int i = 0; i < cantCasillasAtacadas; i++){
                     if (ComandoAtaqueValidacion.fueraDeAlcanceXY(alientox - i, alientoy)) {
-                        celdas[alientox - i][alientoy].recibirAtaque(comando.getNombre(), 100);
+                        celdas[alientox - i][alientoy].recibirAtaque(comando.getUsuario(), 100);
                     }
                 }
                 break;
             case 3: //Derecha
                 for (int i = 0; i < cantCasillasAtacadas; i++){
                     if (ComandoAtaqueValidacion.fueraDeAlcanceXY(alientox, alientoy + i)) {
-                        celdas[alientox][alientoy + i].recibirAtaque(comando.getNombre(), 100);
+                        celdas[alientox][alientoy + i].recibirAtaque(comando.getUsuario(), 100);
                     }
                 }
                 break;
             case 4: //Izquierda
                 for (int i = 0; i < cantCasillasAtacadas; i++){
                     if (ComandoAtaqueValidacion.fueraDeAlcanceXY(alientox, alientoy - i)) {
-                        celdas[alientox][alientoy - i].recibirAtaque(comando.getNombre(), 100);
+                        celdas[alientox][alientoy - i].recibirAtaque(comando.getUsuario(), 100);
                     }
                 }
                 break;
@@ -111,7 +112,7 @@ public class ReleaseTheKraken extends Personaje {
         for (int i = fila - rango; i <= fila + rango; i++) {
             for (int j = columna - rango; j <= columna + rango; j++) {
                 if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
-                celdas[i][j].recibirAtaque(comando.getNombre(),100);
+                celdas[i][j].recibirAtaque(comando.getUsuario(),100);
                 }
             }
         }
@@ -125,14 +126,14 @@ public class ReleaseTheKraken extends Personaje {
         this.ataques = ataques;
     }
 
-    private void aplicarAtaqueTentaculo(Celda[][] celdas, int x, int y, InterfazPrincipal interfaz, String nombre) {
+    private void aplicarAtaqueTentaculo(Celda[][] celdas, int x, int y, InterfazPrincipal interfaz, Usuario usuario) {
     for (int dx = -1; dx <= 1; dx++) {
         for (int dy = -1; dy <= 1; dy++) {
             int nx = x + dx;
             int ny = y + dy;
 
             if (ComandoAtaqueValidacion.fueraDeAlcanceXY(nx, ny)) {
-                celdas[nx][ny].recibirAtaque(nombre,100);
+                celdas[nx][ny].recibirAtaque(usuario,100);
             }
         }
     }

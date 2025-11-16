@@ -50,7 +50,7 @@ public class WavesControl extends Personaje {
 
         for (int i = r_inicio; i <= r_fin; i++) {
             for (int j = c_inicio; j <= c_fin; j++) {
-                celdas[i][j].recibirAtaque(comando.getNombre(), 100);
+                celdas[i][j].recibirAtaque(comando.getUsuario(), 100);
             }
         }
         celdas[fila][columna].aplicarEfecto(TipoEfecto.REMOLINO);
@@ -70,7 +70,7 @@ public class WavesControl extends Personaje {
             int esRadioactiva = rand.nextInt(2); 
             for (int i = 0; i < celdas.length; i++) {
                 for (int j = 0; j < celdas[0].length; j++){
-                    celdas[i][j].recibirAtaque(comando.getNombre(), rango);
+                    celdas[i][j].recibirAtaque(comando.getUsuario(), rango);
 
                 }
             }
@@ -84,7 +84,7 @@ public class WavesControl extends Personaje {
         for (Celda[] filaCeldas : celdas) {
             for (int i = 0; i < filaCeldas.length; i++) {
                 if (filaCeldas[i].isEsRadioactiva()){
-                    filaCeldas[i].recibirAtaque(comando.getNombre(), 10);
+                    filaCeldas[i].recibirAtaque(comando.getUsuario(), 10);
                 }
             }
         }

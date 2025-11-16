@@ -13,7 +13,7 @@ import com.mycompany.oceanica.Usuario.Usuario;
  */
 public class ComandoSaltarTurno extends Comando {
 
-    public ComandoSaltarTurno(String[] args, String nombre) {
+    public ComandoSaltarTurno(String[] args, Usuario nombre) {
         super(TiposComandos.SALTAR, args, nombre);
     }
 
@@ -23,12 +23,12 @@ public class ComandoSaltarTurno extends Comando {
         this.setIsBroadcast(false);
         
         if (threadServidor.getServer().getGestorTurnos().getJugadorActual().equals(null)) {
-            threadServidor.getServer().getRefPantalla().writeMessage("Error no es el turno de: " + getNombre());
+            threadServidor.getServer().getRefPantalla().writeMessage("Error no es el turno de: " + getUsuario().getNombre());
             return;
         }
 
         if (threadServidor.getServer().getGestorTurnos().getJugadorActual().equals(threadServidor)){
-            threadServidor.getServer().getRefPantalla().writeMessage(getNombre() + " ha saltado su turno");
+            threadServidor.getServer().getRefPantalla().writeMessage(getUsuario().getNombre() + " ha saltado su turno");
             threadServidor.getServer().getGestorTurnos().siguienteTurno();            
         }
 

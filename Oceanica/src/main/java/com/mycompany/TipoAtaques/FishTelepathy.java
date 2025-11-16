@@ -45,7 +45,7 @@ public class FishTelepathy extends Personaje {
 
             int x = rand.nextInt(20);  // fila aleatoria
             int y = rand.nextInt(20);  // columna aleatoria
-                celdas[x][y].recibirAtaque(comando.getNombre(), 33);
+                celdas[x][y].recibirAtaque(comando.getUsuario(), 33);
         }
     }
     
@@ -59,7 +59,7 @@ public class FishTelepathy extends Personaje {
     for (int i = 0; i < rango; i++){
         for (int j = 0; j < rango; j++){
             if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
-                celdas[i][j].recibirAtaque(comando.getNombre(), 100);
+                celdas[i][j].recibirAtaque(comando.getUsuario(), 100);
             }
         }
     }
@@ -68,7 +68,7 @@ public class FishTelepathy extends Personaje {
     for (int i = 0; i < rango; i++){
         for (int j = 19 - rango + 1; j <= 19; j++){
             if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
-                celdas[i][j].recibirAtaque(comando.getNombre(), 100);
+                celdas[i][j].recibirAtaque(comando.getUsuario(), 100);
             }
         }
     }
@@ -77,7 +77,7 @@ public class FishTelepathy extends Personaje {
     for (int i = 19 - rango + 1; i <= 19; i++){
         for (int j = 0; j < rango; j++){
             if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
-                celdas[i][j].recibirAtaque(comando.getNombre(), 100);
+                celdas[i][j].recibirAtaque(comando.getUsuario(), 100);
             }
         }
     }
@@ -86,7 +86,7 @@ public class FishTelepathy extends Personaje {
     for (int i = 19 - rango + 1; i <= 19; i++){
         for (int j = 19 - rango + 1; j <= 19; j++){
             if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
-                celdas[i][j].recibirAtaque(comando.getNombre(), 100);
+                celdas[i][j].recibirAtaque(comando.getUsuario(), 100);
             }
         }
     }
@@ -105,7 +105,7 @@ public class FishTelepathy extends Personaje {
                 int x = rand.nextInt(20);  // fila aleatoria
                 int y = rand.nextInt(20);  // columna aleatoria
 
-                celdas[x][y].recibirAtaque(comando.getNombre(), 25);
+                celdas[x][y].recibirAtaque(comando.getUsuario(), 25);
             }
         }
 }

@@ -5,6 +5,7 @@
 package com.mycompany.oceanica.Modelos;
 
 import com.mycompany.oceanica.Threads.ThreadServer;
+import com.mycompany.oceanica.Usuario.Usuario;
 
 /**
  *
@@ -12,7 +13,7 @@ import com.mycompany.oceanica.Threads.ThreadServer;
  */
 public class ComandoUsuarios extends Comando{
 
-    public ComandoUsuarios(String[] parametros, String nombre) {
+    public ComandoUsuarios(String[] parametros, Usuario nombre) {
         super(TiposComandos.USUARIOS, parametros, nombre);
     }
 

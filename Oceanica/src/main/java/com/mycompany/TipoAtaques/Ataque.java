@@ -23,7 +23,7 @@ public class Ataque {
 
         for (int i = r_inicio; i <= r_fin; i++) {
             for (int j = c_inicio; j <= c_fin; j++) {            
-                celdas[i][j].recibirAtaque(usuarioAtacante.getNombre(), ataque);
+                celdas[i][j].recibirAtaque(usuarioAtacante, ataque);
             }
         }
     }
@@ -37,25 +37,25 @@ public class Ataque {
             switch (direccion) {
                 case "abajo":
                     if (fila + i < 20) {
-                        celdas[fila + i][columna].recibirAtaque(usuarioAtacante.getNombre(), ataque);
+                        celdas[fila + i][columna].recibirAtaque(usuarioAtacante, ataque);
                     }
                     i++;
                     break;
                 case "arriba":
                     if (fila- i >= 0) {
-                        celdas[fila - i][columna].recibirAtaque(usuarioAtacante.getNombre(), ataque);
+                        celdas[fila - i][columna].recibirAtaque(usuarioAtacante, ataque);
                     }
                     i++;
                     break;
                 case "izquierda":
                     if (columna - i >= 0) {
-                        celdas[fila][columna - i].recibirAtaque(usuarioAtacante.getNombre(), ataque);
+                        celdas[fila][columna - i].recibirAtaque(usuarioAtacante, ataque);
                     }
                     i++;
                     break;
                 case "derecha":
                 if (columna + i < 20) {
-                        celdas[fila][columna+i].recibirAtaque(usuarioAtacante.getNombre(), ataque);
+                        celdas[fila][columna+i].recibirAtaque(usuarioAtacante, ataque);
                     }
                     i++;    
                 break;

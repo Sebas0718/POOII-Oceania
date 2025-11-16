@@ -5,6 +5,7 @@
 package com.mycompany.oceanica.Modelos;
 
 import com.mycompany.Personaje.Personaje;
+import com.mycompany.oceanica.Usuario.Usuario;
 
 /**
  *
@@ -13,7 +14,7 @@ import com.mycompany.Personaje.Personaje;
 public class ComandoFabrica {
     
     
-    public static Comando getComando(String[] args, String nombre){
+    public static Comando getComando(String[] args, Usuario nombre){
         String tipo = args[0].toUpperCase();
         
         switch(tipo){

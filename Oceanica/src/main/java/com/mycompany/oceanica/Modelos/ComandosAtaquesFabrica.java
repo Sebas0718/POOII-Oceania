@@ -13,6 +13,7 @@ import com.mycompany.TipoAtaques.ReleaseTheKraken;
 import com.mycompany.TipoAtaques.ThundersUnderTheSea;
 import com.mycompany.TipoAtaques.UnderseaFire;
 import com.mycompany.TipoAtaques.WavesControl;
+import com.mycompany.oceanica.Usuario.Usuario;
 
 /**
  *
@@ -20,7 +21,7 @@ import com.mycompany.TipoAtaques.WavesControl;
  */
 public class ComandosAtaquesFabrica {
     
-    public static Comando getComandoAtaque(String[] args, String nombre, Personaje personaje){
+    public static Comando getComandoAtaque(String[] args, Usuario nombre, Personaje personaje){
         TipoPersonaje tipo = personaje.getTipoPersonaje();
         String ataque = args[3].toUpperCase();
         Comando comando = null;
