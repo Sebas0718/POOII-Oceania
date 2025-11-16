@@ -42,11 +42,17 @@ public class PoseidonTrident extends Personaje{
         int tentaculoy1 = Integer.parseInt(args[5]);
         int tentaculoy2 = Integer.parseInt(args[7]);
         int tentaculoy3 = Integer.parseInt(args[9]);
+        interfaz.borrarMensajes();
+        interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
+        comando.getUsuario().getInterfazPrincipal().borrarMensajes();
+        comando.getUsuario().getInterfazPrincipal().writeResultadoAtaque("EL RESULTADO DEL ATAQUE FUE:");
         
-        celdas[tentaculox1][tentaculoy1].recibirAtaque(comando.getUsuario(), 100);
-        this.aplicarThreeLines(celdas, tentaculox1, tentaculoy1, comando.getUsuario());
-        this.aplicarThreeLines(celdas, tentaculox2, tentaculoy2, comando.getUsuario());
-        this.aplicarThreeLines(celdas, tentaculox3, tentaculoy3, comando.getUsuario());
+        celdas[tentaculox1][tentaculoy1].recibirAtaque(comando, 100, interfaz);
+        celdas[tentaculox2][tentaculoy2].recibirAtaque(comando, 100, interfaz);
+        celdas[tentaculox3][tentaculoy3].recibirAtaque(comando, 100, interfaz);
+        this.aplicarThreeLines(celdas, tentaculox1, tentaculoy1, comando, interfaz);
+        this.aplicarThreeLines(celdas, tentaculox2, tentaculoy2, comando, interfaz);
+        this.aplicarThreeLines(celdas, tentaculox3, tentaculoy3, comando, interfaz);
         
     }
     
@@ -56,7 +62,11 @@ public class PoseidonTrident extends Personaje{
         int[] numeros = {Integer.parseInt(args[4]),Integer.parseInt(args[5]),Integer.parseInt(args[6])};
         if (interfaz.ataqueThreeNumbers(numeros)){
             int celdasAtacar = numeros[1] * numeros[2] * numeros[3];
-            this.realizarThreeNumbers(celdasAtacar, celdas, comando.getUsuario());
+            interfaz.borrarMensajes();
+            interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
+            comando.getUsuario().getInterfazPrincipal().borrarMensajes();
+            comando.getUsuario().getInterfazPrincipal().writeResultadoAtaque("EL RESULTADO DEL ATAQUE FUE:");
+            this.realizarThreeNumbers(celdasAtacar, celdas, comando, interfaz);
         }
     }
     
@@ -68,22 +78,24 @@ public class PoseidonTrident extends Personaje{
         
         int fila = rand.nextInt(20);
         int columna = rand.nextInt(20);
-        
+        interfaz.borrarMensajes();
+        interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
+        comando.getUsuario().getInterfazPrincipal().borrarMensajes();
+        comando.getUsuario().getInterfazPrincipal().writeResultadoAtaque("EL RESULTADO DEL ATAQUE FUE:");
         for (int i = fila - rango; i <= fila + rango; i++) {
             for (int j = columna - rango; j <= columna + rango; j++) {
                 if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
-                    celdas[i][j].recibirAtaque(comando.getUsuario(),100);
+                    celdas[i][j].recibirAtaque(comando ,100, interfaz);
                 }
             }
         }
     }
     
-    public void realizarThreeNumbers(int celdasAtacar, Celda[][] celdas, Usuario nombre){
+    public void realizarThreeNumbers(int celdasAtacar, Celda[][] celdas, ComandoAtaque comando, InterfazPrincipal interfaz){
          Random rand = new Random();
         int atacadas = 0;
         int seguridad = 0;
         int limiteSeguridad = 20 * 20; // 400 intentos máximos
-
         while (atacadas < celdasAtacar && seguridad < limiteSeguridad) {
             seguridad++;
 
@@ -92,7 +104,7 @@ public class PoseidonTrident extends Personaje{
 
             // Atacar solo si la celda no está muerta
             if (celdas[x][y].getVida() > 0.0) {
-                celdas[x][y].recibirAtaque(nombre, 100);
+                celdas[x][y].recibirAtaque(comando, 100, interfaz);
                 atacadas++;
             }
         }
@@ -106,7 +118,7 @@ public class PoseidonTrident extends Personaje{
         this.ataques = ataques;
     }
     
-    public void aplicarThreeLines(Celda[][] celdas, int x, int y, Usuario nombre){
+    public void aplicarThreeLines(Celda[][] celdas, int x, int y, ComandoAtaque comando, InterfazPrincipal interfaz){
         Random rand = new Random();
         
         int rango = rand.nextInt(4) + 1;
@@ -114,28 +126,28 @@ public class PoseidonTrident extends Personaje{
         //Arriba
         for (int i = x - rango; i < x; i++ ){
             if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, y)) {
-                celdas[i][y].recibirAtaque(nombre, 100);
+                celdas[i][y].recibirAtaque(comando, 100, interfaz);
                 }
         }
         
         //Abajo
         for (int i = x + 1; i <= x + rango; i++){
             if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, y)) {
-                celdas[i][y].recibirAtaque(nombre, 100);
+                celdas[i][y].recibirAtaque(comando, 100, interfaz);
                 }
         }
         
         //Izquierda
         for (int j = y - rango; j < y; j++ ){
             if (ComandoAtaqueValidacion.fueraDeAlcanceXY(x, j)) {
-                celdas[x][j].recibirAtaque(nombre, 100);
+                celdas[x][j].recibirAtaque(comando, 100, interfaz);
                 }
         }
         
         //Derecha
         for (int j = y + 1; j <= y + rango; j++){
             if (ComandoAtaqueValidacion.fueraDeAlcanceXY(x, j)) {
-                celdas[x][j].recibirAtaque(nombre, 100);
+                celdas[x][j].recibirAtaque(comando, 100, interfaz);
                 }
         }
     }

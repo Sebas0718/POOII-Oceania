@@ -32,7 +32,11 @@ public class ThundersUnderTheSea extends Personaje {
         Celda[][] celdas = interfaz.getCeldas();
 
         int cantidadRayos = 100;
-
+        interfaz.borrarMensajes();
+        interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
+        comando.getUsuario().getInterfazPrincipal().borrarMensajes();
+        comando.getUsuario().getInterfazPrincipal().writeResultadoAtaque("EL RESULTADO DEL ATAQUE FUE:");
+        
         for (int i = 0; i < cantidadRayos; i++) {
 
             // Coordenadas aleatorias
@@ -41,8 +45,8 @@ public class ThundersUnderTheSea extends Personaje {
 
             // Daño entre 10% y 20%
             int daño = rand.nextInt(11) + 10;  // 10 a 20
-
-            celdas[x][y].recibirAtaque(comando.getUsuario(), daño);
+            
+            celdas[x][y].recibirAtaque(comando, daño, interfaz);
         }
     }
     
@@ -52,7 +56,10 @@ public class ThundersUnderTheSea extends Personaje {
 
         // Cantidad de rayos: entre 5 y 10
         int cantidadRayos = rand.nextInt(6) + 5;
-
+        interfaz.borrarMensajes();
+        interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
+        comando.getUsuario().getInterfazPrincipal().borrarMensajes();
+        comando.getUsuario().getInterfazPrincipal().writeResultadoAtaque("EL RESULTADO DEL ATAQUE FUE:");
         for (int r = 0; r < cantidadRayos; r++) {
 
             // Punto donde cae el rayo
@@ -70,7 +77,7 @@ public class ThundersUnderTheSea extends Personaje {
                     if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
 
                         // Daño estándar de 100%
-                        celdas[i][j].recibirAtaque(comando.getUsuario(), 100);
+                        celdas[i][j].recibirAtaque(comando, 100, interfaz);
                     }
                 }
             }
@@ -83,7 +90,11 @@ public class ThundersUnderTheSea extends Personaje {
         
         // Cantidad de anguilas entre 25 y 100
         int cantidadAnguilas = rand.nextInt(76) + 25;
-
+        interfaz.borrarMensajes();
+        interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
+        comando.getUsuario().getInterfazPrincipal().borrarMensajes();
+        comando.getUsuario().getInterfazPrincipal().writeResultadoAtaque("EL RESULTADO DEL ATAQUE FUE:");
+        
         for (int k = 0; k < cantidadAnguilas; k++) {
 
             // Cada anguila ataca una casilla aleatoria
@@ -92,10 +103,10 @@ public class ThundersUnderTheSea extends Personaje {
 
             // Descargas: entre 1 y 10 → cada una vale 10% de daño
             int descargas = rand.nextInt(10) + 1;
-            int danoTotal = descargas * 10; // 10% por descarga
+            int dannoTotal = descargas * 10; // 10% por descarga
 
             // Aplicar daño
-            celdas[x][y].recibirAtaque(comando.getUsuario(), danoTotal);
+            celdas[x][y].recibirAtaque(comando, dannoTotal, interfaz);
         }
     }
     

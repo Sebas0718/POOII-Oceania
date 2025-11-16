@@ -399,11 +399,13 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
     }
     
-    
-    public void atacarCelda(Usuario usuarioAtacante, int ataque, Celda celda){
-        celda.recibirAtaque(usuarioAtacante, ataque);
+    public void borrarMensajes(){
+        txaBitacora.setText("");
     }
     
+    public void writeResultadoAtaque (String string){
+        txaBitacora.append(string + "\n");
+    }
 
 
    public void writeError(String string){

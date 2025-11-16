@@ -31,7 +31,7 @@ public class WavesControl extends Personaje {
     public void ataqueSwirlRaising(InterfazPrincipal interfaz, ComandoAtaque comando){
         
         Random rand = new Random();
-
+        
         Celda[][] celdas = interfaz.getCeldas();
         int F = celdas.length;
         int C = celdas[0].length;
@@ -47,10 +47,15 @@ public class WavesControl extends Personaje {
         int r_fin = Math.min(F - 1, fila + rango);
         int c_inicio = Math.max(0, columna - rango);
         int c_fin = Math.min(C - 1, columna + rango);
-
+        
+        interfaz.borrarMensajes();
+        interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
+        comando.getUsuario().getInterfazPrincipal().borrarMensajes();
+        comando.getUsuario().getInterfazPrincipal().writeResultadoAtaque("EL RESULTADO DEL ATAQUE FUE:");
+        
         for (int i = r_inicio; i <= r_fin; i++) {
             for (int j = c_inicio; j <= c_fin; j++) {
-                celdas[i][j].recibirAtaque(comando.getUsuario(), 100);
+                celdas[i][j].recibirAtaque(comando, 100, interfaz);
             }
         }
         celdas[fila][columna].aplicarEfecto(TipoEfecto.REMOLINO);
@@ -63,14 +68,19 @@ public class WavesControl extends Personaje {
         int rango = 10*this.rangoUltimoRemolino;
         int cantBasura = 0;
         Celda[][] celdas = interfaz.getCeldas();
-
+        
+        interfaz.borrarMensajes();
+        interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
+        comando.getUsuario().getInterfazPrincipal().borrarMensajes();
+        comando.getUsuario().getInterfazPrincipal().writeResultadoAtaque("EL RESULTADO DEL ATAQUE FUE:");
+        
         while (cantBasura < rango) {
             int fila = rand.nextInt(20);
             int columna = rand.nextInt(20);
             int esRadioactiva = rand.nextInt(2); 
             for (int i = 0; i < celdas.length; i++) {
                 for (int j = 0; j < celdas[0].length; j++){
-                    celdas[i][j].recibirAtaque(comando.getUsuario(), rango);
+                    celdas[i][j].recibirAtaque(comando, rango, interfaz);
 
                 }
             }
@@ -81,10 +91,16 @@ public class WavesControl extends Personaje {
     public void ataqueRadioactiveRush(InterfazPrincipal interfaz, ComandoAtaque comando) {
 
         Celda[][] celdas = interfaz.getCeldas();
+        
+        interfaz.borrarMensajes();
+        interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
+        comando.getUsuario().getInterfazPrincipal().borrarMensajes();
+        comando.getUsuario().getInterfazPrincipal().writeResultadoAtaque("EL RESULTADO DEL ATAQUE FUE:");
+        
         for (Celda[] filaCeldas : celdas) {
             for (int i = 0; i < filaCeldas.length; i++) {
                 if (filaCeldas[i].isEsRadioactiva()){
-                    filaCeldas[i].recibirAtaque(comando.getUsuario(), 10);
+                    filaCeldas[i].recibirAtaque(comando, 10, interfaz);
                 }
             }
         }

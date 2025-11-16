@@ -114,8 +114,6 @@ public class Usuario {
         this.haPerdido = bool;
     }
 
-
-
     public InterfazPrincipal getInterfazPrincipal() {
         return interfazPrincipal;
     }

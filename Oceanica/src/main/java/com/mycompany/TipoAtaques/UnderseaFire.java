@@ -26,15 +26,24 @@ public class UnderseaFire extends Personaje{
     }
 
     public void ataqueVolcanoRaising(InterfazPrincipal interfaz, ComandoAtaque comando){
-    
+        interfaz.borrarMensajes();
+        interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
+        comando.getUsuario().getInterfazPrincipal().borrarMensajes();
+        comando.getUsuario().getInterfazPrincipal().writeResultadoAtaque("EL RESULTADO DEL ATAQUE FUE:");
     }
     
     public void ataqueVolcanoExplosion(InterfazPrincipal interfaz, ComandoAtaque comando){
-        
+        interfaz.borrarMensajes();
+        interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
+        comando.getUsuario().getInterfazPrincipal().borrarMensajes();
+        comando.getUsuario().getInterfazPrincipal().writeResultadoAtaque("EL RESULTADO DEL ATAQUE FUE:");
     }
     
     public void ataqueTermalRush(InterfazPrincipal interfaz, ComandoAtaque comando){
-        
+        interfaz.borrarMensajes();
+        interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
+        comando.getUsuario().getInterfazPrincipal().borrarMensajes();
+        comando.getUsuario().getInterfazPrincipal().writeResultadoAtaque("EL RESULTADO DEL ATAQUE FUE:");
     }
     
 
