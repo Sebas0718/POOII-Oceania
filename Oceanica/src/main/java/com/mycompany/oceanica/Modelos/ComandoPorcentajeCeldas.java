@@ -4,6 +4,7 @@
  */
 package com.mycompany.oceanica.Modelos;
 
+import com.mycompany.Interfaz.Celda;
 import com.mycompany.oceanica.Threads.ThreadServer;
 import com.mycompany.oceanica.Usuario.Usuario;
 
@@ -24,6 +25,10 @@ public class ComandoPorcentajeCeldas extends Comando {
     }
 
     
-
+    @Override
+    public void procesoEnUsuario(Usuario usuario) {
+        Celda[][] celdas = usuario.getInterfazPrincipal().getCeldas();
+        
+    }
     
 }

@@ -52,7 +52,7 @@ public class UnderseaFire extends Personaje {
 
         for (int i = r_inicio; i <= r_fin; i++) {
             for (int j = c_inicio; j <= c_fin; j++) {
-                celdas[i][j].recibirAtaque(interfaz.getUsuario(), 100);
+                celdas[i][j].recibirAtaque(comando, 100, interfaz);
             }
         }
         celdas[fila][columna].aplicarEfecto(TipoEfecto.VOLCAN);
@@ -73,7 +73,7 @@ public class UnderseaFire extends Personaje {
             int fila = rand.nextInt(20);
             int columna = rand.nextInt(20);
             
-            celdas[fila][columna].recibirAtaque(interfaz.getUsuario(), 20);
+            celdas[fila][columna].recibirAtaque(comando, 20, interfaz);
             cantPiedras++;
         }
         
@@ -117,7 +117,7 @@ public class UnderseaFire extends Personaje {
                 
                 for (int i = r_inicio; i <= r_fin; i++) {
                     for (int j = c_inicio; j <= c_fin; j++) {
-                        celdas[i][j].recibirAtaque(interfaz.getUsuario(), ataque);
+                        celdas[i][j].recibirAtaque(comando, ataque, interfaz);
                     }
                 }
             }
