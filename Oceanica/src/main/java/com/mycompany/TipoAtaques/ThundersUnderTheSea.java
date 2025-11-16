@@ -34,8 +34,7 @@ public class ThundersUnderTheSea extends Personaje {
         int cantidadRayos = 100;
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
-        comando.getUsuario().getInterfazPrincipal().borrarMensajes();
-        comando.getUsuario().getInterfazPrincipal().writeResultadoAtaque("EL RESULTADO DEL ATAQUE FUE:");
+        
         
         for (int i = 0; i < cantidadRayos; i++) {
 
@@ -58,8 +57,7 @@ public class ThundersUnderTheSea extends Personaje {
         int cantidadRayos = rand.nextInt(6) + 5;
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
-        comando.getUsuario().getInterfazPrincipal().borrarMensajes();
-        comando.getUsuario().getInterfazPrincipal().writeResultadoAtaque("EL RESULTADO DEL ATAQUE FUE:");
+        
         for (int r = 0; r < cantidadRayos; r++) {
 
             // Punto donde cae el rayo
@@ -92,8 +90,7 @@ public class ThundersUnderTheSea extends Personaje {
         int cantidadAnguilas = rand.nextInt(76) + 25;
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
-        comando.getUsuario().getInterfazPrincipal().borrarMensajes();
-        comando.getUsuario().getInterfazPrincipal().writeResultadoAtaque("EL RESULTADO DEL ATAQUE FUE:");
+        
         
         for (int k = 0; k < cantidadAnguilas; k++) {
 

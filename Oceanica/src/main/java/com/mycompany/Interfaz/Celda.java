@@ -62,7 +62,7 @@ public class Celda {
     public void recibirAtaque(ComandoAtaque comando, int ataque, InterfazPrincipal interfaz){
         
         this.vida -= ataque;
-        this.atacadoPor.add(comando.getUsuario().getNombre());
+        this.atacadoPor.add(comando.getNombreUsuario());
             if (this.vida <= 0){
                 this.isCeldaDestruida = true;
                 tieneVolcan = false;
@@ -70,7 +70,7 @@ public class Celda {
                 esRadioactiva = false;
             }
         
-        resultadoAtaque(comando.getUsuario().getInterfazPrincipal(), interfaz, comando);
+        
     } 
 
     public void aplicarEfecto(TipoEfecto efecto){
@@ -94,9 +94,9 @@ public class Celda {
         atacante.writeResultadoAtaque("[ATAQUE] En ("  + this.columna + ", " + ") se quedo con " + this.vida + " de vida, ataco con el personaje " + comando.getPersonaje().getNombre());
         atacante.getUsuario().getResultadoAtaqueEnviado().add("[ATAQUE] En ("  + this.columna + ", " + ") se quedo con " + this.vida + " de vida, ataco con el personaje " + comando.getPersonaje().getNombre());
         atacante.getUsuario().getResultadosHistorialAtaques().add("[ATAQUE] En ("  + this.columna + ", " + ") se quedo con " + this.vida + " de vida, ataco con el personaje " + comando.getPersonaje().getNombre());
-        victima.getUsuario().getResultadoAtaqueEnviado().add("[ATAQUE RECIBIDO] En " + this.columna + ", " + ") se quedo con " + this.vida + " de vida, fue atacado con el personaje " + comando.getPersonaje().getNombre() + " del usuario " + comando.getUsuario().getNombre());
-        victima.getUsuario().getResultadosHistorialAtaques().add("[ATAQUE RECIBIDO] En " + this.columna + ", " + ") se quedo con " + this.vida + " de vida, fue atacado con el personaje " + comando.getPersonaje().getNombre() + " del usuario " + comando.getUsuario().getNombre());
-        victima.writeResultadoAtaque("[ATAQUE RECIBIDO] En " + this.columna + ", " + ") se quedo con " + this.vida + " de vida, fue atacado con el personaje " + comando.getPersonaje().getNombre() + " del usuario " + comando.getUsuario().getNombre());
+        victima.getUsuario().getResultadoAtaqueEnviado().add("[ATAQUE RECIBIDO] En " + this.columna + ", " + ") se quedo con " + this.vida + " de vida, fue atacado con el personaje " + comando.getPersonaje().getNombre() + " del usuario " + comando.getNombreUsuario());
+        victima.getUsuario().getResultadosHistorialAtaques().add("[ATAQUE RECIBIDO] En " + this.columna + ", " + ") se quedo con " + this.vida + " de vida, fue atacado con el personaje " + comando.getPersonaje().getNombre() + " del usuario " + comando.getNombreUsuario());
+        victima.writeResultadoAtaque("[ATAQUE RECIBIDO] En " + this.columna + ", " + ") se quedo con " + this.vida + " de vida, fue atacado con el personaje " + comando.getPersonaje().getNombre() + " del usuario " + comando.getNombreUsuario());
     }
  
     public int getFila() {

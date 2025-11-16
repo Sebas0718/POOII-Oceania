@@ -13,7 +13,7 @@ import com.mycompany.oceanica.Usuario.Usuario;
  */
 public class ComandoConsultarEnemigo extends Comando {
 
-    public ComandoConsultarEnemigo(String[] args, Usuario nombre) {
+    public ComandoConsultarEnemigo(String[] args, String nombre) {
         super(TiposComandos.CONSULTAR_ENEMIGO, args, nombre);
     }
 

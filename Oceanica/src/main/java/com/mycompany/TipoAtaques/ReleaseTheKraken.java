@@ -51,8 +51,7 @@ public class ReleaseTheKraken extends Personaje {
         int tentaculoy3 = Integer.parseInt(args[9]);
         interfazPrincipal.borrarMensajes();
         interfazPrincipal.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
-        comando.getUsuario().getInterfazPrincipal().borrarMensajes();
-        comando.getUsuario().getInterfazPrincipal().writeResultadoAtaque("EL RESULTADO DEL ATAQUE FUE:");
+        
         aplicarAtaqueTentaculo(celdas, tentaculox1, tentaculoy1,interfazPrincipal, comando);
         aplicarAtaqueTentaculo(celdas, tentaculox2, tentaculoy2,interfazPrincipal, comando);
         aplicarAtaqueTentaculo(celdas, tentaculox3, tentaculoy3,interfazPrincipal, comando);
@@ -71,8 +70,7 @@ public class ReleaseTheKraken extends Personaje {
         Celda[][] celdas = interfaz.getCeldas();
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
-        comando.getUsuario().getInterfazPrincipal().borrarMensajes();
-        comando.getUsuario().getInterfazPrincipal().writeResultadoAtaque("EL RESULTADO DEL ATAQUE FUE:");
+        
         switch (direccion){
             case 1: //Abajo
                 for (int i = 0; i < cantCasillasAtacadas; i++){
@@ -117,8 +115,7 @@ public class ReleaseTheKraken extends Personaje {
         int columna = rand.nextInt(20);
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
-        comando.getUsuario().getInterfazPrincipal().borrarMensajes();
-        comando.getUsuario().getInterfazPrincipal().writeResultadoAtaque("EL RESULTADO DEL ATAQUE FUE: ");
+        
         for (int i = fila - rango; i <= fila + rango; i++) {
             for (int j = columna - rango; j <= columna + rango; j++) {
                 if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {

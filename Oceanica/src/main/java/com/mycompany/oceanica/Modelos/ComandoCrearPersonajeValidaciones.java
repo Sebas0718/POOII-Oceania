@@ -26,7 +26,13 @@ public class ComandoCrearPersonajeValidaciones {
             return false;
 
         }
-
+        if (interfaz.getPorcentajeOcupadoMapa() + personaje.getPorcentajeMapa() == 100 && interfaz.getListaPersonajes().size() == 1) {
+            ComandoCrearPersonajeErrores.error(
+                    "!!!ERROR!!! Se esta ocupando el 100% del mapa y solo se ha creado un personaje",
+                    interfaz.getUsuario(), comando);
+            return false;
+        }
+        
         if (interfaz.getPorcentajeOcupadoMapa() + personaje.getPorcentajeMapa() < 100 && interfaz.getListaPersonajes().size() == 2) {
             ComandoCrearPersonajeErrores.error(
                     "!!!ERROR!!! Se esta ocupando menos del 100% del mapa y es el ultimo personaje",

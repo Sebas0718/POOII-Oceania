@@ -13,7 +13,7 @@ import com.mycompany.oceanica.Usuario.Usuario;
  */
 public class ComandoError extends Comando{
 
-    public ComandoError(String[] parameters, Usuario nombre) {
+    public ComandoError(String[] parameters, String nombre) {
         super(TiposComandos.ERROR, parameters, nombre);
     }
 

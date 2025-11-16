@@ -17,12 +17,12 @@ public abstract class Comando implements Serializable {
     private String[] parametros;
     private boolean isBroadcast;
     private boolean info;
-    private Usuario  usuario;
+    private String  nombreUsuario;
 
-    public Comando(TiposComandos tipo, String[] parametros, Usuario usuario) {
+    public Comando(TiposComandos tipo, String[] parametros, String nombreUsuario) {
         this.tipo = tipo;
         this.parametros = parametros; 
-        this.usuario = usuario;
+        this.nombreUsuario = nombreUsuario;
     }
     
     public abstract void procesoPorServer(ThreadServer threadServidor);
@@ -62,13 +62,15 @@ public abstract class Comando implements Serializable {
         this.info = info;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public String getNombreUsuario() {
+        return nombreUsuario;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
+
+    
         
     
 }

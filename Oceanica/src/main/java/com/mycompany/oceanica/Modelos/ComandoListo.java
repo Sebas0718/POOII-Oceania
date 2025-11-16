@@ -13,7 +13,7 @@ import com.mycompany.oceanica.Usuario.Usuario;
  */
 public class ComandoListo extends Comando {
 
-    public ComandoListo(String[] args, Usuario nombre) {
+    public ComandoListo(String[] args, String nombre) {
         super(TiposComandos.INICIAR, args, nombre);
     }
 
@@ -28,12 +28,12 @@ public class ComandoListo extends Comando {
             threadServidor.getServer().getGestorTurnos().iniciarJuego();
             return;
         } 
-        threadServidor.getServer().getRefPantalla().writeMessage(getUsuario().getNombre() + " no puede iniciar, no ha creado todos los personajes");
+        threadServidor.getServer().getRefPantalla().writeMessage(this.getNombreUsuario() + " no puede iniciar, no ha creado todos los personajes");
     }
 
     @Override
     public void procesoEnUsuario(Usuario usuario) {
-        usuario.getInterfazPrincipal().writeMessage("El usuario " + this.getUsuario().getNombre() + " ya esta listo", this);
+        usuario.getInterfazPrincipal().writeMessage("El usuario " + this.getNombreUsuario() + " ya esta listo", this);
     }
     
 }

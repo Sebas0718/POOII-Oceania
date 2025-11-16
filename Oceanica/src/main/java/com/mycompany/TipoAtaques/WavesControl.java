@@ -53,8 +53,7 @@ public class WavesControl extends Personaje {
         
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
-        comando.getUsuario().getInterfazPrincipal().borrarMensajes();
-        comando.getUsuario().getInterfazPrincipal().writeResultadoAtaque("EL RESULTADO DEL ATAQUE FUE:");
+        
         
         for (int i = r_inicio; i <= r_fin; i++) {
             for (int j = c_inicio; j <= c_fin; j++) {
@@ -78,8 +77,7 @@ public class WavesControl extends Personaje {
         
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
-        comando.getUsuario().getInterfazPrincipal().borrarMensajes();
-        comando.getUsuario().getInterfazPrincipal().writeResultadoAtaque("EL RESULTADO DEL ATAQUE FUE:");
+        
         
         while (cantBasura < rango) {
             int fila = rand.nextInt(20);

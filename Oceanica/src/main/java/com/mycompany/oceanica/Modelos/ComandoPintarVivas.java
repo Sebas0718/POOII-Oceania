@@ -15,7 +15,7 @@ import java.awt.Color;
  */
 public class ComandoPintarVivas extends Comando{
 
-    public ComandoPintarVivas(String[] args, Usuario nombre) {
+    public ComandoPintarVivas(String[] args, String nombre) {
         super(TiposComandos.PINTAR_VIVAS, args, nombre);
     }
 

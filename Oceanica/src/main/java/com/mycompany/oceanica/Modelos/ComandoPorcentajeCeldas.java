@@ -14,7 +14,7 @@ import com.mycompany.oceanica.Usuario.Usuario;
  */
 public class ComandoPorcentajeCeldas extends Comando {
 
-    public ComandoPorcentajeCeldas(String[] args, Usuario nombre) {
+    public ComandoPorcentajeCeldas(String[] args, String nombre) {
         super(TiposComandos.MOSTRAR_PORCENTAJES_CELDAS, args, nombre);
     }
 

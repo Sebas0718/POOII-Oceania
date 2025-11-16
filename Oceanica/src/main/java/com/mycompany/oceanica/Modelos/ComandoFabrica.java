@@ -14,7 +14,7 @@ import com.mycompany.oceanica.Usuario.Usuario;
 public class ComandoFabrica {
     
     
-    public static Comando getComando(String[] args, Usuario nombre){
+    public static Comando getComando(String[] args, String nombre){
         String tipo = args[0].toUpperCase();
         
         switch(tipo){

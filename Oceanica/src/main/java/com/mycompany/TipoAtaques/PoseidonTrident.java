@@ -44,8 +44,7 @@ public class PoseidonTrident extends Personaje{
         int tentaculoy3 = Integer.parseInt(args[9]);
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
-        comando.getUsuario().getInterfazPrincipal().borrarMensajes();
-        comando.getUsuario().getInterfazPrincipal().writeResultadoAtaque("EL RESULTADO DEL ATAQUE FUE:");
+        
         
         celdas[tentaculox1][tentaculoy1].recibirAtaque(comando, 100, interfaz);
         celdas[tentaculox2][tentaculoy2].recibirAtaque(comando, 100, interfaz);
@@ -64,12 +63,11 @@ public class PoseidonTrident extends Personaje{
             int celdasAtacar = numeros[1] * numeros[2] * numeros[3];
             interfaz.borrarMensajes();
             interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
-            comando.getUsuario().getInterfazPrincipal().borrarMensajes();
-            comando.getUsuario().getInterfazPrincipal().writeResultadoAtaque("EL RESULTADO DEL ATAQUE FUE:");
+            
             this.realizarThreeNumbers(celdasAtacar, celdas, comando, interfaz);
         }
         else{
-            comando.getUsuario().setAtaquesfallados(comando.getUsuario().getAtaquesfallados() + 1);
+            
         }
     }
     
@@ -83,8 +81,7 @@ public class PoseidonTrident extends Personaje{
         int columna = rand.nextInt(20);
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
-        comando.getUsuario().getInterfazPrincipal().borrarMensajes();
-        comando.getUsuario().getInterfazPrincipal().writeResultadoAtaque("EL RESULTADO DEL ATAQUE FUE:");
+        
         for (int i = fila - rango; i <= fila + rango; i++) {
             for (int j = columna - rango; j <= columna + rango; j++) {
                 if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {

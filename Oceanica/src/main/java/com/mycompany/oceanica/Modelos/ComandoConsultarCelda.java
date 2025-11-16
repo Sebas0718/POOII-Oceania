@@ -14,7 +14,7 @@ import com.mycompany.oceanica.Usuario.Usuario;
  */
 public class ComandoConsultarCelda extends Comando {
 
-    public ComandoConsultarCelda(String[] args, Usuario nombre) {
+    public ComandoConsultarCelda(String[] args, String nombre) {
         super(TiposComandos.CONSULTAR_CELDA, args, nombre);
     }
 

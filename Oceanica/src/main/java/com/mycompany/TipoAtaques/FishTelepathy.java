@@ -42,8 +42,7 @@ public class FishTelepathy extends Personaje {
         
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
-        comando.getUsuario().getInterfazPrincipal().borrarMensajes();
-        comando.getUsuario().getInterfazPrincipal().writeResultadoAtaque("EL RESULTADO DEL ATAQUE FUE:");
+        
         
         for (int i = 0; i < cantidadPeces; i++) {
 
@@ -60,8 +59,7 @@ public class FishTelepathy extends Personaje {
         int rango = rand.nextInt(10) + 1; // 1 a 10
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
-        comando.getUsuario().getInterfazPrincipal().borrarMensajes();
-        comando.getUsuario().getInterfazPrincipal().writeResultadoAtaque("EL RESULTADO DEL ATAQUE FUE:");
+        
         
         for (int i = 0; i < rango; i++){
             for (int j = 0; j < rango; j++){
@@ -106,8 +104,7 @@ public class FishTelepathy extends Personaje {
         int cantidadPulpos = rand.nextInt(31) + 20;
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
-        comando.getUsuario().getInterfazPrincipal().borrarMensajes();
-        comando.getUsuario().getInterfazPrincipal().writeResultadoAtaque("EL RESULTADO DEL ATAQUE FUE:");
+        
         // Cada pulpo lanza 8 tentáculos que dañan 25 cada uno
         for (int p = 0; p < cantidadPulpos; p++) {
             for (int t = 0; t < 8; t++) {
