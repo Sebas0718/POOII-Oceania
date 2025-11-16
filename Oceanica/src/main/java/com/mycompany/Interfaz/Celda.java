@@ -33,9 +33,9 @@ public class Celda {
     private boolean esRadioactiva = false;
     
     private String fueAsesinadaPor; 
-    private ArrayList<String> atacadoPor; 
-    private ArrayList<String> curadoPor;
-    private ArrayList<String> protegidoPor;
+    private ArrayList<String> atacadoPor = new ArrayList(); 
+    private ArrayList<String> curadoPor = new ArrayList();
+    private ArrayList<String> protegidoPor = new ArrayList();
     
     private Personaje personajeDueño;
     
