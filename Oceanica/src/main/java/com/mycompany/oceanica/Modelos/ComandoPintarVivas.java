@@ -4,8 +4,10 @@
  */
 package com.mycompany.oceanica.Modelos;
 
+import com.mycompany.Interfaz.Celda;
 import com.mycompany.oceanica.Threads.ThreadServer;
 import com.mycompany.oceanica.Usuario.Usuario;
+import java.awt.Color;
 
 /**
  *
@@ -24,6 +26,18 @@ public class ComandoPintarVivas extends Comando{
     }
 
     
-    
-
+    @Override
+    public void procesoEnUsuario(Usuario usuario) {
+        Celda[][] celdas = usuario.getInterfazPrincipal().getCeldas();
+        for (int i = 0; i < celdas.length; i++) {
+            for (int j = 0; j < celdas[i].length; j++) {
+                if (!celdas[i][j].isIsCeldaDestruida()){
+                    celdas[i][j].getRefLabel().setBackground(Color.green);
+                }
+                else {
+                    celdas[i][j].getRefLabel().setBackground(Color.gray);
+                }
+            }
+        }
+    }
 }
