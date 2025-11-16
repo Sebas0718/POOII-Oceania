@@ -51,7 +51,7 @@ public class Celda {
     @Override
     public String toString(){
 
-        String texto = "Casilla: " + fila + " " + columna
+        String texto = "Casilla: (" + fila + ", " + columna + ")"
                      + "\nPersonaje: " + personajeDueño.getNombre()
                      + "\nTiene Volcan: " + tieneVolcan 
                      + "\nTiene Remolino: " + tieneRemolino 

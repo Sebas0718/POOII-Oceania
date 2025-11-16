@@ -47,8 +47,12 @@ public class ComandoFabrica {
                     return new ComandoError(args, nombre);
                 return new ComandoSaltarTurno(args, nombre);
             case "CONSULTAR_CELDA":    
-                if (TiposComandos.CONSULTAR_CELDA.getParametrosRequeridos() < args.length)
+                if (TiposComandos.CONSULTAR_CELDA.getParametrosRequeridos() < args.length){
                     return new ComandoError(args, nombre);
+                }
+                if (!ComandoAtaqueValidacion.fueraDeAlcanceXY(Integer.parseInt(args[1]), Integer.parseInt(args[2]))){
+                    return new ComandoError(args, nombre);
+                }
                 return new ComandoConsultarCelda(args, nombre);
             case "LOG":    
                 if (TiposComandos.LOG.getParametrosRequeridos() < args.length)
