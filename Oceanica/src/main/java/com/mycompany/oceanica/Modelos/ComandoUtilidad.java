@@ -36,7 +36,8 @@ public class ComandoUtilidad {
             } else {   
                 contact += c;   
             }   
-        }           
+        }
+        
         if (contact.trim().length() != 0) {   
             tokens.add(contact.trim());   
         }           

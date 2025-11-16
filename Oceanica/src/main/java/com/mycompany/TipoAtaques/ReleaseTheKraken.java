@@ -14,6 +14,7 @@ import com.mycompany.Personaje.TipoPersonaje;
 import com.mycompany.oceanica.Modelos.Comando;
 import com.mycompany.oceanica.Modelos.ComandoAtaque;
 import com.mycompany.oceanica.Modelos.ComandoAtaqueValidacion;
+import com.mycompany.oceanica.Usuario.Usuario;
 
 /**
  *
@@ -48,15 +49,18 @@ public class ReleaseTheKraken extends Personaje {
         int tentaculoy1 = Integer.parseInt(args[5]);
         int tentaculoy2 = Integer.parseInt(args[7]);
         int tentaculoy3 = Integer.parseInt(args[9]);
-        
-        aplicarAtaqueTentaculo(celdas, tentaculox1, tentaculoy1,interfazPrincipal);
-        aplicarAtaqueTentaculo(celdas, tentaculox2, tentaculoy2,interfazPrincipal);
-        aplicarAtaqueTentaculo(celdas, tentaculox3, tentaculoy3,interfazPrincipal);
+        interfazPrincipal.borrarMensajes();
+        interfazPrincipal.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
+        comando.getUsuario().getInterfazPrincipal().borrarMensajes();
+        comando.getUsuario().getInterfazPrincipal().writeResultadoAtaque("EL RESULTADO DEL ATAQUE FUE:");
+        aplicarAtaqueTentaculo(celdas, tentaculox1, tentaculoy1,interfazPrincipal, comando);
+        aplicarAtaqueTentaculo(celdas, tentaculox2, tentaculoy2,interfazPrincipal, comando);
+        aplicarAtaqueTentaculo(celdas, tentaculox3, tentaculoy3,interfazPrincipal, comando);
         
     }
         
         
-    public void ataqueKrakenBreath(InterfazPrincipal interfazPrincipal,  ComandoAtaque comando){
+    public void ataqueKrakenBreath(InterfazPrincipal interfaz,  ComandoAtaque comando){
         String[] args = comando.getParametros();
         int alientox = Integer.parseInt(args[4]);
         int alientoy = Integer.parseInt(args[5]);
@@ -64,64 +68,64 @@ public class ReleaseTheKraken extends Personaje {
         int cantCasillasAtacadas = rand.nextInt(8) + 1;
         rand = new Random();
         int direccion = rand.nextInt(4) + 1;
-        Celda[][] celdas = interfazPrincipal.getCeldas();
+        Celda[][] celdas = interfaz.getCeldas();
+        interfaz.borrarMensajes();
+        interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
+        comando.getUsuario().getInterfazPrincipal().borrarMensajes();
+        comando.getUsuario().getInterfazPrincipal().writeResultadoAtaque("EL RESULTADO DEL ATAQUE FUE:");
         switch (direccion){
             case 1: //Abajo
                 for (int i = 0; i < cantCasillasAtacadas; i++){
                     if (ComandoAtaqueValidacion.fueraDeAlcanceXY(alientox + i, alientoy)) {
-                        celdas[alientox + i][alientoy].recibirAtaque(interfazPrincipal.getUsuario(), 100);
+                        celdas[alientox + i][alientoy].recibirAtaque(comando, 100, interfaz);
                     }
                 }
                 break;
             case 2: //Arriba
                 for (int i = 0; i < cantCasillasAtacadas; i++){
                     if (ComandoAtaqueValidacion.fueraDeAlcanceXY(alientox - i, alientoy)) {
-                        celdas[alientox - i][alientoy].recibirAtaque(interfazPrincipal.getUsuario(), 100);
+                        celdas[alientox - i][alientoy].recibirAtaque(comando, 100, interfaz);
                     }
                 }
                 break;
             case 3: //Derecha
                 for (int i = 0; i < cantCasillasAtacadas; i++){
                     if (ComandoAtaqueValidacion.fueraDeAlcanceXY(alientox, alientoy + i)) {
-                        celdas[alientox][alientoy + i].recibirAtaque(interfazPrincipal.getUsuario(), 100);
+                        celdas[alientox][alientoy + i].recibirAtaque(comando, 100, interfaz);
                     }
                 }
                 break;
             case 4: //Izquierda
                 for (int i = 0; i < cantCasillasAtacadas; i++){
                     if (ComandoAtaqueValidacion.fueraDeAlcanceXY(alientox, alientoy - i)) {
-                        celdas[alientox][alientoy - i].recibirAtaque(interfazPrincipal.getUsuario(), 100);
+                        celdas[alientox][alientoy - i].recibirAtaque(comando, 100, interfaz);
                     }
                 }
                 break;
         }
     }
     
-    public void ataqueReleaseTheKraken(InterfazPrincipal interfazPrincipal,  ComandoAtaque comando) {
+    public void ataqueReleaseTheKraken(InterfazPrincipal interfaz,  ComandoAtaque comando) {
     
 
         Random rand = new Random();
 
-        Celda[][] celdas = interfazPrincipal.getCeldas();
-        int F = celdas.length;
-        int C = celdas[0].length;
-        int rango = 9;
+        Celda[][] celdas = interfaz.getCeldas();
+        int rango = rand.nextInt(9) + 1;
         
         int fila = rand.nextInt(20);
         int columna = rand.nextInt(20);
-        
-            // 1. Determinar los límites de búsqueda seguros
-        int r_inicio = Math.max(0, fila - rango);
-        int r_fin = Math.min(F - 1, fila + rango);
-        int c_inicio = Math.max(0, columna - rango);
-        int c_fin = Math.min(C - 1, columna + rango);
-
-        for (int i = r_inicio; i <= r_fin; i++) {
-            for (int j = c_inicio; j <= c_fin; j++) {            
-                celdas[i][j].recibirAtaque(interfazPrincipal.getUsuario(), 100);
+        interfaz.borrarMensajes();
+        interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
+        comando.getUsuario().getInterfazPrincipal().borrarMensajes();
+        comando.getUsuario().getInterfazPrincipal().writeResultadoAtaque("EL RESULTADO DEL ATAQUE FUE: ");
+        for (int i = fila - rango; i <= fila + rango; i++) {
+            for (int j = columna - rango; j <= columna + rango; j++) {
+                if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
+                celdas[i][j].recibirAtaque(comando,100, interfaz);
+                }
             }
         }
-
     }
 
     public String[] getAtaques() {
@@ -132,14 +136,14 @@ public class ReleaseTheKraken extends Personaje {
         this.ataques = ataques;
     }
 
-    private void aplicarAtaqueTentaculo(Celda[][] celdas, int x, int y, InterfazPrincipal interfaz) {
+    private void aplicarAtaqueTentaculo(Celda[][] celdas, int x, int y, InterfazPrincipal interfaz, ComandoAtaque comando) {
     for (int dx = -1; dx <= 1; dx++) {
         for (int dy = -1; dy <= 1; dy++) {
             int nx = x + dx;
             int ny = y + dy;
 
             if (ComandoAtaqueValidacion.fueraDeAlcanceXY(nx, ny)) {
-                celdas[nx][ny].recibirAtaque(interfaz.getUsuario(),100);
+                celdas[nx][ny].recibirAtaque(comando,100, interfaz);
             }
         }
     }

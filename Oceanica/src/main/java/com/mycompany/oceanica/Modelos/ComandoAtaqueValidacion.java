@@ -18,9 +18,9 @@ public class ComandoAtaqueValidacion {
 
     }
     
-    public static boolean fueraDeAlcanceThreeNumbers(int num1, int num2, int num3) {
-        return (num1 > 0 || num1 < 9) && (num2 > 0 || num2 < 9) && (num3 > 0 || num3 < 9);
-
+    public static boolean fueraDeAlcanceThreeNumbers(int num1, int num2, int num3){
+        return (num1 > 0 || num1 <= 9) && (num2 > 0 || num2 <= 9) && (num3 > 0 || num3 <= 9);
+        
     }
     
     public static boolean validarRemolinoSeleccionado(int numRemolino) {

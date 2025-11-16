@@ -12,7 +12,7 @@ import com.mycompany.oceanica.Usuario.Usuario;
  * @author xsusk
  */
 public class ComandoNombre extends Comando{
-    public ComandoNombre(String[] args, String nombre){
+    public ComandoNombre(String[] args, Usuario nombre){
         super(TiposComandos.NOMBRE, args, nombre);
     }
 

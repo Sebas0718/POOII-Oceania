@@ -13,7 +13,7 @@ import com.mycompany.oceanica.Usuario.Usuario;
  */
 public class ComandoCeldasOcupadas extends Comando {
 
-    public ComandoCeldasOcupadas(String[] args, String nombre) {
+    public ComandoCeldasOcupadas(String[] args, Usuario nombre) {
         super(TiposComandos.MOSTRAR_CELDAS_OCUPADAS, args, nombre);
     }
 

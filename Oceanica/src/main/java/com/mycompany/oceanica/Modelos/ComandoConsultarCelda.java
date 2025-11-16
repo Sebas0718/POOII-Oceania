@@ -4,6 +4,7 @@
  */
 package com.mycompany.oceanica.Modelos;
 
+import com.mycompany.Interfaz.Celda;
 import com.mycompany.oceanica.Threads.ThreadServer;
 import com.mycompany.oceanica.Usuario.Usuario;
 
@@ -13,7 +14,7 @@ import com.mycompany.oceanica.Usuario.Usuario;
  */
 public class ComandoConsultarCelda extends Comando {
 
-    public ComandoConsultarCelda(String[] args, String nombre) {
+    public ComandoConsultarCelda(String[] args, Usuario nombre) {
         super(TiposComandos.CONSULTAR_CELDA, args, nombre);
     }
 
@@ -25,7 +26,8 @@ public class ComandoConsultarCelda extends Comando {
 
     @Override
     public void procesoEnUsuario(Usuario usuario) {
-            usuario.getInterfazPrincipal().writeMessage("Se consulto la celda (" + this.getParametros()[1] +", " + this.getParametros()[2] + ")", this );
+        Celda[][] celdas = usuario.getInterfazPrincipal().getCeldas();    
+        usuario.getInterfazPrincipal().writeMessage(celdas[Integer.parseInt(this.getParametros()[1])][Integer.parseInt(this.getParametros()[2])].toString(),this);
     }
     
 }

@@ -5,6 +5,7 @@
 package com.mycompany.oceanica.Modelos;
 
 import com.mycompany.Personaje.Personaje;
+import com.mycompany.oceanica.Usuario.Usuario;
 
 /**
  *
@@ -13,7 +14,7 @@ import com.mycompany.Personaje.Personaje;
 public class ComandoFabrica {
     
     
-    public static Comando getComando(String[] args, String nombre){
+    public static Comando getComando(String[] args, Usuario nombre){
         String tipo = args[0].toUpperCase();
         
         switch(tipo){
@@ -46,13 +47,23 @@ public class ComandoFabrica {
                     return new ComandoError(args, nombre);
                 return new ComandoSaltarTurno(args, nombre);
             case "CONSULTAR_CELDA":    
-                if (TiposComandos.CONSULTAR_CELDA.getParametrosRequeridos() < args.length)
+                if (TiposComandos.CONSULTAR_CELDA.getParametrosRequeridos() < args.length){
                     return new ComandoError(args, nombre);
+                }
+                if (!ComandoAtaqueValidacion.fueraDeAlcanceXY(Integer.parseInt(args[1]), Integer.parseInt(args[2]))){
+                    return new ComandoError(args, nombre);
+                }
                 return new ComandoConsultarCelda(args, nombre);
             case "LOG":    
                 if (TiposComandos.LOG.getParametrosRequeridos() < args.length)
                     return new ComandoError(args, nombre);
-                return new ComandoLog(args, nombre);
+                if (args[1].toUpperCase().equals("RECIBIDOS")){
+                    return new ComandoLog(args, nombre);
+                }
+                else if (args[2].toUpperCase().equals("REALIZADOS")){
+                    return new ComandoLog(args, nombre);
+                }
+                return new ComandoError(args, nombre);
             case "LOG_RESUMEN":    
                 if (TiposComandos.LOG_RESUMEN.getParametrosRequeridos() < args.length)
                     return new ComandoError(args, nombre);

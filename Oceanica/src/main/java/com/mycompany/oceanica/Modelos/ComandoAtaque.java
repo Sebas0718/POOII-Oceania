@@ -16,8 +16,8 @@ public class ComandoAtaque extends Comando {
     
     private Personaje personaje;
     
-    public ComandoAtaque(String[] args, String nombre, Personaje personaje) {
-        super(TiposComandos.ATAQUE, args, nombre);
+    public ComandoAtaque(String[] args, Usuario usuario, Personaje personaje) {
+        super(TiposComandos.ATAQUE, args, usuario);
         this.personaje = personaje;
         
     }

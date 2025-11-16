@@ -9,6 +9,7 @@ import com.mycompany.Interfaz.InterfazPrincipal;
 import com.mycompany.Personaje.Personaje;
 import com.mycompany.Personaje.TipoPersonaje;
 import com.mycompany.oceanica.Modelos.ComandoAtaque;
+import com.mycompany.oceanica.Modelos.ComandoAtaqueValidacion;
 import java.util.List;
 import java.util.Random;
 
@@ -23,7 +24,6 @@ public class FishTelepathy extends Personaje {
     
     private String[] ataques = new String[3];
    
-    private boolean requiereCoordenadas = false;
 
     public FishTelepathy() {
         super(TipoPersonaje.FISH_TELEPATHY);
@@ -34,16 +34,92 @@ public class FishTelepathy extends Personaje {
     
     
     public void ataqueCardumen (InterfazPrincipal interfaz, ComandoAtaque comando){
+        Random rand = new Random();
+        Celda[][] celdas = interfaz.getCeldas();
+
+        // Número de peces entre 100 y 300
+        int cantidadPeces = rand.nextInt(201) + 100; 
         
+        interfaz.borrarMensajes();
+        interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
+        comando.getUsuario().getInterfazPrincipal().borrarMensajes();
+        comando.getUsuario().getInterfazPrincipal().writeResultadoAtaque("EL RESULTADO DEL ATAQUE FUE:");
+        
+        for (int i = 0; i < cantidadPeces; i++) {
+
+            int x = rand.nextInt(20);  // fila aleatoria
+            int y = rand.nextInt(20);  // columna aleatoria
+                celdas[x][y].recibirAtaque(comando, 33, interfaz);
+        }
     }
     
     public void ataqueSharkAttack(InterfazPrincipal interfaz, ComandoAtaque comando){
-    
-    }
-    
+        Random rand = new Random();
+        Celda[][] celdas = interfaz.getCeldas();
+
+        int rango = rand.nextInt(10) + 1; // 1 a 10
+        interfaz.borrarMensajes();
+        interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
+        comando.getUsuario().getInterfazPrincipal().borrarMensajes();
+        comando.getUsuario().getInterfazPrincipal().writeResultadoAtaque("EL RESULTADO DEL ATAQUE FUE:");
+        
+        for (int i = 0; i < rango; i++){
+            for (int j = 0; j < rango; j++){
+                if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
+                    celdas[i][j].recibirAtaque(comando, 100, interfaz);
+                }
+            }
+        }
+
+       
+        for (int i = 0; i < rango; i++){
+            for (int j = 19 - rango + 1; j <= 19; j++){
+                if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
+                    celdas[i][j].recibirAtaque(comando, 100, interfaz);
+                }
+            }
+        }
+
+        
+        for (int i = 19 - rango + 1; i <= 19; i++){
+            for (int j = 0; j < rango; j++){
+                if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
+                    celdas[i][j].recibirAtaque(comando, 100, interfaz);
+                }
+            }
+        }
+
+        
+        for (int i = 19 - rango + 1; i <= 19; i++){
+            for (int j = 19 - rango + 1; j <= 19; j++){
+                if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
+                    celdas[i][j].recibirAtaque(comando, 100, interfaz);
+                }
+            }
+        }
+        }
     public void ataquePulp(InterfazPrincipal interfaz, ComandoAtaque comando){
-    
+        Random rand = new Random();
+        Celda[][] celdas = interfaz.getCeldas();
+
+        // Cantidad de pulpos entre 20 y 50
+        int cantidadPulpos = rand.nextInt(31) + 20;
+        interfaz.borrarMensajes();
+        interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
+        comando.getUsuario().getInterfazPrincipal().borrarMensajes();
+        comando.getUsuario().getInterfazPrincipal().writeResultadoAtaque("EL RESULTADO DEL ATAQUE FUE:");
+        // Cada pulpo lanza 8 tentáculos que dañan 25 cada uno
+        for (int p = 0; p < cantidadPulpos; p++) {
+            for (int t = 0; t < 8; t++) {
+
+                int x = rand.nextInt(20);  // fila aleatoria
+                int y = rand.nextInt(20);  // columna aleatoria
+
+                celdas[x][y].recibirAtaque(comando, 25, interfaz);
+            }
+        }
     }
+    
 
     public String[] getAtaques() {
         return ataques;
@@ -72,5 +148,4 @@ public class FishTelepathy extends Personaje {
             }
         }
     }
-
 }

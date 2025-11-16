@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -33,7 +35,15 @@ public class Usuario {
 
     private boolean haPerdido = false;
     private InterfazPrincipal interfazPrincipal;
-
+    
+    private List<String> resultadoAtaqueRecibido = new ArrayList<>();
+    private List<String> resultadoAtaqueEnviado = new ArrayList<>();
+    private List<String> resultadosHistorialAtaques = new ArrayList<>();
+    
+    private int ataquesEnviados = 0;
+    private int ataquesAtinados = 0;
+    private int ataquesfallados = 0;
+    
     
     public Usuario(InterfazPrincipal interfazPrincipal, String nombre) {
         this.interfazPrincipal = interfazPrincipal;
@@ -53,7 +63,7 @@ public class Usuario {
              
             
             String args[] = {"NOMBRE",this.nombre};
-            objetoEscritor.writeObject(ComandoFabrica.getComando(args, this.nombre));
+            objetoEscritor.writeObject(ComandoFabrica.getComando(args, this));
             
             
             
@@ -65,9 +75,8 @@ public class Usuario {
     public void recibirAtaque(Comando comando){
         ComandoAtaque comandoAtaque = (ComandoAtaque) comando;
         Personaje personaje = comandoAtaque.getPersonaje();
-        personaje.realizarAtaque(comandoAtaque, interfazPrincipal);
+        personaje.realizarAtaque(comandoAtaque,  this.interfazPrincipal);
     }
-    
     
     public Socket getSocket() {
         return socket;
@@ -105,8 +114,6 @@ public class Usuario {
         this.haPerdido = bool;
     }
 
-
-
     public InterfazPrincipal getInterfazPrincipal() {
         return interfazPrincipal;
     }
@@ -115,5 +122,55 @@ public class Usuario {
         this.interfazPrincipal = interfazPrincipal;
     }
 
+    public List<String> getResultadoAtaqueRecibido() {
+        return resultadoAtaqueRecibido;
+    }
+
+    public void setResultadoAtaqueRecibido(List<String> resultadoAtaqueRecibido) {
+        this.resultadoAtaqueRecibido = resultadoAtaqueRecibido;
+    }
+
+    public List<String> getResultadoAtaqueEnviado() {
+        return resultadoAtaqueEnviado;
+    }
+
+    public void setResultadoAtaqueEnviado(List<String> resultadoAtaqueEnviado) {
+        this.resultadoAtaqueEnviado = resultadoAtaqueEnviado;
+    }
+
+    public List<String> getResultadosHistorialAtaques() {
+        return resultadosHistorialAtaques;
+    }
+
+    public void setResultadosHistorialAtaques(List<String> resultadosHistorialAtaques) {
+        this.resultadosHistorialAtaques = resultadosHistorialAtaques;
+    }
+
+    public int getAtaquesEnviados() {
+        return ataquesEnviados;
+    }
+
+    public void setAtaquesEnviados(int ataquesEnviados) {
+        this.ataquesEnviados = ataquesEnviados;
+    }
+
+    public int getAtaquesAtinados() {
+        return ataquesAtinados;
+    }
+
+    public void setAtaquesAtinados(int ataquesAtinados) {
+        this.ataquesAtinados = ataquesAtinados;
+    }
+
+    public int getAtaquesfallados() {
+        return ataquesfallados;
+    }
+
+    public void setAtaquesfallados(int ataquesfallados) {
+        this.ataquesfallados = ataquesfallados;
+    }
+    
+    
+    
 }
     
