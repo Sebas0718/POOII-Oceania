@@ -27,8 +27,7 @@ public class GestorAtaques {
 
         try {
             
-            String nombreAtaque = comando.getParametros()[2].toUpperCase();
-            System.out.println(nombreAtaque);          
+            String nombreAtaque = comando.getParametros()[2].toUpperCase();      
               
         switch (nombreAtaque){
             case "SWIRL_RAISING":
@@ -73,6 +72,7 @@ public class GestorAtaques {
         } catch (Exception e) {
             System.out.println("E150: No se ha podido atacar al usuario");
         }
+        
         threadAtacante.getServer().getRefPantalla().writeMessage("Usuario: " + threadAtacante.getNombre() + " ha atacado a " + threadVictima.getNombre());
 
     }

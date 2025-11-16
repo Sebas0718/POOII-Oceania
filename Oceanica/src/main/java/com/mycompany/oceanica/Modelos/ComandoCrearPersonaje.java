@@ -13,7 +13,7 @@ import com.mycompany.oceanica.Usuario.Usuario;
  */
 public class ComandoCrearPersonaje extends Comando {
 
-    public ComandoCrearPersonaje(String[] args, Usuario nombre) {
+    public ComandoCrearPersonaje(String[] args, String nombre) {
         super(TiposComandos.CREAR, args, nombre);
     }
 
@@ -22,9 +22,9 @@ public class ComandoCrearPersonaje extends Comando {
         this.setInfo(true);
         this.setIsBroadcast(false);
         threadServidor.aumentarPersonajesCreados();
-        threadServidor.getServer().getRefPantalla().writeMessage(getUsuario().getNombre() + " ha creado un personaje" + threadServidor.getPersonajesCreados() + "/3");
+        threadServidor.getServer().getRefPantalla().writeMessage(this.getNombreUsuario() + " ha creado un personaje" + threadServidor.getPersonajesCreados() + "/3");
         if (threadServidor.getPersonajesCreados() == 3) {
-            threadServidor.getServer().getRefPantalla().writeMessage(getUsuario().getNombre() + " ha creado todos sus personajes");
+            threadServidor.getServer().getRefPantalla().writeMessage(this.getNombreUsuario() + " ha creado todos sus personajes");
         }
     }
 

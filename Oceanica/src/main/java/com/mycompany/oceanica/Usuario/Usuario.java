@@ -9,9 +9,8 @@ import com.mycompany.Personaje.Personaje;
 import com.mycompany.oceanica.Modelos.Comando;
 import com.mycompany.oceanica.Modelos.ComandoAtaque;
 import com.mycompany.oceanica.Modelos.ComandoFabrica;
+import com.mycompany.oceanica.Modelos.ComandoResultadoAtaque;
 import com.mycompany.oceanica.Threads.ThreadUsuario;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -23,7 +22,7 @@ import java.util.List;
  *
  * @author xsusk
  */
-public class Usuario {
+public class Usuario{
     
     private final int PORT = 54321;
     private final String SERVER_IP = "localhost";
@@ -34,7 +33,7 @@ public class Usuario {
     private String nombre;
 
     private boolean haPerdido = false;
-    private InterfazPrincipal interfazPrincipal;
+    private  InterfazPrincipal interfazPrincipal;
     
     private List<String> resultadoAtaqueRecibido = new ArrayList<>();
     private List<String> resultadoAtaqueEnviado = new ArrayList<>();
@@ -63,7 +62,7 @@ public class Usuario {
              
             
             String args[] = {"NOMBRE",this.nombre};
-            objetoEscritor.writeObject(ComandoFabrica.getComando(args, this));
+            objetoEscritor.writeObject(ComandoFabrica.getComando(args, this.getNombre()));
             
             
             
@@ -75,7 +74,15 @@ public class Usuario {
     public void recibirAtaque(Comando comando){
         ComandoAtaque comandoAtaque = (ComandoAtaque) comando;
         Personaje personaje = comandoAtaque.getPersonaje();
-        personaje.realizarAtaque(comandoAtaque,  this.interfazPrincipal);
+        ComandoResultadoAtaque comandoRecibido = personaje.realizarAtaque(comandoAtaque,  this.interfazPrincipal);
+        enviarComando(comandoRecibido);
+    }
+    
+    public void enviarComando(Comando c) {
+        try {
+            objetoEscritor.writeObject(c);
+            objetoEscritor.flush();
+        } catch (IOException e) { }
     }
     
     public Socket getSocket() {
@@ -169,8 +176,6 @@ public class Usuario {
     public void setAtaquesfallados(int ataquesfallados) {
         this.ataquesfallados = ataquesfallados;
     }
-    
-    
-    
+
 }
     

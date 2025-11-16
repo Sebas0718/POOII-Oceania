@@ -16,7 +16,7 @@ public class ComandoAtaque extends Comando {
     
     private Personaje personaje;
     
-    public ComandoAtaque(String[] args, Usuario usuario, Personaje personaje) {
+    public ComandoAtaque(String[] args, String usuario, Personaje personaje) {
         super(TiposComandos.ATAQUE, args, usuario);
         this.personaje = personaje;
         
@@ -28,10 +28,6 @@ public class ComandoAtaque extends Comando {
     public void procesoPorServer(ThreadServer threadServidor) {
         this.setInfo(false);
         this.setIsBroadcast(false);
-        
-        System.out.println(this.getParametros()[1]);
-        System.out.println(threadServidor.getServer().getGestorAtaques().buscarUsuario(this.getParametros()[1]));
-
 
         if (threadServidor.getServer().getGestorAtaques().buscarUsuario(this.getParametros()[1])!=null) {
 

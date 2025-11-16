@@ -13,7 +13,7 @@ import com.mycompany.oceanica.Usuario.Usuario;
  */
 public class ComandoLogResumen extends Comando {
 
-    public ComandoLogResumen(String[] args, Usuario nombre) {
+    public ComandoLogResumen(String[] args, String nombre) {
         super(TiposComandos.LOG_RESUMEN, args, nombre);
     }
 

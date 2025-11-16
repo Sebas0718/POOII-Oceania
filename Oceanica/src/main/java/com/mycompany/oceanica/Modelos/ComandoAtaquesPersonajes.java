@@ -13,7 +13,7 @@ import com.mycompany.oceanica.Usuario.Usuario;
  */
 public class ComandoAtaquesPersonajes extends Comando {
 
-    public ComandoAtaquesPersonajes(String[] parametros, Usuario usuario) {
+    public ComandoAtaquesPersonajes(String[] parametros, String usuario) {
         super(TiposComandos.ATAQUES_PERSONAJES, parametros, usuario);
     }
 

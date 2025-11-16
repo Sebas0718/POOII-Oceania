@@ -13,7 +13,7 @@ import com.mycompany.oceanica.Usuario.Usuario;
  */
 public class ComandoMensaje extends Comando {
 
-    public ComandoMensaje(String[] args, Usuario nombre) {
+    public ComandoMensaje(String[] args, String nombre) {
         super(TiposComandos.MENSAJE, args, nombre);
     }
 
@@ -26,7 +26,7 @@ public class ComandoMensaje extends Comando {
 
     @Override
     public void procesoEnUsuario(Usuario usuario) {
-        usuario.getInterfazPrincipal().writeMessage("Mensaje recibido de " + this.getUsuario().getNombre() + ": "+ this.getParametros()[1],this);
+        usuario.getInterfazPrincipal().writeMessage("Mensaje recibido de " + this.getNombreUsuario() + ": "+ this.getParametros()[1],this);
     }
     
 }

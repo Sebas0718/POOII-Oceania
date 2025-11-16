@@ -6,8 +6,10 @@ package com.mycompany.Personaje;
 
 import com.mycompany.Interfaz.InterfazPrincipal;
 import com.mycompany.oceanica.Modelos.ComandoAtaque;
+import com.mycompany.oceanica.Modelos.ComandoResultadoAtaque;
+import java.io.Serializable;
 
-public abstract class Personaje {
+public abstract class Personaje implements Serializable {
     
     private int poder;
     private int resistencia;
@@ -22,7 +24,7 @@ public abstract class Personaje {
     }
 
     
-    public abstract void realizarAtaque(ComandoAtaque comando, InterfazPrincipal interfaz);
+    public abstract ComandoResultadoAtaque realizarAtaque(ComandoAtaque comando, InterfazPrincipal interfaz);
 
 
     public int getPoder() {
