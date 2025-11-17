@@ -37,11 +37,7 @@ public class ComandoAtaque extends Comando {
         }
     }
 
-    @Override
-    public void procesoEnUsuario(Usuario usuario) {
-            usuario.getInterfazPrincipal().writeMessage(usuario.getNombre() + " ha atacado a: " + this.getParametros()[1],  this);
-            usuario.getInterfazPrincipal().actualizarInterfaz();
-}
+    
 
     public Personaje getPersonaje() {
         return personaje;

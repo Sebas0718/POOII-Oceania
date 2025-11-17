@@ -31,14 +31,27 @@ public class ComandoResultadoAtaque extends Comando{
     
     public void procesoEnUsuario(Usuario usuario) {
         usuario.getInterfazPrincipal().borrarMensajes();
+
         String[] args = this.getParametros();
+
+        // args[0] = "RESULTADO_ATAQUE"
+        // args[1] = atacante
+        // args[2...] = mensajes del daño
+
+        // Registrar ataque enviado
         usuario.setAtaquesEnviados(usuario.getAtaquesEnviados() + 1);
-        if (this.exito){
-            usuario.setAtaquesEnviados(usuario.getAtaquesEnviados() + 1);
-            
+
+        if (this.exito) {
+            usuario.setAtaquesAtinados(usuario.getAtaquesAtinados() + 1);
+        } else {
+            usuario.setAtaquesfallados(usuario.getAtaquesfallados() + 1);
         }
-        
-        usuario.getInterfazPrincipal().writeResultadoAtaque(args[2]);
-        
+
+        usuario.getInterfazPrincipal().writeResultadoAtaque("RESULTADO DEL ATAQUE:");
+
+        // Imprimir todos los mensajes del ataque
+        for (int i = 2; i < args.length; i++) {
+            usuario.getInterfazPrincipal().writeResultadoAtaque(args[i]);
+        }
     }
 }

@@ -40,7 +40,7 @@ public class Celda {
     private Personaje personajeDueño;
     
     public Celda(JLabel label, Personaje personaje, int fila, int columna){
-        
+        this.refLabel = label;
         this.personajeDueño = personaje;
         this.fila = fila;
         this.columna = columna;
@@ -69,7 +69,7 @@ public class Celda {
                 tieneRemolino = false;
                 esRadioactiva = false;
             }
-        
+        resultadoAtaque(interfaz,comando);
         
     } 
 
@@ -89,12 +89,7 @@ public class Celda {
         }
     }
     
-    public void resultadoAtaque(InterfazPrincipal atacante, InterfazPrincipal victima, ComandoAtaque comando){
-        atacante.getUsuario().setAtaquesAtinados(+1);
-        atacante.writeResultadoAtaque("[ATAQUE] En ("  + this.columna + ", " + ") se quedo con " + this.vida + " de vida, ataco con el personaje " + comando.getPersonaje().getNombre());
-        atacante.getUsuario().getResultadoAtaqueEnviado().add("[ATAQUE] En ("  + this.columna + ", " + ") se quedo con " + this.vida + " de vida, ataco con el personaje " + comando.getPersonaje().getNombre());
-        atacante.getUsuario().getResultadosHistorialAtaques().add("[ATAQUE] En ("  + this.columna + ", " + ") se quedo con " + this.vida + " de vida, ataco con el personaje " + comando.getPersonaje().getNombre());
-        victima.getUsuario().getResultadoAtaqueEnviado().add("[ATAQUE RECIBIDO] En " + this.columna + ", " + ") se quedo con " + this.vida + " de vida, fue atacado con el personaje " + comando.getPersonaje().getNombre() + " del usuario " + comando.getNombreUsuario());
+    public void resultadoAtaque(InterfazPrincipal victima, ComandoAtaque comando){
         victima.getUsuario().getResultadosHistorialAtaques().add("[ATAQUE RECIBIDO] En " + this.columna + ", " + ") se quedo con " + this.vida + " de vida, fue atacado con el personaje " + comando.getPersonaje().getNombre() + " del usuario " + comando.getNombreUsuario());
         victima.writeResultadoAtaque("[ATAQUE RECIBIDO] En " + this.columna + ", " + ") se quedo con " + this.vida + " de vida, fue atacado con el personaje " + comando.getPersonaje().getNombre() + " del usuario " + comando.getNombreUsuario());
     }

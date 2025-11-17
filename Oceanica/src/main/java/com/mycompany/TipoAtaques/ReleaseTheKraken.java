@@ -154,15 +154,15 @@ public class ReleaseTheKraken extends Personaje {
         int fila = rand.nextInt(20);
         int columna = rand.nextInt(20);
         interfaz.borrarMensajes();
-        interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
+        interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE DE" + comando.getNombreUsuario() + " Y SU RESULTADO FUE: \n");
         
         for (int i = fila - rango; i <= fila + rango; i++) {
             for (int j = columna - rango; j <= columna + rango; j++) {
                 if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
                 celdas[i][j].recibirAtaque(comando,100, interfaz);
-                String msg = "[Release_The_Kraken] Celda (" + fila + "," + columna +
-                ") quedó con " + celdas[fila][columna].getVida() + " de vida.";
-               mensajes.add(msg);
+                String msg = "[Release_The_Kraken] Celda (" + i + "," + j +
+                ") quedó con " + celdas[i][j].getVida() + " de vida.";
+                mensajes.add(msg);
                 }
             }
         }
