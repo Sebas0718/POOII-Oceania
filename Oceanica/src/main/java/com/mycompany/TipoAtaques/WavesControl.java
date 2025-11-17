@@ -45,7 +45,10 @@ public class WavesControl extends Personaje {
         
         int fila = rand.nextInt(20);
         int columna = rand.nextInt(20);
-
+        int ataque = 100;
+        if (comando.getPersonaje().isTieneMultiplicadorPoder()) {
+            ataque = 100 + (comando.getPersonaje().getPoder() *100/ 100);
+        }
         
             // 1. Determinar los límites de búsqueda seguros
         int r_inicio = Math.max(0, fila - rango);
@@ -62,7 +65,7 @@ public class WavesControl extends Personaje {
                mensajes.add(msg);
         for (int i = r_inicio; i <= r_fin; i++) {
             for (int j = c_inicio; j <= c_fin; j++) {
-                celdas[i][j].recibirAtaque(comando, 100, interfaz);
+                celdas[i][j].recibirAtaque(comando, ataque, interfaz);
                 celdas[i][j].pintarRemolino();
                 celdas[i][j].setTieneRemolino(true);
                 msg = "[SWIRL RAISING] Celda (" + i + "," + j +
@@ -81,6 +84,8 @@ public class WavesControl extends Personaje {
         for (int i = 0; i < mensajes.size(); i++) {
             resultadoArray[i + 2] = mensajes.get(i);
         }
+        interfaz.reestablecerDefensa();
+        interfaz.reestablecerPoderPersonaje(comando.getPersonaje());
 
         // Entregamos el comando directamente
         return new ComandoResultadoAtaque(resultadoArray, interfaz.getUsuario().getNombre(), true);
@@ -94,6 +99,10 @@ public class WavesControl extends Personaje {
         if (rango == 0) {
             rango = 10;
         }
+        int ataque = 25;
+        if (comando.getPersonaje().isTieneMultiplicadorPoder()) {
+            ataque = 25 + (comando.getPersonaje().getPoder() *25/ 100);
+        }
         int cantBasura = 0;
         Celda[][] celdas = interfaz.getCeldas();
         List<String> mensajes = new ArrayList<>();
@@ -105,7 +114,7 @@ public class WavesControl extends Personaje {
             int fila = rand.nextInt(20);
             int columna = rand.nextInt(20);
             int esRadioactiva = rand.nextInt(2); 
-            celdas[fila][columna].recibirAtaque(comando, 25, interfaz);
+            celdas[fila][columna].recibirAtaque(comando, ataque, interfaz);
             String msg = "[SEND HUMAN GARBAGE] Celda (" + fila + "," + columna +
                 ") quedó con " + celdas[fila][columna].getVida() + " de vida.";
                mensajes.add(msg);
@@ -123,6 +132,8 @@ public class WavesControl extends Personaje {
         for (int i = 0; i < mensajes.size(); i++) {
             resultadoArray[i + 2] = mensajes.get(i);
         }
+        interfaz.reestablecerDefensa();
+        interfaz.reestablecerPoderPersonaje(comando.getPersonaje());
 
         // Entregamos el comando directamente
         return new ComandoResultadoAtaque(resultadoArray, interfaz.getUsuario().getNombre(), true);
@@ -144,10 +155,14 @@ public class WavesControl extends Personaje {
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
         interfaz.getUsuario().getResultadoAtaqueRecibido().add("Se recibio el ataque [RADIOACTIVE RUSH] del usuario " + comando.getNombreUsuario());
+        int ataque = 25;
+        if (comando.getPersonaje().isTieneMultiplicadorPoder()) {
+            ataque = 25 + (comando.getPersonaje().getPoder() *25/ 100);
+        }
         int segundos = rand.nextInt(11);
         while (0 < segundos) {
             for (Celda celda : celdasRadioactivas) {
-                celda.recibirAtaque(comando, 25, interfaz);
+                celda.recibirAtaque(comando, ataque, interfaz);
                 String msg = "[RADIOACTIVE RUSH] Celda (" + celda.getFila() + "," + celda.getColumna() +
                 ") quedó con " + celda.getVida() + " de vida.";
                mensajes.add(msg);
@@ -162,6 +177,8 @@ public class WavesControl extends Personaje {
         for (int i = 0; i < mensajes.size(); i++) {
             resultadoArray[i + 2] = mensajes.get(i);
         }
+        interfaz.reestablecerDefensa();
+        interfaz.reestablecerPoderPersonaje(comando.getPersonaje());
 
         // Entregamos el comando directamente
         return new ComandoResultadoAtaque(resultadoArray, interfaz.getUsuario().getNombre(), true);

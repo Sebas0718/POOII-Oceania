@@ -46,7 +46,11 @@ public class UnderseaFire extends Personaje {
         int fila = rand.nextInt(20);
         int columna = rand.nextInt(20);
 
-        
+        int ataque = 100;
+        if (comando.getPersonaje().isTieneMultiplicadorPoder()) {
+            ataque = 100 + (comando.getPersonaje().getPoder() * 100 / 100);
+
+        }
         // 1. Determinar los límites de búsqueda seguros
         int r_inicio = Math.max(0, fila - rango);
         int r_fin = Math.min(F - 1, fila + rango);
@@ -61,7 +65,7 @@ public class UnderseaFire extends Personaje {
                
         for (int i = r_inicio; i <= r_fin; i++) {
             for (int j = c_inicio; j <= c_fin; j++) {
-                celdas[i][j].recibirAtaque(comando, 100, interfaz);
+                celdas[i][j].recibirAtaque(comando, ataque , interfaz);
                 celdas[i][j].pintarVolcan();
                 celdas[i][j].setTieneVolcan(true);
                 msg = "[VOLCANO RAISING] Celda (" + i + "," + j +
@@ -82,6 +86,8 @@ public class UnderseaFire extends Personaje {
         for (int i = 0; i < mensajes.size(); i++) {
             resultadoArray[i + 2] = mensajes.get(i);
         }
+        interfaz.reestablecerDefensa();
+        interfaz.reestablecerPoderPersonaje(comando.getPersonaje());
 
         // Entregamos el comando directamente
         return new ComandoResultadoAtaque(resultadoArray, interfaz.getUsuario().getNombre(), true);
@@ -102,11 +108,17 @@ public class UnderseaFire extends Personaje {
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
         interfaz.getUsuario().getResultadoAtaqueRecibido().add("Se recibio el ataque [VOLCANO EXPLOSION] del usuario " + comando.getNombreUsuario());
+        int ataque = 20;
+        if (comando.getPersonaje().isTieneMultiplicadorPoder()) {
+            ataque = 20 + (comando.getPersonaje().getPoder() *20/ 100);
+
+        }
+
         while (cantPiedras< rango) {
             int fila = rand.nextInt(20);
             int columna = rand.nextInt(20);
             
-            celdas[fila][columna].recibirAtaque(comando, 20, interfaz);
+            celdas[fila][columna].recibirAtaque(comando, ataque, interfaz);
             cantPiedras++;
             String msg = "[VOLCANO EXPLOSION] Celda (" + fila + "," + columna +
                      ") quedó con " + celdas[fila][columna].getVida() + " de vida.";
@@ -120,6 +132,8 @@ public class UnderseaFire extends Personaje {
         for (int i = 0; i < mensajes.size(); i++) {
             resultadoArray[i + 2] = mensajes.get(i);
         }
+        interfaz.reestablecerDefensa();
+        interfaz.reestablecerPoderPersonaje(comando.getPersonaje());
 
         // Entregamos el comando directamente
         return new ComandoResultadoAtaque(resultadoArray, interfaz.getUsuario().getNombre(), true);
@@ -142,6 +156,9 @@ public class UnderseaFire extends Personaje {
         int ataque = interfaz.getRangoUltimoVolcan() + 5;
         if (ataque == 0) {
             ataque = 5;
+        }
+        if (comando.getPersonaje().isTieneMultiplicadorPoder()) {
+            ataque = ataque + (comando.getPersonaje().getPoder() *ataque/ 100);
         }
         int segundos = rand.nextInt(2) + 5;
         interfaz.borrarMensajes();
@@ -182,6 +199,8 @@ public class UnderseaFire extends Personaje {
         for (int i = 0; i < mensajes.size(); i++) {
             resultadoArray[i + 2] = mensajes.get(i);
         }
+        interfaz.reestablecerDefensa();
+        interfaz.reestablecerPoderPersonaje(comando.getPersonaje());
 
         // Entregamos el comando directamente
         return new ComandoResultadoAtaque(resultadoArray, interfaz.getUsuario().getNombre(), true);

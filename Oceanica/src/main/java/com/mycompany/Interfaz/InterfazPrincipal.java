@@ -239,7 +239,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     
 
     public void aumentarDefensa(int defensa) {
-        
+
         switch (defensa) {
             case 100:
                 this.usuario.setDefensa(2);
@@ -253,6 +253,19 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         }
         this.txaBitacora.append("Se ha aumentado la defensa en " + defensa + "%");
     }
+    
+    public void reestablecerDefensa() {
+        this.usuario.setDefensa(1.0f);
+    }
+
+
+
+
+    public void reestablecerPoderPersonaje(Personaje personaje) {
+        personaje.setTieneMultiplicadorPoder(false);
+    }
+
+
 
 
     public void actualizarInterfaz(){
@@ -947,7 +960,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                     }
                 }
                 else {
-                    if (args[0].equals("SANAR") || args[0].equals("DEFENSA")) {
+                    if (args[0].equals("SANAR") || args[0].equals("DEFENSA") || args[0].equals("FUERZA")) {
                         Personaje personaje = buscarPersonaje(args[1]);
                         if (personaje != null) {
                             
@@ -959,10 +972,12 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                                 int defensa = personaje.getResistencia();
                                 aumentarDefensa(defensa);
                             }
+                            else if (args[0].equals("FUERZA")) {
+                                buscarPersonaje(args[1]).setTieneMultiplicadorPoder(true);;
+                            }
                             try {
                                 this.usuario.getObjetoEscritor()
                                         .writeObject(new ComandoSaltarTurno(new String[0], this.usuario.getNombre()));
-                                        this.getUsuario().setDefensa(1);
                                 return;
                             } catch (Exception e) {
                             }

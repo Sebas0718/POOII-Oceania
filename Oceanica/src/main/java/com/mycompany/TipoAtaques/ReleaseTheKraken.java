@@ -69,13 +69,15 @@ public class ReleaseTheKraken extends Personaje {
         for (int i = 0; i < mensajes.size(); i++) {
             resultadoArray[i + 2] = mensajes.get(i);
         }
-
+        interfazPrincipal.reestablecerDefensa();
+        interfazPrincipal.reestablecerPoderPersonaje(comando.getPersonaje());
         // Entregamos el comando directamente
         return new ComandoResultadoAtaque(resultadoArray, interfazPrincipal.getUsuario().getNombre(), true);
     }
         
         
-    public ComandoResultadoAtaque ataqueKrakenBreath(InterfazPrincipal interfaz,  ComandoAtaque comando){
+    public ComandoResultadoAtaque ataqueKrakenBreath(InterfazPrincipal interfaz, ComandoAtaque comando) {
+        
         String[] args = comando.getParametros();
         int alientox = Integer.parseInt(args[4]);
         int alientoy = Integer.parseInt(args[5]);
@@ -85,6 +87,12 @@ public class ReleaseTheKraken extends Personaje {
         int direccion = rand.nextInt(4) + 1;
         Celda[][] celdas = interfaz.getCeldas();
         List<String> mensajes = new ArrayList<>();
+        
+        int ataque = 100;
+        if (comando.getPersonaje().isTieneMultiplicadorPoder()) {
+            ataque = 100 + (comando.getPersonaje().getPoder() * 100 / 100);
+        }
+        
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
         interfaz.getUsuario().getResultadoAtaqueRecibido().add("Se recibio el ataque [KRAKEN BREATH] del usuario " + comando.getNombreUsuario());
@@ -93,7 +101,7 @@ public class ReleaseTheKraken extends Personaje {
             case 1: //Abajo
                 for (int i = 0; i < cantCasillasAtacadas; i++){
                     if (ComandoAtaqueValidacion.fueraDeAlcanceXY(alientox + i, alientoy)) {
-                        celdas[alientox + i][alientoy].recibirAtaque(comando, 100, interfaz);
+                        celdas[alientox + i][alientoy].recibirAtaque(comando,ataque , interfaz);
                         String msg = "[KRAKEN BREATH] Celda (" + (alientox + i) + "," + alientoy +
                         ") quedó con " + celdas[alientox + i][alientoy].getVida() + " de vida.";
                         mensajes.add(msg);
@@ -103,7 +111,7 @@ public class ReleaseTheKraken extends Personaje {
             case 2: //Arriba
                 for (int i = 0; i < cantCasillasAtacadas; i++){
                     if (ComandoAtaqueValidacion.fueraDeAlcanceXY(alientox - i, alientoy)) {
-                        celdas[alientox - i][alientoy].recibirAtaque(comando, 100, interfaz);
+                        celdas[alientox - i][alientoy].recibirAtaque(comando, ataque , interfaz);
                         String msg = "[KRAKEN BREATH] Celda (" + (alientox - i) + "," + alientoy +
                         ") quedó con " + celdas[alientox - i][alientoy].getVida() + " de vida.";
                         mensajes.add(msg);
@@ -113,7 +121,7 @@ public class ReleaseTheKraken extends Personaje {
             case 3: //Derecha
                 for (int i = 0; i < cantCasillasAtacadas; i++){
                     if (ComandoAtaqueValidacion.fueraDeAlcanceXY(alientox, alientoy + i)) {
-                        celdas[alientox][alientoy + i].recibirAtaque(comando, 100, interfaz);
+                        celdas[alientox][alientoy + i].recibirAtaque(comando,ataque , interfaz);
                         String msg = "[KRAKEN BREATH] Celda (" + alientox + "," + (alientoy + i) +
                         ") quedó con " + celdas[alientox][alientoy + i].getVida() + " de vida.";
                         mensajes.add(msg);
@@ -123,7 +131,7 @@ public class ReleaseTheKraken extends Personaje {
             case 4: //Izquierda
                 for (int i = 0; i < cantCasillasAtacadas; i++){
                     if (ComandoAtaqueValidacion.fueraDeAlcanceXY(alientox, alientoy - i)) {
-                        celdas[alientox][alientoy - i].recibirAtaque(comando, 100, interfaz);
+                        celdas[alientox][alientoy - i].recibirAtaque(comando, ataque , interfaz);
                         String msg = "[KRAKEN BREATH] Celda (" + alientox + "," + (alientoy - i) +
                         ") quedó con " + celdas[alientox][alientoy - i].getVida() + " de vida.";
                         mensajes.add(msg);
@@ -139,7 +147,8 @@ public class ReleaseTheKraken extends Personaje {
         for (int i = 0; i < mensajes.size(); i++) {
             resultadoArray[i + 2] = mensajes.get(i);
         }
-
+        interfaz.reestablecerDefensa();
+        interfaz.reestablecerPoderPersonaje(comando.getPersonaje());
         // Entregamos el comando directamente
         return new ComandoResultadoAtaque(resultadoArray, interfaz.getUsuario().getNombre(), true);
     }
@@ -155,6 +164,12 @@ public class ReleaseTheKraken extends Personaje {
         
         int fila = rand.nextInt(20);
         int columna = rand.nextInt(20);
+
+        int ataque = 100;
+        if (comando.getPersonaje().isTieneMultiplicadorPoder()) {
+            ataque = 100 + (comando.getPersonaje().getPoder() * 100 / 100);
+        }
+
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
         interfaz.getUsuario().getResultadoAtaqueRecibido().add("Se recibio el ataque [REALEASE THE KRAKEN] del usuario " + comando.getNombreUsuario());
@@ -162,7 +177,7 @@ public class ReleaseTheKraken extends Personaje {
         for (int i = fila - rango; i <= fila + rango; i++) {
             for (int j = columna - rango; j <= columna + rango; j++) {
                 if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
-                celdas[i][j].recibirAtaque(comando,100, interfaz);
+                celdas[i][j].recibirAtaque(comando,ataque, interfaz);
                 String msg = "[REALEASE THE KRAKEN] Celda (" + i + "," + j +
                 ") quedó con " + celdas[i][j].getVida() + " de vida.";
                 mensajes.add(msg);
@@ -177,7 +192,8 @@ public class ReleaseTheKraken extends Personaje {
         for (int i = 0; i < mensajes.size(); i++) {
             resultadoArray[i + 2] = mensajes.get(i);
         }
-
+        interfaz.reestablecerDefensa();
+        interfaz.reestablecerPoderPersonaje(comando.getPersonaje());
         // Entregamos el comando directamente
         return new ComandoResultadoAtaque(resultadoArray, interfaz.getUsuario().getNombre(), true);
             
@@ -192,20 +208,25 @@ public class ReleaseTheKraken extends Personaje {
     }
 
     private void aplicarAtaqueTentaculo(Celda[][] celdas, int x, int y, InterfazPrincipal interfaz, ComandoAtaque comando, List<String> mensajes) {
-    for (int dx = -1; dx <= 1; dx++) {
-        for (int dy = -1; dy <= 1; dy++) {
-            int nx = x + dx;
-            int ny = y + dy;
+        
+        int ataque = 100;
+        if (comando.getPersonaje().isTieneMultiplicadorPoder()) {
+            ataque = 100 + (comando.getPersonaje().getPoder() * 100 / 100);
+        }
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dy = -1; dy <= 1; dy++) {
+                int nx = x + dx;
+                int ny = y + dy;
 
-            if (ComandoAtaqueValidacion.fueraDeAlcanceXY(nx, ny)) {
-                celdas[nx][ny].recibirAtaque(comando,100, interfaz);
-                String msg = "[TENTACULOS] Celda (" + nx + "," + ny +
-                ") quedó con " + celdas[nx][ny].getVida() + " de vida.";
-               mensajes.add(msg);
+                if (ComandoAtaqueValidacion.fueraDeAlcanceXY(nx, ny)) {
+                    celdas[nx][ny].recibirAtaque(comando,ataque, interfaz);
+                    String msg = "[TENTACULOS] Celda (" + nx + "," + ny +
+                    ") quedó con " + celdas[nx][ny].getVida() + " de vida.";
+                mensajes.add(msg);
+                }
             }
         }
     }
-}
 
     @Override
     public ComandoResultadoAtaque realizarAtaque(ComandoAtaque comando, InterfazPrincipal interfaz) {
