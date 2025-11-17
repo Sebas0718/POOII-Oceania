@@ -55,6 +55,7 @@ public class WavesControl extends Personaje {
         
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
+        interfaz.getUsuario().getResultadoAtaqueRecibido().add("Se recibio el ataque [SWIRL RAISING] del usuario " + comando.getNombreUsuario());
         
         String msg = "[Swirl_Raising] Celda (" + fila + "," + columna +
                 ") Es el epicentro del tornado";
@@ -64,7 +65,7 @@ public class WavesControl extends Personaje {
                 celdas[i][j].recibirAtaque(comando, 100, interfaz);
                 celdas[i][j].pintarRemolino();
                 celdas[i][j].setTieneRemolino(true);
-                msg = "[Swirl_Raising] Celda (" + i + "," + j +
+                msg = "[SWIRL RAISING] Celda (" + i + "," + j +
                 ") quedó con " + celdas[j][i].getVida() + " de vida.";
                mensajes.add(msg);
             }
@@ -75,7 +76,7 @@ public class WavesControl extends Personaje {
         String[] resultadoArray = new String[mensajes.size() + 2];
 
         resultadoArray[0] = "RESULTADO_ATAQUE";
-        resultadoArray[1] = comando.getNombreUsuario();  // ✔ el atacante va aquí siempre
+        resultadoArray[1] = comando.getNombreUsuario(); 
 
         for (int i = 0; i < mensajes.size(); i++) {
             resultadoArray[i + 2] = mensajes.get(i);
@@ -98,13 +99,14 @@ public class WavesControl extends Personaje {
         List<String> mensajes = new ArrayList<>();
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
-
+        interfaz.getUsuario().getResultadoAtaqueRecibido().add("Se recibio el ataque [SEND HUMAN GARBAGE] del usuario " + comando.getNombreUsuario());
+        
         while (cantBasura < rango) {
             int fila = rand.nextInt(20);
             int columna = rand.nextInt(20);
             int esRadioactiva = rand.nextInt(2); 
             celdas[fila][columna].recibirAtaque(comando, 25, interfaz);
-            String msg = "[Send_Human_Garbage] Celda (" + fila + "," + columna +
+            String msg = "[SEND HUMAN GARBAGE] Celda (" + fila + "," + columna +
                 ") quedó con " + celdas[fila][columna].getVida() + " de vida.";
                mensajes.add(msg);
 
@@ -116,7 +118,7 @@ public class WavesControl extends Personaje {
         String[] resultadoArray = new String[mensajes.size() + 2];
 
         resultadoArray[0] = "RESULTADO_ATAQUE";
-        resultadoArray[1] = comando.getNombreUsuario();  // ✔ el atacante va aquí siempre
+        resultadoArray[1] = comando.getNombreUsuario();  
 
         for (int i = 0; i < mensajes.size(); i++) {
             resultadoArray[i + 2] = mensajes.get(i);
@@ -139,12 +141,14 @@ public class WavesControl extends Personaje {
                 }
             }
         }
-        
+        interfaz.borrarMensajes();
+        interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
+        interfaz.getUsuario().getResultadoAtaqueRecibido().add("Se recibio el ataque [RADIOACTIVE RUSH] del usuario " + comando.getNombreUsuario());
         int segundos = rand.nextInt(11);
         while (0 < segundos) {
             for (Celda celda : celdasRadioactivas) {
                 celda.recibirAtaque(comando, 25, interfaz);
-                String msg = "[Radioactive_Rush] Celda (" + celda.getFila() + "," + celda.getColumna() +
+                String msg = "[RADIOACTIVE RUSH] Celda (" + celda.getFila() + "," + celda.getColumna() +
                 ") quedó con " + celda.getVida() + " de vida.";
                mensajes.add(msg);
             }
@@ -153,7 +157,7 @@ public class WavesControl extends Personaje {
         String[] resultadoArray = new String[mensajes.size() + 2];
 
         resultadoArray[0] = "RESULTADO_ATAQUE";
-        resultadoArray[1] = comando.getNombreUsuario();  // ✔ el atacante va aquí siempre
+        resultadoArray[1] = comando.getNombreUsuario();  
 
         for (int i = 0; i < mensajes.size(); i++) {
             resultadoArray[i + 2] = mensajes.get(i);

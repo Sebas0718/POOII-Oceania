@@ -44,6 +44,7 @@ public class FishTelepathy extends Personaje {
         
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
+        interfaz.getUsuario().getResultadoAtaqueRecibido().add("Se recibio el ataque [CARDEUMEN] del usuario " + comando.getNombreUsuario());
         
         
         for (int i = 0; i < cantidadPeces; i++) {
@@ -51,14 +52,14 @@ public class FishTelepathy extends Personaje {
             int x = rand.nextInt(20);  // fila aleatoria
             int y = rand.nextInt(20);  // columna aleatoria
                 celdas[x][y].recibirAtaque(comando, 33, interfaz);
-                String msg = "[Cardumen] Celda (" + x + "," + y +
+                String msg = "[CARDEUMEN] Celda (" + x + "," + y +
                 ") quedó con " + celdas[x][y].getVida() + " de vida.";
                 mensajes.add(msg);
         }
         String[] resultadoArray = new String[mensajes.size() + 2];
 
         resultadoArray[0] = "RESULTADO_ATAQUE";
-        resultadoArray[1] = comando.getNombreUsuario();  // ✔ el atacante va aquí siempre
+        resultadoArray[1] = comando.getNombreUsuario();  
 
         for (int i = 0; i < mensajes.size(); i++) {
             resultadoArray[i + 2] = mensajes.get(i);
@@ -75,13 +76,14 @@ public class FishTelepathy extends Personaje {
         int rango = rand.nextInt(10) + 1; // 1 a 10
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
+        interfaz.getUsuario().getResultadoAtaqueRecibido().add("Se recibio el ataque [SHARK ATTACK] del usuario " + comando.getNombreUsuario());
         
         
         for (int i = 0; i < rango; i++){
             for (int j = 0; j < rango; j++){
                 if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
                     celdas[i][j].recibirAtaque(comando, 100, interfaz);
-                    String msg = "[SharkAttack] Celda (" + i + "," + j +
+                    String msg = "[SHARK ATTACK] Celda (" + i + "," + j +
                         ") quedó con " + celdas[i][j].getVida() + " de vida.";
                         mensajes.add(msg);
                 }
@@ -93,7 +95,7 @@ public class FishTelepathy extends Personaje {
             for (int j = 19 - rango + 1; j <= 19; j++){
                 if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
                     celdas[i][j].recibirAtaque(comando, 100, interfaz);
-                    String msg = "[SharkAttack] Celda (" + i + "," + j +
+                    String msg = "[SHARK ATTACK] Celda (" + i + "," + j +
                         ") quedó con " + celdas[i][j].getVida() + " de vida.";
                         mensajes.add(msg);
                 }
@@ -105,7 +107,7 @@ public class FishTelepathy extends Personaje {
             for (int j = 0; j < rango; j++){
                 if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
                     celdas[i][j].recibirAtaque(comando, 100, interfaz);
-                    String msg = "[SharkAttack] Celda (" + i + "," + j +
+                    String msg = "[SHARK ATTACK] Celda (" + i + "," + j +
                         ") quedó con " + celdas[i][j].getVida() + " de vida.";
                         mensajes.add(msg);
                 }
@@ -117,7 +119,7 @@ public class FishTelepathy extends Personaje {
             for (int j = 19 - rango + 1; j <= 19; j++){
                 if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
                     celdas[i][j].recibirAtaque(comando, 100, interfaz);
-                    String msg = "[SharkAttack] Celda (" + i + "," + j +
+                    String msg = "[SHARK ATTACK] Celda (" + i + "," + j +
                         ") quedó con " + celdas[i][j].getVida() + " de vida.";
                         mensajes.add(msg);
                 }
@@ -126,7 +128,7 @@ public class FishTelepathy extends Personaje {
         String[] resultadoArray = new String[mensajes.size() + 2];
 
         resultadoArray[0] = "RESULTADO_ATAQUE";
-        resultadoArray[1] = comando.getNombreUsuario();  // ✔ el atacante va aquí siempre
+        resultadoArray[1] = comando.getNombreUsuario();  
 
         for (int i = 0; i < mensajes.size(); i++) {
             resultadoArray[i + 2] = mensajes.get(i);
@@ -145,6 +147,7 @@ public class FishTelepathy extends Personaje {
         int cantidadPulpos = rand.nextInt(31) + 20;
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
+        interfaz.getUsuario().getResultadoAtaqueRecibido().add("Se recibio el ataque [PULP] del usuario " + comando.getNombreUsuario());
         
         // Cada pulpo lanza 8 tentáculos que dañan 25 cada uno
         for (int p = 0; p < cantidadPulpos; p++) {
@@ -154,7 +157,7 @@ public class FishTelepathy extends Personaje {
                 int y = rand.nextInt(20);  // columna aleatoria
 
                 celdas[x][y].recibirAtaque(comando, 25, interfaz);
-                String msg = "[Pulp] Celda (" + x + "," + y +
+                String msg = "[PULP] Celda (" + x + "," + y +
                 ") quedó con " + celdas[x][y].getVida() + " de vida.";
                 mensajes.add(msg);
             }
@@ -162,7 +165,7 @@ public class FishTelepathy extends Personaje {
         String[] resultadoArray = new String[mensajes.size() + 2];
 
         resultadoArray[0] = "RESULTADO_ATAQUE";
-        resultadoArray[1] = comando.getNombreUsuario();  // ✔ el atacante va aquí siempre
+        resultadoArray[1] = comando.getNombreUsuario();
 
         for (int i = 0; i < mensajes.size(); i++) {
             resultadoArray[i + 2] = mensajes.get(i);

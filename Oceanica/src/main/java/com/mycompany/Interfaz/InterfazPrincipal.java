@@ -942,7 +942,8 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                         comando = ComandoFabrica.getComando(args,this.usuario.getNombre());
                     } else  {
                         comando = ComandosAtaquesFabrica.getComandoAtaque(args, this.usuario.getNombre(), personajeActual);
-                        System.out.println("ts4");
+                        this.usuario.getResultadoAtaqueEnviado().add("Se envio el ataque [" + args[3] + "] al usuario " + args[1]);
+                        this.usuario.getResultadosHistorialAtaques().add("Se envio el ataque [" + args[3] + "] al usuario " + args[1]);
                     }
                 }
                 else {

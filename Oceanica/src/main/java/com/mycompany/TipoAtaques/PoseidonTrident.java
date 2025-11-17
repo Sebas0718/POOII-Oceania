@@ -48,7 +48,7 @@ public class PoseidonTrident extends Personaje{
         int tentaculoy3 = Integer.parseInt(args[9]);
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
-        
+        interfaz.getUsuario().getResultadoAtaqueRecibido().add("Se recibio el ataque [THREE LINES] del usuario " + comando.getNombreUsuario());
         
         celdas[tentaculox1][tentaculoy1].recibirAtaque(comando, 100, interfaz);
         String msg = "[Three_Lines] Celda (" + tentaculox1 + "," + tentaculoy1 +
@@ -89,7 +89,7 @@ public class PoseidonTrident extends Personaje{
             int celdasAtacar = numeros[0] * numeros[1] * numeros[2];
             interfaz.borrarMensajes();
             interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
-            
+            interfaz.getUsuario().getResultadoAtaqueRecibido().add("Se recibio el ataque [THREE NUMBERS] del usuario " + comando.getNombreUsuario());
             this.realizarThreeNumbers(celdasAtacar, celdas, comando, interfaz, mensajes);
             String[] resultadoArray = new String[mensajes.size() + 2];
 
@@ -122,12 +122,11 @@ public class PoseidonTrident extends Personaje{
         List<String> mensajes = new ArrayList<>();
         Celda[][] celdas = interfaz.getCeldas();
         int rango = rand.nextInt(9) + 1;
-        
         int fila = rand.nextInt(20);
         int columna = rand.nextInt(20);
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
-        
+        interfaz.getUsuario().getResultadoAtaqueRecibido().add("Se recibio el ataque [CONTROL THE KRAKEN] del usuario " + comando.getNombreUsuario());
         for (int i = fila - rango; i <= fila + rango; i++) {
             for (int j = columna - rango; j <= columna + rango; j++) {
                 if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {

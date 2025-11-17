@@ -60,7 +60,7 @@ public class ComandoFabrica {
                 if (args[1].toUpperCase().equals("RECIBIDOS")){
                     return new ComandoLog(args, nombre);
                 }
-                else if (args[2].toUpperCase().equals("REALIZADOS")){
+                else if (args[1].toUpperCase().equals("REALIZADOS")){
                     return new ComandoLog(args, nombre);
                 }
                 return new ComandoError(args, nombre);
