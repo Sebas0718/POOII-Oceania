@@ -14,7 +14,10 @@ public abstract class Personaje implements Serializable {
     private int poder;
     private int resistencia;
     private int sanidad;
+    private boolean tieneMultiplicadorPoder = false;
     
+
+
     private int porcentajeMapa; 
     private String nombre;
     private TipoPersonaje tipoPersonaje;
@@ -54,6 +57,15 @@ public abstract class Personaje implements Serializable {
     public String getNombre() {
         return nombre;
     }
+
+    public boolean isTieneMultiplicadorPoder() {
+        return tieneMultiplicadorPoder;
+    }
+
+    public void setTieneMultiplicadorPoder(boolean tieneMultiplicadorPoder) {
+        this.tieneMultiplicadorPoder = tieneMultiplicadorPoder;
+    }
+    
 
     public void setNombre(String nombre) {
         this.nombre = nombre;

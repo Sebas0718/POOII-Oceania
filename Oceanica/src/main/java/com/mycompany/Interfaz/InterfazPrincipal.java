@@ -261,6 +261,13 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
 
 
+    public void reestablecerPoderPersonaje(Personaje personaje) {
+        personaje.setTieneMultiplicadorPoder(false);
+    }
+
+
+
+
     public void actualizarInterfaz(){
 
         for (int i = 0; i < celdas.length; i++){
@@ -951,7 +958,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                     }
                 }
                 else {
-                    if (args[0].equals("SANAR") || args[0].equals("DEFENSA")) {
+                    if (args[0].equals("SANAR") || args[0].equals("DEFENSA") || args[0].equals("FUERZA")) {
                         Personaje personaje = buscarPersonaje(args[1]);
                         if (personaje != null) {
                             
@@ -962,6 +969,9 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                             else if (args[0].equals("DEFENSA")) {
                                 int defensa = personaje.getResistencia();
                                 aumentarDefensa(defensa);
+                            }
+                            else if (args[0].equals("FUERZA")) {
+                                buscarPersonaje(args[1]).setTieneMultiplicadorPoder(true);;
                             }
                             try {
                                 this.usuario.getObjetoEscritor()

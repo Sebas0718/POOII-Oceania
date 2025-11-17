@@ -47,7 +47,12 @@ public class ThundersUnderTheSea extends Personaje {
 
             // Daño entre 10% y 20%
             int daño = rand.nextInt(11) + 10;  // 10 a 20
-            
+
+            if (comando.getPersonaje().isTieneMultiplicadorPoder()) {
+                daño = daño + (comando.getPersonaje().getPoder() * daño / 100);
+            }
+
+
             celdas[x][y].recibirAtaque(comando, daño, interfaz);
             String msg = "[Thunder_Rain] Celda (" + x + "," + y +
                 ") quedó con " + celdas[x][y].getVida() + " de vida.";
@@ -62,6 +67,8 @@ public class ThundersUnderTheSea extends Personaje {
             resultadoArray[i + 2] = mensajes.get(i);
         }
         interfaz.reestablecerDefensa();
+        interfaz.reestablecerPoderPersonaje(comando.getPersonaje());
+
         // Entregamos el comando directamente
         return new ComandoResultadoAtaque(resultadoArray, interfaz.getUsuario().getNombre(), true);
             
@@ -76,6 +83,11 @@ public class ThundersUnderTheSea extends Personaje {
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
         
+        int ataque = 100;
+        if (comando.getPersonaje().isTieneMultiplicadorPoder()) {
+            ataque = 100 + (comando.getPersonaje().getPoder() * 100 / 100);
+        }
+
         for (int r = 0; r < cantidadRayos; r++) {
 
             // Punto donde cae el rayo
@@ -93,7 +105,7 @@ public class ThundersUnderTheSea extends Personaje {
                     if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
 
                         // Daño estándar de 100%
-                        celdas[i][j].recibirAtaque(comando, 100, interfaz);
+                        celdas[i][j].recibirAtaque(comando, ataque, interfaz);
                         String msg = "[Poseidon_Thunders] Celda (" + i + "," + j +
                         ") quedó con " + celdas[i][j].getVida() + " de vida.";
                        mensajes.add(msg);
@@ -110,6 +122,7 @@ public class ThundersUnderTheSea extends Personaje {
             resultadoArray[i + 2] = mensajes.get(i);
         }
         interfaz.reestablecerDefensa();
+        interfaz.reestablecerPoderPersonaje(comando.getPersonaje());
 
         // Entregamos el comando directamente
         return new ComandoResultadoAtaque(resultadoArray, interfaz.getUsuario().getNombre(), true);
@@ -135,6 +148,11 @@ public class ThundersUnderTheSea extends Personaje {
             // Descargas: entre 1 y 10 → cada una vale 10% de daño
             int descargas = rand.nextInt(10) + 1;
             int dannoTotal = descargas * 10; // 10% por descarga
+
+            if (comando.getPersonaje().isTieneMultiplicadorPoder()) {
+                dannoTotal = dannoTotal + (comando.getPersonaje().getPoder() * dannoTotal / 100);
+
+            }
             
             // Aplicar daño
             celdas[x][y].recibirAtaque(comando, dannoTotal, interfaz);
@@ -151,6 +169,8 @@ public class ThundersUnderTheSea extends Personaje {
             resultadoArray[i + 2] = mensajes.get(i);
         }
         interfaz.reestablecerDefensa();
+        interfaz.reestablecerPoderPersonaje(comando.getPersonaje());
+
         // Entregamos el comando directamente
         return new ComandoResultadoAtaque(resultadoArray, interfaz.getUsuario().getNombre(), true);
             
