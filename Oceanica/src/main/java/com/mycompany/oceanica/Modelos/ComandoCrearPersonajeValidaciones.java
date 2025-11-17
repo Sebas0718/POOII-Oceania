@@ -16,6 +16,10 @@ public class ComandoCrearPersonajeValidaciones {
 
 
     public static boolean validarPorcentajeMapa(Personaje personaje, ComandoCrearPersonaje comando, InterfazPrincipal interfaz){
+        if (personaje.getPorcentajeMapa() <= 0){
+            ComandoCrearPersonajeErrores.error("!!!ERROR!!!  El personaje no puede usar menos del 1% del mapa", interfaz.getUsuario(), comando);
+            return false;
+        }
         if (personaje.getPorcentajeMapa() > 98){
                 ComandoCrearPersonajeErrores.error("!!!ERROR!!!  El maximo a ocupar de un personaje es 98", interfaz.getUsuario(), comando);
                 return false;

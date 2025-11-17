@@ -4,7 +4,6 @@
  */
 package com.mycompany.Interfaz;
 
-import java.awt.Color;
 
 import com.mycompany.Personaje.Personaje;
 import com.mycompany.TipoAtaques.TipoEfecto;
@@ -15,6 +14,7 @@ import java.util.ArrayList;
 import javax.swing.JLabel;
 
 import com.mycompany.oceanica.Usuario.Usuario;
+import java.awt.Color;
 
 /**
  *
@@ -64,6 +64,9 @@ public class Celda {
         this.vida -= ataque;
         this.atacadoPor.add(comando.getNombreUsuario());
             if (this.vida <= 0){
+                this.getRefLabel().setBackground(new Color(0,0,0));
+                this.getRefLabel().revalidate();
+                this.getRefLabel().repaint();
                 this.isCeldaDestruida = true;
                 tieneVolcan = false;
                 tieneRemolino = false;
