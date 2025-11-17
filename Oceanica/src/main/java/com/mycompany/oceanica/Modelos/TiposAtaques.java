@@ -24,7 +24,7 @@ public enum TiposAtaques {
     TERMAL_RUSH(5),
     THUNDER_RAIN(4),
     POSEIDON_THUNDERS(4),
-    EEL_ATACK(4),
+    EEL_ATTACK(4),
     SWIRL_RAISING(4),
     SEND_HUMAN_GARBAGE(5),
     RADIOACTIVE_RUSH(4);

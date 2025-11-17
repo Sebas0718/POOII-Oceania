@@ -55,6 +55,7 @@ public class ThreadServer extends Thread {
             try{
                 comando = (Comando) objetoLector.readObject();
                 server.getRefPantalla().writeMessage("ThreadServer recibio: " + comando);
+                System.out.println(comando);
                 comando.procesoPorServer(this);
                 server.ejecutarComando(comando);
                 

@@ -151,14 +151,16 @@ public class ComandosAtaquesFabrica {
                     
                     return new ComandoAtaque(args, nombre, personaje);
                     
-                case "EEL_ATACK":
-                    if (TiposAtaques.EEL_ATACK.getParametrosRequeridos() < args.length)
+                case "EEL_ATTACK":
+                    System.out.println("ts1");
+                    if (TiposAtaques.EEL_ATTACK.getParametrosRequeridos() < args.length)
                         return new ComandoError(args, nombre);
-
+                    System.out.println("ts2");
                     
                     return new ComandoAtaque(args, nombre, personaje);
                     
                 default:
+                    System.out.println("ts3");
                     return new ComandoError(args, nombre);
             }
         }
@@ -178,12 +180,15 @@ public class ComandosAtaquesFabrica {
                     return new ComandoAtaque(args, nombre, personaje);
 
                 case "RADIOACTIVE_RUSH":
-                    if (TiposAtaques.RADIOACTIVE_RUSH.getParametrosRequeridos() < args.length)
+                    if (TiposAtaques.RADIOACTIVE_RUSH.getParametrosRequeridos() < args.length){
+                        System.out.println("ts8");
                         return new ComandoError(args, nombre);
-                    
+                    }
+                    System.out.println("ts9");
                     return new ComandoAtaque(args, nombre, personaje);
 
                 default:
+                    System.out.println("tsError");
                     return new ComandoError(args, nombre);
             }
         }

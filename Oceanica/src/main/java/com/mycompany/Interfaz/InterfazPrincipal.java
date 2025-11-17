@@ -942,6 +942,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                         comando = ComandoFabrica.getComando(args,this.usuario.getNombre());
                     } else  {
                         comando = ComandosAtaquesFabrica.getComandoAtaque(args, this.usuario.getNombre(), personajeActual);
+                        System.out.println("ts4");
                     }
                 }
                 else {
@@ -967,10 +968,13 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                         }
                     }    
                 comando = ComandoFabrica.getComando(args, this.usuario.getNombre());
+                    System.out.println("ts5");
                 }
                 if (comando != null){
                     try {
                         this.usuario.getObjetoEscritor().writeObject(comando);
+                        System.out.println("ts6");
+                        System.out.println(comando);
                     } catch (IOException ex){
                     
                     }
