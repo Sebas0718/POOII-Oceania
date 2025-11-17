@@ -239,7 +239,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     
 
     public void aumentarDefensa(int defensa) {
-        
+
         switch (defensa) {
             case 100:
                 this.usuario.setDefensa(2);
@@ -253,6 +253,12 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         }
         this.txaBitacora.append("Se ha aumentado la defensa en " + defensa + "%");
     }
+    
+    public void reestablecerDefensa() {
+        this.usuario.setDefensa(1.0f);
+    }
+
+
 
 
     public void actualizarInterfaz(){
@@ -942,7 +948,6 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                         comando = ComandoFabrica.getComando(args,this.usuario.getNombre());
                     } else  {
                         comando = ComandosAtaquesFabrica.getComandoAtaque(args, this.usuario.getNombre(), personajeActual);
-                        System.out.println("ts4");
                     }
                 }
                 else {
@@ -961,7 +966,6 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                             try {
                                 this.usuario.getObjetoEscritor()
                                         .writeObject(new ComandoSaltarTurno(new String[0], this.usuario.getNombre()));
-                                        this.getUsuario().setDefensa(1);
                                 return;
                             } catch (Exception e) {
                             }

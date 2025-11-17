@@ -61,7 +61,7 @@ public class ThundersUnderTheSea extends Personaje {
         for (int i = 0; i < mensajes.size(); i++) {
             resultadoArray[i + 2] = mensajes.get(i);
         }
-
+        interfaz.reestablecerDefensa();
         // Entregamos el comando directamente
         return new ComandoResultadoAtaque(resultadoArray, interfaz.getUsuario().getNombre(), true);
             
@@ -109,6 +109,7 @@ public class ThundersUnderTheSea extends Personaje {
         for (int i = 0; i < mensajes.size(); i++) {
             resultadoArray[i + 2] = mensajes.get(i);
         }
+        interfaz.reestablecerDefensa();
 
         // Entregamos el comando directamente
         return new ComandoResultadoAtaque(resultadoArray, interfaz.getUsuario().getNombre(), true);
@@ -116,7 +117,6 @@ public class ThundersUnderTheSea extends Personaje {
     }
     
     public ComandoResultadoAtaque ataqueEelAtack(InterfazPrincipal interfaz, ComandoAtaque comando){
-        System.out.println("ts7");
         Random rand = new Random();
         Celda[][] celdas = interfaz.getCeldas();
         List<String> mensajes = new ArrayList<>();
@@ -127,7 +127,7 @@ public class ThundersUnderTheSea extends Personaje {
         
         
         for (int k = 0; k < cantidadAnguilas; k++) {
-            System.out.println("ts7");
+            
             // Cada anguila ataca una casilla aleatoria
             int x = rand.nextInt(20);
             int y = rand.nextInt(20);
@@ -135,7 +135,7 @@ public class ThundersUnderTheSea extends Personaje {
             // Descargas: entre 1 y 10 → cada una vale 10% de daño
             int descargas = rand.nextInt(10) + 1;
             int dannoTotal = descargas * 10; // 10% por descarga
-            System.out.println("ts7");
+            
             // Aplicar daño
             celdas[x][y].recibirAtaque(comando, dannoTotal, interfaz);
             String msg = "[Eel_Atack] Celda (" + x + "," + y +
@@ -143,14 +143,14 @@ public class ThundersUnderTheSea extends Personaje {
                mensajes.add(msg);
         }
         String[] resultadoArray = new String[mensajes.size() + 2];
-        System.out.println("ts7");
+        
         resultadoArray[0] = "RESULTADO_ATAQUE";
         resultadoArray[1] = comando.getNombreUsuario();  // ✔ el atacante va aquí siempre
 
         for (int i = 0; i < mensajes.size(); i++) {
             resultadoArray[i + 2] = mensajes.get(i);
         }
-        System.out.println("ts7");
+        interfaz.reestablecerDefensa();
         // Entregamos el comando directamente
         return new ComandoResultadoAtaque(resultadoArray, interfaz.getUsuario().getNombre(), true);
             
