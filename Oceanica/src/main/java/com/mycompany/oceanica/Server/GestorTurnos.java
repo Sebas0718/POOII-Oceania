@@ -62,14 +62,40 @@ public class GestorTurnos {
     public void siguienteTurno() {
         if (!juegoActivo)
             return;
+        if (jugadores.get(jugadorActual).getHaPerdido()) {
+            derrota(jugadores.get(jugadorActual));
+            
+            if (jugadores.size() == 1) {
+                ganador(jugadores.getFirst());
+                return;
+            }
+        }
         jugadorActual = (jugadorActual + 1) % jugadores.size();
         server.getRefPantalla().writeMessage("Turno de: " + getJugadorActual().getNombre());
     }
     
+    public void derrota(ThreadServer jugadorPerdedor) {
+
+        jugadores.remove(jugadorPerdedor);
+        server.usuariosConectados.remove(jugadorPerdedor);
+    }
+    
+    public void ganador(ThreadServer ganador) {
+        this.juegoActivo = false;
+        // server.anunciarGanador(ganador);
+        System.out.println("entro aqui a ganador");
+    }
+
+
+
     //#######################################################################################
 
     public boolean isJuegoActivo() {
         return juegoActivo;
+    }
+    
+    public void setIsJuegoActivo(boolean juego){
+        this.juegoActivo = juego;
     }
     //#######################################################################################
 

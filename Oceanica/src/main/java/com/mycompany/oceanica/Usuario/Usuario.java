@@ -11,12 +11,15 @@ import com.mycompany.oceanica.Modelos.ComandoAtaque;
 import com.mycompany.oceanica.Modelos.ComandoFabrica;
 import com.mycompany.oceanica.Modelos.ComandoResultadoAtaque;
 import com.mycompany.oceanica.Threads.ThreadUsuario;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.mycompany.oceanica.Modelos.ComandoDerrota;
 
 /**
  *
@@ -77,8 +80,16 @@ public class Usuario{
         ComandoResultadoAtaque comandoRecibido = personaje.realizarAtaque(comandoAtaque,  this.interfazPrincipal);
         enviarComando(comandoRecibido);
     }
+
+
+    public void derrota(){
+        this.haPerdido = true;
+        System.out.println("Entro aqui a derrota");
+        enviarComando(new ComandoDerrota(this.nombre));
+    }
     
     public void enviarComando(Comando c) {
+        System.out.println("Entro aqui a enviar comando");
         try {
             objetoEscritor.writeObject(c);
             objetoEscritor.flush();

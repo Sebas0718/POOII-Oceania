@@ -150,6 +150,15 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
     }
     
+    private void aumentarCasillasMuertas(){
+        jLabelNumVida.setText("" + obtenerCasillasDestruidas());
+        System.out.println("Entro aqui");
+        if (obtenerCasillasDestruidas() == 400) {
+            this.getUsuario().derrota();
+            
+        }
+    }
+    
     public int obtenerCasillasVivasPersonaje(Personaje personaje) {
         int cantidad = 0;
         for (int i = 0; i < celdas.length; i++) {
@@ -162,8 +171,20 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         }
         return cantidad;
     }
-
-
+    
+    public int obtenerCasillasDestruidas(){
+        int cantidad = 0;
+        for (int i = 0; i < celdas.length;i++){
+            for (int j = 0; j < celdas[0].length; j++){
+                Celda celda = celdas[i][j];
+                if (celda.isIsCeldaDestruida()){
+                    cantidad++;
+                }
+            }
+        }
+        return cantidad;
+    }
+    
     public void actualizarInterfaz(){
 
         for (int i = 0; i < celdas.length; i++){
@@ -175,6 +196,8 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         }
         llenarPanelStats();
         actualizarAtaquesRecibidos();
+        System.out.println("Entro a actualizar Interfaz");
+        aumentarCasillasMuertas();
     }
 
     public void actualizarAtaquesRecibidos() {
@@ -303,7 +326,6 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         }
         jPanelPersonajes.setPreferredSize(new Dimension(320, 150));
         for (int i = 0; i < 8; i++) {
-            System.out.println(comando.getParametros()[i]);
         }
         
         Personaje personaje = TipoPersonajeFabrica.getTipoPersonaje(comando.getParametros()[1]);

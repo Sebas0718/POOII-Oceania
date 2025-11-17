@@ -81,7 +81,6 @@ public class GestorAtaques {
     public ThreadServer buscarUsuario(String nombre){
         
         for (ThreadServer thread: server.getThreadsConectados()){
-            System.out.println(thread.getNombre());
             if (thread.getNombre().equals(nombre)){
                 return thread;
             }

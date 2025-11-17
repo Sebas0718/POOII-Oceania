@@ -19,11 +19,9 @@ public class ComandoCrearPersonajeAsignaciones {
             personaje.setPoder(Integer.parseInt(comando.getParametros()[4]));
             personaje.setResistencia(Integer.parseInt(comando.getParametros()[5]));
             personaje.setSanidad(Integer.parseInt(comando.getParametros()[6]));
-            System.out.println("ts2");
             if (!ComandoCrearPersonajeValidaciones.validarEstadisticas(personaje, comando, interfaz)){
                 return false;
             }
-            System.out.println("ts10");
             
             personaje.setPorcentajeMapa(Integer.parseInt(comando.getParametros()[2]));
             if (!ComandoCrearPersonajeValidaciones.validarPorcentajeMapa(personaje, comando, interfaz)) {
@@ -38,7 +36,6 @@ public class ComandoCrearPersonajeAsignaciones {
                 ComandoCrearPersonajeErrores.error("!!!ERROR!!! Tipo de formato no valido", interfaz.getUsuario(), comando);
                 return false;
         }
-        System.out.println("ts11");
         return true;
     }
 }

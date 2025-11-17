@@ -36,6 +36,12 @@ public class ComandoAtaque extends Comando {
             threadServidor.getServer().getGestorAtaques().atacarUsuario(this,threadAtacante, threadVictima);
         }
     }
+    
+    
+    @Override
+    public void procesoEnUsuario(Usuario usuario){
+        usuario.getInterfazPrincipal().actualizarInterfaz();
+    }
 
     
 

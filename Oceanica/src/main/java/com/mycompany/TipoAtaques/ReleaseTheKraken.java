@@ -149,7 +149,7 @@ public class ReleaseTheKraken extends Personaje {
         
         Celda[][] celdas = interfaz.getCeldas();
         List<String> mensajes = new ArrayList<>();
-        int rango = rand.nextInt(9) + 1;
+        int rango = rand.nextInt(19) + 1;
         
         int fila = rand.nextInt(20);
         int columna = rand.nextInt(20);
