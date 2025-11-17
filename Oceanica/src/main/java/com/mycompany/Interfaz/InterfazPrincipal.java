@@ -39,10 +39,13 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
@@ -149,12 +152,36 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
 
     }
+
+    public void limpiarInterfaz() {
+
+        this.txfComando.setEditable(false);
+        this.txfComando.setText("");
+        for (Celda[] filaCeldas : celdas) {
+            for (Celda celda : filaCeldas) {
+                celda.getRefLabel().setBackground(new Color(120, 120, 120));
+                celda.getRefLabel().repaint();
+                celda.getRefLabel().revalidate();
+            }
+        }
+
+
+        jPanelPersonajes.removeAll();
+        jPanelPersonajes.repaint();
+        txaBitacora.setText("");
+        btnEnviar.setEnabled(false);
+
+    }
     
+
+
+
     private void aumentarCasillasMuertas(){
         jLabelNumVida.setText("" + obtenerCasillasDestruidas());
-        System.out.println("Entro aqui");
         if (obtenerCasillasDestruidas() == 400) {
+            this.limpiarInterfaz();
             this.getUsuario().derrota();
+
             
         }
     }
@@ -189,14 +216,13 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
         for (int i = 0; i < celdas.length; i++){
             for (int j = 0; j < celdas[0].length; j++){
-                if (celdas[i][j].getVida() <= 0){
+                if (celdas[i][j].getVida() <= 0 && !celdas[i][j].isTieneVolcan() && !celdas[i][j].isTieneRemolino()){
                     celdas[i][j].getRefLabel().setBackground(new Color(0,0,0));
                 }
             }
         }
         llenarPanelStats();
         actualizarAtaquesRecibidos();
-        System.out.println("Entro a actualizar Interfaz");
         aumentarCasillasMuertas();
     }
 
@@ -277,14 +303,14 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                      @Override
                     public void mouseEntered(MouseEvent e) {
                         nuevoLabel.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 1));
-                        if (celda.getVida() >0){
+                        if (celda.getVida() >0 && !usuario.isIsGameOver()){
                             nuevoLabel.setBackground(colorOriginal.brighter());
                         }
                     }
                     @Override
                     public void mouseExited(MouseEvent e) {
                         nuevoLabel.setBorder(null);
-                        if (celda.getVida() > 0){
+                        if (celda.getVida() > 0 && !usuario.isIsGameOver()){
                             nuevoLabel.setBackground(colorOriginal);
                         }
                     }
@@ -1076,10 +1102,53 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     public int getRangoUltimoVolcan() {
         return this.rangoUltimoVolcan;
     }
+
+    public JButton getBtnEnviar() {
+        return btnEnviar;
+    }
+
+    public void setBtnEnviar(JButton btnEnviar) {
+        this.btnEnviar = btnEnviar;
+    }
+    
     
     public void setRangoUltimoVolcan(int rango) {
         this.rangoUltimoVolcan= rango;
     }
+
+    public JTextArea getTxaBitacora() {
+        return txaBitacora;
+    }
+
+    public void setTxaBitacora(JTextArea txaBitacora) {
+        this.txaBitacora = txaBitacora;
+    }
+
+    public JTextArea getTxaComandoActual() {
+        return txaComandoActual;
+    }
+
+    public void setTxaComandoActual(JTextArea txaComandoActual) {
+        this.txaComandoActual = txaComandoActual;
+    }
+
+    public JTextArea getTxaHistorial() {
+        return txaHistorial;
+    }
+
+    public void setTxaHistorial(JTextArea txaHistorial) {
+        this.txaHistorial = txaHistorial;
+    }
+
+    public JTextField getTxfComando() {
+        return txfComando;
+    }
+
+    public void setTxfComando(JTextField txfComando) {
+        this.txfComando = txfComando;
+    }
+    
+    
 
 
 

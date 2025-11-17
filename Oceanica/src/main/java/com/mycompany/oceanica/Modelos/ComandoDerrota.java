@@ -11,12 +11,12 @@ public class ComandoDerrota extends Comando {
 
     @Override
     public void procesoPorServer(ThreadServer threadServidor) {
-        this.setInfo(false);
-        this.setIsBroadcast(true);
-        
-
+        this.setInfo(true);
+        this.setIsBroadcast(false);
+        threadServidor.getServer().getRefPantalla()
+                .writeMessage("El jugador " + threadServidor.getNombre() + " ha perdido");
     }
-
+    
     @Override
     public void procesoEnUsuario(Usuario usuario) {
         usuario.getInterfazPrincipal().writeMessage("El usuario " + usuario.getNombre() + " ha perdido", this);

@@ -36,6 +36,7 @@ public class Usuario{
     private String nombre;
 
     private boolean haPerdido = false;
+    private boolean isGameOver = false;
     private  InterfazPrincipal interfazPrincipal;
     
     private List<String> resultadoAtaqueRecibido = new ArrayList<>();
@@ -82,14 +83,13 @@ public class Usuario{
     }
 
 
-    public void derrota(){
+    public void derrota() {
+        this.isGameOver = true;
         this.haPerdido = true;
-        System.out.println("Entro aqui a derrota");
         enviarComando(new ComandoDerrota(this.nombre));
     }
     
     public void enviarComando(Comando c) {
-        System.out.println("Entro aqui a enviar comando");
         try {
             objetoEscritor.writeObject(c);
             objetoEscritor.flush();
@@ -187,6 +187,24 @@ public class Usuario{
     public void setAtaquesfallados(int ataquesfallados) {
         this.ataquesfallados = ataquesfallados;
     }
+
+    public ThreadUsuario getThreadUsuario() {
+        return threadUsuario;
+    }
+
+    public void setThreadUsuario(ThreadUsuario threadUsuario) {
+        this.threadUsuario = threadUsuario;
+    }
+
+    public boolean isIsGameOver() {
+        return isGameOver;
+    }
+
+    public void setIsGameOver(boolean isGameOver) {
+        this.isGameOver = isGameOver;
+    }
+    
+    
 
 }
     

@@ -29,6 +29,9 @@ public class Celda {
     private float vida = 100;
     private boolean isCeldaDestruida = false;
     private boolean tieneVolcan = false;
+    private boolean esOrigenVolcan = false;
+
+    private boolean esOrigenRemolino = false;
     private boolean tieneRemolino = false;
     private boolean esRadioactiva = false;
     
@@ -64,13 +67,12 @@ public class Celda {
         this.vida -= ataque;
         this.atacadoPor.add(comando.getNombreUsuario());
             if (this.vida <= 0){
-                this.getRefLabel().setBackground(new Color(0,0,0));
+                if (!this.tieneVolcan || !this.tieneRemolino){
+                        this.getRefLabel().setBackground(new Color(0,0,0));
+                }
                 this.getRefLabel().revalidate();
                 this.getRefLabel().repaint();
                 this.isCeldaDestruida = true;
-                tieneVolcan = false;
-                tieneRemolino = false;
-                esRadioactiva = false;
             }
         resultadoAtaque(interfaz,comando);
         
@@ -94,8 +96,58 @@ public class Celda {
     
     public void resultadoAtaque(InterfazPrincipal victima, ComandoAtaque comando){
         victima.getUsuario().getResultadosHistorialAtaques().add("[ATAQUE RECIBIDO] En " + this.columna + ", " + ") se quedo con " + this.vida + " de vida, fue atacado con el personaje " + comando.getPersonaje().getNombre() + " del usuario " + comando.getNombreUsuario());
-        victima.writeResultadoAtaque("[ATAQUE RECIBIDO] En " + this.columna + ", " + ") se quedo con " + this.vida + " de vida, fue atacado con el personaje " + comando.getPersonaje().getNombre() + " del usuario " + comando.getNombreUsuario());
+        victima.writeResultadoAtaque("[ATAQUE RECIBIDO] En (" +  this.columna + "," + this.fila + ") se quedo con " + this.vida + " de vida, fue atacado con el personaje " + comando.getPersonaje().getNombre() + " del usuario " + comando.getNombreUsuario());
     }
+    
+    public void pintarVolcan(){
+        
+        this.getRefLabel().setBackground(new Color(246, 170, 28));
+        this.getRefLabel().repaint();
+        this.getRefLabel().revalidate();
+    }
+
+    public void pintarOrigenVolcan() {
+    
+        this.getRefLabel().setBackground(new Color(255, 234, 10));
+        this.getRefLabel().repaint();
+        this.getRefLabel().revalidate();
+    
+    }
+
+
+    public void pintarRemolino(){
+        
+        this.getRefLabel().setBackground(new Color(205, 237, 246));
+        this.getRefLabel().repaint();
+        this.getRefLabel().revalidate();
+    }
+
+    public void pintarOrigenRemolino() {
+    
+        this.getRefLabel().setBackground(new Color(94, 177, 191));
+        this.getRefLabel().repaint();
+        this.getRefLabel().revalidate();
+    
+    }
+
+    public boolean isEsOrigenVolcan() {
+        return esOrigenVolcan;
+    }
+
+    public void setEsOrigenVolcan(boolean esOrigenVolcan) {
+        this.esOrigenVolcan = esOrigenVolcan;
+    }
+
+    public boolean isEsOrigenRemolino() {
+        return esOrigenRemolino;
+    }
+
+    public void setEsOrigenRemolino(boolean esOrigenRemolino) {
+        this.esOrigenRemolino = esOrigenRemolino;
+    }
+
+
+
  
     public int getFila() {
         return fila;

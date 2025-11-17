@@ -56,6 +56,8 @@ public class UnderseaFire extends Personaje {
         for (int i = r_inicio; i <= r_fin; i++) {
             for (int j = c_inicio; j <= c_fin; j++) {
                 celdas[i][j].recibirAtaque(comando, 100, interfaz);
+                celdas[i][j].pintarVolcan();
+                celdas[i][j].setTieneVolcan(true);
                 String msg = "[Volcano Explosion] Celda (" + fila + "," + columna +
                 ") quedó con " + celdas[fila][columna].getVida() + " de vida.";
                mensajes.add(msg);
@@ -63,7 +65,8 @@ public class UnderseaFire extends Personaje {
         }
         
         celdas[fila][columna].aplicarEfecto(TipoEfecto.VOLCAN);
-        celdas[fila][columna].getRefLabel().setBackground(new Color(244, 172, 50));
+        celdas[fila][columna].pintarOrigenVolcan();
+        celdas[fila][columna].setEsOrigenVolcan(true);
         String[] resultadoArray = new String[mensajes.size() + 2];
 
         resultadoArray[0] = "RESULTADO_ATAQUE";
@@ -83,6 +86,7 @@ public class UnderseaFire extends Personaje {
         Random rand = new Random();
         int rango = 10 * interfaz.getRangoUltimoVolcan();
         if (rango == 0) {
+            System.err.println("el rango es 0");
             rango = 10;
         }
         int cantPiedras = 0;
@@ -120,13 +124,13 @@ public class UnderseaFire extends Personaje {
         ArrayList<Celda> celdasVolcanicas = new ArrayList<Celda>();
         for (Celda[] filaCeldas : celdas) {
             for (int i = 0; i < filaCeldas.length; i++) {
-                if (filaCeldas[i].isTieneVolcan()) {
+                if (filaCeldas[i].isEsOrigenVolcan()) {
                     celdasVolcanicas.add(filaCeldas[i]);
                 }
             }
         }
         
-        int ataque = interfaz.getRangoUltimoVolcan();
+        int ataque = interfaz.getRangoUltimoVolcan() + 5;
         if (ataque == 0) {
             ataque = 5;
         }

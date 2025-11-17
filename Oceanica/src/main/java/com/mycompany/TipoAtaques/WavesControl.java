@@ -60,13 +60,16 @@ public class WavesControl extends Personaje {
         for (int i = r_inicio; i <= r_fin; i++) {
             for (int j = c_inicio; j <= c_fin; j++) {
                 celdas[i][j].recibirAtaque(comando, 100, interfaz);
+                celdas[i][j].pintarRemolino();
+                celdas[i][j].setTieneRemolino(true);
                 String msg = "[Swirl_Raising] Celda (" + fila + "," + columna +
                 ") quedó con " + celdas[fila][columna].getVida() + " de vida.";
                mensajes.add(msg);
             }
         }
         celdas[fila][columna].aplicarEfecto(TipoEfecto.REMOLINO);
-        celdas[fila][columna].getRefLabel().setBackground(new Color(0, 148, 198));
+        celdas[fila][columna].pintarOrigenRemolino();
+        celdas[fila][columna].setEsOrigenRemolino(true);
         String[] resultadoArray = new String[mensajes.size() + 2];
 
         resultadoArray[0] = "RESULTADO_ATAQUE";
@@ -103,7 +106,7 @@ public class WavesControl extends Personaje {
                 ") quedó con " + celdas[fila][columna].getVida() + " de vida.";
                mensajes.add(msg);
 
-            if (esRadioactiva == 1) {
+               if (esRadioactiva == 1) {
                 celdas[fila][columna].aplicarEfecto(TipoEfecto.RADIACTIVO);
             }
             cantBasura++;

@@ -12,6 +12,7 @@ import com.mycompany.oceanica.Server.PantallaServer;
 import com.mycompany.oceanica.Threads.ThreadConexiones;
 import com.mycompany.oceanica.Threads.ThreadServer;
 import com.mycompany.oceanica.Usuario.Usuario;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -19,6 +20,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.mycompany.oceanica.Modelos.ComandoVictoria;
 
 /**
  *
@@ -88,6 +91,15 @@ public class Server {
         ThreadServer jugador = buscarJugador(comando.getNombreUsuario());
         if (jugador == null) {
             refPantalla.writeMessage("Error: comando de usuario desconocido");
+            return;
+        }
+
+        if (comando.getTipo().equals(TiposComandos.DERROTA)) {
+            gestorTurnos.derrota(jugador);
+            return;
+        }
+        if (comando.getTipo().equals(TiposComandos.VICTORIA)) {
+            comandVictoria(comando);
             return;
         }
 
@@ -192,6 +204,16 @@ public class Server {
             }
         }
     }
+
+
+    public void comandVictoria(Comando comando) {
+        try {
+            comando = (ComandoVictoria) comando;
+            gestorTurnos.getJugadores().getFirst().getObjetoEscritor().writeObject(comando);
+        } catch (Exception e) {
+        }
+
+    }
     
     //#######################################################################################
     
@@ -209,6 +231,7 @@ public class Server {
                     if (comando.getTipo().equals(TiposComandos.RENDIRSE)) {
                         usuario.setIsActive(false);
                         usuariosConectados.remove(usuario);
+                        gestorTurnos.getJugadores().remove(usuario);
                     }
                     break;
                 } catch (IOException ex) {
@@ -220,7 +243,7 @@ public class Server {
     //#######################################################################################
 
 
-    // public void anunciarGanador(ThreadServer ganador) {
+    // public void anunciarGanador(ThreadServer ganador) { 
     
     //     ee
     

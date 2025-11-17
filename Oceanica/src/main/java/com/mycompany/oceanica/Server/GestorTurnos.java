@@ -7,6 +7,7 @@ import java.util.TimerTask;
 import com.mycompany.oceanica.Modelos.ComandoMensaje;
 import com.mycompany.oceanica.Threads.ThreadServer;
 import com.mycompany.oceanica.Modelos.Comando;
+import com.mycompany.oceanica.Modelos.ComandoVictoria;
 
 
 public class GestorTurnos {
@@ -76,14 +77,21 @@ public class GestorTurnos {
     
     public void derrota(ThreadServer jugadorPerdedor) {
 
+        
         jugadores.remove(jugadorPerdedor);
         server.usuariosConectados.remove(jugadorPerdedor);
+        
+
+        if (jugadores.size() == 1) {
+            ganador(jugadores.getFirst());
+        } 
     }
     
     public void ganador(ThreadServer ganador) {
         this.juegoActivo = false;
-        // server.anunciarGanador(ganador);
-        System.out.println("entro aqui a ganador");
+        server.getRefPantalla().writeMessage("EL JUGADOR " + ganador.getNombre() + " HA GANADO LA PARTIDA");
+        server.getRefPantalla().writeMessage("=================== FIN DE PARTIDA ========================");
+        server.ejecutarComando(new ComandoVictoria(ganador.getNombre()));
     }
 
 

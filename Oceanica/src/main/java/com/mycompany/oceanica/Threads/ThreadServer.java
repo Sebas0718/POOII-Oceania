@@ -56,7 +56,7 @@ public class ThreadServer extends Thread {
                 comando = (Comando) objetoLector.readObject();
                 server.getRefPantalla().writeMessage("ThreadServer recibio: " + comando);
                 comando.procesoPorServer(this);
-                server.ejecutarComando(comando);;
+                server.ejecutarComando(comando);
                 
             } catch (IOException | ClassNotFoundException ex) {
                 System.getLogger(ThreadConexiones.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
