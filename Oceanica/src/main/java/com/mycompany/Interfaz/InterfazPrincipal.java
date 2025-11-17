@@ -250,15 +250,20 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             });
                 nuevoLabel.addMouseListener(new MouseAdapter(){
                     Color colorOriginal = nuevoLabel.getBackground();
+                    Celda celda = celdas[finalFila][finalColumna];
                      @Override
                     public void mouseEntered(MouseEvent e) {
                         nuevoLabel.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 1));
-                        nuevoLabel.setBackground(colorOriginal.brighter());
+                        if (celda.getVida() >0){
+                            nuevoLabel.setBackground(colorOriginal.brighter());
+                        }
                     }
                     @Override
                     public void mouseExited(MouseEvent e) {
                         nuevoLabel.setBorder(null);
-                        nuevoLabel.setBackground(colorOriginal);
+                        if (celda.getVida() > 0){
+                            nuevoLabel.setBackground(colorOriginal);
+                        }
                     }
 
  
