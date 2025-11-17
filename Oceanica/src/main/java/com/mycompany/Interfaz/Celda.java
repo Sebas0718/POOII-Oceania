@@ -63,7 +63,9 @@ public class Celda {
     }
     
     public void recibirAtaque(ComandoAtaque comando, int ataque, InterfazPrincipal interfaz){
-        
+        if (this.isCeldaDestruida){
+            return;
+        }
         this.vida = (this.vida - (ataque * (1/interfaz.getUsuario().getDefensa())));
         this.atacadoPor.add(comando.getNombreUsuario());
             if (this.vida <= 0){
@@ -75,7 +77,6 @@ public class Celda {
                 this.isCeldaDestruida = true;
             }
         resultadoAtaque(interfaz,comando);
-        
     } 
 
     public void aplicarEfecto(TipoEfecto efecto){

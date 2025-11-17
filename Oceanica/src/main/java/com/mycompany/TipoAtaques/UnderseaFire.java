@@ -59,7 +59,7 @@ public class UnderseaFire extends Personaje {
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
         interfaz.getUsuario().getResultadoAtaqueRecibido().add("Se recibio el ataque [VOLCANO RAISING] del usuario " + comando.getNombreUsuario());
-        String msg = "[Volcano Explosion] Celda (" + fila + "," + columna +
+        String msg = "[VOLCANO RAISING] Celda (" + fila + "," + columna +
                 ") Es el epicentro del volcan";
                mensajes.add(msg);
                

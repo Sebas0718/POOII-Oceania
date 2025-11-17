@@ -45,7 +45,7 @@ public class ComandoLog extends Comando {
             
             String resultado = informacion.toString();
             if (resultado.length() == 0){
-                usuario.getInterfazPrincipal().writeMessage("NO SE HA RECIBIDO NINGUN ATAQUE", this);
+                usuario.getInterfazPrincipal().writeMessage("NO SE HA REALIZADO NINGUN ATAQUE", this);
             }
             else{
                 usuario.getInterfazPrincipal().writeMessage(resultado, this);

@@ -69,7 +69,7 @@ public class WavesControl extends Personaje {
                 celdas[i][j].pintarRemolino();
                 celdas[i][j].setTieneRemolino(true);
                 msg = "[SWIRL RAISING] Celda (" + i + "," + j +
-                ") quedó con " + celdas[j][i].getVida() + " de vida.";
+                ") quedó con " + celdas[i][j].getVida() + " de vida.";
                mensajes.add(msg);
             }
         }
@@ -152,6 +152,7 @@ public class WavesControl extends Personaje {
                 }
             }
         }
+        
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
         interfaz.getUsuario().getResultadoAtaqueRecibido().add("Se recibio el ataque [RADIOACTIVE RUSH] del usuario " + comando.getNombreUsuario());
