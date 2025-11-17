@@ -62,8 +62,8 @@ public class WavesControl extends Personaje {
                 celdas[i][j].recibirAtaque(comando, 100, interfaz);
                 celdas[i][j].pintarRemolino();
                 celdas[i][j].setTieneRemolino(true);
-                String msg = "[Swirl_Raising] Celda (" + fila + "," + columna +
-                ") quedó con " + celdas[fila][columna].getVida() + " de vida.";
+                String msg = "[Swirl_Raising] Celda (" + i + "," + j +
+                ") quedó con " + celdas[j][i].getVida() + " de vida.";
                mensajes.add(msg);
             }
         }
@@ -173,6 +173,7 @@ public class WavesControl extends Personaje {
     public ComandoResultadoAtaque realizarAtaque(ComandoAtaque comando, InterfazPrincipal interfaz) {
         String[] args = comando.getParametros();
         ComandoResultadoAtaque result = null;
+        System.out.println("ts10");
         for (String ataque : this.ataques){
             if (ataque.equals(args[3].toUpperCase())){
                 switch(ataque){
@@ -183,7 +184,7 @@ public class WavesControl extends Personaje {
                         result = ataqueSendHumanGarbage(interfaz, comando);
                         return result;
                     case "RADIOACTIVE_RUSH":
-                        ataqueRadioactiveRush(interfaz, comando);
+                        result = ataqueRadioactiveRush(interfaz, comando);
                         return result;
                 }
             }

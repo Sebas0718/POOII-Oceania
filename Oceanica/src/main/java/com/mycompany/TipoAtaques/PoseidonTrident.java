@@ -51,8 +51,18 @@ public class PoseidonTrident extends Personaje{
         
         
         celdas[tentaculox1][tentaculoy1].recibirAtaque(comando, 100, interfaz);
+        String msg = "[Three_Lines] Celda (" + tentaculox1 + "," + tentaculoy1 +
+                ") quedó con " + celdas[tentaculox1][tentaculoy1].getVida() + " de vida.";
+               mensajes.add(msg);
+                
         celdas[tentaculox2][tentaculoy2].recibirAtaque(comando, 100, interfaz);
+        msg = "[Three_Lines] Celda (" + tentaculox2 + "," + tentaculoy2 +
+                ") quedó con " + celdas[tentaculox2][tentaculoy2].getVida() + " de vida.";
+               mensajes.add(msg);
         celdas[tentaculox3][tentaculoy3].recibirAtaque(comando, 100, interfaz);
+        msg = "[Three_Lines] Celda (" + tentaculox3 + "," + tentaculoy3 +
+                ") quedó con " + celdas[tentaculox3][tentaculoy3].getVida() + " de vida.";
+               mensajes.add(msg);
         this.aplicarThreeLines(celdas, tentaculox1, tentaculoy1, comando, interfaz, mensajes);
         this.aplicarThreeLines(celdas, tentaculox2, tentaculoy2, comando, interfaz, mensajes);
         this.aplicarThreeLines(celdas, tentaculox3, tentaculoy3, comando, interfaz, mensajes);
@@ -122,8 +132,8 @@ public class PoseidonTrident extends Personaje{
             for (int j = columna - rango; j <= columna + rango; j++) {
                 if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
                     celdas[i][j].recibirAtaque(comando ,100, interfaz);
-                    String msg = "[Control_The_Kraken] Celda (" + fila + "," + columna +
-                    ") quedó con " + celdas[fila][columna].getVida() + " de vida.";
+                    String msg = "[Control_The_Kraken] Celda (" + i + "," + j +
+                    ") quedó con " + celdas[i][j].getVida() + " de vida.";
                     mensajes.add(msg);
                 }
             }
@@ -180,8 +190,8 @@ public class PoseidonTrident extends Personaje{
         for (int i = x - rango; i < x; i++ ){
             if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, y)) {
                 celdas[i][y].recibirAtaque(comando, 100, interfaz);
-                String msg = "[Three_Lines] Celda (" + x + "," + y +
-                ") quedó con " + celdas[x][y].getVida() + " de vida.";
+                String msg = "[Three_Lines] Celda (" + i + "," + y +
+                ") quedó con " + celdas[i][y].getVida() + " de vida.";
                mensajes.add(msg);
                 }
         }
@@ -190,8 +200,8 @@ public class PoseidonTrident extends Personaje{
         for (int i = x + 1; i <= x + rango; i++){
             if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, y)) {
                 celdas[i][y].recibirAtaque(comando, 100, interfaz);
-                String msg = "[Three_Lines] Celda (" + x + "," + y +
-                ") quedó con " + celdas[x][y].getVida() + " de vida.";
+                String msg = "[Three_Lines] Celda (" + i + "," + y +
+                ") quedó con " + celdas[i][y].getVida() + " de vida.";
                mensajes.add(msg);
                 }
         }
@@ -200,8 +210,8 @@ public class PoseidonTrident extends Personaje{
         for (int j = y - rango; j < y; j++ ){
             if (ComandoAtaqueValidacion.fueraDeAlcanceXY(x, j)) {
                 celdas[x][j].recibirAtaque(comando, 100, interfaz);
-                String msg = "[Three_Lines] Celda (" + x + "," + y +
-                ") quedó con " + celdas[x][y].getVida() + " de vida.";
+                String msg = "[Three_Lines] Celda (" + x + "," + j +
+                ") quedó con " + celdas[x][j].getVida() + " de vida.";
                mensajes.add(msg);
                 }
         }
@@ -210,8 +220,8 @@ public class PoseidonTrident extends Personaje{
         for (int j = y + 1; j <= y + rango; j++){
             if (ComandoAtaqueValidacion.fueraDeAlcanceXY(x, j)) {
                 celdas[x][j].recibirAtaque(comando, 100, interfaz);
-                String msg = "[Three_Lines] Celda (" + x + "," + y +
-                ") quedó con " + celdas[x][y].getVida() + " de vida.";
+                String msg = "[Three_Lines] Celda (" + x + "," + j +
+                ") quedó con " + celdas[x][j].getVida() + " de vida.";
                mensajes.add(msg);
                 }
         }
