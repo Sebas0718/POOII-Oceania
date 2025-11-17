@@ -35,6 +35,7 @@ public class Usuario{
     private ThreadUsuario threadUsuario;
     private String nombre;
 
+    
     private boolean haPerdido = false;
     private boolean isGameOver = false;
     private  InterfazPrincipal interfazPrincipal;
@@ -47,6 +48,7 @@ public class Usuario{
     private int ataquesAtinados = 0;
     private int ataquesfallados = 0;
     
+    private float defensa = 1;
     
     public Usuario(InterfazPrincipal interfazPrincipal, String nombre) {
         this.interfazPrincipal = interfazPrincipal;
@@ -124,6 +126,16 @@ public class Usuario{
         return nombre;
     }
 
+    public float getDefensa() {
+        return defensa;
+    }
+
+    public void setDefensa(float defensa) {
+        this.defensa = defensa;
+    }
+    
+
+    
     public boolean getHaPerdido() {
         return haPerdido;
     }
