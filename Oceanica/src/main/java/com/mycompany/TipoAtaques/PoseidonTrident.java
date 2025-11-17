@@ -70,7 +70,7 @@ public class PoseidonTrident extends Personaje{
         String[] resultadoArray = new String[mensajes.size() + 2];
 
         resultadoArray[0] = "RESULTADO_ATAQUE";
-        resultadoArray[1] = comando.getNombreUsuario();  // ✔ el atacante va aquí siempre
+        resultadoArray[1] = comando.getNombreUsuario();  
 
         for (int i = 0; i < mensajes.size(); i++) {
             resultadoArray[i + 2] = mensajes.get(i);
@@ -86,7 +86,7 @@ public class PoseidonTrident extends Personaje{
         String[] args = comando.getParametros();
         int[] numeros = {Integer.parseInt(args[4]),Integer.parseInt(args[5]),Integer.parseInt(args[6])};
         if (interfaz.ataqueThreeNumbers(numeros)){
-            int celdasAtacar = numeros[1] * numeros[2] * numeros[3];
+            int celdasAtacar = numeros[0] * numeros[1] * numeros[2];
             interfaz.borrarMensajes();
             interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
             
@@ -94,7 +94,7 @@ public class PoseidonTrident extends Personaje{
             String[] resultadoArray = new String[mensajes.size() + 2];
 
             resultadoArray[0] = "RESULTADO_ATAQUE";
-            resultadoArray[1] = comando.getNombreUsuario();  // ✔ el atacante va aquí siempre
+            resultadoArray[1] = comando.getNombreUsuario();  
 
             for (int i = 0; i < mensajes.size(); i++) {
                 resultadoArray[i + 2] = mensajes.get(i);
@@ -107,8 +107,8 @@ public class PoseidonTrident extends Personaje{
         String[] resultadoArray = new String[mensajes.size() + 2];
 
         resultadoArray[0] = "RESULTADO_ATAQUE";
-        resultadoArray[1] = comando.getNombreUsuario();  // ✔ el atacante va aquí siempre
-
+        resultadoArray[1] = comando.getNombreUsuario();  
+        mensajes.add("El ataque Three Numbers falló. No acertaste ningún número.");
         for (int i = 0; i < mensajes.size(); i++) {
             resultadoArray[i + 2] = mensajes.get(i);
         }
@@ -141,7 +141,7 @@ public class PoseidonTrident extends Personaje{
         String[] resultadoArray = new String[mensajes.size() + 2];
 
         resultadoArray[0] = "RESULTADO_ATAQUE";
-        resultadoArray[1] = comando.getNombreUsuario();  // ✔ el atacante va aquí siempre
+        resultadoArray[1] = comando.getNombreUsuario();  
 
         for (int i = 0; i < mensajes.size(); i++) {
             resultadoArray[i + 2] = mensajes.get(i);

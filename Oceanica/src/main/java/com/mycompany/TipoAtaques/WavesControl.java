@@ -56,13 +56,15 @@ public class WavesControl extends Personaje {
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
         
-        
+        String msg = "[Swirl_Raising] Celda (" + fila + "," + columna +
+                ") Es el epicentro del tornado";
+               mensajes.add(msg);
         for (int i = r_inicio; i <= r_fin; i++) {
             for (int j = c_inicio; j <= c_fin; j++) {
                 celdas[i][j].recibirAtaque(comando, 100, interfaz);
                 celdas[i][j].pintarRemolino();
                 celdas[i][j].setTieneRemolino(true);
-                String msg = "[Swirl_Raising] Celda (" + i + "," + j +
+                msg = "[Swirl_Raising] Celda (" + i + "," + j +
                 ") quedó con " + celdas[j][i].getVida() + " de vida.";
                mensajes.add(msg);
             }
