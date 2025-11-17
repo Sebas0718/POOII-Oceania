@@ -52,15 +52,18 @@ public class UnderseaFire extends Personaje {
         int r_fin = Math.min(F - 1, fila + rango);
         int c_inicio = Math.max(0, columna - rango);
         int c_fin = Math.min(C - 1, columna + rango);
-
+        String msg = "[Volcano Explosion] Celda (" + fila + "," + columna +
+                ") Es el epicentro del volcan";
+               mensajes.add(msg);
         for (int i = r_inicio; i <= r_fin; i++) {
             for (int j = c_inicio; j <= c_fin; j++) {
                 celdas[i][j].recibirAtaque(comando, 100, interfaz);
                 celdas[i][j].pintarVolcan();
                 celdas[i][j].setTieneVolcan(true);
-                String msg = "[Volcano Explosion] Celda (" + fila + "," + columna +
-                ") quedó con " + celdas[fila][columna].getVida() + " de vida.";
+                msg = "[Volcano Explosion] Celda (" + i + "," + j +
+                ") quedó con " + celdas[i][j].getVida() + " de vida.";
                mensajes.add(msg);
+               
             }
         }
         
@@ -157,8 +160,8 @@ public class UnderseaFire extends Personaje {
                 for (int i = r_inicio; i <= r_fin; i++) {
                     for (int j = c_inicio; j <= c_fin; j++) {
                         celdas[i][j].recibirAtaque(comando, ataque, interfaz);
-                        String msg = "[Volcano Explosion] Celda (" + fila + "," + columna +
-                        ") quedó con " + celdas[fila][columna].getVida() + " de vida.";
+                        String msg = "[Volcano Explosion] Celda (" + i + "," + j +
+                        ") quedó con " + celdas[i][j].getVida() + " de vida.";
                         mensajes.add(msg);
                     }
                 }

@@ -996,7 +996,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     public boolean ataqueThreeNumbers(int[] numeros){
         int contador = 0;
         
-        while (contador == 3) {
+        while (contador < 3) {
            String name = JOptionPane.showInputDialog(this, "Ingrese un numero entre 1 a 9");
            try{
                int valorActual = Integer.parseInt(name);
