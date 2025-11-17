@@ -49,6 +49,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
+import com.mycompany.oceanica.Modelos.ComandoSaltarTurno;
+
 /**
  *
  * @author seb
@@ -79,7 +81,8 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     private int rangoUltimoVolcan = 0;
     private int rangoUltimoRemolino = 0;
     
-   
+   private int defensa = 1; 
+    
     private PantallaServer servidor;
     
     private Usuario usuario;
@@ -212,6 +215,46 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         return cantidad;
     }
     
+    public void curarCasillas(int cantidadCuracion) {
+
+        for (Celda[] filaCelda : celdas) {
+            for (Celda celda : filaCelda) {
+                if (celda.getVida() > 0) {
+                    float vida = celda.getVida();
+                    float porcentajeAumentar = (cantidadCuracion * vida) / 100;
+                    celda.setVida(vida + porcentajeAumentar);
+                }
+            }
+        }
+        txaBitacora.append("Se han curado las casillas");
+        ComandoSaltarTurno comando = new ComandoSaltarTurno(null, usuario.getNombre());
+
+        if (comando != null) {
+            try {
+                this.usuario.getObjetoEscritor().writeObject(comando);
+            } catch (Exception e) {
+            }
+        }
+    }
+    
+
+    public void aumentarDefensa(int defensa) {
+        
+        switch (defensa) {
+            case 100:
+                this.usuario.setDefensa(2);
+                break;
+            case 75:
+                this.usuario.setDefensa(1.5f);
+                break;
+            case 50:
+                this.usuario.setDefensa(1.25f);
+                break;
+        }
+        this.txaBitacora.append("Se ha aumentado la defensa en " + defensa + "%");
+    }
+
+
     public void actualizarInterfaz(){
 
         for (int i = 0; i < celdas.length; i++){
@@ -457,6 +500,17 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             llenarPanelStats();
         }
 
+    }
+
+
+    public Personaje buscarPersonaje(String nombre) {
+        
+        for (Personaje personaje : listaPersonajes){
+            if (personaje.getNombre().equals(nombre)){
+                return personaje;
+            }
+        }
+        return null;
     }
     
     public void borrarMensajes(){
@@ -864,6 +918,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 
+
     //#########################################################################################3
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
@@ -890,7 +945,28 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                         System.out.println("ts4");
                     }
                 }
-                else{
+                else {
+                    if (args[0].equals("SANAR") || args[0].equals("DEFENSA")) {
+                        Personaje personaje = buscarPersonaje(args[1]);
+                        if (personaje != null) {
+                            
+                            if (args[0].equals("SANAR")) {
+                                int cantidadCuracion = personaje.getSanidad();
+                                curarCasillas(cantidadCuracion);
+                            }
+                            else if (args[0].equals("DEFENSA")) {
+                                int defensa = personaje.getResistencia();
+                                aumentarDefensa(defensa);
+                            }
+                            try {
+                                this.usuario.getObjetoEscritor()
+                                        .writeObject(new ComandoSaltarTurno(new String[0], this.usuario.getNombre()));
+                                        this.getUsuario().setDefensa(1);
+                                return;
+                            } catch (Exception e) {
+                            }
+                        }
+                    }    
                 comando = ComandoFabrica.getComando(args, this.usuario.getNombre());
                     System.out.println("ts5");
                 }
@@ -1150,6 +1226,14 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
     public void setTxfComando(JTextField txfComando) {
         this.txfComando = txfComando;
+    }
+
+    public int getDefensa() {
+        return defensa;
+    }
+
+    public void setDefensa(int defensa) {
+        this.defensa = defensa;
     }
     
     
