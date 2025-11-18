@@ -1,0 +1,476 @@
+@startuml POOII-Oceania-Final
+!theme plain
+skinparam backgroundColor #FEFEFE
+skinparam classBackgroundColor #F0F0F0
+skinparam classBorderColor #333333
+
+' ===== ENUMS =====
+enum TiposComandos {
+  ATAQUE(4)
+  MENSAJE(2)
+  MENSAJE_PRIVADO(3)
+  RENDIRSE(1)
+  NOMBRE(2)
+  ERROR(1)
+  CREAR(8)
+  INICIAR(1)
+  SALTAR(1)
+  CONSULTAR_CELDA(3)
+  LOG(2)
+  LOG_RESUMEN(1)
+  CONSULTAR_ENEMIGO(2)
+  MOSTRAR_CELDAS_OCUPADAS(1)
+  MOSTRAR_PORCENTAJES_CELDAS(1)
+  PINTAR_VIVAS(1)
+  AYUDA(1)
+  USUARIOS(1)
+  ATAQUES_PERSONAJES(1)
+  RESULTADO_ATAQUE(0)
+  DERROTA(0)
+  VICTORIA(0)
+  RESPUESTA_USUARIO(0)
+}
+
+enum TiposAtaques {
+  TENTACULOS(10)
+  KRAKEN_BREATH(6)
+  RELEASE_THE_KRAKEN(4)
+  THREE_LINES(10)
+  THREE_NUMBERS(7)
+  CONTROL_THE_KRAKEN(4)
+  CARDUMEN(4)
+  SHARK_ATTACK(4)
+  PULP(4)
+  VOLCANO_RAISING(4)
+  VOLCANO_EXPLOSION(5)
+  TERMAL_RUSH(5)
+  THUNDER_RAIN(4)
+  POSEIDON_THUNDERS(4)
+  EEL_ATTACK(4)
+  SWIRL_RAISING(4)
+  SEND_HUMAN_GARBAGE(5)
+  RADIOACTIVE_RUSH(4)
+}
+
+enum TipoPersonaje {
+  THE_TRIDDENT
+  UNDERSEA_FIRE
+  THUNDERS_UTS
+  FISH_TELEPATHY
+  RELEASE_THE_KRAKEN
+  WAVES_CONTROL
+}
+
+enum TipoEfecto {
+  VOLCAN
+  RADIACTIVO
+  REMOLINO
+}
+
+enum TipoAtaque {
+  ATAQUE_AREA
+  ATAQUE_LINEA
+  ATAQUE_PERSISTENTE
+}
+
+' ===== CLASES ABSTRACTAS =====
+abstract class Comando implements Serializable {
+  #tipo: TiposComandos
+  #parametros: String[]
+  #isBroadcast: boolean
+  #info: boolean
+  #nombreUsuario: String
+  +procesoPorServer(threadServidor: ThreadServer)
+  +procesoEnUsuario(usuario: Usuario)
+  +getTipo(): TiposComandos
+  +getParametros(): String[]
+  +getNombreUsuario(): String
+}
+
+abstract class Personaje implements Serializable {
+  #poder: int
+  #resistencia: int
+  #sanidad: int
+  #porcentajeMapa: int
+  #nombre: String
+  #tipoPersonaje: TipoPersonaje
+  #tieneMultiplicadorPoder: boolean
+  +realizarAtaque(comando: ComandoAtaque, interfaz: InterfazPrincipal): ComandoResultadoAtaque
+  +getPoder(): int
+  +getResistencia(): int
+  +getSanidad(): int
+  +getNombre(): String
+  +getTipoPersonaje(): TipoPersonaje
+}
+
+' ===== COMANDOS PRINCIPALES =====
+class ComandoAtaque extends Comando {
+  -personaje: Personaje
+  +getPersonaje(): Personaje
+}
+
+class ComandoCrearPersonaje extends Comando
+class ComandoAyuda extends Comando
+class ComandoMensaje extends Comando
+class ComandoPrivado extends Comando
+class ComandoGiveup extends Comando
+class ComandoListo extends Comando
+class ComandoSaltarTurno extends Comando
+class ComandoNombre extends Comando
+class ComandoError extends Comando
+class ComandoConsultarCelda extends Comando
+class ComandoConsultarEnemigo extends Comando
+class ComandoLog extends Comando
+class ComandoLogResumen extends Comando
+class ComandoCeldasOcupadas extends Comando
+class ComandoPorcentajeCeldas extends Comando
+class ComandoPintarVivas extends Comando
+class ComandoUsuarios extends Comando
+class ComandoAtaquesPersonajes extends Comando
+
+' ===== COMANDOS ESPECIALES =====
+class ComandoDerrota extends Comando {
+  +procesoPorServer(threadServidor: ThreadServer)
+  +procesoEnUsuario(usuario: Usuario)
+}
+
+class ComandoVictoria extends Comando {
+  +procesoPorServer(threadServidor: ThreadServer)
+  +procesoEnUsuario(usuario: Usuario)
+}
+
+class ComandoResultadoAtaque extends Comando {
+  -exito: boolean
+  +procesoEnUsuario(usuario: Usuario)
+}
+
+class ComandoRespuestaUsuario extends Comando {
+  +procesoEnUsuario(usuario: Usuario)
+}
+
+' ===== FABRICAS =====
+class ComandoFabrica {
+  +getComando(args: String[], nombre: String): Comando
+}
+
+class ComandosAtaquesFabrica {
+  +getComandoAtaque(args: String[], nombre: String, personaje: Personaje): Comando
+}
+
+class TipoPersonajeFabrica {
+  +getTipoPersonaje(tipo: String): Personaje
+}
+
+' ===== UTILIDADES DE COMANDOS =====
+class ComandoAtaqueValidacion {
+  +fueraDeAlcanceXY(x: int, y: int): boolean
+  +fueraDeAlcanceThreeNumbers(n1: int, n2: int, n3: int): boolean
+  +validarRemolinoSeleccionado(numRemolino: int): boolean
+}
+
+class ComandoCrearPersonajeValidaciones {
+  +validarPorcentajeMapa(p: Personaje, c: ComandoCrearPersonaje, i: InterfazPrincipal): boolean
+  +validarEstadisticas(p: Personaje, c: ComandoCrearPersonaje, i: InterfazPrincipal): boolean
+  +validarPoder(p: Personaje, i: InterfazPrincipal): boolean
+  +validarResistencia(p: Personaje, i: InterfazPrincipal): boolean
+  +validarSanidad(p: Personaje, i: InterfazPrincipal): boolean
+}
+
+class ComandoCrearPersonajeErrores {
+  +error(string: String, usuario: Usuario, comando: Comando)
+}
+
+class ComandoCrearPersonajeAsignaciones {
+  +asignarValoresPersonaje(c: ComandoCrearPersonaje, p: Personaje, i: InterfazPrincipal): boolean
+}
+
+class ComandoUtilidad {
+  +tokenizerArgs(args: String): String[]
+}
+
+' ===== PERSONAJES CONCRETOS =====
+class PoseidonTrident extends Personaje {
+  -ataques: String[]
+  +ataqueThreeLines(interfaz: InterfazPrincipal, comando: ComandoAtaque): ComandoResultadoAtaque
+  +ataqueThreeNumbers(interfaz: InterfazPrincipal, comando: ComandoAtaque): ComandoResultadoAtaque
+  +ataqueControlTheKraken(interfaz: InterfazPrincipal, comando: ComandoAtaque): ComandoResultadoAtaque
+  +aplicarThreeLines(celdas: Celda[][], x: int, y: int, comando: ComandoAtaque, interfaz: InterfazPrincipal, mensajes: List<String>)
+  +realizarThreeNumbers(celdasAtacar: int, celdas: Celda[][], comando: ComandoAtaque, interfaz: InterfazPrincipal, mensajes: List<String>)
+}
+
+class ReleaseTheKraken extends Personaje {
+  -ataques: String[]
+  +ataqueTentaculos(interfaz: InterfazPrincipal, comando: ComandoAtaque): ComandoResultadoAtaque
+  +ataqueKrakenBreath(interfaz: InterfazPrincipal, comando: ComandoAtaque): ComandoResultadoAtaque
+  +ataqueReleaseTheKraken(interfaz: InterfazPrincipal, comando: ComandoAtaque): ComandoResultadoAtaque
+  +aplicarAtaqueTentaculo(celdas: Celda[][], x: int, y: int, interfaz: InterfazPrincipal, comando: ComandoAtaque, mensajes: List<String>)
+}
+
+class FishTelepathy extends Personaje {
+  -ataques: String[]
+  +ataqueCardumen(interfaz: InterfazPrincipal, comando: ComandoAtaque): ComandoResultadoAtaque
+  +ataqueSharkAttack(interfaz: InterfazPrincipal, comando: ComandoAtaque): ComandoResultadoAtaque
+  +ataquePulp(interfaz: InterfazPrincipal, comando: ComandoAtaque): ComandoResultadoAtaque
+}
+
+class UnderseaFire extends Personaje {
+  -ataques: String[]
+  +ataqueVolcanoRaising(interfaz: InterfazPrincipal, comando: ComandoAtaque): ComandoResultadoAtaque
+  +ataqueVolcanoExplosion(interfaz: InterfazPrincipal, comando: ComandoAtaque): ComandoResultadoAtaque
+  +ataqueTermalRush(interfaz: InterfazPrincipal, comando: ComandoAtaque): ComandoResultadoAtaque
+}
+
+class ThundersUnderTheSea extends Personaje {
+  -ataques: String[]
+  +ataqueThunderRain(interfaz: InterfazPrincipal, comando: ComandoAtaque): ComandoResultadoAtaque
+  +ataquePoseidonThunders(interfaz: InterfazPrincipal, comando: ComandoAtaque): ComandoResultadoAtaque
+  +ataqueEelAtack(interfaz: InterfazPrincipal, comando: ComandoAtaque): ComandoResultadoAtaque
+}
+
+class WavesControl extends Personaje {
+  -ataques: String[]
+  +ataqueSwirlRaising(interfaz: InterfazPrincipal, comando: ComandoAtaque): ComandoResultadoAtaque
+  +ataqueSendHumanGarbage(interfaz: InterfazPrincipal, comando: ComandoAtaque): ComandoResultadoAtaque
+  +ataqueRadioactiveRush(interfaz: InterfazPrincipal, comando: ComandoAtaque): ComandoResultadoAtaque
+}
+
+' ===== USUARIO =====
+class Usuario {
+  -PORT: int = 54321
+  -SERVER_IP: String = "localhost"
+  -socket: Socket
+  -objetoLector: ObjectInputStream
+  -objetoEscritor: ObjectOutputStream
+  -threadUsuario: ThreadUsuario
+  -nombre: String
+  -haPerdido: boolean
+  -isGameOver: boolean
+  -interfazPrincipal: InterfazPrincipal
+  -resultadoAtaqueRecibido: List<String>
+  -resultadoAtaqueEnviado: List<String>
+  -resultadosHistorialAtaques: List<String>
+  -ataquesEnviados: int
+  -ataquesAtinados: int
+  -ataquesfallados: int
+  -defensa: float = 1
+  +conectar()
+  +recibirAtaque(comando: Comando)
+  +enviarInfo(comando: Comando)
+  +derrota()
+  +enviarComando(comando: Comando)
+}
+
+' ===== INTERFAZ =====
+class InterfazPrincipal extends JFrame {
+  -listaPersonajes: ArrayList<Personaje>
+  -statsPoder: int[]
+  -statsResistencia: int[]
+  -statsSanidad: int[]
+  -porcentajeOcupadoMapa: int
+  -contadorPersonaje1/2/3: int
+  -celdas: Celda[][]
+  -tablero: JLabel[][]
+  -ocupados: String[][]
+  -ataquesRecibidos: ArrayList<String>
+  -historial: ArrayList<String>
+  -rangoUltimoVolcan: int
+  -rangoUltimoRemolino: int
+  -defensa: int = 1
+  -servidor: PantallaServer
+  -usuario: Usuario
+  +llenarStats()
+  +crearMatriz()
+  +crearPersonajes(comando: ComandoCrearPersonaje)
+  +pintarPersonajes(personaje: Personaje, comando: Comando)
+  +actualizarInterfaz()
+  +writeResultadoAtaque(string: String)
+  +writeError(string: String)
+  +writeMessage(string: String, comando: Comando)
+  +ataqueThreeNumbers(numeros: int[]): boolean
+  +borrarMensajes()
+  +obtenerCasillasVivasPersonaje(personaje: Personaje): int
+  +obtenerCasillasDestruidas(): int
+  +curarCasillas(cantidadCuracion: int)
+  +aumentarDefensa(defensa: int)
+  +reestablecerDefensa()
+  +reestablecerPoderPersonaje(personaje: Personaje)
+}
+
+class Celda {
+  -fila: int
+  -columna: int
+  -refLabel: JLabel
+  -vida: float = 100
+  -isCeldaDestruida: boolean
+  -tieneVolcan: boolean
+  -esOrigenVolcan: boolean
+  -tieneRemolino: boolean
+  -esOrigenRemolino: boolean
+  -esRadioactiva: boolean
+  -fueAsesinadaPor: String
+  -atacadoPor: ArrayList<String>
+  -curadoPor: ArrayList<String>
+  -protegidoPor: ArrayList<String>
+  -personajeDueño: Personaje
+  +recibirAtaque(comando: ComandoAtaque, ataque: int, interfaz: InterfazPrincipal)
+  +aplicarEfecto(efecto: TipoEfecto)
+  +resultadoAtaque(atacante: InterfazPrincipal, victima: InterfazPrincipal, comando: ComandoAtaque)
+  +pintarVolcan()
+  +pintarOrigenVolcan()
+  +pintarRemolino()
+  +pintarOrigenRemolino()
+  +toString(): String
+}
+
+' ===== SERVER =====
+class Server {
+  -PORT: int = 54321
+  -server: ServerSocket
+  -socketUsuarios: Socket
+  -usuariosConectados: ArrayList<ThreadServer>
+  -arrayUsuarios: ArrayList<Usuario>
+  -maxConexiones: int = 4
+  -refPantalla: PantallaServer
+  -connexionesThread: ThreadConexiones
+  -gestorTurnos: GestorTurnos
+  -gestorAtaques: GestorAtaques
+  +conectarServer()
+  +ejecutarComando(comando: Comando)
+  +broadcast(comando: Comando)
+  +comandInfo(comando: Comando)
+  +sendPrivate(comando: Comando)
+  +buscarJugador(nombre: String): ThreadServer
+  +requiresTurno(tipo: TiposComandos): boolean
+}
+
+class PantallaServer extends JFrame {
+  -server: Server
+  -txaMensajes: JTextArea
+  -lblJugadoresConectados: JLabel
+  -lblServer: JLabel
+  +writeMessage(string: String)
+  +actualizarEstadoJuego(estado: String)
+  +actualizarTurnoActual(jugador: String)
+  +actualizarTiempoRestante(segundos: int)
+}
+
+class GestorTurnos {
+  -server: Server
+  -jugadores: ArrayList<ThreadServer>
+  -jugadorActual: int
+  -juegoActivo: boolean
+  +agregarJugador(jugador: ThreadServer)
+  +iniciarJuego()
+  +jugadoresPersonajesCompletos(): boolean
+  +siguienteTurno()
+  +derrota(jugadorPerdedor: ThreadServer)
+  +ganador(ganador: ThreadServer)
+  +isJuegoActivo(): boolean
+  +getJugadorActual(): ThreadServer
+}
+
+class GestorAtaques {
+  -server: Server
+  +atacarUsuario(comando: ComandoAtaque, threadAtacante: ThreadServer, threadVictima: ThreadServer)
+  +buscarUsuario(nombre: String): ThreadServer
+  +actualizarPantalla(usuario: Usuario)
+}
+
+' ===== THREADS =====
+class ThreadServer extends Thread {
+  -server: Server
+  -socket: Socket
+  -objetoLector: ObjectInputStream
+  -objetoEscritor: ObjectOutputStream
+  -nombre: String
+  -personajesCreados: int = 0
+  -isActive: boolean = true
+  -haPerdido: boolean
+  -isRunning: boolean = true
+  -isReady: boolean = false
+  +run()
+  +manejarDesconexion()
+  +showAllClients()
+  +aumentarPersonajesCreados()
+}
+
+class ThreadConexiones extends Thread {
+  -server: Server
+  +run()
+}
+
+class ThreadUsuario extends Thread {
+  -usuario: Usuario
+  -interfazPrincipal: InterfazPrincipal
+  -isRunning: boolean = true
+  +run()
+}
+
+' ===== MAIN =====
+class Oceanica {
+  +main(args: String[])
+}
+
+' ===== RELACIONES =====
+
+' Comandos
+Comando --> Usuario
+Comando --> TiposComandos
+ComandoFabrica --> Comando
+ComandosAtaquesFabrica --> ComandoAtaque
+ComandoAtaque --> Personaje
+ComandoDerrota --> Usuario
+ComandoVictoria --> Usuario
+ComandoResultadoAtaque --> Celda
+ComandoRespuestaUsuario --> Usuario
+
+' Personajes
+Personaje --> TipoPersonaje
+Personaje --> ComandoResultadoAtaque
+TipoPersonajeFabrica --> Personaje
+PoseidonTrident --|> Personaje
+ReleaseTheKraken --|> Personaje
+FishTelepathy --|> Personaje
+UnderseaFire --|> Personaje
+ThundersUnderTheSea --|> Personaje
+WavesControl --|> Personaje
+
+' Interfaz
+InterfazPrincipal --> "many" Personaje
+InterfazPrincipal --> "many" Celda
+InterfazPrincipal --> Usuario
+InterfazPrincipal --> PantallaServer
+Celda --> Personaje
+Celda --> ComandoAtaque
+Celda --> TipoEfecto
+
+' Usuario
+Usuario --> InterfazPrincipal
+Usuario --> ThreadUsuario
+Usuario --> ComandoFabrica
+Usuario --> Socket
+
+' Server
+Server --> PantallaServer
+Server --> GestorTurnos
+Server --> GestorAtaques
+Server --> "many" ThreadServer
+Server --> "many" Usuario
+
+' Gestores
+GestorTurnos --> "many" ThreadServer
+GestorAtaques --> Server
+GestorAtaques --> ComandoAtaque
+
+' Threads
+ThreadServer --> Server
+ThreadServer --> Socket
+ThreadConexiones --> Server
+ThreadUsuario --> Usuario
+ThreadUsuario --> InterfazPrincipal
+
+' Main
+Oceanica --> PantallaServer
+Oceanica --> InterfazPrincipal
+
+@enduml

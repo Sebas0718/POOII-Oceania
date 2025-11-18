@@ -4,6 +4,7 @@
  */
 package com.mycompany.oceanica.Usuario;
 
+import com.mycompany.Interfaz.Celda;
 import com.mycompany.Interfaz.InterfazPrincipal;
 import com.mycompany.Personaje.Personaje;
 import com.mycompany.oceanica.Modelos.Comando;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mycompany.oceanica.Modelos.ComandoDerrota;
+import com.mycompany.oceanica.Modelos.ComandoRespuestaUsuario;
 
 /**
  *
@@ -83,7 +85,33 @@ public class Usuario{
         ComandoResultadoAtaque comandoRecibido = personaje.realizarAtaque(comandoAtaque,  this.interfazPrincipal);
         enviarComando(comandoRecibido);
     }
+    
+    public void enviarInfo(Comando comando){
+        Celda[][] celdas = this.getInterfazPrincipal().getCeldas();
+        int vivas = 0;
+        int muertas = 0;
+        System.out.println("ts3");
+        for (int i = 0; i < celdas.length; i++) {
+            for (int j = 0; j < celdas[i].length; j++) {
+                if (celdas[i][j].isIsCeldaDestruida()) {
+                    muertas++;
+                } else {
+                    vivas++;
+                }
+            }
+        }
+        System.out.println("ts4");
+        // Generamos el array con el formato estándar
+        String[] respuesta = new String[4];
 
+        respuesta[0] = "RESPUESTA_USUARIO";              // Tipo de comando
+        respuesta[1] = comando.getNombreUsuario();       // Usuario que preguntó
+        respuesta[2] = String.valueOf(vivas);            // Casillas vivas
+        respuesta[3] = String.valueOf(muertas);          // Casillas muertas
+        Comando newComando = new ComandoRespuestaUsuario(respuesta, this.getNombre());
+        System.out.println("ts5");
+        enviarComando(newComando);
+    }
 
     public void derrota() {
         this.isGameOver = true;

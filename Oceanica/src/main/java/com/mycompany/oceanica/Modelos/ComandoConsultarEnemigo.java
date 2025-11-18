@@ -11,6 +11,7 @@ import com.mycompany.oceanica.Usuario.Usuario;
  *
  * @author xsusk
  */
+
 public class ComandoConsultarEnemigo extends Comando {
 
     public ComandoConsultarEnemigo(String[] args, String nombre) {
@@ -19,7 +20,7 @@ public class ComandoConsultarEnemigo extends Comando {
 
     @Override
     public void procesoPorServer(ThreadServer threadServidor) {
-        this.setInfo(true);
+        this.setInfo(false);
         this.setIsBroadcast(false);
     }
 

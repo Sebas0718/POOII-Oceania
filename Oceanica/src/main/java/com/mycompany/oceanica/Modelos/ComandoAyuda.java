@@ -38,6 +38,7 @@ public class ComandoAyuda extends Comando {
                                                             "MOSTRAR_CELDAS_OCUPADAS  (muestra en el mapa las celdas ocupadas por volcanes y remolinos.)\n" +
                                                             "MOSTRAR_PORCENTAJES_CELDAS  (muestra en el mapa la vida de cada celda)\n" +
                                                             "PINTAR_VIVAS  (muestra en el mapa las celdas que están vivas de un color, de otro las muertas.) \n" +
+                                                            "USUARIOS  (Muestra los usuarios conectados) \n" +
                                                             "ATAQUES_PERSONAJES (muestra como enviar ataques segun el tipo de personaje)", this);
                                                             }
 }
