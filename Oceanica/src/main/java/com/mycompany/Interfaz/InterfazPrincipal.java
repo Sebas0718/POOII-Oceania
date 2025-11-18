@@ -120,8 +120,6 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         jLabelNombrePersonaje2.setText(personaje2.getNombre());
         jLabelNombrePersonaje3.setText(personaje3.getNombre());
 
-
-
         int casillasVivasPersonaje1 = obtenerCasillasVivasPersonaje(personaje1) ;
         int casillasVivasPersonaje2 = obtenerCasillasVivasPersonaje(personaje2);
         int casillasVivasPersonaje3 =  obtenerCasillasVivasPersonaje(personaje3);
