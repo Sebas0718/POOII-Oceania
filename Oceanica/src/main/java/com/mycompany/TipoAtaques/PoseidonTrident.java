@@ -48,6 +48,7 @@ public class PoseidonTrident extends Personaje{
         int tentaculoy3 = Integer.parseInt(args[9]);
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
+        interfaz.getUsuario().getResultadoAtaqueRecibido().add("Se recibio el ataque [THREE LINES] del usuario " + comando.getNombreUsuario());
         
         int ataque = 100;
         if (comando.getPersonaje().isTieneMultiplicadorPoder()){
@@ -96,7 +97,7 @@ public class PoseidonTrident extends Personaje{
             int celdasAtacar = numeros[0] * numeros[1] * numeros[2];
             interfaz.borrarMensajes();
             interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
-            
+            interfaz.getUsuario().getResultadoAtaqueRecibido().add("Se recibio el ataque [THREE NUMBERS] del usuario " + comando.getNombreUsuario());
             this.realizarThreeNumbers(celdasAtacar, celdas, comando, interfaz, mensajes);
             String[] resultadoArray = new String[mensajes.size() + 2];
 
@@ -130,11 +131,11 @@ public class PoseidonTrident extends Personaje{
         List<String> mensajes = new ArrayList<>();
         Celda[][] celdas = interfaz.getCeldas();
         int rango = rand.nextInt(9) + 1;
-        
         int fila = rand.nextInt(20);
         int columna = rand.nextInt(20);
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
+        interfaz.getUsuario().getResultadoAtaqueRecibido().add("Se recibio el ataque [CONTROL THE KRAKEN] del usuario " + comando.getNombreUsuario());
         
         int ataque = 100;
         if (comando.getPersonaje().isTieneMultiplicadorPoder()) {
@@ -145,7 +146,7 @@ public class PoseidonTrident extends Personaje{
             for (int j = columna - rango; j <= columna + rango; j++) {
                 if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, j)) {
                     celdas[i][j].recibirAtaque(comando ,ataque, interfaz);
-                    String msg = "[Control_The_Kraken] Celda (" + i + "," + j +
+                    String msg = "[CONTROL THE KRAKEN] Celda (" + i + "," + j +
                     ") quedó con " + celdas[i][j].getVida() + " de vida.";
                     mensajes.add(msg);
                 }
@@ -183,7 +184,7 @@ public class PoseidonTrident extends Personaje{
             // Atacar solo si la celda no está muerta
             if (celdas[x][y].getVida() > 0.0) {
                 celdas[x][y].recibirAtaque(comando, ataque, interfaz);
-                String msg = "[Three_Numbers] Celda (" + x + "," + y +
+                String msg = "[THREE NUMBERS] Celda (" + x + "," + y +
                 ") quedó con " + celdas[x][y].getVida() + " de vida.";
                 mensajes.add(msg);
                 atacadas++;
@@ -211,7 +212,7 @@ public class PoseidonTrident extends Personaje{
         for (int i = x - rango; i < x; i++ ){
             if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, y)) {
                 celdas[i][y].recibirAtaque(comando, ataque, interfaz);
-                String msg = "[Three_Lines] Celda (" + i + "," + y +
+                String msg = "[THREE LINES] Celda (" + i + "," + y +
                 ") quedó con " + celdas[i][y].getVida() + " de vida.";
                mensajes.add(msg);
                 }
@@ -221,7 +222,7 @@ public class PoseidonTrident extends Personaje{
         for (int i = x + 1; i <= x + rango; i++){
             if (ComandoAtaqueValidacion.fueraDeAlcanceXY(i, y)) {
                 celdas[i][y].recibirAtaque(comando, ataque, interfaz);
-                String msg = "[Three_Lines] Celda (" + i + "," + y +
+                String msg = "[THREE LINES] Celda (" + i + "," + y +
                 ") quedó con " + celdas[i][y].getVida() + " de vida.";
                mensajes.add(msg);
                 }
@@ -231,7 +232,7 @@ public class PoseidonTrident extends Personaje{
         for (int j = y - rango; j < y; j++ ){
             if (ComandoAtaqueValidacion.fueraDeAlcanceXY(x, j)) {
                 celdas[x][j].recibirAtaque(comando, ataque, interfaz);
-                String msg = "[Three_Lines] Celda (" + x + "," + j +
+                String msg = "[THREE LINES] Celda (" + x + "," + j +
                 ") quedó con " + celdas[x][j].getVida() + " de vida.";
                mensajes.add(msg);
                 }
@@ -241,7 +242,7 @@ public class PoseidonTrident extends Personaje{
         for (int j = y + 1; j <= y + rango; j++){
             if (ComandoAtaqueValidacion.fueraDeAlcanceXY(x, j)) {
                 celdas[x][j].recibirAtaque(comando, ataque, interfaz);
-                String msg = "[Three_Lines] Celda (" + x + "," + j +
+                String msg = "[THREE LINES] Celda (" + x + "," + j +
                 ") quedó con " + celdas[x][j].getVida() + " de vida.";
                mensajes.add(msg);
                 }

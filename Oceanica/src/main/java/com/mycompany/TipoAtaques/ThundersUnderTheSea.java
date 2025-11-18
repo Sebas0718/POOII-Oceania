@@ -37,6 +37,7 @@ public class ThundersUnderTheSea extends Personaje {
         int cantidadRayos = 100;
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
+        interfaz.getUsuario().getResultadoAtaqueRecibido().add("Se recibio el ataque [THUNDER RAIN] del usuario " + comando.getNombreUsuario());
         
         
         for (int i = 0; i < cantidadRayos; i++) {
@@ -54,14 +55,14 @@ public class ThundersUnderTheSea extends Personaje {
 
 
             celdas[x][y].recibirAtaque(comando, daño, interfaz);
-            String msg = "[Thunder_Rain] Celda (" + x + "," + y +
+            String msg = "[THUNDER RAIN] Celda (" + x + "," + y +
                 ") quedó con " + celdas[x][y].getVida() + " de vida.";
                mensajes.add(msg);
         }
         String[] resultadoArray = new String[mensajes.size() + 2];
 
         resultadoArray[0] = "RESULTADO_ATAQUE";
-        resultadoArray[1] = comando.getNombreUsuario();  // ✔ el atacante va aquí siempre
+        resultadoArray[1] = comando.getNombreUsuario();  
 
         for (int i = 0; i < mensajes.size(); i++) {
             resultadoArray[i + 2] = mensajes.get(i);
@@ -82,6 +83,7 @@ public class ThundersUnderTheSea extends Personaje {
         int cantidadRayos = rand.nextInt(6) + 5;
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
+        interfaz.getUsuario().getResultadoAtaqueRecibido().add("Se recibio el ataque [POSEIDON THUNDERS] del usuario " + comando.getNombreUsuario());
         
         int ataque = 100;
         if (comando.getPersonaje().isTieneMultiplicadorPoder()) {
@@ -106,7 +108,7 @@ public class ThundersUnderTheSea extends Personaje {
 
                         // Daño estándar de 100%
                         celdas[i][j].recibirAtaque(comando, ataque, interfaz);
-                        String msg = "[Poseidon_Thunders] Celda (" + i + "," + j +
+                        String msg = "[POSEIDON THUNDERS] Celda (" + i + "," + j +
                         ") quedó con " + celdas[i][j].getVida() + " de vida.";
                        mensajes.add(msg);
                     }
@@ -116,7 +118,7 @@ public class ThundersUnderTheSea extends Personaje {
         String[] resultadoArray = new String[mensajes.size() + 2];
 
         resultadoArray[0] = "RESULTADO_ATAQUE";
-        resultadoArray[1] = comando.getNombreUsuario();  // ✔ el atacante va aquí siempre
+        resultadoArray[1] = comando.getNombreUsuario();  
 
         for (int i = 0; i < mensajes.size(); i++) {
             resultadoArray[i + 2] = mensajes.get(i);
@@ -137,6 +139,7 @@ public class ThundersUnderTheSea extends Personaje {
         int cantidadAnguilas = rand.nextInt(76) + 25;
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
+        interfaz.getUsuario().getResultadoAtaqueRecibido().add("Se recibio el ataque [EEL ATTACK] del usuario " + comando.getNombreUsuario());
         
         
         for (int k = 0; k < cantidadAnguilas; k++) {
@@ -156,14 +159,14 @@ public class ThundersUnderTheSea extends Personaje {
             
             // Aplicar daño
             celdas[x][y].recibirAtaque(comando, dannoTotal, interfaz);
-            String msg = "[Eel_Atack] Celda (" + x + "," + y +
+            String msg = "[EEL ATTACK] Celda (" + x + "," + y +
                 ") quedó con " + celdas[x][y].getVida() + " de vida.";
                mensajes.add(msg);
         }
         String[] resultadoArray = new String[mensajes.size() + 2];
         
         resultadoArray[0] = "RESULTADO_ATAQUE";
-        resultadoArray[1] = comando.getNombreUsuario();  // ✔ el atacante va aquí siempre
+        resultadoArray[1] = comando.getNombreUsuario();  
 
         for (int i = 0; i < mensajes.size(); i++) {
             resultadoArray[i + 2] = mensajes.get(i);

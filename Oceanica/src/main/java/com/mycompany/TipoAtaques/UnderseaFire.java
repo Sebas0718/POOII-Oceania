@@ -56,15 +56,19 @@ public class UnderseaFire extends Personaje {
         int r_fin = Math.min(F - 1, fila + rango);
         int c_inicio = Math.max(0, columna - rango);
         int c_fin = Math.min(C - 1, columna + rango);
-        String msg = "[Volcano Explosion] Celda (" + fila + "," + columna +
+        interfaz.borrarMensajes();
+        interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
+        interfaz.getUsuario().getResultadoAtaqueRecibido().add("Se recibio el ataque [VOLCANO RAISING] del usuario " + comando.getNombreUsuario());
+        String msg = "[VOLCANO RAISING] Celda (" + fila + "," + columna +
                 ") Es el epicentro del volcan";
                mensajes.add(msg);
+               
         for (int i = r_inicio; i <= r_fin; i++) {
             for (int j = c_inicio; j <= c_fin; j++) {
                 celdas[i][j].recibirAtaque(comando, ataque , interfaz);
                 celdas[i][j].pintarVolcan();
                 celdas[i][j].setTieneVolcan(true);
-                msg = "[Volcano Explosion] Celda (" + i + "," + j +
+                msg = "[VOLCANO RAISING] Celda (" + i + "," + j +
                 ") quedó con " + celdas[i][j].getVida() + " de vida.";
                mensajes.add(msg);
                
@@ -77,7 +81,7 @@ public class UnderseaFire extends Personaje {
         String[] resultadoArray = new String[mensajes.size() + 2];
 
         resultadoArray[0] = "RESULTADO_ATAQUE";
-        resultadoArray[1] = comando.getNombreUsuario();  // ✔ el atacante va aquí siempre
+        resultadoArray[1] = comando.getNombreUsuario(); 
 
         for (int i = 0; i < mensajes.size(); i++) {
             resultadoArray[i + 2] = mensajes.get(i);
@@ -101,6 +105,9 @@ public class UnderseaFire extends Personaje {
         int cantPiedras = 0;
         Celda[][] celdas = interfaz.getCeldas();
         List<String> mensajes = new ArrayList<>();
+        interfaz.borrarMensajes();
+        interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
+        interfaz.getUsuario().getResultadoAtaqueRecibido().add("Se recibio el ataque [VOLCANO EXPLOSION] del usuario " + comando.getNombreUsuario());
         int ataque = 20;
         if (comando.getPersonaje().isTieneMultiplicadorPoder()) {
             ataque = 20 + (comando.getPersonaje().getPoder() *20/ 100);
@@ -113,14 +120,14 @@ public class UnderseaFire extends Personaje {
             
             celdas[fila][columna].recibirAtaque(comando, ataque, interfaz);
             cantPiedras++;
-            String msg = "[Volcano Explosion] Celda (" + fila + "," + columna +
+            String msg = "[VOLCANO EXPLOSION] Celda (" + fila + "," + columna +
                      ") quedó con " + celdas[fila][columna].getVida() + " de vida.";
             mensajes.add(msg);
         }
         String[] resultadoArray = new String[mensajes.size() + 2];
 
         resultadoArray[0] = "RESULTADO_ATAQUE";
-        resultadoArray[1] = comando.getNombreUsuario();  // ✔ el atacante va aquí siempre
+        resultadoArray[1] = comando.getNombreUsuario(); 
 
         for (int i = 0; i < mensajes.size(); i++) {
             resultadoArray[i + 2] = mensajes.get(i);
@@ -154,7 +161,9 @@ public class UnderseaFire extends Personaje {
             ataque = ataque + (comando.getPersonaje().getPoder() *ataque/ 100);
         }
         int segundos = rand.nextInt(2) + 5;
-        
+        interfaz.borrarMensajes();
+        interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
+        interfaz.getUsuario().getResultadoAtaqueRecibido().add("Se recibio el ataque [TERMAL RUSH] del usuario " + comando.getNombreUsuario());
         while (0 < segundos) {
             for (Celda celda : celdasVolcanicas) {
                 
@@ -174,7 +183,7 @@ public class UnderseaFire extends Personaje {
                 for (int i = r_inicio; i <= r_fin; i++) {
                     for (int j = c_inicio; j <= c_fin; j++) {
                         celdas[i][j].recibirAtaque(comando, ataque, interfaz);
-                        String msg = "[Volcano Explosion] Celda (" + i + "," + j +
+                        String msg = "[TERMAL RUSH] Celda (" + i + "," + j +
                         ") quedó con " + celdas[i][j].getVida() + " de vida.";
                         mensajes.add(msg);
                     }
@@ -185,7 +194,7 @@ public class UnderseaFire extends Personaje {
         String[] resultadoArray = new String[mensajes.size() + 2];
 
         resultadoArray[0] = "RESULTADO_ATAQUE";
-        resultadoArray[1] = comando.getNombreUsuario();  // ✔ el atacante va aquí siempre
+        resultadoArray[1] = comando.getNombreUsuario(); 
 
         for (int i = 0; i < mensajes.size(); i++) {
             resultadoArray[i + 2] = mensajes.get(i);

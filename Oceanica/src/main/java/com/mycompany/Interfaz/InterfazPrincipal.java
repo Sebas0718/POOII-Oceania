@@ -937,6 +937,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
         String msg = txfComando.getText().trim();
         Personaje personajeActual = null;
+        txfComando.setText("");
         Comando comando = null;
         if (msg.length() > 0){
             String args[] = ComandoUtilidad.tokenizerArgs(msg);
@@ -955,6 +956,8 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                         comando = ComandoFabrica.getComando(args,this.usuario.getNombre());
                     } else  {
                         comando = ComandosAtaquesFabrica.getComandoAtaque(args, this.usuario.getNombre(), personajeActual);
+                        this.usuario.getResultadoAtaqueEnviado().add("Se realizo el ataque [" + args[3] + "] al usuario " + args[1]);
+                        this.usuario.getResultadosHistorialAtaques().add("Se realizo el ataque [" + args[3] + "] al usuario " + args[1]);
                     }
                 }
                 else {

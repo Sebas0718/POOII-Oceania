@@ -11,6 +11,7 @@ import com.mycompany.oceanica.Usuario.Usuario;
  *
  * @author xsusk
  */
+
 public class ComandoLogResumen extends Comando {
 
     public ComandoLogResumen(String[] args, String nombre) {
