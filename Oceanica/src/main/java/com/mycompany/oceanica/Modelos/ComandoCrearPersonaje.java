@@ -30,6 +30,7 @@ public class ComandoCrearPersonaje extends Comando {
 
     @Override
     public void procesoEnUsuario(Usuario usuario) {
+        
             usuario.getInterfazPrincipal().crearPersonajes(this);
             
     }

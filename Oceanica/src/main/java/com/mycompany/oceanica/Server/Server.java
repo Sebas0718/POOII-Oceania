@@ -102,6 +102,11 @@ public class Server {
             comandVictoria(comando);
             return;
         }
+        
+        if (comando.getTipo().equals(TiposComandos.RENDIRSE)){
+            sendPrivate(comando);
+            return;
+        }
 
         // Comandos de juego
         if (gestorTurnos.isJuegoActivo()) {
@@ -130,6 +135,7 @@ public class Server {
         // Si el juego no está activo, solo permitir comandos básicos
         else if (comando.getTipo() == TiposComandos.INICIAR) {
             gestorTurnos.iniciarJuego();
+            broadcast(comando);
         } else if (comando.isIsBroadcast()) {
             broadcast(comando);
         } else if (comando.isInfo()) {
@@ -219,10 +225,14 @@ public class Server {
     
     
     public void sendPrivate(Comando comando) {
-        if (comando.getParametros().length <= 1)
+        if (comando.getParametros().length <= 1 && !comando.getTipo().equals(TiposComandos.RENDIRSE))
             return;
-
-        String searchName = comando.getParametros()[1];
+        String searchName;
+        if (!comando.getTipo().equals(TiposComandos.RENDIRSE)) {
+             searchName = comando.getParametros()[1];
+        } else {
+            searchName = comando.getNombreUsuario();
+        }
 
         for (ThreadServer usuario : usuariosConectados) {
             if (usuario.getNombre().equals(searchName)) {
@@ -230,8 +240,6 @@ public class Server {
                     usuario.getObjetoEscritor().writeObject(comando);
                     if (comando.getTipo().equals(TiposComandos.RENDIRSE)) {
                         usuario.setIsActive(false);
-                        usuariosConectados.remove(usuario);
-                        gestorTurnos.getJugadores().remove(usuario);
                     }
                     break;
                 } catch (IOException ex) {

@@ -33,7 +33,7 @@ public class ComandoListo extends Comando {
 
     @Override
     public void procesoEnUsuario(Usuario usuario) {
-        usuario.getInterfazPrincipal().writeMessage("El usuario " + this.getNombreUsuario() + " ya esta listo", this);
+        usuario.getInterfazPrincipal().getTxaBitacora().append("El usuario " + this.getNombreUsuario() + " ya esta listo\n");
     }
     
 }

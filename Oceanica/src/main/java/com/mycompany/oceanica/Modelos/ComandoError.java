@@ -25,7 +25,7 @@ public class ComandoError extends Comando{
 
     @Override
     public void procesoEnUsuario(Usuario usuario) {
-        usuario.getInterfazPrincipal().writeMessage("ERROR!!! El comando que se intentó ingresar no es valido", this);
+        usuario.getInterfazPrincipal().getTxaHistorial().append("ERROR!!! El comando que se intentó ingresar no es valido\n");
     }
     
 }

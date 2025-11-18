@@ -5,8 +5,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import com.mycompany.oceanica.Modelos.ComandoMensaje;
+import com.mycompany.oceanica.Modelos.ComandoTurno;
 import com.mycompany.oceanica.Threads.ThreadServer;
 import com.mycompany.oceanica.Modelos.Comando;
+import com.mycompany.oceanica.Modelos.ComandoDerrota;
 import com.mycompany.oceanica.Modelos.ComandoVictoria;
 
 
@@ -72,16 +74,19 @@ public class GestorTurnos {
             }
         }
         jugadorActual = (jugadorActual + 1) % jugadores.size();
-        server.getRefPantalla().writeMessage("Turno de: " + getJugadorActual().getNombre());
+        Comando comando = new ComandoTurno(jugadores.get(jugadorActual).getNombre());
+        server.broadcast(comando);
     }
     
     public void derrota(ThreadServer jugadorPerdedor) {
-
         
         jugadores.remove(jugadorPerdedor);
         server.usuariosConectados.remove(jugadorPerdedor);
-        
-
+        try {
+            ComandoDerrota comando = new ComandoDerrota(jugadorPerdedor.getNombre());
+            jugadorPerdedor.getObjetoEscritor().writeObject(comando);
+        } catch (Exception e) {
+        }
         if (jugadores.size() == 1) {
             ganador(jugadores.getFirst());
         } 
