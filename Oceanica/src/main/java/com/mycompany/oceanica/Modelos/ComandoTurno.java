@@ -19,7 +19,7 @@ public class ComandoTurno extends Comando {
      @Override
     public void procesoEnUsuario(Usuario usuario) {
         usuario.getInterfazPrincipal().getTxaBitacora()
-                .append("El jugador " + usuario.getNombre() + " ha ganado la partida");
+                .append("Es el turno de " + this.getNombreUsuario());
     }
 
 

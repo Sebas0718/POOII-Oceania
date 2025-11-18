@@ -29,12 +29,6 @@ public class ComandoAtaque extends Comando {
         this.setInfo(false);
         this.setIsBroadcast(false);
 
-        if (threadServidor.getServer().getGestorAtaques().buscarUsuario(this.getParametros()[1])!=null) {
-
-            ThreadServer threadAtacante = threadServidor.getServer().getGestorAtaques().buscarUsuario(threadServidor.getNombre());
-            ThreadServer threadVictima = threadServidor.getServer().getGestorAtaques().buscarUsuario(this.getParametros()[1]);
-            threadServidor.getServer().getGestorAtaques().atacarUsuario(this,threadAtacante, threadVictima);
-        }
     }
     
     

@@ -20,7 +20,7 @@ public class ComandoDerrota extends Comando {
     @Override
     public void procesoEnUsuario(Usuario usuario) {
         usuario.getInterfazPrincipal().limpiarInterfaz();
-        usuario.getInterfazPrincipal().getTxaHistorial().setText("El usuario " + usuario.getNombre() + " se ha rendido\n");
+        usuario.getInterfazPrincipal().getTxaHistorial().setText("El usuario " + usuario.getNombre() + " ha perdido\n");
     }
 
     

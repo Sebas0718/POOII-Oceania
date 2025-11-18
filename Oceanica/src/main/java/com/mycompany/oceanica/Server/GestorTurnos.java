@@ -73,9 +73,10 @@ public class GestorTurnos {
                 return;
             }
         }
-        jugadorActual = (jugadorActual + 1) % jugadores.size();
+        while (jugadores.get(jugadorActual = (jugadorActual + 1) % jugadores.size()) == null){
         Comando comando = new ComandoTurno(jugadores.get(jugadorActual).getNombre());
         server.broadcast(comando);
+        }
     }
     
     public void derrota(ThreadServer jugadorPerdedor) {
@@ -89,7 +90,9 @@ public class GestorTurnos {
         }
         if (jugadores.size() == 1) {
             ganador(jugadores.getFirst());
-        } 
+            return;
+        }
+        siguienteTurno();
     }
     
     public void ganador(ThreadServer ganador) {

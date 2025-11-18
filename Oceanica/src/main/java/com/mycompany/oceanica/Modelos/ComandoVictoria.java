@@ -19,8 +19,8 @@ public class ComandoVictoria extends Comando{
     public void procesoEnUsuario(Usuario usuario) {
         usuario.getInterfazPrincipal().writeMessage("El jugador " + usuario.getNombre() + " ha ganado la partida",
                 null);
-        usuario.getInterfazPrincipal().limpiarInterfaz();
         usuario.setIsGameOver(true);
+        usuario.getInterfazPrincipal().limpiarInterfaz();
         usuario.getInterfazPrincipal().getTxaHistorial().setText("HAZ GANADO LA PARTIDA");
     }
 }
