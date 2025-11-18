@@ -32,7 +32,8 @@ public enum TiposComandos {
     ATAQUES_PERSONAJES(1),
     RESULTADO_ATAQUE(0),
     DERROTA(0),
-    VICTORIA(0);
+    VICTORIA(0),
+    RESPUESTA_USUARIO(0);
     
     
     private int ParametrosRequeridos;

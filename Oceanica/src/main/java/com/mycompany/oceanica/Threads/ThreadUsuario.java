@@ -37,12 +37,20 @@ public class ThreadUsuario extends Thread {
         
         while(isRunning){
             try {
-                
+                System.out.println("ts1");
                 comandoRecibido = (Comando) usuario.getObjetoLector().readObject();
                 String[] args = comandoRecibido.getParametros();
+                
                 if (comandoRecibido.getTipo().equals(TiposComandos.ATAQUE) && this.usuario.getNombre().equals(args[1])){
                     usuario.recibirAtaque(comandoRecibido);
                 }
+                if (comandoRecibido.getTipo().equals(TiposComandos.CONSULTAR_ENEMIGO) && comandoRecibido.getParametros()[1].equals(this.usuario.getNombre())){ 
+                    System.out.println(comandoRecibido.getParametros()[1]);
+                    System.out.println(this.usuario.getNombre());
+                    System.out.println("ts2");
+                    usuario.enviarInfo(comandoRecibido);
+                }
+                System.out.println("tsERROR");
                 comandoRecibido.procesoEnUsuario(usuario);
             } catch(IOException ex){
             
