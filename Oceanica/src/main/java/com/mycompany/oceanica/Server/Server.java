@@ -13,8 +13,6 @@ import com.mycompany.oceanica.Threads.ThreadConexiones;
 import com.mycompany.oceanica.Threads.ThreadServer;
 import com.mycompany.oceanica.Usuario.Usuario;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -127,7 +125,7 @@ public class Server {
                 return;
             } else {
                 sendPrivate(comando);
-                if (requiresTurno(comando.getTipo())) {
+                if (requiresTurno(comando.getTipo()) && buscarJugador(comando.getParametros()[1]) != null) {
                     gestorTurnos.siguienteTurno();
                 }
             }

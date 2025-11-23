@@ -12,7 +12,8 @@ public class ComandoTurno extends Comando {
 
     @Override
     public void procesoPorServer(ThreadServer threadServidor) {
-
+        this.setInfo(false);
+        this.setIsBroadcast(true);
     }
 
     

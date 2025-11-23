@@ -194,6 +194,7 @@ public class ReleaseTheKraken extends Personaje {
         }
         interfaz.reestablecerDefensa();
         interfaz.reestablecerPoderPersonaje(comando.getPersonaje());
+        interfaz.getUsuario().setReleaseTheKraken(true); 
         // Entregamos el comando directamente
         return new ComandoResultadoAtaque(resultadoArray, interfaz.getUsuario().getNombre(), true);
             

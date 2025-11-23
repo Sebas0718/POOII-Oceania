@@ -21,7 +21,7 @@ import com.mycompany.oceanica.Usuario.Usuario;
  */
 public class ComandosAtaquesFabrica {
     
-    public static Comando getComandoAtaque(String[] args, String nombre, Personaje personaje){
+    public static Comando getComandoAtaque(String[] args, String nombre, Personaje personaje, Usuario usuario){
         TipoPersonaje tipo = personaje.getTipoPersonaje();
         String ataque = args[3].toUpperCase();
         Comando comando = null;
@@ -50,6 +50,8 @@ public class ComandosAtaquesFabrica {
                     comando = new ComandoAtaque(args, nombre, personaje);
                     return comando;
                 case "CONTROL_THE_KRAKEN":
+                    if (usuario.isReleaseTheKraken())
+                        return new ComandoError(args, nombre);
                     if (TiposAtaques.CONTROL_THE_KRAKEN.getParametrosRequeridos() < args.length){
                         return new ComandoError(args, nombre);
                     }
