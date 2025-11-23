@@ -37,14 +37,22 @@ public class GestorTurnos {
     //#######################################################################################
 
     public void iniciarJuego() {
-        if (jugadores.size() >= 2 && jugadoresPersonajesCompletos()) {
+        if (jugadores.size() >= 2 && jugadoresPersonajesCompletos() && isEveryoneReady()) {
             juegoActivo = true;
             jugadorActual = 0;
             server.getRefPantalla().writeMessage("¡Juego iniciado! Turno de: " + getJugadorActual().getNombre());
         }
     }
 
-
+    public boolean isEveryoneReady(){
+        
+        for (ThreadServer jugador: jugadores){
+            if (!jugador.getIsReady()){
+                return false;
+            }
+        }
+        return true;
+    }
     //#######################################################################################
     
     public boolean jugadoresPersonajesCompletos() {
@@ -73,9 +81,10 @@ public class GestorTurnos {
                 return;
             }
         }
-        while (jugadores.get(jugadorActual = (jugadorActual + 1) % jugadores.size()) == null){
-        Comando comando = new ComandoTurno(jugadores.get(jugadorActual).getNombre());
-        server.broadcast(comando);
+        jugadorActual = (jugadorActual + 1) % jugadores.size();
+        for (ThreadServer jugador: jugadores){
+            Comando comando = new ComandoTurno(jugadores.get(jugadorActual).getNombre());
+            server.broadcast(comando);
         }
     }
     
