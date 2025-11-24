@@ -50,9 +50,9 @@ public class ComandosAtaquesFabrica {
                     comando = new ComandoAtaque(args, nombre, personaje);
                     return comando;
                 case "CONTROL_THE_KRAKEN":
-                    if (usuario.isReleaseTheKraken())
+                    if (!usuario.isReleaseTheKraken())
                         return new ComandoError(args, nombre);
-                    if (TiposAtaques.CONTROL_THE_KRAKEN.getParametrosRequeridos() < args.length){
+                    else if (TiposAtaques.CONTROL_THE_KRAKEN.getParametrosRequeridos() < args.length){
                         return new ComandoError(args, nombre);
                     }
                     

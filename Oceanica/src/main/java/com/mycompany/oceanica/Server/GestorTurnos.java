@@ -41,6 +41,8 @@ public class GestorTurnos {
             juegoActivo = true;
             jugadorActual = 0;
             server.getRefPantalla().writeMessage("¡Juego iniciado! Turno de: " + getJugadorActual().getNombre());
+            Comando comando = new ComandoTurno(jugadores.get(jugadorActual).getNombre());
+            server.broadcast(comando);
         }
     }
 
