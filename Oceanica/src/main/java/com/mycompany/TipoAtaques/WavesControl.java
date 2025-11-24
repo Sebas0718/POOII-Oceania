@@ -95,6 +95,27 @@ public class WavesControl extends Personaje {
     public ComandoResultadoAtaque ataqueSendHumanGarbage(InterfazPrincipal interfaz, ComandoAtaque comando){
         
         Random rand = new Random();
+        List<String> mensajes = new ArrayList<>();
+        Celda[][] celdas = interfaz.getCeldas();
+
+        if (!recorrerTablero(interfaz)) {
+            
+            String msg = "No se pudo atacar al enemigo";
+            mensajes.add(msg);
+            String[] resultadoArray = new String[mensajes.size() + 2];
+            resultadoArray[0] = "RESULTADO_ATAQUE";
+            resultadoArray[1] = comando.getNombreUsuario();  
+
+            for (int i = 0; i < mensajes.size(); i++) {
+                resultadoArray[i + 2] = mensajes.get(i);
+            }
+            interfaz.reestablecerDefensa();
+            interfaz.reestablecerPoderPersonaje(comando.getPersonaje());
+
+            // Entregamos el comando directamente
+            return new ComandoResultadoAtaque(resultadoArray, interfaz.getUsuario().getNombre(), true);
+        }
+
         int rango = 10 * interfaz.getRangoUltimoRemolino();
         if (rango == 0) {
             rango = 10;
@@ -104,8 +125,6 @@ public class WavesControl extends Personaje {
             ataque = 25 + (comando.getPersonaje().getPoder() *25/ 100);
         }
         int cantBasura = 0;
-        Celda[][] celdas = interfaz.getCeldas();
-        List<String> mensajes = new ArrayList<>();
         interfaz.borrarMensajes();
         interfaz.writeResultadoAtaque("SE RECIBIO UN ATAQUE Y SU RESULTADO FUE: ");
         interfaz.getUsuario().getResultadoAtaqueRecibido().add("Se recibio el ataque [SEND HUMAN GARBAGE] del usuario " + comando.getNombreUsuario());
@@ -125,7 +144,6 @@ public class WavesControl extends Personaje {
             cantBasura++;
         }
         String[] resultadoArray = new String[mensajes.size() + 2];
-
         resultadoArray[0] = "RESULTADO_ATAQUE";
         resultadoArray[1] = comando.getNombreUsuario();  
 
@@ -139,12 +157,36 @@ public class WavesControl extends Personaje {
         return new ComandoResultadoAtaque(resultadoArray, interfaz.getUsuario().getNombre(), true);
     }
     
+
+
+
     public ComandoResultadoAtaque ataqueRadioactiveRush(InterfazPrincipal interfaz, ComandoAtaque comando) {
 
         Random rand = new Random();
-        Celda[][] celdas = interfaz.getCeldas();
         List<String> mensajes = new ArrayList<>();
+        Celda[][] celdas = interfaz.getCeldas();
+        
+        if (!recorrerTablero(interfaz)) {
+            
+            String msg = "No se pudo atacar al enemigo";
+            mensajes.add(msg);
+            String[] resultadoArray = new String[mensajes.size() + 2];
+            resultadoArray[0] = "RESULTADO_ATAQUE";
+            resultadoArray[1] = comando.getNombreUsuario();
+
+            for (int i = 0; i < mensajes.size(); i++) {
+                resultadoArray[i + 2] = mensajes.get(i);
+            }
+            interfaz.reestablecerDefensa();
+            interfaz.reestablecerPoderPersonaje(comando.getPersonaje());
+
+            // Entregamos el comando directamente
+            return new ComandoResultadoAtaque(resultadoArray, interfaz.getUsuario().getNombre(), true);
+        }
         ArrayList<Celda> celdasRadioactivas = new ArrayList<Celda>();
+
+
+
         for (Celda[] filaCeldas : celdas) {
             for (int i = 0; i < filaCeldas.length; i++) {
                 if (filaCeldas[i].isEsRadioactiva()) {
@@ -171,7 +213,6 @@ public class WavesControl extends Personaje {
             segundos--;
         }
         String[] resultadoArray = new String[mensajes.size() + 2];
-
         resultadoArray[0] = "RESULTADO_ATAQUE";
         resultadoArray[1] = comando.getNombreUsuario();  
 
@@ -197,7 +238,6 @@ public class WavesControl extends Personaje {
     public ComandoResultadoAtaque realizarAtaque(ComandoAtaque comando, InterfazPrincipal interfaz) {
         String[] args = comando.getParametros();
         ComandoResultadoAtaque result = null;
-        System.out.println("ts10");
         for (String ataque : this.ataques){
             if (ataque.equals(args[3].toUpperCase())){
                 switch(ataque){
@@ -214,6 +254,19 @@ public class WavesControl extends Personaje {
             }
         }
         return result;
+    }
+
+    public boolean recorrerTablero(InterfazPrincipal interfaz){
+        Celda[][] celdas = interfaz.getCeldas();
+        for (Celda[] filaCeldas: celdas){
+            for (Celda celda : filaCeldas){
+                if (celda.isEsOrigenRemolino()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+
     }
 
 
