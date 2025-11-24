@@ -73,9 +73,9 @@ public class GestorTurnos {
                 return;
             }
         }
+        jugadores.get(jugadorActual = (jugadorActual + 1) % jugadores.size());
         Comando comando = new ComandoTurno(jugadores.get(jugadorActual).getNombre());
         server.broadcast(comando);
-       
     }
     
     public void derrota(ThreadServer jugadorPerdedor) {

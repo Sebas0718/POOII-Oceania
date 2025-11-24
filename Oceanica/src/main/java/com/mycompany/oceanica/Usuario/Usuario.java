@@ -36,7 +36,7 @@ public class Usuario{
     private ObjectOutputStream objetoEscritor;
     private ThreadUsuario threadUsuario;
     private String nombre;
-
+    private boolean releaseTheKraken = false;
     
     private boolean haPerdido = false;
     private boolean isGameOver = false;
@@ -242,6 +242,14 @@ public class Usuario{
 
     public void setIsGameOver(boolean isGameOver) {
         this.isGameOver = isGameOver;
+    }
+
+    public boolean isReleaseTheKraken() {
+        return releaseTheKraken;
+    }
+
+    public void setReleaseTheKraken(boolean releaseTheKraken) {
+        this.releaseTheKraken = releaseTheKraken;
     }
     
     
