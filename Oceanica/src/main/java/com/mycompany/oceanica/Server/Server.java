@@ -125,7 +125,7 @@ public class Server {
                 return;
             } else {
                 sendPrivate(comando);
-                if (requiresTurno(comando.getTipo())) {
+                if (requiresTurno(comando.getTipo()) && buscarJugador(comando.getParametros()[1]) != null) {
                     gestorTurnos.siguienteTurno();
                 }
             }
